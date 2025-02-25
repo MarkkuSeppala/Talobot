@@ -1,9 +1,8 @@
-
-import os
-import google.generativeai as genai
-from datetime import datetime
 def suorita_lohko1():
-    
+    import os
+    import google.generativeai as genai
+    from datetime import datetime
+
     # Konfiguroi Gemini API
     genai.configure(api_key="AIzaSyBHoovpxWyDat5Jg6On-WxxfCYaUaGHyn8")
     #kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -13,39 +12,54 @@ def suorita_lohko1():
     kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     tulosta_viesti("lohko1 suoritettu", kellonaika)  
 
-#2222222222222222222222222222222222222222222222222222222222222222222#
-##**suorita_lohko2()**##
-def suorita_lohko2(pdf_file):
+def suorita_lohko2():
     import fitz  # PyMuPDF
     from datetime import datetime
 
     kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    def pdf_to_text(pdf_file):
-        with fitz.open(stream=pdf_file.read(), filetype="pdf") as pdf:
+    def pdf_to_text(pdf_path):
+        with fitz.open(pdf_path) as pdf:
             text = ""
             for page in pdf:
                 text += page.get_text()
         return text
 
+    import os
+    print(os.getcwd())  # Tulostaa nykyisen hakemiston
+
+
     # Muunna PDF-tiedosto
-    teksti = pdf_to_text(pdf_file)
+    pdf_polku = "C:/Talobot/data/1.pdf"
+    teksti = pdf_to_text(pdf_polku)
 
     # Tallenna teksti tiedostoon
     csv_polku = "C:/Talobot/data/tiedosto.txt"
     with open(csv_polku, "w", encoding="utf-8") as tiedosto:
         tiedosto.write(teksti)
 
-    print(f"PDF muunnettu tekstiksi ja tallennettu tiedostoon: {csv_polku}", flush=True)
-    
-    return kellonaika  # Palautetaan aika Flaskin käyttöön
+    #tulosta_viesti(f"PDF muunnettu tekstiksi ja tallennettu tiedostoon: {csv_polku}", flush=True)
+    tulosta_viesti("lohko2 suoritettu", kellonaika)
 
-
-#33333333333333333333333333333333333333333333333333333333333333333333#
-##**suorita_lohko3()**##
-
+import os
 import re
 from datetime import datetime
+
+
+def poista_sanat_tekstista(teksti, poistettavat_sanat):
+    """
+    #Poistaa annetut sanat tekstistä ja poistaa myös sanan 'TOIMITUSTAPASELOSTE' jälkeisen numeron.
+    """
+    for sana in poistettavat_sanat:
+        teksti = teksti.replace(sana, "")
+    
+    # Poistaa sanan 'TOIMITUSTAPASELOSTE' jälkeisen numeron
+    teksti = re.sub(r'TOIMITUSTAPASELOSTE\s+\d+', '', teksti)
+    
+    # Poistaa rivillä yksinään olevat sivunumerot (yhden tai kahden numeron sarjat)
+    teksti = re.sub(r'^\d{1,2}$', '', teksti, flags=re.MULTILINE)
+    
+    return teksti
 
 def suorita_lohko3():
     tiedostopolku = "C:/Talobot/data/tiedosto.txt"
@@ -70,33 +84,10 @@ def suorita_lohko3():
     kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     print(f"lohko3 suoritettu: {kellonaika}")
 
-
-
-def poista_sanat_tekstista(teksti, poistettavat_sanat):
-    """
-    #Poistaa annetut sanat tekstistä ja poistaa myös sanan 'TOIMITUSTAPASELOSTE' jälkeisen numeron.
-    """
-    for sana in poistettavat_sanat:
-        teksti = teksti.replace(sana, "")
-    
-    # Poistaa sanan 'TOIMITUSTAPASELOSTE' jälkeisen numeron
-    teksti = re.sub(r'TOIMITUSTAPASELOSTE\s+\d+', '', teksti)
-    
-    # Poistaa rivillä yksinään olevat sivunumerot (yhden tai kahden numeron sarjat)
-    teksti = re.sub(r'^\d{1,2}$', '', teksti, flags=re.MULTILINE)
-    
-    return teksti
-
 # Suoritetaan funktio
 tulosta_viesti = print  # Varmistetaan, että tulosta_viesti-funktio on määritelty
 #suorita_lohko3()
 
-
-
-
-
-#44444444444444444444444444444444444444444444444444444444444444444#
-##**suorita_lohko4()**##
 def suorita_lohko4():
   
     import google.generativeai as genai
@@ -173,10 +164,9 @@ def suorita_lohko4():
     kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")    
     tulosta_viesti("lohko4 suoritettu", kellonaika)
 
-#5555555555555555555555555555555555555555555555#
-##**suorita_lohko5()**##  
+  
 def suorita_lohko5():
-    import google.generativeai as genaisuori
+    import google.generativeai as genai
     from datetime import datetime
     #Lohko poistaa ikkunatiedoista ylimääräiset sanat
     #tulosta_viesti("lohko5 alku")
