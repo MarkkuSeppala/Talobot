@@ -19,7 +19,13 @@ def index():
                 if file:
                     kellonaika = suorita_lohko3()
                     lohko3_kasitelty = True
-                
+                    if file:
+                        kellonaika = suorita_lohko4()
+                        lohko4_kasitelty = True
+                        if file:
+                            kellonaika = suorita_lohko5()
+                            lohko5_kasitelty = True
+                    
                 
 
     return f'''
