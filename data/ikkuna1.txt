@@ -1,0 +1,129 @@
+Ikkunat
+OH
+Ikkuna 11x13
+2 kpl
+Asennettuna
+Avattava ikkuna MSE
+Ikkunan karmisyvyys 170mm
+Vesipelti
+Asennettuna
+Smyygilauta HS
+Asennettuna
+
+
+<br>
+<br>
+<br>
+
+Ikkunat
+OH
+Ikkuna 11x13
+1 kpl
+Asennettuna
+Avattava ikkuna MSE
+Ikkunan karmisyvyys 170mm
+Vesipelti
+Asennettuna
+Alasaranoidun tuuletusikkunan aukipitolaite
+Asennettuna
+Hätäpoistumistiekahva
+Asennettuna
+Smyygilauta HS
+Asennettuna
+
+
+<br>
+<br>
+<br>
+
+Ikkunat
+MH1, MH3
+Ikkuna 5x13
+2 kpl
+Asennettuna
+Avattava ikkuna MSE
+Ikkunan karmisyvyys 170mm
+Vesipelti
+Asennettuna
+Smyygilauta HS
+Asennettuna
+
+
+<br>
+<br>
+<br>
+
+Ikkunat
+MH1, MH2, OH
+Ikkuna 11x13
+3 kpl
+Asennettuna
+Avattava ikkuna MSE
+Ikkunan karmisyvyys 170mm
+Vesipelti
+Asennettuna
+Kiinteä välikarmi
+Asennettuna
+Tuuletusmekanismi (tuuletusikkunan maksimileveys 9 tai maksimikoko 1,5m2)
+Asennettuna
+Smyygilauta HS
+Asennettuna
+
+
+<br>
+<br>
+<br>
+
+Ikkunat
+PH, S
+Ikkuna 5x5
+2 kpl
+Asennettuna
+Avattava ikkuna MSE
+Ikkunan karmisyvyys 170mm
+Vesipelti
+Asennettuna
+Tuuletusmekanismi (tuuletusikkunan maksimileveys 9 tai maksimikoko 1,5m2)
+Asennettuna
+Smyygilauta HS
+Asennettuna
+
+
+<br>
+<br>
+<br>
+
+Ikkunat
+K, KHH
+Ikkuna 9x13
+2 kpl
+Asennettuna
+Avattava ikkuna MSE
+Ikkunan karmisyvyys 170mm
+Vesipelti
+Asennettuna
+Kiinteä välikarmi
+Asennettuna
+Tuuletusmekanismi (tuuletusikkunan maksimileveys 9 tai maksimikoko 1,5m2)
+Asennettuna
+Smyygilauta HS
+Asennettuna
+
+
+<br>
+<br>
+<br>
+
+Ikkunat
+Ikkuna 17x13
+1 kpl
+Asennettuna
+Avattava ikkuna MSE
+Ikkunan karmisyvyys 170mm
+Kiinteä välikarmi
+Asennettuna
+Tuuletusmekanismi (tuuletusikkunan maksimileveys 9 tai maksimikoko 1,5m2)
+Asennettuna
+Smyygilauta HS
+Asennettuna
+
