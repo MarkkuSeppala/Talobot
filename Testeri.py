@@ -28,19 +28,13 @@ def index():
 
     {"<p>PDF käsitelty onnistuneesti!</p>" if lohko2_kasitelty else ""}
     {"<p>Käsittelyaika: " + kellonaika + "</p>" if lohko2_kasitelty else ""}
-    "virhe"
+    {"""
+    <form method="post">
+        <input type="submit" name="lohko3" value="Suorita Lohko 3">
+        </form>
+    """ if pdf_kasitelty else ""}
     '''
-    
 
-
-
-
-    #{"""
-    #<form method="post">
-    #    <input type="submit" name="lohko3" value="Suorita Lohko 3">
-    #    </form>
-    #""" if pdf_kasitelty else ""}
-    
     #{"""
     #<form method="post">
     #    <input type="submit" name="lohko4" value="Suorita Lohko 4">
