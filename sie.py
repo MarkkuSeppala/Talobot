@@ -19,7 +19,8 @@ def suorita_lohko2(pdf_file):
             return "".join(page.get_text() for page in doc)
 
     teksti = pdf_to_text(pdf_file)
-    csv_polku = "C:/Talobot/data/tiedosto.txt"
+    #csv_polku = "C:/Talobot/data/tiedosto.txt"
+    csv_polku = "data/tiedosto.txt"
     with open(csv_polku, "w", encoding="utf-8") as tiedosto:
         tiedosto.write(teksti)
 
@@ -37,8 +38,8 @@ def poista_sanat_tekstista(teksti, poistettavat_sanat):
 
 # **suorita_lohko3()**
 def suorita_lohko3():
-    tiedostopolku = "C:/Talobot/data/tiedosto.txt"
-    korjattu_tiedosto = "C:/Talobot/data/korjattu_teksti.txt"
+    tiedostopolku = "data/tiedosto.txt"
+    korjattu_tiedosto = "data/tiedosto.txt"
     poistettavat_sanat = [
         "Sievitalo Oy", "Mestarintie 6", "TOIMITUSTAPASELOSTE", "67101 KOKKOLA",
         "Puh. 06 822 1111", "Fax 06 822 1112", "www.sievitalo.fi", "Y-tunnus: 2988131-5", "RAKENNE- JA"
