@@ -8,7 +8,7 @@ from sie import suorita_lohko2, suorita_lohko3, suorita_lohko4  # Tuodaan myös 
 #testi
 app = Flask(__name__)
 
-#sdfasd
+
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
@@ -49,3 +49,8 @@ def index():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+import os
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
