@@ -33,6 +33,12 @@ def index():
         <input type="submit" name="lohko3" value="Suorita Lohko 3">
     </form>
     """ if pdf_kasitelty else ""}
+    
+    {"""
+    <form method="post">
+        <input type="submit" name="lohko4" value="Suorita Lohko 4">
+    </form>
+    """ if pdf_kasitelty else ""}
     '''
 
 if __name__ == "__main__":
