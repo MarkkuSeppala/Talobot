@@ -15,7 +15,8 @@ if __name__ == "__main__":
 
 
 import sys
-sys.path.append("C:/Talobot")  # Varmista, että polku on oikea
+#sys.path.append("C:/Talobot")  # Varmista, että polku on oikea
+from sie import suorita_lohko2, suorita_lohko3, suorita_lohko4  # Tuodaan lohkot
 
 
 from sie import suorita_lohko2, suorita_lohko3, suorita_lohko4  # Tuodaan myös suorita_lohko4
