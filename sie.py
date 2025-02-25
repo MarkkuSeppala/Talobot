@@ -7,7 +7,7 @@ from datetime import datetime
 # **suorita_lohko1()**
 def suorita_lohko1():
     # Konfiguroi Gemini API
-    genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
+    genai.configure(api_key="AAIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
     kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     tulosta_viesti("lohko1 suoritettu", kellonaika)
     return kellonaika
@@ -63,7 +63,7 @@ def suorita_lohko3():
 
 # **suorita_lohko4()**
 def suorita_lohko4():
-    genai.configure(api_key="OMA_API_AVAIN")  # Vaihda API-avain
+    genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
     tiedostopolku = "C:/Talobot/data/korjattu_teksti.txt"
 
     generation_config = {
@@ -110,7 +110,7 @@ def suorita_lohko4():
 
 # **suorita_lohko5()**
 def suorita_lohko5():
-    genai.configure(api_key="OMA_API_AVAIN")  # Vaihda API-avain
+    genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
     tiedostopolku = "C:/Talobot/data/ikkuna1.txt"
 
     if os.path.exists(tiedostopolku):
