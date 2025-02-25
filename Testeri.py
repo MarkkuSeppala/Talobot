@@ -17,7 +17,7 @@ def index():
                 kellonaika = suorita_lohko2(file)
                 lohko2_kasitelty = True
                 if file:
-                    kellonaika = suorita_lohko3(file)
+                    kellonaika = suorita_lohko3()
                     lohko3_kasitelty = True
                 
                 
