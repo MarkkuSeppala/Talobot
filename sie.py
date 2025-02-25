@@ -19,7 +19,7 @@ def suorita_lohko2(pdf_file):
             return "".join(page.get_text() for page in doc)
 
     teksti = pdf_to_text(pdf_file)
-    #csv_polku = "C:/Talobot/data/tiedosto.txt"
+    #csv_polku = "data/tiedosto.txt"
     csv_polku = "data/tiedosto.txt"
     with open(csv_polku, "w", encoding="utf-8") as tiedosto:
         tiedosto.write(teksti)
@@ -65,7 +65,7 @@ def suorita_lohko3():
 # **suorita_lohko4()**
 def suorita_lohko4():
     genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
-    tiedostopolku = "C:/Talobot/data/korjattu_teksti.txt"
+    tiedostopolku = "data/tiedosto.txt"
 
     generation_config = {
         "temperature": 0.05,
@@ -93,7 +93,7 @@ def suorita_lohko4():
         response = model.generate_content(kysymys)
 
         if response.text:
-            ikkuna1 = "C:/Talobot/data/ikkuna1.txt"
+            ikkuna1 = "data/tiedosto.txt"
             with open(ikkuna1, "w", encoding="utf-8") as tiedosto:
                 tiedosto.write(response.text)
             print("Tiedosto tallennettu:", ikkuna1)
@@ -112,7 +112,7 @@ def suorita_lohko4():
 # **suorita_lohko5()**
 def suorita_lohko5():
     genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
-    tiedostopolku = "C:/Talobot/data/ikkuna1.txt"
+    tiedostopolku = "data/tiedosto.txt"
 
     if os.path.exists(tiedostopolku):
         with open(tiedostopolku, 'r', encoding='utf-8') as tiedosto:
