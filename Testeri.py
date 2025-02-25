@@ -16,16 +16,7 @@ def index():
             if file:
                 kellonaika = suorita_lohko2(file)
                 lohko2_kasitelty = True
-                if file:
-                    kellonaika = suorita_lohko3(file)
-                    lohko3_kasitelty = True
-                    if file:
-                        kellonaika = suorita_lohko4(file)
-                        lohko4_kasitelty = True
-                        if file:
-                            kellonaika = suorita_lohko5(file)
-                            lohko5_kasitelty = True
-
+                
 
     return f'''
     <h2>PDF-käsittely</h2>
@@ -37,9 +28,6 @@ def index():
 
     {"<p>PDF käsitelty onnistuneesti!</p>" if lohko2_kasitelty else ""}
     {"<p>Käsittelyaika: " + kellonaika + "</p>" if lohko2_kasitelty else ""}
-    
-    {"<p>PDF käsitelty onnistuneesti!</p>" if lohko3_kasitelty else ""}
-    {"<p>Käsittelyaika: " + kellonaika + "</p>" if lohko3_kasitelty else ""}
     '''
     
 
