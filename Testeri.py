@@ -5,9 +5,10 @@ sys.path.append("C:/Talobot")  # Varmista, että polku on oikea
 
 
 from sie import suorita_lohko2, suorita_lohko3, suorita_lohko4  # Tuodaan myös suorita_lohko4
-
+#testi
 app = Flask(__name__)
 
+#sdfasd
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
