@@ -95,7 +95,8 @@ tulosta_viesti = print  # Varmistetaan, että tulosta_viesti-funktio on määrit
 
 
 
-
+#44444444444444444444444444444444444444444444444444444444444444444#
+##**suorita_lohko4()**##
 def suorita_lohko4():
   
     import google.generativeai as genai
@@ -172,7 +173,8 @@ def suorita_lohko4():
     kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")    
     tulosta_viesti("lohko4 suoritettu", kellonaika)
 
-  
+#5555555555555555555555555555555555555555555555#
+##**suorita_lohko5()**##  
 def suorita_lohko5():
     import google.generativeai as genai
     from datetime import datetime
