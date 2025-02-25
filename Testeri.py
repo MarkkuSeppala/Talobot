@@ -19,30 +19,31 @@ def index():
                 
 
     return f'''
-    <h2>PDF-käsittely</h2>
+    <!DOCTYPE html>
+    <html lang="fi">
+    <head>
+        <meta charset="UTF-8">
+        <title>PDF Käsittely</title>
+    </head>
+    <body>
+        <h2>PDF-käsittely</h2>
 
-    <form method="post" enctype="multipart/form-data">
-        <input type="file" name="pdf">
-        <input type="submit" value="Lähetä">
-    </form>
-
-    {"<p>PDF käsitelty onnistuneesti!</p>" if lohko2_kasitelty else ""}
-    {"<p>Käsittelyaika: " + kellonaika + "</p>" if lohko2_kasitelty else ""}
-   
-    {"""
-    <form method="post">
-        <input type="submit" name="lohko3" value="Suorita Lohko 3">
+        <form method="post" enctype="multipart/form-data">
+            <input type="file" name="pdf">
+            <input type="submit" value="Lähetä">
         </form>
-    """ if pdf_kasitelty else ""}
+
+        {"<p>PDF käsitelty onnistuneesti!</p>" if pdf_kasitelty else ""}
+        {"<p>Käsittelyaika: " + kellonaika + "</p>" if pdf_kasitelty else ""}
+        
+        {"""
+        <form method="post">
+            <input type="submit" name="lohko3" value="Suorita Lohko 3">
+        </form>
+        """ if pdf_kasitelty else ""}
     </body>
     </html>
     '''
-
-    #{"""
-    #<form method="post">
-    #    <input type="submit" name="lohko4" value="Suorita Lohko 4">
-    #</form>
-    #""" if pdf_kasitelty else ""}
     
 
 if __name__ == "__main__":
