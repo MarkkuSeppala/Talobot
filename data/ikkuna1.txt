@@ -1,129 +1,19 @@
-Ikkunat
-OH
-Ikkuna 11x13
-2 kpl
-Asennettuna
-Avattava ikkuna MSE
-Ikkunan karmisyvyys 170mm
-Vesipelti
-Asennettuna
-Smyygilauta HS
-Asennettuna
+Tämä teksti on Sievitalon kanssa tehty omakotitalon rakentamisesta sopimus, joka sisältää yksityiskohtaisen listan toimitussisällöstä.  Sopimus koskee Ecohelmi_Trendi_125A -tyyppitaloa Varsinais-Suomessa.  Se on jaettu eri osioihin, jotka kuvaavat eri rakennusvaiheita ja niihin liittyviä vastuita sekä Sievitalolle että tilaajalle.
 
+**Analyysi:**
 
-<br>
-<br>
-<br>
+* **Selkeä rakenne:** Sopimus on hyvin jäsennelty eri osioihin (Hallinto, Perustus, Alapohja, Ulkoseinät, jne.), mikä helpottaa tiedon löytämistä.  Jokainen osio listaa yksityiskohtaisesti sisältyvät työt ja materiaalit.  "Asennettuna" -merkintä osoittaa Sievitalon vastuulla olevat työt.
 
-Ikkunat
-OH
-Ikkuna 11x13
-1 kpl
-Asennettuna
-Avattava ikkuna MSE
-Ikkunan karmisyvyys 170mm
-Vesipelti
-Asennettuna
-Alasaranoidun tuuletusikkunan aukipitolaite
-Asennettuna
-Hätäpoistumistiekahva
-Asennettuna
-Smyygilauta HS
-Asennettuna
+* **Vastuunjako:** Sopimus määrittelee selkeästi Sievitalon ja tilaajan vastuut.  Sievitalo vastaa suurimmasta osasta rakentamista, mukaan lukien materiaalitoimitukset ja asennustyöt.  Tilaajan vastuulla on kuitenkin useita asioita, kuten perustusten suunnittelua varten tarvittavan aineiston toimittaminen, rakennusjätteiden käsittely, maanrakennustyöt, rakennusluvan hakeminen ja tiettyjen materiaalien hankinta (esim. kaapelit).
 
+* **Materiaalivalinnat:** Sopimus sisältää yksityiskohtaisia tietoja käytettävistä materiaaleista, kuten ikkunoista, ovista, laminaateista, laatoista ja kodinkoneista.  Monissa kohdissa on mainittu useita vaihtoehtoja, joista tilaaja voi valita.
 
-<br>
-<br>
-<br>
+* **Tekniset tiedot:** Sopimus sisältää teknisiä tietoja, kuten seinien ja yläpohjan eristepaksuudet, ikkunoiden U-arvot ja lämmitysjärjestelmän tiedot.
 
-Ikkunat
-MH1, MH3
-Ikkuna 5x13
-2 kpl
-Asennettuna
-Avattava ikkuna MSE
-Ikkunan karmisyvyys 170mm
-Vesipelti
-Asennettuna
-Smyygilauta HS
-Asennettuna
+* **Mahdolliset lisäykset ja muutokset:** Sopimus huomioi mahdollisia lisäyksiä ja muutoksia, ja määrittelee menettelytavan niiden käsittelyyn.  Sievitalolla on oikeus tarkentaa kauppahintaa, jos muutokset vaikuttavat toimitussisältöön.
 
+* **Puutteet:** Sopimuksessa puuttuvat allekirjoitukset ja päivämäärä, mikä tekee siitä juridisesti sitovan sopimuksen kannalta epätäydellisen.  Lisäksi "pohjakuvan mukaan" -viittaukset edellyttävät erillistä dokumenttia.
 
-<br>
-<br>
-<br>
+**Yhteenveto:**
 
-Ikkunat
-MH1, MH2, OH
-Ikkuna 11x13
-3 kpl
-Asennettuna
-Avattava ikkuna MSE
-Ikkunan karmisyvyys 170mm
-Vesipelti
-Asennettuna
-Kiinteä välikarmi
-Asennettuna
-Tuuletusmekanismi (tuuletusikkunan maksimileveys 9 tai maksimikoko 1,5m2)
-Asennettuna
-Smyygilauta HS
-Asennettuna
-
-
-<br>
-<br>
-<br>
-
-Ikkunat
-PH, S
-Ikkuna 5x5
-2 kpl
-Asennettuna
-Avattava ikkuna MSE
-Ikkunan karmisyvyys 170mm
-Vesipelti
-Asennettuna
-Tuuletusmekanismi (tuuletusikkunan maksimileveys 9 tai maksimikoko 1,5m2)
-Asennettuna
-Smyygilauta HS
-Asennettuna
-
-
-<br>
-<br>
-<br>
-
-Ikkunat
-K, KHH
-Ikkuna 9x13
-2 kpl
-Asennettuna
-Avattava ikkuna MSE
-Ikkunan karmisyvyys 170mm
-Vesipelti
-Asennettuna
-Kiinteä välikarmi
-Asennettuna
-Tuuletusmekanismi (tuuletusikkunan maksimileveys 9 tai maksimikoko 1,5m2)
-Asennettuna
-Smyygilauta HS
-Asennettuna
-
-
-<br>
-<br>
-<br>
-
-Ikkunat
-Ikkuna 17x13
-1 kpl
-Asennettuna
-Avattava ikkuna MSE
-Ikkunan karmisyvyys 170mm
-Kiinteä välikarmi
-Asennettuna
-Tuuletusmekanismi (tuuletusikkunan maksimileveys 9 tai maksimikoko 1,5m2)
-Asennettuna
-Smyygilauta HS
-Asennettuna
-
+Sopimus on kattava ja yksityiskohtainen kuvaus omakotitalon rakentamisesta.  Se selventää vastuita ja materiaalivalintoja, mutta vaatii täydentämistä allekirjoitusten ja päivämäärän osalta.  Tilaajan on tärkeää ymmärtää omat vastuut ja varmistaa, että kaikki sopimuksessa mainitut asiat ovat selviä.
