@@ -7,7 +7,7 @@ from datetime import datetime
 # **suorita_lohko1()**
 def suorita_lohko1():
     # Konfiguroi Gemini API
-    genai.configure(api_key="OMA_API_AVAIN")  # Vaihda API-avain
+    genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
     kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     tulosta_viesti("lohko1 suoritettu", kellonaika)
     return kellonaika
