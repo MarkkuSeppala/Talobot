@@ -151,6 +151,6 @@ def suorita_lohko5():
     tulosta_viesti("lohko5 suoritettu", kellonaika)
     print(response.text)
     return kellonaika
-#
+#testi kommentti
 # **Tarkistetaan, että tulosta_viesti on määritelty**
 tulosta_viesti = print
