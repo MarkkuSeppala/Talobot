@@ -12,6 +12,8 @@ def suorita_lohko1():
     tulosta_viesti("lohko1 suoritettu", kellonaika)
     return kellonaika
 
+
+#==========================#
 # **suorita_lohko2()**
 def suorita_lohko2(pdf_file):
     def pdf_to_text(pdf):
@@ -36,6 +38,8 @@ def poista_sanat_tekstista(teksti, poistettavat_sanat):
     teksti = re.sub(r'^\d{1,2}$', '', teksti, flags=re.MULTILINE)
     return teksti
 
+
+#==========================#
 # **suorita_lohko3()**
 def suorita_lohko3():
     tiedostopolku = "data/tiedosto.txt"
@@ -62,6 +66,7 @@ def suorita_lohko3():
     tulosta_viesti("lohko3 suoritettu", kellonaika)
     return kellonaika
 
+#==========================#
 # **suorita_lohko4()**
 def suorita_lohko4():
     genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
@@ -109,6 +114,8 @@ def suorita_lohko4():
     tulosta_viesti("lohko4 suoritettu", kellonaika)
     return kellonaika
 
+
+#==========================#
 # **suorita_lohko5()**
 def suorita_lohko5():
     genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
