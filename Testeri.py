@@ -1,6 +1,8 @@
 from flask import Flask, request
 import os
 import json
+import pandas as pd
+
 from datetime import datetime  # Lisätään kellonaika jokaiselle tapahtumalle
 
 app = Flask(__name__)
