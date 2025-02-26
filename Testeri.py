@@ -3,7 +3,7 @@ import os
 
 app = Flask(__name__)
 
-from sie import suorita_lohko2, suorita_lohko3, suorita_lohko4  # Tuodaan lohkot
+from sie import muuta_tekstiksi, poista_sanat_tekstista, suorita_lohko4  # Tuodaan lohkot
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -14,18 +14,20 @@ def index():
         if "pdf" in request.files:
             file = request.files["pdf"]
             if file:
-                kellonaika = suorita_lohko2(file)
+                kellonaika = muuta_tekstiksi(file)
                 lohko2_kasitelty = True
+                
                 if file:
-                    kellonaika = suorita_lohko3()
+                    kellonaika = poista_sanat_tekstista()
                     lohko3_kasitelty = True
+                    '''
                     if file:
                         kellonaika = suorita_lohko4()
                         lohko4_kasitelty = True
                         if file:
                             kellonaika = suorita_lohko5()
                             lohko5_kasitelty = True
-                    
+                    ''' 
                 
 
     return f'''

@@ -13,9 +13,12 @@ def suorita_lohko1():
     return kellonaika
 
 
+
+
+
 #==========================#
-# **suorita_lohko2()**
-def suorita_lohko2(pdf_file):
+# **Muuta tekstiksi**
+def muuta_tekstiksi(pdf_file):
     def pdf_to_text(pdf):
         with fitz.open(stream=pdf.read(), filetype="pdf") as doc:
             return "".join(page.get_text() for page in doc)
@@ -30,18 +33,15 @@ def suorita_lohko2(pdf_file):
     tulosta_viesti("lohko2 suoritettu", kellonaika)
     return kellonaika
 
-# **Poistaa annetut sanat tekstistä**
-def poista_sanat_tekstista(teksti, poistettavat_sanat):
-    for sana in poistettavat_sanat:
-        teksti = teksti.replace(sana, "")
-    teksti = re.sub(r'TOIMITUSTAPASELOSTE\s+\d+', '', teksti)
-    teksti = re.sub(r'^\d{1,2}$', '', teksti, flags=re.MULTILINE)
-    return teksti
+
+
+
+
 
 
 #==========================#
-# **suorita_lohko3()**
-def suorita_lohko3():
+# **Poista sanat tekstistä**
+def poista_sanat_tekstista():
     tiedostopolku = "data/tiedosto.txt"
     korjattu_tiedosto = "data/tiedosto.txt"
     poistettavat_sanat = [
@@ -53,7 +53,7 @@ def suorita_lohko3():
         with open(tiedostopolku, 'r', encoding='utf-8') as tiedosto:
             sisalto = tiedosto.read()
 
-        puhdistettu_sisalto = poista_sanat_tekstista(sisalto, poistettavat_sanat)
+        puhdistettu_sisalto = poista_sanat_tekstista2(sisalto, poistettavat_sanat)
 
         with open(korjattu_tiedosto, "w", encoding="utf-8") as tiedosto:
             tiedosto.write(puhdistettu_sisalto)
@@ -65,6 +65,18 @@ def suorita_lohko3():
     kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     tulosta_viesti("lohko3 suoritettu", kellonaika)
     return kellonaika
+
+def poista_sanat_tekstista2(teksti, poistettavat_sanat):
+    for sana in poistettavat_sanat:
+        teksti = teksti.replace(sana, "")
+    teksti = re.sub(r'TOIMITUSTAPASELOSTE\s+\d+', '', teksti)
+    teksti = re.sub(r'^\d{1,2}$', '', teksti, flags=re.MULTILINE)
+    return teksti
+
+
+
+
+
 
 #==========================#
 # **suorita_lohko4()**
