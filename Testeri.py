@@ -3,7 +3,7 @@ import os
 
 app = Flask(__name__)
 
-from sie import muuta_tekstiksi, poista_sanat_tekstista, suorita_lohko4  # Tuodaan lohkot
+from sie import muuta_tekstiksi, poista_sanat_tekstista, api_kysely_poimi_ikkunatiedot  # Tuodaan lohkot
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -15,19 +15,17 @@ def index():
             file = request.files["pdf"]
             if file:
                 kellonaika = muuta_tekstiksi(file)
-                lohko2_kasitelty = True
-                
+                muuta_tekstiksi_kasitelty = True
                 if file:
                     kellonaika = poista_sanat_tekstista()
-                    lohko3_kasitelty = True
-                    '''
+                    poista_sanat_tekstista_kasitelty = True
                     if file:
-                        kellonaika = suorita_lohko4()
-                        lohko4_kasitelty = True
+                        kellonaika = api_kysely_poimi_ikkunatiedot()
+                        api_kysely_poimi_ikkunatiedot_kasitelty = True
                         if file:
-                            kellonaika = suorita_lohko5()
-                            lohko5_kasitelty = True
-                    ''' 
+                            kellonaika = api_ryhmittele_valitut_ikkunatiedot_json_muotoon()
+                            api_ryhmittele_valitut_ikkunatiedot_json_muotoon = True
+                        
                 
 
     return f'''
