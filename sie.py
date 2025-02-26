@@ -9,7 +9,7 @@ def suorita_lohko1():
     # Konfiguroi Gemini API
     genai.configure(api_key="AAIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
     kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    tulosta_viesti("lohko1 suoritettu", kellonaika)
+    #tulosta_viesti("lohko1 suoritettu", kellonaika)
     return kellonaika
 
 
@@ -191,9 +191,9 @@ tulosta_viesti = print
 #==========================#
 # **API-kysely. Ryhmittelee valitut ikkunatiedot JSON-taulukoksi**
 def api_ryhmittele_valitut_ikkunatiedot_json_muotoon():
-    import os
+    #import os
     import json
-    import google.generativeai as genai
+    #import google.generativeai as genai
     import pandas as pd
     from tabulate import tabulate
     from datetime import datetime
