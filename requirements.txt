@@ -3,4 +3,4 @@ gunicorn
 google-generativeai
 pymupdf
 pandas
-
+tabulate
