@@ -69,8 +69,8 @@ def index():
             {"".join(f"<li>{viesti}</li>" for viesti in status_viestit)}
         </ul>
 
-        <h3>Ikkuna JSON -tiedoston sisältö:</h3>
-        <pre>{ikkuna_json_sisalto}</pre>
+         <h3>Ikkuna JSON -tiedoston sisältö taulukkona:</h3>
+        {ikkuna_taulukko}  <!-- Näytetään JSON taulukkona -->
 
                
     </body>
