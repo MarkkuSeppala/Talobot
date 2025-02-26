@@ -37,13 +37,15 @@ def index():
 
                 pdf_kasitelty = True
                         
- # **Luetaan tiedoston sisältö**
+    #**Luetaan tiedoston sisältö**
     ikkuna_tiedosto = "data/ikkuna_json.txt"
     if os.path.exists(ikkuna_tiedosto):
         with open(ikkuna_tiedosto, "r", encoding="utf-8") as tiedosto:
-            ikkuna_json_sisalto = json.dumps(json.load(tiedosto), indent=4, ensure_ascii=False)  # Kaunis tulostus
+            json_data = json.load(tiedosto)  # Lataa JSON-tiedot
+            df = pd.DataFrame(json_data)  # Muunna DataFrameksi
+            ikkuna_taulukko = df.to_html(classes='table', index=False)  # Muunna HTML-taulukoksi
     else:
-        ikkuna_json_sisalto = "<p style='color: red;'>Virhe: ikkuna_json.txt -tiedostoa ei löytynyt.</p>"                
+        ikkuna_taulukko = "<p style='color: red;'>Virhe: ikkuna_json.txt -tiedostoa ei löytynyt.</p>"
 
     return f'''
     <!DOCTYPE html>
