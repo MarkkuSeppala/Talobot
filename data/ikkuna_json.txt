@@ -1,0 +1,44 @@
+[
+    {
+        "koko": "3x22",
+        "kpl": 2,
+        "turvalasi": true,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "7x22",
+        "kpl": 2,
+        "turvalasi": true,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "12x22",
+        "kpl": 3,
+        "turvalasi": true,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "13x12",
+        "kpl": 2,
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "15x5",
+        "kpl": 1,
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "23x7",
+        "kpl": 2,
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": false
+    }
+]

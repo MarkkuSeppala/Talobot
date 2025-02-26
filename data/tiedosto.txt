@@ -1,8 +1,8 @@
-25.01.2024
-Oksanen Kaisa & Oksanen Tuomas
-Lieto
+18.12.2024
+Odei Silve & Odei Richard
+Parainen
 Alue: Varsinais-Suomi
-Talomalli: Oksanen & Oksanen Komia 100 si
+Talomalli: Odei Silve ja Richard_18-12-24
 Toimitustapa: Sisusta itse+
 Myyntiedustaja: Päivi Seppälä
 HALLINTO
@@ -24,14 +24,24 @@ Asiakkaan tehtävänä on toimittaa perustussuunnittelua varten pohjatutkimusain
 sisältää tutkimuskartan ja kairausdiagrammit.
 Mikäli toimitussisällön mukaista perustusta joudutaan muuttamaan, asiakas vastaa kaikista
 kustannuksista.
-Perustus (maanvarainen alapohja)
-Lämpöeristettysokkelipalkki SP 300-900. Sisäpinnassa EPS-eriste valuun kiinnitettynä.
-Mahdollisten terassien perustus 500x500 tai d=600 anturanapein.
+Ontelolaattaperustus (kantava alapohja)
+Kantava tuplalämpöeristetty sokkelipalkki h=1240
+41,60 jm Asennettuna
+Ontelolaatta O27 saumavalettuna
+102,90
+m2
+Asennettuna
+Kulkuaukko (ei sis. luukkua/tukirakenteita)
+1 kpl
+Asennettuna
+Paaluperustus
+Paaluperustus liitteenä olevan erillisen sopimuksen mukaisesti
 Asennettuna
 LVI-kannakointi
-LVI-kannakointi maanvaraisiin perustuksiin. Sisältää viemäreiden asennuksen ja kannakoinnin.
-Asiakas tuo viemäriputken 45 asteen kulmassa sorapatjan läpi perustusten sisäpuolelle sekä
-vesijohdon tekniseen tilaan.
+Sisältää Ivi-suunnittelijan laatiman rei'ityssuunnitelman tulevia läpivientejä varten sekä alapohjan
+viemäreiden asennuksen ja kannakoinnin ontelolaattoihin. Asiakas tuo viemäriputken 45 asteen
+kulmassa sorapatjan läpi ryömintätilaan sekä vesijohdon eristettynä ontelolaatan läpi tekniseen
+tilaan.
 Asennettuna
 ALAPOHJA
 Maanvaraisissa perustuksissa tiivistetty sisätäyttö tilaajan hankintana puhtaalla, routimattomalla
@@ -44,18 +54,18 @@ Raudoitusverkko
 Asennettuna
 EPS Lattia 50mm
 Asennettuna
+
+
+
+
+
+
+
 EPS Lattia 50mm
 Asennettuna
 EPS Lattia 100mm
 Asennettuna
 ULKOSEINÄT
-
-
-
-
-
-
-
 Ulkoseinäelementti lämmin USL 42x198
 Ulkoseinäelementti lämmin USL 42x198
 Sisäpuolen koolaus 48x48
@@ -81,18 +91,12 @@ Asennettuna
 Päätykolmioelementti kylmä USPKK/42x98
 Päätykolmioseinäelementti kylmä USPKK 42x98
 Asennettuna
-Pystypaneeli; UYM 23x145 HS
-Välijakoriman sijainti määräytyy suunnittelun mukaan. Paneelien saumoja ei lähtökohtaisesti
-kohdisteta välijakoriman ala- ja yläpuolen kesken. Mikäli tästä halutaan poiketa, hinnoitellaan työ
-erikseen tapauskohtaisesti
+Vaakapaneeli; UYM 23x145 HS
 Asennettuna
 Ulkoseinäverhoilu
 Mahdollisten tehostepanelointien pystysaumoissa 20x45mm lista ulkoverhouksen päälle
 asennettuna.
-Pystypaneeli; UYM 23x145 HS
-Välijakoriman sijainti määräytyy suunnittelun mukaan. Paneelien saumoja ei lähtökohtaisesti
-kohdisteta välijakoriman ala- ja yläpuolen kesken. Mikäli tästä halutaan poiketa, hinnoitellaan työ
-erikseen tapauskohtaisesti
+Vaakapaneeli; UYM 23x145 HS
 Asennettuna
 Ulkoverhouksen pintakäsittely
 Ulkoverhouksen pohjamaalaus teollisuusmaalilla toimittajan ohjeiden mukaisesti sertifikaatit
@@ -123,16 +127,16 @@ Mineraalivilla 100mm
 Asennettuna
 Puhallusvilla yläpohjaan rakennesuunnitelman mukaisesti
 Asennettuna
+
+
+
+
+
+
+
 VESIKATTO
 Vesikatto
-
-
-
-
-
-
-
-Teräsaalto 1100 GreenCoat Crown BT Matta 0,5mm
+Progantti 475 konesaumajäljitelmäpeltikate GreenCoat Crown BT Matta 0,5mm
 Weckman Standard 40 laatuluokka
 Värivaihtoehdot RR23, RR29, RR32, RR33 tai RR750
 Harja- ja päätypellit
@@ -159,7 +163,7 @@ Asennettuna
 Lumieste
 Lumieste
 Värivaihtoehdot RR23, RR29, RR32, RR33 tai RR750
-6 jm
+27 jm
 Asennettuna
 Sadevesijärjestelmä
 Vesikouru P13 Ulkopuolinenkannake
@@ -170,14 +174,15 @@ Värivaihtoehdot RR20, RR23, RR32 tai RR33
 5 kpl
 Asennettuna
 TERASSIT JA PARVEKKEET
-Terassit ja mahdolliset parvekkeet asiakashankintana
-Kaikkien terassien ja mahdollisten parvekkeiden lattiarakenteet asiakashankintana tarvikkeineen
-ja töineen. Asiakas vastaa terassien ja mahdollisten parvekkeiden rungoista, kansilaudoituksista,
-askelmista sekä kaiteista, käsijohteista ja perustuksista kokonaisuudessaan.
 Lapekattoinen terassi
+Askelmat asiakashankintana (pääsisäänkäynti)
 Puutavara 48x123 Mitall.
 Asennettuna
 Puutavara 20x95 HS
+Asennettuna
+Puutavara 48x148 painekyll.
+Asennettuna
+Puutavara 28x120 painekyll. Sileä ruskea
 Asennettuna
 LP-pilari 115x115
 Asennettuna
@@ -198,6 +203,13 @@ Asennettuna
 Kipsilevy N 13mm
 Asennettuna
 IKKUNAT
+
+
+
+
+
+
+
 Pihla Varma MSE/MEK ikkunoita. Karmi ja sisäpuite puuta, sävy valkoinen NCS S 0502-Y.
 Ulkopuite ja karmin ulkoverhous maalattua alumiinia, sävyt valkoinen RAL 9010, tummanharmaa
 RAL7024, musta RAL9005 tai tummanruskea RR32.
@@ -205,83 +217,94 @@ Kaksinkertainen eristyslasielementti sisäpuitteessa. Selektiivilasitus ja kolmi
 Lasivahvuus 4 mm, karmisyvyys 170mm. Pesuhuoneen ikkunassa karmisyvyys 210mm.
 Ikkunoiden U-arvo 1,0 W/m2K.
 Ikkunat
-Oh ja ruok.t*
-
-
-
-
-
-
-
-Ikkuna 12x19
-3 kpl
-Asennettuna
-Avattava ikkuna MSE
-Ikkunan karmisyvyys 170mm
-Vesipelti
-Asennettuna
-Turvalasi sisäpuolella
-Smyygilauta HS
-Asennettuna
-Ikkunat
-k*
-Ikkuna 9x19
-1 kpl
-Asennettuna
-Avattava ikkuna MSE
-Ikkunan karmisyvyys 170mm
-Vesipelti
-Asennettuna
-Turvalasi sisäpuolella
-Smyygilauta HS
-Asennettuna
-Ikkunat
-MH2, MH3*
-Ikkuna 9x12
+ET, ET
+Ikkuna 3x22
 2 kpl
 Asennettuna
 Avattava ikkuna MSE
 Ikkunan karmisyvyys 170mm
 Vesipelti
 Asennettuna
+Turvalasi sisä- ja ulkopuolella
+Sälekaihdin integroitu (valkoinen)
+Asennettuna
+Smyygilauta HS
+Asennettuna
+Ikkunat
+MH1, MH2
+Ikkuna 7x22
+2 kpl
+Asennettuna
+Avattava ikkuna MSE
+Ikkunan karmisyvyys 170mm
+Vesipelti
+Asennettuna
+Turvalasi sisä- ja ulkopuolella
+Sälekaihdin integroitu (valkoinen)
+Asennettuna
 Hätäpoistumistiekahva
 Asennettuna
 Smyygilauta HS
 Asennettuna
 Ikkunat
-SAUNA*
-Ikkuna 5x5
+OH, OH, OH
+Ikkuna 12x22
+3 kpl
+Asennettuna
+Avattava ikkuna MSE
+Ikkunan karmisyvyys 170mm
+Vesipelti
+Asennettuna
+Turvalasi sisä- ja ulkopuolella
+Sälekaihdin integroitu (valkoinen)
+Asennettuna
+Smyygilauta HS
+Asennettuna
+Ikkunat
+K, K
+Ikkuna 13x12
+2 kpl
+Asennettuna
+Avattava ikkuna MSE
+Ikkunan karmisyvyys 170mm
+Vesipelti
+Asennettuna
+Sälekaihdin integroitu (valkoinen)
+Asennettuna
+Smyygilauta HS
+Asennettuna
+Ikkunat
+S
+Ikkuna 15x5
 1 kpl
 Asennettuna
 Avattava ikkuna MSE
 Ikkunan karmisyvyys 170mm
 Vesipelti
+Asennettuna
+Sälekaihdin integroitu (valkoinen)
 Asennettuna
 Tuuletusmekanismi (tuuletusikkunan maksimileveys 9 tai maksimikoko 1,5m2)
 Asennettuna
-Smyygilauta HS
-Asennettuna
-Ikkunat
-KHH
-Ikkuna 6x14
-1 kpl
-Asennettuna
-Avattava ikkuna MSE
-Ikkunan karmisyvyys 170mm
-Vesipelti
+Alasaranoidun tuuletusikkunan aukipitolaite
 Asennettuna
 Smyygilauta HS
 Asennettuna
 Ikkunat
-MH1
-Ikkuna 12x12
-1 kpl
+MH1, MH2 (muutetaan kokoon 30x7, kiinteä; kts. vakiomuutokset)
+Ikkuna 23x7
+2 kpl
 Asennettuna
-Avattava ikkuna MSE
+Kiinteä ikkuna MEK
+
+
+
+
+
+
+
 Ikkunan karmisyvyys 170mm
 Vesipelti
-Asennettuna
-Hätäpoistumistiekahva
 Asennettuna
 Smyygilauta HS
 Asennettuna
@@ -295,13 +318,6 @@ Pääovi
 Pääovi Pihla Varma M31
 1 kpl
 Tarviketoimitus
-
-
-
-
-
-
-
 Kynnyspelti, alumiini
 Tarviketoimitus
 Stocholm painike
@@ -313,6 +329,24 @@ Asennettuna
 Smyygilauta HS
 Tarviketoimitus
 Ulko-ovi - Patio
+K
+Parvekeovi Patio, kokolasi.
+Ulkopuolen alumiiniosien vakiovärit valkoinen RAL9010, musta RAL9005, tummanharmaa
+RAL7024 ja tummanruskea RR32. Sisäpuoli valkoinen.
+1 kpl
+Asennettuna
+Kynnyspelti, alumiini
+Asennettuna
+Stocholm painike
+Asennettuna
+Lukitus
+Asennettuna
+Lasi; kirkas
+Asennettuna
+Smyygilauta HS
+Asennettuna
+Ulko-ovi - Patio
+OH
 Parvekeovi Patio, kokolasi.
 Ulkopuolen alumiiniosien vakiovärit valkoinen RAL9010, musta RAL9005, tummanharmaa
 RAL7024 ja tummanruskea RR32. Sisäpuoli valkoinen.
@@ -326,18 +360,83 @@ Lasi; kirkas
 Asennettuna
 Smyygilauta HS
 Asennettuna
+Ulko-ovi - Varasto
+TEKN.
+Pihla Vieno S43 (Karmi 130mm)
+1 kpl
+Asennettuna
+Kynnyspelti, alumiini
+Asennettuna
+Stocholm painike
+Asennettuna
+Lukitus
+Asennettuna
+Smyygilauta HS
+Asennettuna
+VÄLIOVET
+Väliovi (kosteantilan ovet)
+PH
+Easy Bath 201, roiskevedenkestävä kevytlaakaovi 7-10x21
+Soveltuu kylpyhuoneen oveksi jos oven ja suihkun välinen etäisyys on yli 1,5m
+1 kpl
+Tarviketoimitus
+Väliovenpainike (perusmalli, valkoinen tai satiinikromi)
+Tarviketoimitus
+WC-vääntönuppi (perusmalli, valkoinen, satiinikromi tai kromi)
+Tarviketoimitus
+Tammikynnys
+Tarviketoimitus
+Väliovi (sauna)
+
+
+
+
+
+
+
+Lasiovi Harmaa 9x19
+Lasi 8mm karkaistua turvalasia
+Pyöreä nuppivedin
+Mäntykarmit
+1 kpl
+Tarviketoimitus
+Väliovi
+KHH
+Easy 201, kevytlaakaovi 7-10x21
+1 kpl
+Tarviketoimitus
+Väliovenpainike (perusmalli, valkoinen tai satiinikromi)
+Tarviketoimitus
+Tammikynnys
+Tarviketoimitus
+Väliovi
+MH1
+Easy 201, kevytlaakaovi 7-10x21
+1 kpl
+Tarviketoimitus
+Väliovenpainike (perusmalli, valkoinen tai satiinikromi)
+Tarviketoimitus
 SISUSTUS
 Märkätilan seinä (vesieristetty MV ja MV+ -toimituksissa)
 Märkätilakipsilevy 13mm
 Asennettuna
+Sisäkattoverhous (kuivat tilat)
+MDF-paneeli STP10x160x2080
+Värivalikoima:
+valkoinen, valkosaarni ja hopeasaarni
+Asennettuna
 SAUNA JA PESUHUONE
 Pesuhuoneen katto
+Kuusipaneeli STS 14x120x2400 (Sävyt hiili, kelo tai vanilja)
+Asennettuna
 Puutavara 48x98 Mitall.
 Asennettuna
 Koolaus; Mitallistettu 48x48
 Asennettuna
 Saunan seinät ja katto
 Seinäpaneelien asennus vaakaan, mikäli panelointi Sievitalon toimituksena
+Kuusipaneeli STS 14x120x2400 (Sävyt hiili, kelo tai vanilja)
+Asennettuna
 Alumiinipintainen polyuretaanilevy 30mm
 Asennettuna
 Puutavara 48x98 Mitall.
@@ -359,6 +458,13 @@ Lattialämmityksen termostaatit
 Lattialämmitystermostaatit kohdekohtaisen lattialämmityssuunnitelman mukaan
 Asennettuna
 VESI- JA VIEMÄRITYÖT
+
+
+
+
+
+
+
 Erillinen suunnitelma.
 Pistemäärät huonetilaerittelyn mukaisesti.
 Valmiiksi tehtynä kivijalan sisäpuolelle tuodusta vesimittarista lähtien.
@@ -369,14 +475,8 @@ Asennettuna
 Kodinhoitohuoneen vesihana
 Oras Vega 1825FG
 Asennettuna
-
-
-
-
-
-
-
 Pesualtaan vesihana
+PH
 Oras Vega 1812FG pesuallashana +bide
 Asennettuna
 Suihkut
@@ -385,6 +485,7 @@ Asennettuna
 Oras Optima suihkusetti 2790
 Asennettuna
 Wc-istuin
+PH, KHH
 Wc-istuin Gustavsberg Nautic 1500
 2/4 l huuhtelu
 vakio kansi
@@ -411,6 +512,9 @@ Ilmanvaihtoventtiilit kohdekohtaisen ilmanvaihtosuunnitelman mukaan
 Asennettuna
 Kanavisto eristettynä kohdekohtaisen ilmanvaihtosuunnitelman mukaan
 Asennettuna
+Liesituulettimen poistokanavisto
+Poistokanavisto (halkaisija 125mm)
+Asennettuna
 SÄHKÖ
 Pääsulake 3x25A.
 Kaikki maahan laitettavat suojaputket ja kaapelit asiakashankintana.
@@ -421,12 +525,25 @@ Antenni- ja tietoliikkennekaapelit tuodaan ryhmäkeskuksen dataosaan ja asiakas 
 paikalliselta puhelinlaitokselta.
 Antennivaraus ullakolle Sievitalon toimesta.
 Tonttikeskus
+
+
+
+
+
+
+
 Ulkomittauskeskus omalla jalalla, käytetään rakennusaikana työmaakeskuksena. Kytkentä ja
 mittarointipyyntö Sievitalon vastuulla.
 Asennettuna
-Peruskiukaan kytkentäpiste
+Erillisohjaimella varustetun kiukaan kytkentäpiste
+Harvia Cilindro PC70XE 6,8kW, RST, digitaalinen ohjauspaneeli
+Asennettuna
 Ryhmäkeskus (Omakotitalo)
 Ryhmäkeskus okt
+Asennettuna
+Sähkökalustesarja
+Rakennuksen sisäiset sähkökalusteet valkoista ABB Impressivo sarjaa
+Pistemäärät huonetilaerittelyn mukaisesti
 Asennettuna
 
 
@@ -440,36 +557,37 @@ HUONETILAERITTELY
  Yleiset mittatiedot
  Talon mittatiedot
     Huonekorkeus (1.krs.)
-2,50 jm
+2,60 jm
     Palovaroitin
-2 kpl
+3 kpl
     Betonilaatan vahvuus
 0,08 jm
  Talon ulkopuoliset varusteet
     Ulkopistorasiat RVT
-2 kpl
+4 kpl
     Ulkovalot (seinävalaisin Airam Alppila)
-2 kpl
+4 kpl
  Terassin ja parvekkeen tiedot
-    Terassiaskelman määrä
-1 kpl
-    Terassiaskelmien pituus (yht.)
-3,60 jm
     Lapekattoisen terassin neliöt
-3,90 m2
+3,70 m2
     Lapekattoisen terassin pilareiden määrä
 2 kpl
  Ulkoseinän tiedot
     Sivuräystään syvyys
-0,40 jm
+0,50 jm
     Päätyräystään syvyys
-0,30 jm
+0,40 jm
     Ristikon tukikorkeus
 0,70 jm
  Huonetilat
  Tekninen tila
+  Sähkömateriaalit
+    Yleisvalaisin (Onnline Onnround)
+1 kpl
     Pistorasia (2-os. tai sähköpistekojerasia)
 2 kpl
+    Valoryhmän kytkinohjaus
+1 kpl
     Lämmönlähteen kytkentäpiste
 1 kpl
   LVI-materiaalit
@@ -483,15 +601,17 @@ HUONETILAERITTELY
 1 kpl
     Vesipostiventtiili
 1 kpl
+    Lattialämmitys
+1 kpl
     Lattiakaivo
 1 kpl
- Eteinen / Arkieteinen
+ Eteistila
     Valoryhmän kytkinohjaus
-3 kpl
-    Valopiste (valaisinpistorasia tai varaus)
-3 kpl
-    Pistorasia (2-os. tai sähköpistekojerasia)
 2 kpl
+    Valopiste (valaisinpistorasia tai varaus)
+2 kpl
+    Pistorasia (2-os. tai sähköpistekojerasia)
+1 kpl
     Ovikello
 1 kpl
   LVI-materiaalit
@@ -499,56 +619,38 @@ HUONETILAERITTELY
 1 kpl
     Lattialämmitys
 1 kpl
- Tupakeittiö
+ K/OH
   Sähkömateriaalit
     Antennirasia
 2 kpl
     Atk rasia
 1 kpl
     Valoryhmän kytkinohjaus
-4 kpl
+6 kpl
     Valopiste (valaisinpistorasia tai varaus)
 6 kpl
     Lieden kytkentäpiste
 1 kpl
+
+
+
+
+
+
+
     Työpistevalaisin 8W
 1 kpl
     Pistorasia (2-os. tai sähköpistekojerasia)
-10 kpl
-
-
-
-
-
-
-
+12 kpl
+  LVI-materiaalit
+    LT-poistokanavisto
+1 kpl
     Ilmanvaihtoventtiili
 2 kpl
     Keittiöhana
 1 kpl
     Lattialämmitys
 3 kpl
- Kodinhoitohuone
-  Sähkömateriaalit
-    Yleisvalaisin (Onnline Onnround)
-2 kpl
-    Työpistevalaisin 8W
-1 kpl
-    Valoryhmän kytkinohjaus
-2 kpl
-    Pistorasia (2-os. tai sähköpistekojerasia)
-4 kpl
-  LVI-materiaalit
-    Ilmanvaihtoventtiili
-1 kpl
-    Khh-hana
-1 kpl
-    Pyykinpesukone (kytkentäpiste)
-1 kpl
-    Lattiakaivo
-1 kpl
-    Lattialämmitys
-1 kpl
  Makuuhuone 1
   Sähkömateriaalit
     Antennirasia
@@ -556,7 +658,7 @@ HUONETILAERITTELY
     Atk rasia
 1 kpl
     Pistorasia (2-os. tai sähköpistekojerasia)
-2 kpl
+3 kpl
     Valoryhmän kytkinohjaus
 1 kpl
     Valopiste (valaisinpistorasia tai varaus)
@@ -573,7 +675,7 @@ HUONETILAERITTELY
     Atk rasia
 1 kpl
     Pistorasia (2-os. tai sähköpistekojerasia)
-2 kpl
+3 kpl
     Valoryhmän kytkinohjaus
 1 kpl
     Valopiste (valaisinpistorasia tai varaus)
@@ -588,25 +690,28 @@ HUONETILAERITTELY
     Valoryhmän kytkinohjaus
 2 kpl
     Yleisvalaisin (Onnline Onnround)
-1 kpl
+2 kpl
     Pistorasia (2-os. tai sähköpistekojerasia)
 1 kpl
   LVI-materiaalit
     Ilmanvaihtoventtiili
-1 kpl
+2 kpl
     Lattiakaivo
-1 kpl
+2 kpl
     Suihku
+2 kpl
+    Wc-istuin
+2 kpl
+    Pesualtaan hana
 1 kpl
     Lattialämmitys
 1 kpl
     Lattialämmityksen termostaatti
 1 kpl
  Sauna
-  Sähkömateriaalit
-    Saunavalaisin puuritilällä
+    Led-saunavalosarja 6 os. saunan kattoon
 1 kpl
-    Peruskiukaan kytkentäpiste
+    Erillisohjaimella varustetun kiukaan kytkentäpiste
 1 kpl
   LVI-materiaalit
     Ilmanvaihtoventtiili
@@ -615,46 +720,31 @@ HUONETILAERITTELY
 1 kpl
     Lattialämmitys
 1 kpl
-
-
-
-
-
-
-
- WC
+ Kodinhoitohuone
   Sähkömateriaalit
     Yleisvalaisin (Onnline Onnround)
-1 kpl
-    Valoryhmän kytkinohjaus
-1 kpl
-    Peilivalopiste
-1 kpl
-    Pistorasia (2-os. tai sähköpistekojerasia)
-1 kpl
-  LVI-materiaalit
-    Ilmanvaihtoventtiili
-1 kpl
-    Wc-istuin
-1 kpl
-    Pesualtaan hana
-1 kpl
-    Lattialämmitys
-1 kpl
- Makuuhuone 3
-  Sähkömateriaalit
-    Antennirasia
-1 kpl
-    Atk rasia
-1 kpl
-    Pistorasia (2-os. tai sähköpistekojerasia)
 2 kpl
+    Työpistevalaisin 8W
+1 kpl
     Valoryhmän kytkinohjaus
-1 kpl
-    Valopiste (valaisinpistorasia tai varaus)
-1 kpl
+2 kpl
+    Pistorasia (2-os. tai sähköpistekojerasia)
+4 kpl
   LVI-materiaalit
+
+
+
+
+
+
+
     Ilmanvaihtoventtiili
+1 kpl
+    Khh-hana
+1 kpl
+    Pyykinpesukone (kytkentäpiste)
+1 kpl
+    Lattiakaivo
 1 kpl
     Lattialämmitys
 1 kpl
@@ -676,10 +766,29 @@ suunnitteluvaiheessa. Mikäli rakenteet vaativat tai viranomainen määrää sel
 toimitussisältöön, myyjällä on oikeus tarkentaa sovittua kauppahintaa muutosten aiheuttamien kustannusten
 mukaisesti.
 1,00 kpl
+Ikkunat ja ulko-ovet
+Ikkuna- ja/tai ulko-ovimuutos (projektilaji 2628)
+MH1 ja MH2 vaakaikkunat 23x7 muutetaan kokoon 30x7. Ikkunat ovat kiinteät.
 LVI
 Radonin torjuntaa varten imukanavisto ylimpään maa-ainesten täyttökerrokseen asiakashankintana. Sievitalo
 asentaa poistokanavan läpivienteineen vesikatolle. Ei sisällä huippuimuria
 1,00 kpl
+LVI muutos (Materiaali)
+KHH:n wc-istuin huomioitu pesuhuonetilassa.
+Muut lisäykset ja muutokset
+Erikseen sovittu muutos
+Kampanja-alennus -10 000 e huomioitu kokonaishinnassa: kampanjahinta voimassa 30.9.2025 saakka
+Sievitalon vakiotoimitusviikoille.
+Erikseen sovittu muutos
+Pääsisäänkäynnin terassin runko ja laudoitus kuuluu toimitukseen; askelmat asiakashankintana. Muut
+mahdolliset terassit asiakashankintana.
+Erikseen sovittu muutos
+Saunan lauteet asiakashankintana.
+Erikseen sovittu muutos
+MH2:n lasiovi asiakashankintana.
+Sähkö
+Sopimukseen sisällytetty sähkömuutoksia varten muutosrahaa:
+1000 €
 
 
 
@@ -721,8 +830,7 @@ Mikäli em. paikkaa ei löydy tontilta, siirtyy betonin poisviennin kustannukset
  
 Muuta huomioitavaa:
  
-Vain tässä sopimuksessa kirjallisesti sovitut asiat on päteviä, suullisia sopimuksia ei huomioida.
-Pidätämme oikeuden toimittaa talopaketti pre-cut toimituksena.
+Vain tässä sopimuksessa kirjallisesti sovitut asiat on päteviä, suullisia sopimuksia ei huomioida
  
 Päivämäärä:
  
