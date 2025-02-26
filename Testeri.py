@@ -7,7 +7,7 @@ from datetime import datetime  # Lisätään kellonaika jokaiselle tapahtumalle
 
 app = Flask(__name__)
 
-from sie import muuta_tekstiksi, poista_sanat_tekstista, api_kysely_poimi_ikkunatiedot, api_ryhmittele_valitut_ikkunatiedot_json_muotoon  # Tuodaan lohkot
+from s_ikkuna import muuta_tekstiksi, poista_sanat_tekstista, api_kysely_poimi_ikkunatiedot, api_ryhmittele_valitut_ikkunatiedot_json_muotoon  # Tuodaan lohkot
 
 @app.route("/", methods=["GET", "POST"])
 def index():
