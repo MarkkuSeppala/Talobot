@@ -18,7 +18,7 @@ from datetime import datetime  # Lisätään kellonaika jokaiselle tapahtumalle
 
 app = Flask(__name__)
 
-from k_ikkuna import muuta_tekstiksi, api_kysely_poimi_ikkunatiedot, api_ryhmittele_valitut_ikkunatiedot_json_muotoon, clean_text  # Tuodaan lohkot
+from k_ikkuna import muuta_tekstiksi, api_kysely_poimi_ikkunatiedot, api_ryhmittele_valitut_ikkunatiedot_json_muotoon, clean_text, ikkunat_omille_riveille_koon_pyoristys  # Tuodaan lohkot
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -48,12 +48,15 @@ def index():
                 kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 api_ryhmittele_valitut_ikkunatiedot_json_muotoon()
                 status_viestit.append(f"Ryhmittele ikkunat JSON-muotoon. Suoritettu - {kellonaika}")
+
+                ikkunat_omille_riveille_koon_pyoristys()
+
                
 
                 pdf_kasitelty = True
                         
     #**Luetaan tiedoston sisältö**
-    ikkuna_tiedosto = "data/k/ikkuna_json.txt"
+    ikkuna_tiedosto = "data/k/ikkuna_json_2.txt"
     if os.path.exists(ikkuna_tiedosto):
         with open(ikkuna_tiedosto, "r", encoding="utf-8") as tiedosto:
             json_data = json.load(tiedosto)  # Lataa JSON-tiedot
