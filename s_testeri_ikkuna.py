@@ -48,7 +48,7 @@ def index():
     
     
     #**Luetaan tiedoston sisältö**
-    ikkuna_tiedosto = "data/s/ikkuna_json.txt"
+    ikkuna_tiedosto = "data/s/ikkuna_json_2.txt"
     if os.path.exists(ikkuna_tiedosto):
         with open(ikkuna_tiedosto, "r", encoding="utf-8") as tiedosto:
             json_data = json.load(tiedosto)  # Lataa JSON-tiedot
