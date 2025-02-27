@@ -88,6 +88,5 @@
         "Kastelli_välikarmi": null,
         "Sievitalo_sälekaihtimet": false,
         "Kastelli_sälekaihtimet": null
-    },
-    
+    }
 ]
