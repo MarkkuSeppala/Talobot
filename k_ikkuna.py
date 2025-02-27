@@ -3,8 +3,8 @@ import os
 import re
 import fitz  # PyMuPDF
 import google.generativeai as genai
-import tkinter as tk
-from tkinter import filedialog
+#import tkinter as tk
+#from tkinter import filedialog
 from datetime import datetime
 
 
