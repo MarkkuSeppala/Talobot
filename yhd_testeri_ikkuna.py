@@ -7,7 +7,7 @@ import os
 import json
 import pandas as pd
 from datetime import datetime
-from yhdistetaan_ikkunat import yhdista_ikkunat  
+from yhdistetaan_ikkunat import yhdista_ikkunat
 
 app = Flask(__name__)
 
