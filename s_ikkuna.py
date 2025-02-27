@@ -16,7 +16,12 @@ def suorita_lohko1():
 
 
 
-#==========================#
+#============== S  I E V I T A L O ============#
+#==================================================================================================#
+#==================================================================================================#
+#==================================================================================================#
+
+
 # **Muuta tekstiksi**
 def muuta_tekstiksi(pdf_file):
     def pdf_to_text(pdf):
@@ -24,8 +29,11 @@ def muuta_tekstiksi(pdf_file):
             return "".join(page.get_text() for page in doc)
 
     teksti = pdf_to_text(pdf_file)
-    #csv_polku = "data/tiedosto.txt"
-    csv_polku = "data/tiedosto.txt"
+
+    # Varmista, että kansio 'data/' on olemassa ennen kirjoittamista
+    os.makedirs("data/s", exist_ok=True)
+    
+    csv_polku = "data/s/tiedosto.txt"
     with open(csv_polku, "w", encoding="utf-8") as tiedosto:
         tiedosto.write(teksti)
 
@@ -39,11 +47,14 @@ def muuta_tekstiksi(pdf_file):
 
 
 
-#==========================#
+#============== S  I E V I T A L O ============#
+#==================================================================================================#
+#==================================================================================================#
+#==================================================================================================#
 # **Poista sanat tekstistä**
 def poista_sanat_tekstista():
-    tiedostopolku = "data/tiedosto.txt"
-    korjattu_tiedosto = "data/tiedosto.txt"
+    tiedostopolku = "data/s/tiedosto.txt"
+    korjattu_tiedosto = "data/s/tiedosto.txt"
     poistettavat_sanat = [
         "Sievitalo Oy", "Mestarintie 6", "TOIMITUSTAPASELOSTE", "67101 KOKKOLA",
         "Puh. 06 822 1111", "Fax 06 822 1112", "www.sievitalo.fi", "Y-tunnus: 2988131-5", "RAKENNE- JA"
@@ -78,11 +89,14 @@ def poista_sanat_tekstista2(teksti, poistettavat_sanat):
 
 
 
-#==========================#
+#============== S  I E V I T A L O ============#
+#==================================================================================================#
+#==================================================================================================#
+#==================================================================================================#
 # **API-kysely. Poimii kaikki ikkunatiedot poistamatta mitään**
 def api_kysely_poimi_ikkunatiedot():
     genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
-    tiedostopolku = "data/tiedosto.txt"
+    tiedostopolku = "data/s/tiedosto.txt"
 
     generation_config = {
         "temperature": 0.05,
@@ -122,7 +136,7 @@ def api_kysely_poimi_ikkunatiedot():
         response = model.generate_content(kysymys)
 
         if response.text:
-            ikkuna1 = "data/tiedosto2.txt"
+            ikkuna1 = "data/s/tiedosto2.txt"
             with open(ikkuna1, "w", encoding="utf-8") as tiedosto:
                 tiedosto.write(response.text)
             print("Tiedosto tallennettu:", ikkuna1)
@@ -138,57 +152,13 @@ def api_kysely_poimi_ikkunatiedot():
     return kellonaika
 
 
-#==========================#
-# **suorita_lohko5()**
-'''
-def suorita_lohko5():
-    genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
-    tiedostopolku = "data/tiedosto.txt"
 
-    if os.path.exists(tiedostopolku):
-        with open(tiedostopolku, 'r', encoding='utf-8') as tiedosto:
-            sisalto = tiedosto.read()
-    else:
-        print("Tiedostoa ei löytynyt. Tarkista polku.")
-        return
 
-    print("tulostuswew")
-    print(sisalto)
-    print("tulostuswew")
 
-    generation_config = {
-        "temperature": 0.05,
-        "top_p": 0.40,
-        "top_k": 20,
-        "max_output_tokens": 8192,
-        "response_mime_type": "text/plain",
-    }
-
-    system_instruction = """
-    Tehtäväsi on etsiä tekstistä seuraavat ikkunatiedot...
-    """
-
-    model = genai.GenerativeModel(
-        model_name="gemini-1.5-flash",
-        generation_config=generation_config,
-        system_instruction=system_instruction
-    )
-
-    kysymys = f"{sisalto} Suorita tehtävä ja laske ikkunoiden määrä ja tulosta se."
-    response = model.generate_content(kysymys)
-
-    tulosta_viesti(response.text)
-
-    kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    tulosta_viesti("lohko5 suoritettu", kellonaika)
-    print(response.text)
-    return kellonaika
-
-#tulosta_viesti("lohko5 suoritettu", kellonaika)
-tulosta_viesti = print
-'''
-
-#==========================#
+#============== S  I E V I T A L O ============#
+#==================================================================================================#
+#==================================================================================================#
+#==================================================================================================#
 # **API-kysely. Ryhmittelee valitut ikkunatiedot JSON-taulukoksi**
 def api_ryhmittele_valitut_ikkunatiedot_json_muotoon():
     #import os
@@ -202,7 +172,7 @@ def api_ryhmittele_valitut_ikkunatiedot_json_muotoon():
     genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")
 
     # Määritä tiedostopolku
-    tiedostopolku = "data/tiedosto2.txt"
+    tiedostopolku = "data/s/tiedosto2.txt"
 
     # Määritä generation_config ja system_instruction
     generation_config = {
@@ -267,7 +237,7 @@ def api_ryhmittele_valitut_ikkunatiedot_json_muotoon():
         if response.text:
             try:
                 ikkuna_data = json.loads(response.text)
-                ikkuna_tiedosto = "data/ikkuna_json.txt"
+                ikkuna_tiedosto = "data/s/ikkuna_json.txt"
                 
                 with open(ikkuna_tiedosto, "w", encoding="utf-8") as tiedosto:
                     json.dump(ikkuna_data, tiedosto, ensure_ascii=False, indent=4)

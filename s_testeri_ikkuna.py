@@ -1,13 +1,10 @@
-#============== K A S T E L L I ============#
+#============== S  I E V I T A L O ============#
 
-# Tämä on testeri, joka käyttää k_ikkuna.py -tiedostoa. Tämä lataa PDF-tiedoston, muuntaa sen tekstiksi, poistaa tekstistä tietyt sanat, hakee API:sta ikkunatiedot ja ryhmittelee ne JSON-muotoon.
+# Tämä on testeri, joka käyttää s_ikkuna.py -tiedostoa. Tämä lataa PDF-tiedoston, muuntaa sen tekstiksi, poistaa tekstistä tietyt sanat, hakee API:sta ikkunatiedot ja ryhmittelee ne JSON-muotoon.
 # Tämä on Flask-sovellus. Eli käyttöliittymä on selaimessa.
 
 #================================================================#
 #================================================================#
-
-
-
 
 from flask import Flask, request
 import os
@@ -18,7 +15,7 @@ from datetime import datetime  # Lisätään kellonaika jokaiselle tapahtumalle
 
 app = Flask(__name__)
 
-from k_ikkuna import muuta_tekstiksi, api_kysely_poimi_ikkunatiedot, api_ryhmittele_valitut_ikkunatiedot_json_muotoon, clean_text  # Tuodaan lohkot
+from s_ikkuna import muuta_tekstiksi, poista_sanat_tekstista, api_kysely_poimi_ikkunatiedot, api_ryhmittele_valitut_ikkunatiedot_json_muotoon  # Tuodaan lohkot
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -33,27 +30,25 @@ def index():
                 kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 muuta_tekstiksi(file)
                 status_viestit.append(f"Muuta tekstiksi. Suoritettu - {kellonaika}")
-                clean_text()
-                
-                '''
+
                 kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 poista_sanat_tekstista()
                 status_viestit.append(f"Poista sanat tekstistä. Suoritettu - {kellonaika}")
-                '''
-                
+
                 kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 api_kysely_poimi_ikkunatiedot()
                 status_viestit.append(f"Poimi ikkunatiedot API:sta. Suoritettu - {kellonaika}")
-                
+
                 kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 api_ryhmittele_valitut_ikkunatiedot_json_muotoon()
                 status_viestit.append(f"Ryhmittele ikkunat JSON-muotoon. Suoritettu - {kellonaika}")
-               
 
                 pdf_kasitelty = True
                         
+    
+    
     #**Luetaan tiedoston sisältö**
-    ikkuna_tiedosto = "data/k/ikkuna_json.txt"
+    ikkuna_tiedosto = "data/s/ikkuna_json.txt"
     if os.path.exists(ikkuna_tiedosto):
         with open(ikkuna_tiedosto, "r", encoding="utf-8") as tiedosto:
             json_data = json.load(tiedosto)  # Lataa JSON-tiedot
@@ -70,7 +65,7 @@ def index():
         <title>PDF Käsittely</title>
     </head>
     <body>
-        <h2>PDF-käsittely Kastelli</h2>
+        <h2>PDF-käsittely</h2>
 
         <form method="post" enctype="multipart/form-data">
             <input type="file" name="pdf">
