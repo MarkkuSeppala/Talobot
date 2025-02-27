@@ -7,7 +7,8 @@ import os
 import json
 import pandas as pd
 from datetime import datetime
-from yhdistetaan_ikkunat import yhdista_ikkunat
+from werkzeug.utils import secure_filename  # Turvallinen tiedostonimi
+from yhdistetaan_ikkunat import yhdista_ikkunat  
 
 app = Flask(__name__)
 
@@ -23,28 +24,39 @@ def muunna_symboliksi(value):
 def index():
     kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     status_viestit = []  # Lista, johon kerätään suoritusvaiheet
-    sievitalo_tiedosto = None
-    kastelli_tiedosto = None
     output_tiedosto = "C:/Talobot/data/yhd/ikkunat_yhdessa_json.txt"
 
     if request.method == "POST":
         if "sievitalo_json" in request.files and "kastelli_json" in request.files:
             sievitalo_file = request.files["sievitalo_json"]
             kastelli_file = request.files["kastelli_json"]
-            
+
             if sievitalo_file and kastelli_file:
-                # Tallennetaan ladatut tiedostot väliaikaiseen kansioon
-                sievitalo_tiedosto = os.path.join("data/s", sievitalo_file.filename)
-                kastelli_tiedosto = os.path.join("data/k", kastelli_file.filename)
+                try:
+                    # **Luodaan hakemistot, jos niitä ei ole**
+                    os.makedirs("data/s", exist_ok=True)
+                    os.makedirs("data/k", exist_ok=True)
 
-                sievitalo_file.save(sievitalo_tiedosto)
-                kastelli_file.save(kastelli_tiedosto)
+                    # **Turvallinen tiedostonimi**
+                    sievitalo_filename = secure_filename(sievitalo_file.filename)
+                    kastelli_filename = secure_filename(kastelli_file.filename)
 
-                status_viestit.append(f"Tiedostot ladattu onnistuneesti - {kellonaika}")
-                
-                # Suoritetaan yhdistäminen
-                yhdista_ikkunat(sievitalo_tiedosto, kastelli_tiedosto, output_tiedosto)
-                status_viestit.append(f"Ikkunat yhdistetty - {kellonaika}")
+                    # **Tallennuspolut**
+                    sievitalo_tiedosto = os.path.join("data/s", sievitalo_filename)
+                    kastelli_tiedosto = os.path.join("data/k", kastelli_filename)
+
+                    # **Tallennetaan ladatut tiedostot**
+                    sievitalo_file.save(sievitalo_tiedosto)
+                    kastelli_file.save(kastelli_tiedosto)
+
+                    status_viestit.append(f"Tiedostot ladattu onnistuneesti - {kellonaika}")
+
+                    # **Suoritetaan yhdistäminen**
+                    yhdista_ikkunat(sievitalo_tiedosto, kastelli_tiedosto, output_tiedosto)
+                    status_viestit.append(f"Ikkunat yhdistetty - {kellonaika}")
+
+                except Exception as e:
+                    status_viestit.append(f"Virhe tiedostojen tallennuksessa: {str(e)}")
 
     # **Luetaan tulostiedosto ja muutetaan taulukoksi**
     if os.path.exists(output_tiedosto):
