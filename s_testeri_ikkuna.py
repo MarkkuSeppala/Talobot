@@ -15,7 +15,7 @@ from datetime import datetime  # Lisätään kellonaika jokaiselle tapahtumalle
 
 app = Flask(__name__)
 
-from s_ikkuna import muuta_tekstiksi, poista_sanat_tekstista, api_kysely_poimi_ikkunatiedot, api_ryhmittele_valitut_ikkunatiedot_json_muotoon  # Tuodaan lohkot
+from s_ikkuna import muuta_tekstiksi, poista_sanat_tekstista, api_kysely_poimi_ikkunatiedot, api_ryhmittele_valitut_ikkunatiedot_json_muotoon, ikkunat_omille_riveille_koon_pyoristys  # Tuodaan lohkot
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -43,19 +43,21 @@ def index():
                 api_ryhmittele_valitut_ikkunatiedot_json_muotoon()
                 status_viestit.append(f"Ryhmittele ikkunat JSON-muotoon. Suoritettu - {kellonaika}")
 
+                ikkunat_omille_riveille_koon_pyoristys()
+
                 pdf_kasitelty = True
                         
     
     
     #**Luetaan tiedoston sisältö**
-    ikkuna_tiedosto = "data/s/ikkuna_json.txt"
+    ikkuna_tiedosto = "data/s/ikkuna_json_2.txt"
     if os.path.exists(ikkuna_tiedosto):
         with open(ikkuna_tiedosto, "r", encoding="utf-8") as tiedosto:
             json_data = json.load(tiedosto)  # Lataa JSON-tiedot
             df = pd.DataFrame(json_data)  # Muunna DataFrameksi
             ikkuna_taulukko = df.to_html(classes='table', index=False)  # Muunna HTML-taulukoksi
     else:
-        ikkuna_taulukko = "<p style='color: red;'>Virhe: ikkuna_json.txt -tiedostoa ei löytynyt.</p>"
+        ikkuna_taulukko = "<p style='color: red;'>Virhe: ikkuna_json_2.txt -tiedostoa ei löytynyt.</p>"
 
     return f'''
     <!DOCTYPE html>
@@ -65,7 +67,8 @@ def index():
         <title>PDF Käsittely</title>
     </head>
     <body>
-        <h2>PDF-käsittely</h2>
+        <h2>==== S I E V I T A L O ====</h2>
+        <h3>pdf-käsittely</h3>
 
         <form method="post" enctype="multipart/form-data">
             <input type="file" name="pdf">
