@@ -62,7 +62,7 @@ def yhdista_ikkunat(sievitalo_tiedosto, kastelli_tiedosto, output_tiedosto):
 def suorita_yhdistaminen():
     sievitalo_tiedosto = "data/s/ikkuna_json_2.txt"
     kastelli_tiedosto = "data/k/ikkuna_json_2.txt"
-    output_tiedosto = "C:/Talobot/data/yhd/ikkunat_yhdessa.txt"
+    output_tiedosto = "data/yhd/ikkunat_yhdessa.txt"
 
     print("Aloitetaan Sievitalon ja Kastellin ikkunoiden yhdistäminen...")
     yhdista_ikkunat(sievitalo_tiedosto, kastelli_tiedosto, output_tiedosto)
