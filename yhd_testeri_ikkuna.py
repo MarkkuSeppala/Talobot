@@ -24,7 +24,7 @@ def muunna_symboliksi(value):
 def index():
     kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     status_viestit = []  # Lista, johon kerätään suoritusvaiheet
-    output_tiedosto = "C:/Talobot/data/yhd/ikkunat_yhdessa_json.txt"
+    output_tiedosto = "/data/yhd/ikkunat_yhdessa_json.txt"
 
     if request.method == "POST":
         if "sievitalo_json" in request.files and "kastelli_json" in request.files:
