@@ -89,7 +89,6 @@ def index():
 
          <h3>Ikkuna JSON -tiedoston sisältö taulukkona:</h3>
         {ikkuna_taulukko}  <!-- Näytetään JSON taulukkona -->
-
                
     </body>
     </html>
