@@ -73,7 +73,7 @@ def index():
         <title>PDF Käsittely</title>
     </head>
     <body>
-        <h2>PDF-käsittely Kastelli</h2>
+        <h2>PDF-käsittely == K A S T E L L I ==</h2>
 
         <form method="post" enctype="multipart/form-data">
             <input type="file" name="pdf">
