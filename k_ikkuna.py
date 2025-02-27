@@ -53,9 +53,9 @@ def clean_text():
         with open(tiedostopolku, 'r', encoding='utf-8') as tiedosto:
             sisalto = tiedosto.read()
 
-    text = re.sub(r'[^a-zA-Z0-9äöüÄÖÜß\k@._,-:/]', '', sisalto)  # Poistetaan erikoismerkit (paitsi @, ., _ ja ,)
+    text = re.sub(r'[^a-zA-Z0-9äöüÄÖÜß\s@._,-:/]', '', sisalto)  # Poistetaan erikoismerkit (paitsi @, ., _ ja ,)
     text = re.sub(r'\k+', ' ', text).strip()  # Poistetaan ylimääräiset välilyönnit
-    text = re.sub(r'(\d{1,3})\k(\d{3})', r'\1\2', text)  # Korjataan hajonneet numerot, esim. 173 500 € -> 173500 €
+    text = re.sub(r'(\d{1,3})\s(\d{3})', r'\1\2', text)  # Korjataan hajonneet numerot, esim. 173 500 € -> 173500 €
     text = text.replace("•", "-")  # Korvataan listapallot viivoilla
     
 
