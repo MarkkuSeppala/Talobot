@@ -377,5 +377,4 @@ def ikkunat_omille_riveille_koon_pyoristys():
     with open("data/k/ikkuna_json_2.txt", "w", encoding="utf-8") as tiedosto:
         json.dump(output_json, tiedosto, ensure_ascii=False, indent=4)
 
-    # Tulostetaan muunnettu JSON
-    #print(json.dumps(output_json, ensure_ascii=False, indent=4))
+ 
