@@ -59,14 +59,24 @@ def index():
                     status_viestit.append(f"Virhe tiedostojen tallennuksessa: {str(e)}")
 
     # **Luetaan tulostiedosto ja muutetaan taulukoksi**
-    if os.path.exists(output_tiedosto):
-        with open(output_tiedosto, "r", encoding="utf-8") as tiedosto:
-            json_data = json.load(tiedosto)
-            
+    
+    
+    
+    
+    # **Tarkistetaan, onko tiedosto olemassa ja ettei se ole tyhjä**
+    if not os.path.exists(output_tiedosto) or os.stat(output_tiedosto).st_size == 0:
+     with open(output_tiedosto, "w", encoding="utf-8") as tiedosto:
+        json.dump([], tiedosto)  # Kirjoitetaan tyhjä JSON-taulukko []
+
+    # **Luetaan tiedoston sisältö**
+    with open(output_tiedosto, "r", encoding="utf-8") as tiedosto:
+         json_data = json.load(tiedosto)  # Nyt tämä ei kaadu, koska tiedosto on aina kelvollinen 
+
+
             # **Muunnetaan True/False arvot symboleiksi**
-            for item in json_data:
-                for key in item.keys():
-                    item[key] = muunna_symboliksi(item[key])
+    for item in json_data:
+        for key in item.keys():
+            item[key] = muunna_symboliksi(item[key])
 
             df = pd.DataFrame(json_data)
             ikkuna_taulukko = df.to_html(classes="table", index=False, escape=False)  # `escape=False` sallii HTML-symbolit
