@@ -269,4 +269,58 @@ def api_ryhmittele_valitut_ikkunatiedot_json_muotoon():
     kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     #tulosta_viesti("api_kysely_poimi_ikkunatiedot", kellonaika)
     return kellonaika
-    
+
+
+
+
+#============== S  I E V I T A L O ============#
+#==================================================================================================#
+#==================================================================================================#
+#==================================================================================================#
+
+
+
+
+
+import json
+
+def ikkunat_omille_riveille_koon_pyoristys():
+    output_json = []
+
+    # **Ladataan JSON-tiedot tiedostosta ennen käyttöä**
+    with open("data/s/ikkuna_json.txt", "r", encoding="utf-8") as tiedosto:
+        json_data = json.load(tiedosto)
+
+    for item in json_data:
+        leveys, korkeus = map(int, item["koko"].split("x"))  # Muutetaan mitat kokonaisluvuiksi (dm)
+        
+        # Muunnetaan mitat millimetreiksi
+        leveys_mm = leveys * 100
+        korkeus_mm = korkeus * 100
+        mm_koko = f"{leveys_mm}x{korkeus_mm}"
+
+        for _ in range(item["kpl"]):
+            output_json.append({
+                "koko": item["koko"],  # Alkuperäinen koko dm
+                "mm_koko": mm_koko,  # Muunnettu mm
+                "leveys_mm": leveys_mm,  # Tarvitaan lajittelua varten
+                "turvalasi": item["turvalasi"],
+                "välikarmi": item["välikarmi"],
+                "sälekaihtimet": item["sälekaihtimet"]
+            })
+
+    # **Lajitellaan lista leveyden mukaan pienimmästä suurimpaan**
+    output_json = sorted(output_json, key=lambda x: x["leveys_mm"])
+
+    # Poistetaan lajittelua varten lisätty "leveys_mm" ennen tallennusta
+    for item in output_json:
+        del item["leveys_mm"]
+
+    # Tallennetaan JSON-tiedostoon
+    with open("data/s/ikkuna_json_2.txt", "w", encoding="utf-8") as tiedosto:
+        json.dump(output_json, tiedosto, ensure_ascii=False, indent=4)
+
+    print("JSON-tiedosto luotu onnistuneesti!")
+
+# Kutsutaan funktiota
+ikkunat_omille_riveille_koon_pyoristys()

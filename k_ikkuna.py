@@ -317,20 +317,7 @@ def ikkunat_omille_riveille_koon_pyoristys():
     import json
     #import math
 
-    '''
-    # Alkuperäinen JSON-tiedosto
-    input_json = [
-        {"koko": "2030x2290", "kpl": 3, "turvalasi": True, "välikarmi": False, "sälekaihtimet": True},
-        {"koko": "1130x2290", "kpl": 1, "turvalasi": True, "välikarmi": False, "sälekaihtimet": True},
-        {"koko": "1130x390", "kpl": 1, "turvalasi": False, "välikarmi": False, "sälekaihtimet": True},
-        {"koko": "1730x490", "kpl": 1, "turvalasi": False, "välikarmi": False, "sälekaihtimet": True},
-        {"koko": "1130x2290", "kpl": 1, "turvalasi": False, "välikarmi": False, "sälekaihtimet": True},
-        {"koko": "1130x2290", "kpl": 1, "turvalasi": False, "välikarmi": False, "sälekaihtimet": True},
-        {"koko": "830x2090", "kpl": 1, "turvalasi": False, "välikarmi": False, "sälekaihtimet": True},
-        {"koko": "830x2090", "kpl": 1, "turvalasi": False, "välikarmi": False, "sälekaihtimet": True}
-    ]
-    '''
-    
+            
     
     ikkuna_tiedosto = "data/k/ikkuna_json.txt"
     json_data = []  # Alustetaan tyhjä lista

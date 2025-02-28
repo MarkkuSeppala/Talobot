@@ -8,7 +8,7 @@ import json
 import pandas as pd
 from datetime import datetime
 from werkzeug.utils import secure_filename  # Turvallinen tiedostonimi
-from yhdistetaan_ikkunat import yhdista_ikkunat  
+from yhdistetaan_ikkunat import yhdista_ikkunat, laske_ja_tallenna_ikkunat 
 
 app = Flask(__name__)
 
@@ -55,12 +55,14 @@ def index():
                     yhdista_ikkunat(sievitalo_tiedosto, kastelli_tiedosto, output_tiedosto)
                     status_viestit.append(f"Ikkunat yhdistetty - {kellonaika}")
 
+                                                                        
+                
                 except Exception as e:
                     status_viestit.append(f"Virhe tiedostojen tallennuksessa: {str(e)}")
 
-    # **Luetaan tulostiedosto ja muutetaan taulukoksi**
-    
-    
+            
+
+                    
     
     
     # **Tarkistetaan, onko tiedosto olemassa ja ettei se ole tyhjä**
@@ -98,10 +100,10 @@ def index():
         <h2>==== YHDISTETÄÄN IKKUNAT ====</h2>
         <h3>Lataa Sievitalon ja Kastellin JSON-tiedostot</h3>
         <form method="post" enctype="multipart/form-data">
-            <label for="sievitalo_json">Sievitalo JSON:</label>
+            <label for="ikkuna_json_2">Sievitalo JSON -tiedosto: ikkuna_json_2:</label>
             <input type="file" name="sievitalo_json" required><br><br>
             
-            <label for="kastelli_json">Kastelli JSON:</label>
+            <label for="kastelli_json">Kastelli JSON -tiedosto: ikkuna_json_2</label>
             <input type="file" name="kastelli_json" required><br><br>
             
             <input type="submit" value="Yhdistä ikkunat">
