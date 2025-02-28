@@ -142,8 +142,43 @@ def laske_ja_tallenna_ikkunat(input_tiedosto, output_tiedosto):
 
 
 
-'''
-input_ikkunat_yhdessa_json = "data/yhd/ikkunat_yhdessa_json.txt"
-output_ikkunat_yhdessa_json_2 = "data/yhd/ikkunat_yhdessa_json_2.txt"
-laske_ja_tallenna_ikkunat(input_ikkunat_yhdessa_json, output_ikkunat_yhdessa_json_2)
-'''
+import json
+
+def laske_ikkunatiedot(syote_polku, tulos_polku):
+    with open(syote_polku, "r", encoding="utf-8") as tiedosto:
+        data = json.load(tiedosto)
+    
+    tiedot = {
+        "Sievitalo_ikkunat": 0,
+        "Kastelli_ikkunat": 0,
+        "Sievitalo_turvalasit": 0,
+        "Kastelli_turvalasit": 0,
+        "Sievitalo_välikarmit": 0,
+        "Kastelli_välikarmit": 0,
+        "Sievitalo_sälekaihtimet": 0,
+        "Kastelli_sälekaihtimet": 0
+    }
+    
+    for item in data:
+        if item.get("Sievitalo_mm_koko"):
+            tiedot["Sievitalo_ikkunat"] += 1
+        if item.get("Kastellin_pyoristetty_koko"):
+            tiedot["Kastelli_ikkunat"] += 1
+        if item.get("Sievitalo_turvalasi"):
+            tiedot["Sievitalo_turvalasit"] += 1
+        if item.get("Kastelli_turvalasi"):
+            tiedot["Kastelli_turvalasit"] += 1
+        if item.get("Sievitalo_välikarmi"):
+            tiedot["Sievitalo_välikarmit"] += 1
+        if item.get("Kastelli_välikarmi"):
+            tiedot["Kastelli_välikarmit"] += 1
+        if item.get("Sievitalo_sälekaihtimet"):
+            tiedot["Sievitalo_sälekaihtimet"] += 1
+        if item.get("Kastelli_sälekaihtimet"):
+            tiedot["Kastelli_sälekaihtimet"] += 1
+    
+    with open(tulos_polku, "w", encoding="utf-8") as tulos_tiedosto:
+        json.dump(tiedot, tulos_tiedosto, ensure_ascii=False, indent=None)
+
+# Käyttöesimerkki
+#laske_ikkunatiedot("data/yhd/ikkunat_yhdessa_json.txt", "data/yhd/ikkunatiedot_yhdella_rivilla_json.txt")
