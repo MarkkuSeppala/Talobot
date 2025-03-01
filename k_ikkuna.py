@@ -26,7 +26,7 @@ def muuta_tekstiksi(pdf_file):
     # Varmista, että kansio 'data/k/' on olemassa ennen kirjoittamista
     os.makedirs("data/k", exist_ok=True)
     
-    csv_polku = "data/k/tiedosto.txt"
+    csv_polku = "data/k/toimitussisältö_kokonaisuudessa_tekstina.txt"
     with open(csv_polku, "w", encoding="utf-8") as tiedosto:
         tiedosto.write(teksti)
 
@@ -46,8 +46,8 @@ import re
 
 def clean_text():
  
-    tiedostopolku = "data/k/tiedosto.txt"
-    korjattu_tiedosto = "data/k/tiedosto.txt"
+    tiedostopolku = "data/k/toimitussisältö_kokonaisuudessa_tekstina.txt"
+    korjattu_tiedosto = "data/k/toimitussisältö_kokonaisuudessa_tekstina.txt"
 
     if os.path.exists(tiedostopolku):
         with open(tiedostopolku, 'r', encoding='utf-8') as tiedosto:
@@ -73,8 +73,8 @@ def clean_text():
 # **Poista sanat tekstistä**
 '''
 def poista_sanat_tekstista():
-    tiedostopolku = "data/k/tiedosto.txt"
-    korjattu_tiedosto = "data/k/tiedosto.txt"
+    tiedostopolku = "data/k/toimitussisältö_kokonaisuudessa_tekstina.txt"
+    korjattu_tiedosto = "data/k/toimitussisältö_kokonaisuudessa_tekstina.txt"
     poistettavat_sanat = [
         "Sievitalo Oy", "Mestarintie 6", "TOIMITUSTAPASELOSTE", "67101 KOKKOLA",
         "Puh. 06 822 1111", "Fax 06 822 1112", "www.sievitalo.fi", "Y-tunnus: 2988131-5", "RAKENNE- JA"
@@ -118,7 +118,7 @@ def poista_sanat_tekstista2(teksti, poistettavat_sanat):
 # **API-kysely. Poimii kaikki ikkunatiedot poistamatta mitään**
 def api_kysely_poimi_ikkunatiedot():
     genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
-    tiedostopolku = "data/k/tiedosto.txt"
+    tiedostopolku = "data/k/toimitussisältö_kokonaisuudessa_tekstina.txt"
 
     generation_config = {
         "temperature": 0.05,

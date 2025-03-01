@@ -33,7 +33,7 @@ def muuta_tekstiksi(pdf_file):
     # Varmista, että kansio 'data/' on olemassa ennen kirjoittamista
     os.makedirs("data/s", exist_ok=True)
     
-    csv_polku = "data/s/tiedosto.txt"
+    csv_polku = "data/s/toimitussisältö_kokonaisuudessa_tekstina.txt"
     with open(csv_polku, "w", encoding="utf-8") as tiedosto:
         tiedosto.write(teksti)
 
@@ -53,8 +53,8 @@ def muuta_tekstiksi(pdf_file):
 #==================================================================================================#
 # **Poista sanat tekstistä**
 def poista_sanat_tekstista():
-    tiedostopolku = "data/s/tiedosto.txt"
-    korjattu_tiedosto = "data/s/tiedosto.txt"
+    tiedostopolku = "data/s/toimitussisältö_kokonaisuudessa_tekstina.txt"
+    korjattu_tiedosto = "data/s/toimitussisältö_kokonaisuudessa_tekstina.txt"
     poistettavat_sanat = [
         "Sievitalo Oy", "Mestarintie 6", "TOIMITUSTAPASELOSTE", "67101 KOKKOLA",
         "Puh. 06 822 1111", "Fax 06 822 1112", "www.sievitalo.fi", "Y-tunnus: 2988131-5", "RAKENNE- JA"
@@ -96,7 +96,7 @@ def poista_sanat_tekstista2(teksti, poistettavat_sanat):
 # **API-kysely. Poimii kaikki ikkunatiedot poistamatta mitään**
 def api_kysely_poimi_ikkunatiedot():
     genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
-    tiedostopolku = "data/s/tiedosto.txt"
+    tiedostopolku = "data/s/toimitussisältö_kokonaisuudessa_tekstina.txt"
 
     generation_config = {
         "temperature": 0.05,
@@ -284,7 +284,7 @@ def api_ryhmittele_valitut_ikkunatiedot_json_muotoon():
 
 import json
 
-def ikkunat_omille_riveille_koon_pyoristys():
+def  jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi():
     output_json = []
 
     # **Ladataan JSON-tiedot tiedostosta ennen käyttöä**
@@ -322,5 +322,4 @@ def ikkunat_omille_riveille_koon_pyoristys():
 
     print("JSON-tiedosto luotu onnistuneesti!")
 
-# Kutsutaan funktiota
-ikkunat_omille_riveille_koon_pyoristys()
+
