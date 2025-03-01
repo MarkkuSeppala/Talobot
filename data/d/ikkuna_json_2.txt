@@ -1,0 +1,86 @@
+[
+    {
+        "koko": "1430x1390",
+        "pyoristetty_koko": "1400x1400",
+        "turvalasi": false,
+        "välikarmi": true,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "530x530",
+        "pyoristetty_koko": "500x500",
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "1430x1390",
+        "pyoristetty_koko": "1400x1400",
+        "turvalasi": false,
+        "välikarmi": true,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "1430x1390",
+        "pyoristetty_koko": "1400x1400",
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "530x1990",
+        "pyoristetty_koko": "500x2000",
+        "turvalasi": true,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "1730x1990",
+        "pyoristetty_koko": "1700x2000",
+        "turvalasi": true,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "1730x1990",
+        "pyoristetty_koko": "1700x2000",
+        "turvalasi": true,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "1430x1390",
+        "pyoristetty_koko": "1400x1400",
+        "turvalasi": false,
+        "välikarmi": true,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "1030x1390",
+        "pyoristetty_koko": "1000x1400",
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "1030x1390",
+        "pyoristetty_koko": "1000x1400",
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "1030x1390",
+        "pyoristetty_koko": "1000x1400",
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "1030x1390",
+        "pyoristetty_koko": "1000x1400",
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    }
+]

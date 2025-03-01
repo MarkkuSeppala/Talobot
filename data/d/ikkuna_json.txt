@@ -1,0 +1,79 @@
+[
+    {
+        "koko": "1430x1390",
+        "kpl": 1,
+        "turvalasi": false,
+        "välikarmi": true,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "530x530",
+        "kpl": 1,
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "1430x1390",
+        "kpl": 1,
+        "turvalasi": false,
+        "välikarmi": true,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "1430x1390",
+        "kpl": 1,
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "530x1990",
+        "kpl": 1,
+        "turvalasi": true,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "1730x1990",
+        "kpl": 1,
+        "turvalasi": true,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "1730x1990",
+        "kpl": 1,
+        "turvalasi": true,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "1430x1390",
+        "kpl": 1,
+        "turvalasi": false,
+        "välikarmi": true,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "1030x1390",
+        "kpl": 1,
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "1030x1390",
+        "kpl": 2,
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "1030x1390",
+        "kpl": 1,
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    }
+]
