@@ -9,7 +9,7 @@ from datetime import datetime
 
 
 
-##======================= K A S T E L L I ==========================#
+#======================= D E S I G N T A L O ==========================#
 #========================================================================================================#
 #========================================================================================================#
 #========================================================================================================#
@@ -23,10 +23,10 @@ def muuta_tekstiksi(pdf_file):
 
     teksti = pdf_to_text(pdf_file)
 
-    # Varmista, että kansio 'data/k/' on olemassa ennen kirjoittamista
-    os.makedirs("data/k", exist_ok=True)
+    # Varmista, että kansio 'data/d/' on olemassa ennen kirjoittamista
+    os.makedirs("data/d/", exist_ok=True)
     
-    csv_polku = "data/k/tiedosto.txt"
+    csv_polku = "data/d/toimitussisältö_kokonaisuudessa_tekstina.txt"
     with open(csv_polku, "w", encoding="utf-8") as tiedosto:
         tiedosto.write(teksti)
 
@@ -35,7 +35,7 @@ def muuta_tekstiksi(pdf_file):
     return kellonaika
 
 
-##======================= K A S T E L L I ==========================#
+#======================= D E S I G N T A L O ==========================#
 #========================================================================================================#
 #========================================================================================================#
 #========================================================================================================#
@@ -46,8 +46,8 @@ import re
 
 def clean_text():
  
-    tiedostopolku = "data/k/tiedosto.txt"
-    korjattu_tiedosto = "data/k/tiedosto.txt"
+    tiedostopolku = "data/d/toimitussisältö_kokonaisuudessa_tekstina.txt"
+    korjattu_tiedosto = "data/d/toimitussisältö_kokonaisuudessa_tekstina.txt"
 
     if os.path.exists(tiedostopolku):
         with open(tiedostopolku, 'r', encoding='utf-8') as tiedosto:
@@ -64,7 +64,7 @@ def clean_text():
     
 
 
-##======================= K A S T E L L I ==========================#
+#======================= D E S I G N T A L O ==========================#
 #========================================================================================================#
 #========================================================================================================#
 #========================================================================================================#
@@ -73,8 +73,8 @@ def clean_text():
 # **Poista sanat tekstistä**
 '''
 def poista_sanat_tekstista():
-    tiedostopolku = "data/k/tiedosto.txt"
-    korjattu_tiedosto = "data/k/tiedosto.txt"
+    tiedostopolku = "data/d/toimitussisältö_kokonaisuudessa_tekstina.txt"
+    korjattu_tiedosto = "data/d/toimitussisältö_kokonaisuudessa_tekstina.txt"
     poistettavat_sanat = [
         "Sievitalo Oy", "Mestarintie 6", "TOIMITUSTAPASELOSTE", "67101 KOKKOLA",
         "Puh. 06 822 1111", "Fax 06 822 1112", "www.sievitalo.fi", "Y-tunnus: 2988131-5", "RAKENNE- JA"
@@ -108,7 +108,7 @@ def poista_sanat_tekstista2(teksti, poistettavat_sanat):
 
 
 
-##======================= K A S T E L L I ==========================#
+#======================= D E S I G N T A L O ==========================#
 #========================================================================================================#
 #========================================================================================================#
 #========================================================================================================#
@@ -118,7 +118,7 @@ def poista_sanat_tekstista2(teksti, poistettavat_sanat):
 # **API-kysely. Poimii kaikki ikkunatiedot poistamatta mitään**
 def api_kysely_poimi_ikkunatiedot():
     genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
-    tiedostopolku = "data/k/tiedosto.txt"
+    tiedostopolku = "data/d/toimitussisältö_kokonaisuudessa_tekstina.txt"
 
     generation_config = {
         "temperature": 0.05,
@@ -137,14 +137,15 @@ def api_kysely_poimi_ikkunatiedot():
     Jokainen ikkunalohko, jossa on yksi tai useampi saman kokoinen ikkuna esitellään erikseen.
 
     Tässä esimerkki yhdestä ikkunaryhmästä:
-    'Nro: 10, 20 2 Kpl Tyyppi: A /14.4x25 Karmimitat:1430x2490 KARMITYYPPI: MEKL 3-kertainen kiinteä, karmisyvyys 170 mm SISÄPUITTEEN LASITUS: 3-kertainen eristyslasielementti, U1,0, sisin ja uloin lasi karkaistu 6 mm ULKOPUITTEEN LASITUS: PUUOSIEN PINTAKÄSITTELY: maalattu valkoinen ALUMIINIOSIEN VÄRI: valkoinen RAL 9010 KARMI-/PUITEMATER: karmin ulkopuoli alumiinia HELOITUKSEN VÄRI: SÄLEKAIHDIN: integroitu, matta valkoinen P2 tunnus S HUONETILA: OLOKEITTIÖ, OLOKEITTIÖ HUOMAUTUS: HOX: Mahdolliset sälekaihtimet tulevat kiinteisiin ikkunoihin pinta-asennettuina.
-    Nro: 30 1 Kpl Tyyppi: A /14.4x25 Karmimitat:1430x2490 KARMITYYPPI: MEKL 3-kertainen kiinteä, karmisyvyys 170 mm SISÄPUITTEEN LASITUS: 3-kertainen eristyslasielementti, U1,0, sisin ja uloin lasi karkaistu 6 mm ULKOPUITTEEN LASITUS: PUUOSIEN PINTAKÄSITTELY: maalattu valkoinen ALUMIINIOSIEN VÄRI: valkoinen RAL 9010 KARMI-/PUITEMATER: karmin ulkopuoli alumiinia HELOITUKSEN VÄRI: SÄLEKAIHDIN: integroitu, matta valkoinen P2 tunnus S RAITISILMAVENTTIILI: BIOBE VS-B60, yläkarmiin asennettuna, sis. suodattimen HUONETILA: OLOKEITTIÖ HUOMAUTUS: HOX: Mahdolliset sälekaihtimet tulevat kiinteisiin ikkunoihin pinta-asennettuina. 
-    Nro: 40 1 Kpl oik Tyyppi: A /11.4x20 Karmimitat:1130x1990 KARMITYYPPI: MSEL, avattava, karmisyvyys 170 mm SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U1,0, sisin lasi karkaistu 4 mm ULKOPUITTEEN LASITUS: Karkaistu lasi 4 mm PUUOSIEN PINTAKÄSITTELY: maalattu valkoinen ALUMIINIOSIEN VÄRI: valkoinen RAL 9010 KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia HELOITUKSEN VÄRI: valkoinen SÄLEKAIHDIN: integroitu, matta valkoinen P2 tunnus S HUONETILA: OLOKEITTIÖ IKKUNALUETTELO Sivu:2 Tarjousnro/versio: 14.09.2021386400/A 
-    Nro: 50 1 Kpl ala Tyyppi: AT /11.4x5.4 Karmimitat:1130x530 KARMITYYPPI: MSEL, avattava, karmisyvyys 170 mm SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U1,0 ULKOPUITTEEN LASITUS: 1-kertainen tasolasi PUUOSIEN PINTAKÄSITTELY: maalattu valkoinen ALUMIINIOSIEN VÄRI: valkoinen RAL 9010 KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia HELOITUKSEN VÄRI: valkoinen SÄLEKAIHDIN: integroitu, matta valkoinen P2 tunnus S TUULETUSIKKUNA: tuuletusikkunaheloitus tunnus T LISÄTARVIKE: Alasaranoituun ikkunaan 2 kpl Abloy WF 881 lisäaukipitolaitteita. HUONETILA: PE 
-    Nro: 60 1 Kpl oik Tyyppi: AT /8.4x5.4 Karmimitat:830x530 KARMITYYPPI: MSEL, avattava, karmisyvyys 170 mm SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U1,0 ULKOPUITTEEN LASITUS: 1-kertainen tasolasi PUUOSIEN PINTAKÄSITTELY: väritön suojakäsittely ALUMIINIOSIEN VÄRI: valkoinen RAL 9010 KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia HELOITUKSEN VÄRI: kromattu SÄLEKAIHDIN: integroitu, matta valkoinen P2 tunnus S TUULETUSIKKUNA: tuuletusikkunaheloitus tunnus T HUONETILA: SAUNA HUOMAUTUS: HOX: Mahdolliselle saunan ikkunan sälekaihtimelle ei myönnetä takuuta. 
-    Nro: 70 1 Kpl vas Tyyppi: BA6 /11.4x18 Karmimitat:1130x1790 KARMITYYPPI: MSEL, avattava, karmisyvyys 170 mm SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U1,0, sisin lasi karkaistu 4 mm ULKOPUITTEEN LASITUS: 1-kertainen tasolasi PUUOSIEN PINTAKÄSITTELY: maalattu valkoinen ALUMIINIOSIEN VÄRI: valkoinen RAL 9010 KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia HELOITUKSEN VÄRI: valkoinen SÄLEKAIHDIN: integroitu, matta valkoinen P2 tunnus S TUULETUSIKKUNA: tuuletusikkunaheloitus tunnus T LISÄTARVIKE: Varatieheloitus aukossa 2 ja tuuletusheloitus aukossa 1 HUONETILA: MH 1 
-    Nro: 80, 90 2 Kpl oik Tyyppi: BA6 /11.4x18 Karmimitat:1130x1790 KARMITYYPPI: MSEL, avattava, karmisyvyys 170 mm SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U1,0, sisin lasi karkaistu 4 mm ULKOPUITTEEN LASITUS: 1-kertainen tasolasi PUUOSIEN PINTAKÄSITTELY: maalattu valkoinen ALUMIINIOSIEN VÄRI: valkoinen RAL 9010 KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia HELOITUKSEN VÄRI: valkoinen SÄLEKAIHDIN: integroitu, matta valkoinen P2 tunnus S TUULETUSIKKUNA: tuuletusikkunaheloitus tunnus T LISÄTARVIKE: Varatieheloitus aukossa 2 ja tuuletusheloitus aukossa 1 HUONETILA: MH 2, MH 3 IKKUNALUETTELO Sivu:3 Tarjousnro/versio: 14.09.2021386400/A 
-    Nro: 100, 110 2 Kpl Tyyppi: A /11.4x25 Karmimitat:1130x2490 KARMITYYPPI: MEKL 3-kertainen kiinteä, karmisyvyys 170 mm SISÄPUITTEEN LASITUS: 3-kertainen eristyslasielementti, U1,0, sisin ja uloin lasi karkaistu 6 mm ULKOPUITTEEN LASITUS: PUUOSIEN PINTAKÄSITTELY: maalattu valkoinen ALUMIINIOSIEN VÄRI: valkoinen RAL 9010 KARMI-/PUITEMATER: karmin ulkopuoli alumiinia HELOITUKSEN VÄRI: SÄLEKAIHDIN: integroitu, matta valkoinen P2 tunnus S HUONETILA: OLOKEITTIÖ, OLOKEITTIÖ HUOMAUTUS: HOX: Mahdolliset sälekaihtimet tulevat kiinteisiin ikkunoihin pinta-asennettuina.'
+    'IKKUNA: Avattava, 3-lasinen, 12, U 1,0 Karmi 170-175mm - Mitoitus: 5,3 5,5 0,2915 m - Määrä: 3 kpl - Sisäpuiteväri: Ikkunan sisäpuiteväri: valkoinen RAL9010 / NCS S0502Y valmistajan vakiosävyn mukaan Sisäpuitteen helat valkoiset. Saunan ikkuna aina puunvärinen mänty. - Ulkopuiteväri: Ikkunan ulkopuiteväri: valkoinen RAL9010 / NCS S0502Y valmistajan vakiosävyn mukaan Ulkopuitteen sisä- ja ulkopinnat, ulkopuoliset karmiverhouksen alumiinilistat ja ikkunan vesipelti valitun värin mukaisena. - Helat: Valkoinen - Malli: 4 - Tuuletusikkuna: Kyllä - Sijoitus: MH3 MH 2 PH 5,5 --- 5,3 --- TI 
+    IKKUNA: Avattava, 3-lasinen, 12, U 1,0 Karmi 170-175mm - Mitoitus: 13,3 5,5 0,7315 m - Määrä: 1 kpl - Sisäpuiteväri: Ikkunan sisäpuiteväri: saunan ikkuna suojakäsitelty mänty Ikkunan sisäpuite ja sisäkarmi mänty väritön suojakäsittely. Pintahelat ja kiintopainikkeet kromin väriset. - Ulkopuiteväri: Ikkunan ulkopuiteväri: valkoinen RAL9010 / NCS S0502Y valmistajan vakiosävyn mukaan Ulkopuitteen sisä- ja ulkopinnat, ulkopuoliset karmiverhouksen alumiinilistat ja ikkunan vesipelti valitun värin mukaisena. - Helat: Kromi - Malli: 4 - Tuuletusikkuna: Kyllä - Turvalasi: Karkaistu lasi - Sijoitus: S 5,5 --- 13,3 --- TI - K 
+    IKKUNA: Avattava, 3-lasinen, 12, U 1,0 Karmi 170-175mm - Mitoitus: 10,3 13,5 1,3905 m - Määrä: 1 kpl - Sisäpuiteväri: Ikkunan sisäpuiteväri: valkoinen RAL9010 / NCS S0502Y valmistajan vakiosävyn mukaan Sisäpuitteen helat valkoiset. Saunan ikkuna aina puunvärinen mänty. - Ulkopuiteväri: Ikkunan ulkopuiteväri: valkoinen RAL9010 / NCS S0502Y valmistajan vakiosävyn mukaan Ulkopuitteen sisä- ja ulkopinnat, ulkopuoliset karmiverhouksen alumiinilistat ja ikkunan vesipelti valitun värin mukaisena. - Helat: Valkoinen 13,5 16 17 - Malli: 4 - Sijoitus: KHH --- 10,3 --- 
+    IKKUNA: Avattava, 3-lasinen, 12, U 1,0 Karmi 170-175mm - Mitoitus: 15,3 19 2,907 m - Määrä: 2 kpl - Sisäpuiteväri: Ikkunan sisäpuiteväri: valkoinen RAL9010 / NCS S0502Y valmistajan vakiosävyn mukaan Sisäpuitteen helat valkoiset. Saunan ikkuna aina puunvärinen mänty. - Ulkopuiteväri: Ikkunan ulkopuiteväri: valkoinen RAL9010 / NCS S0502Y valmistajan vakiosävyn mukaan Ulkopuitteen sisä- ja ulkopinnat, ulkopuoliset karmiverhouksen alumiinilistat ja ikkunan vesipelti valitun värin mukaisena. - Helat: Valkoinen - Malli: 4 - Turvalasi: Karkaistu lasi - Sijoitus: OH 19 --- 15,3 --- K 
+    IKKUNA: Avattava, 3-lasinen, 12, U 1,0 Karmi 170mm RwCtr max. 44 dB - Mitoitus: 13,3 19,5 2,5935 m - Määrä: 3 kpl - Sisäpuiteväri: Ikkunan sisäpuiteväri: valkoinen RAL9010 / NCS S0502Y valmistajan vakiosävyn mukaan Sisäpuitteen helat valkoiset. Saunan ikkuna aina puunvärinen mänty. - Ulkopuiteväri: Ikkunan ulkopuiteväri: valkoinen RAL9010 / NCS S0502Y valmistajan vakiosävyn mukaan Ulkopuitteen sisä- ja ulkopinnat, ulkopuoliset karmiverhouksen alumiinilistat ja ikkunan vesipelti valitun värin mukaisena. - Helat: Valkoinen - Malli: 3 - Tuuletusikkuna: Kyllä - Sijoitus: MH1, MH3, MH4 19,5 --- 13,3 --- TI 
+    IKKUNA: Avattava, 3-lasinen, 12, U 1,0 Karmi 170-175mm - Mitoitus: 13,3 13,5 1,7955 m - Määrä: 1 kpl - Sisäpuiteväri: Ikkunan sisäpuiteväri: valkoinen RAL9010 / NCS S0502Y valmistajan vakiosävyn mukaan Sisäpuitteen helat valkoiset. Saunan ikkuna aina puunvärinen mänty. - Ulkopuiteväri: Ikkunan ulkopuiteväri: valkoinen RAL9010 / NCS S0502Y valmistajan vakiosävyn mukaan Ulkopuitteen sisä- ja ulkopinnat, ulkopuoliset karmiverhouksen alumiinilistat ja ikkunan vesipelti valitun värin mukaisena. 13,5 17 17 - Helat: Valkoinen - Malli: 3 - Tuuletusikkuna: Kyllä - Sijoitus: MH2 --- 13,3 --- TI 
+    IKKUNA: Avattava, 3-lasinen, 12, U 1,0 Karmi 170mm RwCtr max. 44 dB - Mitoitus: 10,3 13,5 1,3905 m - Määrä: 1 kpl - Sisäpuiteväri: Ikkunan sisäpuiteväri: valkoinen RAL9010 / NCS S0502Y valmistajan vakiosävyn mukaan Sisäpuitteen helat valkoiset. Saunan ikkuna aina puunvärinen mänty. - Ulkopuiteväri: Ikkunan ulkopuiteväri: valkoinen RAL9010 / NCS S0502Y valmistajan vakiosävyn mukaan Ulkopuitteen sisä- ja ulkopinnat, ulkopuoliset karmiverhouksen alumiinilistat ja ikkunan vesipelti valitun värin mukaisena. - Helat: Valkoinen - Malli: 4 - Tuuletusikkuna: Kyllä - Sijoitus: Keittiö 13,5 --- 10,3 --- TI v
+    IKKUNA: Avattava, 3-lasinen, 12, U 1,0 Karmi 170mm RwCtr max. 44 dB - Mitoitus: 15,3 13,5 2,0655 m - Määrä: 1 kpl - Sisäpuiteväri: Ikkunan sisäpuiteväri: valkoinen RAL9010 / NCS S0502Y valmistajan vakiosävyn mukaan Sisäpuitteen helat valkoiset. Saunan ikkuna aina puunvärinen mänty. - Ulkopuiteväri: Ikkunan ulkopuiteväri: valkoinen RAL9010 / NCS S0502Y valmistajan vakiosävyn mukaan Ulkopuitteen sisä- ja ulkopinnat, ulkopuoliset karmiverhouksen alumiinilistat ja ikkunan vesipelti valitun värin mukaisena. - Helat: Valkoinen - Malli: 4 - Sijoitus: RT 13,5 --- 15,3 --- 
+    
     Tulosta jokainen ikkunaryhmä erikseen erottamalla ne toisistaan kolmella rivinvaihdoilla. Tulosta jokaisesta ikkunaryhmästä kaikki tiedot.
     """
 
@@ -162,7 +163,7 @@ def api_kysely_poimi_ikkunatiedot():
         response = model.generate_content(kysymys)
 
         if response.text:
-            ikkuna1 = "data/k/tiedosto2.txt"
+            ikkuna1 = "data/d/tiedosto2.txt"
             with open(ikkuna1, "w", encoding="utf-8") as tiedosto:
                 tiedosto.write(response.text)
             print("Tiedosto tallennettu:", ikkuna1)
@@ -180,11 +181,10 @@ def api_kysely_poimi_ikkunatiedot():
 
 
 
-##======================= K A S T E L L I ==========================#
+#======================= D E S I G N T A L O ==========================#
 #========================================================================================================#
 #========================================================================================================#
 #========================================================================================================#
-
 
 
 
@@ -202,7 +202,7 @@ def api_ryhmittele_valitut_ikkunatiedot_json_muotoon():
     genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")
 
     # Määritä tiedostopolku
-    tiedostopolku = "data/k/tiedosto2.txt"
+    tiedostopolku = "data/d/tiedosto2.txt"
 
     # Määritä generation_config ja system_instruction
     generation_config = {
@@ -220,9 +220,9 @@ def api_ryhmittele_valitut_ikkunatiedot_json_muotoon():
     Tehtävänäsi on poimia toimitussisällöstä ikkunatiedot ja ryhmitellä ne JSON-muotoon.
 
     Synonyyminisanaohje:
-    - Karmimitat = koko
-    - karkaistu = turvalasi
-    - Tyyppi: B = välikarmi
+    - Mitoitus (esimerkisi 13,3*19,5) = koko
+    - Karkaistu lasi = turvalasi
+    - Malli 3 = välikarmi
     - SÄLEKAIHDIN = sälekaihtimet
 
     Ikkunat on ryhmitelty tekstiin kokojen mukaan.
@@ -270,7 +270,7 @@ def api_ryhmittele_valitut_ikkunatiedot_json_muotoon():
         if response.text:
             try:
                 ikkuna_data = json.loads(response.text)
-                ikkuna_tiedosto = "data/k/ikkuna_json.txt"
+                ikkuna_tiedosto = "data/d/ikkuna_json.txt"
                 
                 with open(ikkuna_tiedosto, "w", encoding="utf-8") as tiedosto:
                     json.dump(ikkuna_data, tiedosto, ensure_ascii=False, indent=4)
@@ -306,63 +306,50 @@ def api_ryhmittele_valitut_ikkunatiedot_json_muotoon():
 
 
 
+#======================= D E S I G N T A L O ==========================#
 #========================================================================================================#
 #========================================================================================================#
 #========================================================================================================#
 
 
 
+import json
 
-def ikkunat_omille_riveille_koon_pyoristys():
-    import json
-    #import math
-
-            
-    
-    ikkuna_tiedosto = "data/k/ikkuna_json.txt"
-    json_data = []  # Alustetaan tyhjä lista
-
-    # Tarkistetaan, onko tiedosto olemassa, ja ladataan JSON-data
-    if os.path.exists(ikkuna_tiedosto):
-        try:
-            with open(ikkuna_tiedosto, "r", encoding="utf-8") as tiedosto:
-                json_data = json.load(tiedosto)  # Lataa JSON-tiedot
-        except json.JSONDecodeError:
-            print(f"Virhe: Tiedosto {ikkuna_tiedosto} ei sisällä validia JSON-dataa.")
-            return []
-        try:
-            with open(ikkuna_tiedosto, "r", encoding="utf-8") as tiedosto:
-                json_data = json.load(tiedosto)  # Lataa JSON-tiedot
-        except json.JSONDecodeError:
-            print(f"Virhe: Tiedosto {ikkuna_tiedosto} ei sisällä validia JSON-dataa.")
-            return []
-    
-    
+def jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi():
     output_json = []
 
+    # **Ladataan JSON-tiedot tiedostosta ennen käyttöä**
+    with open("data/d/ikkuna_json.txt", "r", encoding="utf-8") as tiedosto:
+        json_data = json.load(tiedosto)
+
     for item in json_data:
-        leveys, korkeus = map(int, item["koko"].split("x"))  # Muutetaan mitat kokonaisluvuiksi
-        pyoristetty_leveys = round(leveys / 100) * 100  # Pyöristetään lähimpään 100 mm
-        pyoristetty_korkeus = round(korkeus / 100) * 100  # Pyöristetään lähimpään 100 mm
-        pyoristetty_koko = f"{pyoristetty_leveys}x{pyoristetty_korkeus}"
+        leveys, korkeus = map(lambda x: int(float(x.replace(",", "."))), item["koko"].split("x")) # Muunnetaan koko kokonaisluvuiksi (mm) se muutetaan pilkku pisteeksi, koska kokonaisluku (int) ei hyväksy pilkkua
+        
+        # Muunnetaan mitat millimetreiksi
+        leveys_mm = leveys * 100
+        korkeus_mm = korkeus * 100
+        mm_koko = f"{leveys_mm}x{korkeus_mm}"
 
         for _ in range(item["kpl"]):
             output_json.append({
-                "koko": item["koko"],
-                "pyoristetty_koko": pyoristetty_koko,  
+                "koko": item["koko"],  # Alkuperäinen koko dm
+                "mm_koko": mm_koko,  # Muunnettu mm
+                "leveys_mm": leveys_mm,  # Tarvitaan lajittelua varten
                 "turvalasi": item["turvalasi"],
                 "välikarmi": item["välikarmi"],
                 "sälekaihtimet": item["sälekaihtimet"]
             })
 
-    
-    # Tallennetaan muunnettu JSON-tiedosto
-    #with open("muunnettu_ikkunat.json", "w", encoding="utf-8") as f:
-    #    json.dump(output_json, f, ensure_ascii=False, indent=4)
-    
+    # **Lajitellaan lista leveyden mukaan pienimmästä suurimpaan**
+    output_json = sorted(output_json, key=lambda x: x["leveys_mm"])
 
-    with open("data/k/ikkuna_json_2.txt", "w", encoding="utf-8") as tiedosto:
+    # Poistetaan lajittelua varten lisätty "leveys_mm" ennen tallennusta
+    for item in output_json:
+        del item["leveys_mm"]
+
+    # Tallennetaan JSON-tiedostoon
+    with open("data/d/ikkuna_json_2.txt", "w", encoding="utf-8") as tiedosto:
         json.dump(output_json, tiedosto, ensure_ascii=False, indent=4)
 
-    # Tulostetaan muunnettu JSON
-    #print(json.dumps(output_json, ensure_ascii=False, indent=4))
+    print("JSON-tiedosto luotu onnistuneesti!")
+

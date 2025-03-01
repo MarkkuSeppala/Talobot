@@ -1,6 +1,9 @@
-#============== K A S T E L L I ============#
+#======================= D E S I G N T A L O ==========================#
 
-# Tämä on testeri, joka käyttää k_ikkuna.py -tiedostoa. Tämä lataa PDF-tiedoston, muuntaa sen tekstiksi, poistaa tekstistä tietyt sanat, hakee API:sta ikkunatiedot ja ryhmittelee ne JSON-muotoon.
+# Tämä on testeri, joka käyttää d_ikkuna.py -tiedoston metodeja. 
+# Skripti lataa PDF-tiedoston, muuntaa sen tekstiksi, 
+# poistaa tekstistä turhat merkit,
+# tekee API-kyselyn, joka hakee ikkunatiedot ja ryhmittelee ne JSON-muotoon.
 # Tämä on Flask-sovellus. Eli käyttöliittymä on selaimessa.
 
 #================================================================#
@@ -18,7 +21,7 @@ from datetime import datetime  # Lisätään kellonaika jokaiselle tapahtumalle
 
 app = Flask(__name__)
 
-from k_ikkuna import muuta_tekstiksi, api_kysely_poimi_ikkunatiedot, api_ryhmittele_valitut_ikkunatiedot_json_muotoon, clean_text, ikkunat_omille_riveille_koon_pyoristys  # Tuodaan lohkot
+from d_ikkuna import muuta_tekstiksi, api_kysely_poimi_ikkunatiedot, api_ryhmittele_valitut_ikkunatiedot_json_muotoon, clean_text, jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi  # Tuodaan lohkot
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -49,14 +52,14 @@ def index():
                 api_ryhmittele_valitut_ikkunatiedot_json_muotoon()
                 status_viestit.append(f"Ryhmittele ikkunat JSON-muotoon. Suoritettu - {kellonaika}")
 
-                ikkunat_omille_riveille_koon_pyoristys()
+                jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi()
 
                
 
                 pdf_kasitelty = True
                         
     #**Luetaan tiedoston sisältö**
-    ikkuna_tiedosto = "data/k/ikkuna_json_2.txt"
+    ikkuna_tiedosto = "data/d/ikkuna_json_2.txt"
     if os.path.exists(ikkuna_tiedosto):
         with open(ikkuna_tiedosto, "r", encoding="utf-8") as tiedosto:
             json_data = json.load(tiedosto)  # Lataa JSON-tiedot
@@ -73,8 +76,12 @@ def index():
         <title>PDF Käsittely</title>
     </head>
     <body>
-        <h2>PDF-käsittely Kastelli</h2>
+        <h2>D E S I G N T A L O</h2>
+        <h4>Skripti lataa PDF-tiedoston, muuntaa sen tekstiksi,<br>
+            poistaa tekstistä turhat merkit,<br>
+            tekee API-kyselyn, joka hakee ikkunatiedot ja ryhmittelee ne JSON-muotoon./h4><br>
 
+       
         <form method="post" enctype="multipart/form-data">
             <input type="file" name="pdf">
             <input type="submit" value="Lähetä">
