@@ -9,7 +9,12 @@ from datetime import datetime
 #==================================================================================================#
 #==================================================================================================#
 #==================================================================================================#
+
+
+
+
 # **API-kysely. Poimii kaikki ikkunatiedot poistamatta mitään**
+
 def api_kysely_poimi_ikkunatiedot(file):
     genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
     #tiedostopolku = "data/s/puhdistettu_toimitussisalto.txt"
@@ -70,6 +75,9 @@ def api_kysely_poimi_ikkunatiedot(file):
 #==================================================================================================#
 #==================================================================================================#
 #==================================================================================================#
+
+
+
 # **API-kysely. Ryhmittelee valitut ikkunatiedot JSON-taulukoksi**
 def api_ryhmittele_valitut_ikkunatiedot_json_muotoon():
     #import os
@@ -152,24 +160,7 @@ def api_ryhmittele_valitut_ikkunatiedot_json_muotoon():
                 
                 with open(ikkuna_tiedosto, "w", encoding="utf-8") as tiedosto:
                     json.dump(ikkuna_data, tiedosto, ensure_ascii=False, indent=4)
-                
-                #print("JSON-tiedosto tallennettu:", ikkuna_tiedosto)
-
-                # Muodostetaan DataFrame ja tulostetaan se taulukkona
-                #df = pd.DataFrame(ikkuna_data)
-                print("line 161")
-                #print(df.to_string(index=False))
-
-                # Korvataan True "✓" ja False tyhjällä
-                #df.replace({True: "😊", False: ""}, inplace=True)
-
-                # Muodostetaan kaunis taulukko
-                #taulukko = tabulate(df, headers="keys", tablefmt="grid")
-
-
-                
-                # Tulostetaan JSON-objektit terminaaliin
-                #print(taulukko)
+                                               
             except json.JSONDecodeError:
                 print("Virhe JSON-datan käsittelyssä. Tarkista Gemini-vastaus.")
         else:
