@@ -78,7 +78,7 @@ def api_kysely_poimi_valiovitiedot():
 
 # **API-kysely. Tiivistää valioviteidot JSON-taulukoksi, joka ilmaisee ainoastaan millaisia väliovityyppejä tiedostossa on.**
 # **Funktio lukee tiedoston "data/s/valiovi_tiedot_kokonaisuudessa.txt" ja kirjoittaa tuloksen valiovet_json.txt -tiedostoon.
-def tiivista_valiovitiedot_json_muotoon():
+def api_kysely_anna_valiovimallit():
     #import os
     import json
     #import google.generativeai as genai
