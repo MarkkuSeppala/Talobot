@@ -15,10 +15,10 @@ def lue_txt_tiedosto(tiedostopolku: str) -> str:
         with open(tiedostopolku, "r", encoding="utf-8") as tiedosto:
             return tiedosto.read()
     except FileNotFoundError:
-        print(f"Virhe: Tiedostoa '{tiedostopolku}' ei löytynyt.")
+        print(f"⚠️Virhe: Tiedostoa '{tiedostopolku}' ei löytynyt.")
         return ""
     except Exception as e:
-        print(f"Virhe tiedostoa luettaessa: {e}")
+        print(f"⚠️Virhe tiedostoa luettaessa: {e}")
 
         return ""
     
@@ -41,10 +41,10 @@ def kirjoita_txt_tiedosto(sisalto: str, tiedostopolku: str):
         with open(tiedostopolku, "w", encoding="utf-8") as tiedosto:
             tiedosto.write(sisalto)
 
-        print(f"Tiedosto kirjoitettu onnistuneesti: {tiedostopolku}")
+        print(f"✅Tiedosto kirjoitettu onnistuneesti: {tiedostopolku}")
 
     except Exception as e:
-        print(f"Virhe tiedostoa kirjoittaessa: {e}")
+        print(f"⚠️Virhe tiedostoa kirjoittaessa: {e}")
 
 
 
@@ -58,7 +58,7 @@ def kirjoita_vastaus_jsoniin(response, tiedostopolku: str):
     """Kirjoittaa AI-mallin JSON-muotoisen vastauksen tiedostoon."""
     try:
         if not response.text:
-            raise ValueError("Virhe: Response-objekti ei sisällä tekstiä.")
+            raise ValueError("⚠️Virhe: Response-objekti ei sisällä tekstiä.")
 
         # Yritetään muuntaa vastaus JSON-muotoon
         vastaus_json = json.loads(response.text)
@@ -67,12 +67,12 @@ def kirjoita_vastaus_jsoniin(response, tiedostopolku: str):
         with open(tiedostopolku, "w", encoding="utf-8") as tiedosto:
             json.dump(vastaus_json, tiedosto, ensure_ascii=False, indent=4)
 
-        print(f"Vastaus tallennettu JSON-tiedostoon: {tiedostopolku}")
+        print(f"✅Vastaus tallennettu JSON-tiedostoon: {tiedostopolku}")
 
     except json.JSONDecodeError:
-        print("Virhe: Response ei ole kelvollinen JSON.")
+        print("⚠️Virhe: Response ei ole kelvollinen JSON.")
     except Exception as e:
-        print(f"Virhe tiedostoa kirjoittaessa: {e}")
+        print(f"⚠️Virhe tiedostoa kirjoittaessa: {e}")
 
 #==================================================================================================#
 
