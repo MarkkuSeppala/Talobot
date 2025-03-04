@@ -150,9 +150,7 @@ def api_ryhmittele_valitut_ikkunatiedot_json_muotoon():
         # Lähetä kysymys Gemini-mallille
         response = model.generate_content(kysymys)
 
-        #print("Gemini API:n vastaus:", response.text)
-
-        
+               
         if response.text:
             try:
                 ikkuna_data = json.loads(response.text)
@@ -233,105 +231,3 @@ def  jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi():
 
 
 
-#============== S  I E V I T A L O ============#
-
-# Pyytää txt -tiedoston. Annettava puhdistettu_toimitussisalto.txt. Kutsuu api_kysely_poimi_ikkunatiedot(file), joka tekee API-kyselyn ja tallentaa tuloksen ikkunatiedot_kokonaisuudessa.txt -tiedostoon.
-
-# Kutsuu seuraavaksi api_ryhmittele_valitut_ikkunatiedot_json_muotoon(), joka avaa ikkunatiedot_kokonaisuudessa.txt, metodi ryhmittelee valitut ikkunatiedot JSON-muotoon.
-# Tallentaa tuloksen ikkuna_json.txt -tiedostoon.
-
-# Kutsuu seuraavaksi jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi() -metodia, joka avaa ikkuna_json.txt -tiedostoon., asettaa jokaisen ikkunan omalle riville ja muuttaa ikkunamitat millimetreiksi.
-# Tallettaa lopuksi ikkuna_json_2.txt -tiedostoon.
-
-# Tämä on Flask-sovellus. Eli käyttöliittymä on selaimessa.
-
-#================================================================#
-#================================================================#
-
-from flask import Flask, request
-import os
-import json
-import pandas as pd
-
-from datetime import datetime  # Lisätään kellonaika jokaiselle tapahtumalle
-
-app = Flask(__name__)
-print("line 261")
-
-@app.route("/", methods=["GET", "POST"])
-def index():
-    print("line 265")
-    txt_kasitelty = False
-    kellonaika = ""
-    status_viestit = []  # Lista, johon kerätään jokaisen vaiheen viestit
-    print(f"Pyynnön metodi: {request.method}")  # Tulostaa GET tai POST
-    if request.method == "POST":
-        print("request.files sisältö:", request.files)  # Näyttää, mitä selaimesta saapuu
-        if "txt" in request.files:  # Varmistetaan, että lomakkeessa on "txt"
-            print("line 270")
-            file = request.files["txt"]  # Haetaan tiedosto
-            if file and file.filename.endswith(".txt"):  # Tarkistetaan, että se on .txt
-                sisalto = file.read().decode("utf-8")  # Luetaan ja dekoodataan UTF-8-muotoon
-                
-                kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                api_kysely_poimi_ikkunatiedot(sisalto)
-                status_viestit.append(f"Poimi ikkunatiedot API:sta. Suoritettu - {kellonaika}")
-              
-                kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                api_ryhmittele_valitut_ikkunatiedot_json_muotoon()
-                status_viestit.append(f"Ryhmittele ikkunat JSON-muotoon. Suoritettu - {kellonaika}")
-                print("line 291")
-             
-                jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi()
-
-                           
-
-                txt_kasitelty = True
-                
-                        
-    #**Luetaan tiedoston sisältö**
-    '''
-    puhd_toimitussialto = "data/s/puhdistettu_toimitussisalto.txt"
-    if os.path.exists(puhd_toimitussialto):
-        with open(puhd_toimitussialto, "r", encoding="utf-8") as tiedosto:
-            json_data = json.load(tiedosto)  # Lataa JSON-tiedot
-            df = pd.DataFrame(json_data)  # Muunna DataFrameksi
-            ikkuna_taulukko = df.to_html(classes='table', index=False)  # Muunna HTML-taulukoksi
-    else:
-        ikkuna_taulukko = "<p style='color: red;'>Virhe: ikkuna_json.txt -tiedostoa ei löytynyt.</p>"
-    '''
-    return f'''
-    <!DOCTYPE html>
-    <html lang="fi">
-    <head>
-        <meta charset="UTF-8">
-        <title>PDF Käsittely</title>
-    </head>
-    <body>
-         <h2>PDF-käsittely Sievitalo</h2>
-
-        <form method="post" enctype="multipart/form-data">
-            <input type="file" name="txt">
-            <input type="submit" value="Lähetä">
-        </form>
-
-        {"<p>PDF käsitelty onnistuneesti!</p>" if txt_kasitelty else ""}
-                
-        <h3>Suoritusvaiheet:</h3>
-        <ul>
-            {"".join(f"<li>{viesti}</li>" for viesti in status_viestit)}
-        </ul>
-
-        
-
-               
-    </body>
-    </html>
-    '''
-    
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Railway käyttää PORT-muuttujaa
-    app.run(host="0.0.0.0", port=port, debug=True)
-
-#tiedostopolku = "data/s/puhdistettu_toimitussisalto.txt"
