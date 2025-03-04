@@ -2,6 +2,7 @@ import os
 import re
 import google.generativeai as genai
 from datetime import datetime
+from file_handler import lue_txt_tiedosto, kirjoita_txt_tiedosto, kirjoita_vastaus_jsoniin, lue_json_tiedosto, kirjoita_json_tiedostoon
 
 
 
@@ -15,7 +16,7 @@ from datetime import datetime
 
 # **API-kysely. Poimii kaikki ikkunatiedot poistamatta mitään**
 
-def api_kysely_poimi_ikkunatiedot(file):
+def api_kysely_poimi_ikkunatiedot():
     genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
     #tiedostopolku = "data/s/puhdistettu_toimitussisalto.txt"
 
@@ -48,24 +49,13 @@ def api_kysely_poimi_ikkunatiedot(file):
         system_instruction=system_instruction
     )
 
-    kysymys = f"Tässä on teksti: \n{file}\n\nToimi ohjeen mukaan."
+    sisalto = lue_txt_tiedosto("data/s/puhdistettu_toimitussisalto.txt")
+
+    kysymys = f"Tässä on teksti: \n{sisalto}\n\nToimi ohjeen mukaan."
     response = model.generate_content(kysymys)
 
+    kirjoita_txt_tiedosto(response.text, "data/s/ikkunatiedot_kokonaisuudessa.txt")
     
-    if response.text:
-        ikkuna1 = "data/s/ikkunatiedot_kokonaisuudessa.txt"
-        with open(ikkuna1, "w", encoding="utf-8") as tiedosto:
-            tiedosto.write(response.text)
-        print("Tiedosto tallennettu:", ikkuna1)
-    else:
-        print("Virhe: response.text on tyhjä")
-
-      
-    
-
-    kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    #tulosta_viesti("api_kysely_poimi_ikkunatiedot", kellonaika)
-    return kellonaika
 
 
 
@@ -91,7 +81,7 @@ def api_ryhmittele_valitut_ikkunatiedot_json_muotoon():
     genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")
 
     # Määritä tiedostopolku
-    tiedostopolku = "data/s/ikkunatiedot_kokonaisuudessa.txt"
+    #tiedostopolku = "data/s/ikkunatiedot_kokonaisuudessa.txt"
 
     # Määritä generation_config ja system_instruction
     generation_config = {
@@ -138,37 +128,19 @@ def api_ryhmittele_valitut_ikkunatiedot_json_muotoon():
         model_name="gemini-1.5-flash",
         generation_config=generation_config,
         system_instruction=system_instruction
-    )
+    )    
 
-    # Tarkista tiedoston olemassaolo ja lue sisältö
-    if os.path.exists(tiedostopolku):
-        with open(tiedostopolku, 'r', encoding='utf-8') as tiedosto:
-            sisalto = tiedosto.read()
+    sisalto = lue_txt_tiedosto("data/s/ikkunatiedot_kokonaisuudessa.txt")
 
-        kysymys = f"""Tässä on teksti: \n{sisalto}\n\nToimi ohjeen mukaan"""
-        
-        # Lähetä kysymys Gemini-mallille
-        response = model.generate_content(kysymys)
+    kysymys = f"""Tässä on teksti: \n{sisalto}\n\nToimi ohjeen mukaan"""
+    response = model.generate_content(kysymys)
 
-               
-        if response.text:
-            try:
-                ikkuna_data = json.loads(response.text)
-                ikkuna_tiedosto = "data/s/ikkuna_json.txt"
-                
-                with open(ikkuna_tiedosto, "w", encoding="utf-8") as tiedosto:
-                    json.dump(ikkuna_data, tiedosto, ensure_ascii=False, indent=4)
-                                               
-            except json.JSONDecodeError:
-                print("Virhe JSON-datan käsittelyssä. Tarkista Gemini-vastaus.")
-        else:
-            print("Virhe: response.text on tyhjä")
-    else:
-        print("Tiedostoa ei löytynyt. Tarkista polku.")
+    
+    kirjoita_vastaus_jsoniin(response, "data/s/ikkuna.json")
+    return
+    
 
-    kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    #tulosta_viesti("api_kysely_poimi_ikkunatiedot", kellonaika)
-    return kellonaika
+
 
 
 
@@ -179,11 +151,6 @@ def api_ryhmittele_valitut_ikkunatiedot_json_muotoon():
 #==================================================================================================#
 
 
-
-
-
-import json
-
 # Avaa ikkuna_json.txt -tiedostoon., asettaa jokaisen ikkunan omalle riville ja muuttaa ikkunamitat millimetreiksi.
 # Tallettaa lopuksi ikkuna_json_2.txt -tiedostoon.
 
@@ -191,8 +158,10 @@ def  jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi():
     output_json = []
 
     # **Ladataan JSON-tiedot tiedostosta ennen käyttöä**
-    with open("data/s/ikkuna_json.txt", "r", encoding="utf-8") as tiedosto:
-        json_data = json.load(tiedosto)
+    #with open("data/s/ikkuna_json.txt", "r", encoding="utf-8") as tiedosto:
+    #    json_data = json.load(tiedosto)
+
+    json_data = lue_json_tiedosto("data/s/ikkuna.json")
 
     for item in json_data:
         leveys, korkeus = map(int, item["koko"].split("x"))  # Muutetaan mitat kokonaisluvuiksi (dm)
@@ -219,9 +188,11 @@ def  jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi():
     for item in output_json:
         del item["leveys_mm"]
 
+    
+    kirjoita_json_tiedostoon(output_json, "data/s/ikkuna2.json")
     # Tallennetaan JSON-tiedostoon
-    with open("data/s/ikkuna_json_2.txt", "w", encoding="utf-8") as tiedosto:
-        json.dump(output_json, tiedosto, ensure_ascii=False, indent=4)
+    #with open("data/s/ikkuna_json_2.txt", "w", encoding="utf-8") as tiedosto:
+    #    json.dump(output_json, tiedosto, ensure_ascii=False, indent=4)
 
     print("JSON-tiedosto luotu onnistuneesti!")
 

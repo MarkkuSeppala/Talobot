@@ -8,15 +8,22 @@
 from flask import Flask, request, render_template_string, Response
 import os
 from s_toimitussisalto_tekstiksi_ja_clean import muuta_tekstiksi, clean_text, poista_sanat_tekstista
-from s_ikkuna_API_kyselyt_tulostus_to_JSON import api_kysely_poimi_ikkunatiedot
+from s_ikkuna_API_kyselyt_tulostus_to_JSON import api_kysely_poimi_ikkunatiedot, api_ryhmittele_valitut_ikkunatiedot_json_muotoon, jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi
 from s_valiovet_API_kyselyt_tulostus_to_JSON import api_kysely_poimi_valiovitiedot, api_kysely_anna_valiovimallit
+from s_ulko_ovi_API_kyselyt_tulostus_to_JSON import api_kysely_poimi_ulko_ovitiedot
 from file_handler import lue_txt_tiedosto, kirjoita_txt_tiedosto
 from datetime import datetime 
 
 app = Flask(__name__)
 
 
-
+# 🔹 flask  "ulko-ovitiedot" 
+@app.route("/suodata_ulko_ovitiedot", methods=["GET"])
+def suodata_ulko_ovitiedot():
+    api_kysely_poimi_ulko_ovitiedot()
+    #api_kysely_anna_valiovimallit()
+    sisalto2 = lue_txt_tiedosto("data/s/valiovityypit.txt")
+    return Response(sisalto2, mimetype="text/plain")
 
 # 🔹 Uusi funktio, jota painike "Suodata väliovitiedot" kutsuu
 @app.route("/suodata_valiovitiedot", methods=["GET"])
@@ -31,9 +38,10 @@ def suodata_valiovitiedot():
 # 🔹 Uusi funktio, jota painike "Suodata ikkunatiedot" kutsuu
 @app.route("/suodata_ikkunatiedot", methods=["GET"])
 def suodata_ikkunatiedot():
-    api_kysely_poimi_ikkunatiedot(lue_txt_tiedosto("data/s/puhdistettu_toimitussisalto.txt"))
-   
-    print("Uusi funktio suoritettiin!")
+    api_kysely_poimi_ikkunatiedot()
+    api_ryhmittele_valitut_ikkunatiedot_json_muotoon()
+    jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi()
+    #print("Uusi funktio suoritettiin!")
     return "<h3>Ikkunat suodatettu onnistuneesti!</h3><br><a href='/'>Takaisin</a>"
 
 @app.route("/", methods=["GET", "POST"])
@@ -67,6 +75,8 @@ def index():
         {"<button onclick=\"window.location.href='/suodata_ikkunatiedot'\">Suodata ikkunatiedot</button>" if painike_nayta else ""}
         <br><br><br><h4>vai välioviteidot...<br></h2><br>
         {"<button onclick=\"window.location.href='/suodata_valiovitiedot'\">Suodata väliovitiedot</button>" if painike_nayta else ""}
+        <br><br><br><h4>vai ulko-oviteidot...<br></h2><br>
+        {"<button onclick=\"window.location.href='/suodata_ulko_ovitiedot'\">Suodata ulko-ovitiedot</button>" if painike_nayta else ""}
         
     </body>
     </html>
