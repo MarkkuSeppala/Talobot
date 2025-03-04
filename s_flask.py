@@ -9,7 +9,7 @@ from flask import Flask, request, render_template_string, Response
 import os
 from s_toimitussisalto_tekstiksi_ja_clean import muuta_tekstiksi, clean_text, poista_sanat_tekstista
 from s_ikkuna_API_kyselyt_tulostus_to_JSON import api_kysely_poimi_ikkunatiedot
-from s_valiovet import api_kysely_poimi_valiovitiedot, api_kysely_anna_valiovimallit
+from s_valiovet_API_kyselyt_tulostus_to_JSON import api_kysely_poimi_valiovitiedot, api_kysely_anna_valiovimallit
 from file_handler import lue_txt_tiedosto, kirjoita_txt_tiedosto
 from datetime import datetime 
 
