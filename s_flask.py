@@ -33,7 +33,7 @@ def suodata_ulko_ovitiedot():
     return Response(ulko_ovitiedot_str_1+"\n\n\n\n\n\n"+ulko_ovitiedot_str_2+"\n\n\n\n\n\n"+ulko_ovitiedot_str_3, mimetype="application/json")
         
 
-# 🔹 Uusi funktio, jota painike "Suodata väliovitiedot" kutsuu
+# 🔹 painike "Suodata väliovitiedot" kutsuu
 @app.route("/suodata_valiovitiedot", methods=["GET"])
 def suodata_valiovitiedot():
     api_kysely_poimi_valiovitiedot()
@@ -43,7 +43,7 @@ def suodata_valiovitiedot():
     
     
 
-# 🔹 Uusi funktio, jota painike "Suodata ikkunatiedot" kutsuu
+# 🔹 painike "Suodata ikkunatiedot" kutsuu
 @app.route("/suodata_ikkunatiedot", methods=["GET"])
 def suodata_ikkunatiedot():
     api_kysely_poimi_ikkunatiedot()
@@ -51,6 +51,7 @@ def suodata_ikkunatiedot():
     jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi()
     #print("Uusi funktio suoritettiin!")
     return "<h3>Ikkunat suodatettu onnistuneesti!</h3><br><a href='/'>Takaisin</a>"
+
 
 @app.route("/", methods=["GET", "POST"])
 def index():

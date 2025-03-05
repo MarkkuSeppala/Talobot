@@ -1,45 +1,24 @@
-[
-    {
-        "ovi": "Pääovi EI-15 S30",
-        "määrä": "0 kpl"
-    },
-    {
-        "ovi": "Pääovi Pihla EI-15 M31",
-        "määrä": "1 kpl",
-        "kynnyspelti": "alumiini",
-        "lukko": "Stocholm painike",
-        "lasi": "stippolyte",
-        "väri": "1-värimaalaus Sievitalon värivalikoiman mukaisesti",
-        "ovipumppu": "Kyllä",
-        "smyygilauta": "HS"
-    },
-    {
-        "ovi": "Ulko-ovi - Patio OH Parvekeovi Patio",
-        "lasi": "kokolasi",
-        "ulkoväri": [
-            "valkoinen RAL9010",
-            "musta RAL9005",
-            "tummanharmaa RAL7024",
-            "tummanruskea RR32"
-        ],
-        "sisäväri": "valkoinen",
-        "määrä": "1 kpl",
-        "kynnyspelti": "alumiini",
-        "kahva": "Hoppe-Tokyo, pitkäsuljin",
-        "smyygilauta": "HS"
-    },
-    {
-        "ovi": "Ulko-ovi - Varasto EI-15 S34",
-        "määrä": "0 kpl"
-    },
-    {
-        "ovi": "Ulko-ovi Pihla EI-15 S43",
-        "karmi": "130 mm",
-        "määrä": "1 kpl",
-        "kynnyspelti": "alumiini",
-        "lukko": "Stocholm painike",
-        "väri": "1-värimaalaus Sievitalon värivalikoiman mukaisesti",
-        "ovipumppu": "Kyllä",
-        "smyygilauta": "HS"
-    }
-]
+{
+    "ulko_ovet": [
+        {
+            "ovi": "Pääovi",
+            "merkki": "Pihla",
+            "malli": "Varma M31",
+            "lukko": "Yale Doorman L3",
+            "maara": "1 kpl"
+        },
+        {
+            "ovi": "Patio",
+            "tyyppi": "parvekeovi",
+            "lasi": "kirkas",
+            "ulkoväri": [
+                "valkoinen RAL9010",
+                "musta RAL9005",
+                "tummanharmaa RAL7024",
+                "tummanruskea RR32"
+            ],
+            "sisäväri": "valkoinen",
+            "maara": "1 kpl"
+        }
+    ]
+}

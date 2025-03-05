@@ -143,8 +143,8 @@ def index():
     </head>
     <body>
          <h2>===  K A S T E L L I  ===<br></h2><br>
-         <h4>Muutetaan toimitussisältö tekstiksi, poistetaan ylimääräiset sanat ja turhat merkit.<br>
-         Tallennetaan tiedostoon data/s/puhdistettu_toimitussisalto.txt<br></h4>
+         <h4>Tähän saa syöttää vain Kastellin toimitussisältöjä<br><br>
+         Tuloksen skripti tallentaa tähän Kastellin tiedostoon:<br>puhdistettu_toimitussisalto.txt</h4>
         
 
         <form method="post" enctype="multipart/form-data">
