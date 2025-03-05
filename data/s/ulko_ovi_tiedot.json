@@ -1,0 +1,55 @@
+{
+    "ulko_ovet": [
+        {
+            "ovi": "Pääovi EI-15 S30",
+            "tiedot": []
+        },
+        {
+            "ovi": "Pääovi Pihla EI-15 M31",
+            "tiedot": [
+                "1 kpl",
+                "kynnyspelti",
+                "alumiini",
+                "Stocholm painike",
+                "lukitus",
+                "lasi stippolyte",
+                "1-värimaalaus Sievitalon värivalikoiman mukaisesti",
+                "ovipumppu",
+                "Smyygilauta HS"
+            ]
+        },
+        {
+            "ovi": "Ulko-ovi - Patio OH Parvekeovi Patio",
+            "tiedot": [
+                "kokolasi",
+                "Ulkopuolen alumiiniosien vakiovärit valkoinen RAL9010, musta RAL9005, tummanharmaa RAL7024 ja tummanruskea RR32",
+                "Sisäpuoli valkoinen",
+                "1 kpl",
+                "kynnyspelti",
+                "alumiini",
+                "Hoppe-Tokyo",
+                "pitkäsuljin",
+                "lasi kirkas",
+                "Smyygilauta HS"
+            ]
+        },
+        {
+            "ovi": "Ulko-ovi - Varasto EI-15 S34",
+            "tiedot": []
+        },
+        {
+            "ovi": "Ulko-ovi Pihla EI-15 S43",
+            "tiedot": [
+                "karmi 130 mm",
+                "1 kpl",
+                "kynnyspelti",
+                "alumiini",
+                "Stocholm painike",
+                "lukitus",
+                "1-värimaalaus Sievitalon värivalikoiman mukaisesti",
+                "ovipumppu",
+                "Smyygilauta HS"
+            ]
+        }
+    ]
+}

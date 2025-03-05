@@ -6,7 +6,7 @@ from file_handler import lue_txt_tiedosto, kirjoita_txt_tiedosto, kirjoita_vasta
 
 
 
-#============== S  I E V I T A L O ============#
+#============== S I E V I T A L O ============#
 #==================================================================================================#
 #==================================================================================================#
 #==================================================================================================#
@@ -37,8 +37,9 @@ def api_kysely_poimi_ulko_ovitiedot():
     musta RAL9005 tai tummanruskea RR32. Karmisyvyys 170mm.
     Varastonovet valkoisia Pihla Vieno levyrakenteisia lämpöovia, karmisyvyys 130mm."
     Yleisesittelyä ei saa poimia ulko-oviteitoihin.
+    Yleisesittelyn jälkeen ulko-oviesittely jatkuu keskeyksestä.
     Poimi tekstiä vasta sanasta "Pääovi" lähtien.    
-    Mikäli aineistossa on autotallin nosto-ovi, poimi myös sen tiedot mukaan tähän listaukseen.
+    Mikäli aineistossa on autotallin nosto-ovi tai ulkoliukuovi, poimi myös niiden tiedot mukaan tähän listaukseen.
     """
 
     model = genai.GenerativeModel(
@@ -58,7 +59,7 @@ def api_kysely_poimi_ulko_ovitiedot():
 
 
 
-#============== S  I E V I T A L O ============#
+#============== S I E V I T A L O ============#
 #==================================================================================================#
 #==================================================================================================#
 #==================================================================================================#
@@ -90,8 +91,9 @@ def api_ryhmittele_valitut_ulko_ovitiedot_json_muotoon():
     Sinä olet asiantunteva avustaja, joka analysoi annettua tekstiä.
     Annettu teksti on osa talotoimittajan tarjoukseen liittyvästä toimitussisältöstä.
     Tehtävänäsi on poimia annetusta tekstistä jokainen ulko-ovi ja siihen liittyvät tiedot omaksi ryhmäksi.
-    Huomioi, että myös autotallin nosto-ovi on ulko-ovi.
-    Ryhmittele jokainen ulko-ovi avain-arvo-pariksi niin, että ulko-ovi on avain ja siihen liittyvät tiedot arvo-pari.
+    Huomioi, että myös autotallin nosto-ovi ja ulkoliukuovi ovat ulko-oveja.
+    Tekstissä esiintyvä kappalemäärä tarkoittaa ovien kappalemääriä.
+    Palauta tiedot JSON -muodossa
     """
 
     # Alusta Gemini-malli system instructions -kentällä
@@ -113,7 +115,7 @@ def api_ryhmittele_valitut_ulko_ovitiedot_json_muotoon():
 
 
 
-#============== S  I E V I T A L O ============#
+#============== S I E V I T A L O ============#
 #==================================================================================================#
 #==================================================================================================#
 #==================================================================================================#
@@ -167,14 +169,14 @@ def api_poistaa_valitut_sanat_ulko_ovitiedoista_json_muotoon():
     
     
     **Esimerkki halutusta lopputuloksesta:**
-    {
+    [
     "Ulko-ovi - Pääovi": {
         "merkki": "Pihla",
         "malli": "EI-15 M31",
         "lukko": "YALE dorman",
         "määrä": "1 kpl"
     }
-    }
+    ]
 
 
 
@@ -198,7 +200,7 @@ def api_poistaa_valitut_sanat_ulko_ovitiedoista_json_muotoon():
 
 
 
-#============== S  I E V I T A L O ============#
+#============== S I E V I T A L O ============#
 #==================================================================================================#
 #==================================================================================================#
 #==================================================================================================#

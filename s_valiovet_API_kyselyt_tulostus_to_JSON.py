@@ -56,11 +56,7 @@ def api_kysely_poimi_valiovitiedot():
 
        
     sisalto = lue_txt_tiedosto("data/s/puhdistettu_toimitussisalto.txt")
-        
-    #print("Tiedosto löytyi:", sisalto)
-        #with open(tiedostopolku, 'r', encoding='utf-8') as tiedosto:
-        #    sisalto = tiedosto.read()
-
+   
     kysymys = f"Tässä on teksti: \n{sisalto}\n\nToimi ohjeen mukaan."
     response = model.generate_content(kysymys)
 

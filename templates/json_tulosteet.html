@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <title>Sievitalo</title>
+    <style>
+        table {
+            width: 50%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #c6ccc9;
+        }
+    </style>
+</head>
+<body>
+    <h2>Ikkunat</h2>
+    <table>
+        <thead>
+            <tr>
+                {% for avain in data1[0].keys() %}
+                    <th>{{ avain }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for rivi in data1 %}
+            <tr>
+                {% for arvo in rivi.values() %}
+                    <td>{{ arvo }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Ulko-ovet</h2>
+    <table>
+        <thead>
+            <tr>
+                {% for avain in data2[0].keys() %}
+                    <th>{{ avain }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for rivi in data2 %}
+            <tr>
+                {% for arvo in rivi.values() %}
+                    <td>{{ arvo }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Väliovimallit</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Ovimalli</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for malli in data3["ovimallit"] %}
+            <tr>
+                <td>{{ malli }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

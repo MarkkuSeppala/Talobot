@@ -1,86 +1,93 @@
 [
     {
-        "koko": "1430x1390",
-        "pyoristetty_koko": "1400x1400",
-        "turvalasi": false,
-        "välikarmi": true,
-        "sälekaihtimet": true
-    },
-    {
-        "koko": "530x530",
-        "pyoristetty_koko": "500x500",
+        "koko": "5,3x5,5",
+        "mm_koko": "530x550",
         "turvalasi": false,
         "välikarmi": false,
-        "sälekaihtimet": true
+        "sälekaihtimet": false
     },
     {
-        "koko": "1430x1390",
-        "pyoristetty_koko": "1400x1400",
-        "turvalasi": false,
-        "välikarmi": true,
-        "sälekaihtimet": true
-    },
-    {
-        "koko": "1430x1390",
-        "pyoristetty_koko": "1400x1400",
+        "koko": "5,3x5,5",
+        "mm_koko": "530x550",
         "turvalasi": false,
         "välikarmi": false,
-        "sälekaihtimet": true
+        "sälekaihtimet": false
     },
     {
-        "koko": "530x1990",
-        "pyoristetty_koko": "500x2000",
+        "koko": "5,3x5,5",
+        "mm_koko": "530x550",
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": false
+    },
+    {
+        "koko": "10,3x13,5",
+        "mm_koko": "1030x1350",
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": false
+    },
+    {
+        "koko": "10,3x13,5",
+        "mm_koko": "1030x1350",
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": false
+    },
+    {
+        "koko": "13,3x5,5",
+        "mm_koko": "1330x550",
         "turvalasi": true,
         "välikarmi": false,
-        "sälekaihtimet": true
+        "sälekaihtimet": false
     },
     {
-        "koko": "1730x1990",
-        "pyoristetty_koko": "1700x2000",
-        "turvalasi": true,
-        "välikarmi": false,
-        "sälekaihtimet": true
-    },
-    {
-        "koko": "1730x1990",
-        "pyoristetty_koko": "1700x2000",
-        "turvalasi": true,
-        "välikarmi": false,
-        "sälekaihtimet": true
-    },
-    {
-        "koko": "1430x1390",
-        "pyoristetty_koko": "1400x1400",
+        "koko": "13,3x19,5",
+        "mm_koko": "1330x1950",
         "turvalasi": false,
         "välikarmi": true,
-        "sälekaihtimet": true
+        "sälekaihtimet": false
     },
     {
-        "koko": "1030x1390",
-        "pyoristetty_koko": "1000x1400",
+        "koko": "13,3x19,5",
+        "mm_koko": "1330x1950",
         "turvalasi": false,
-        "välikarmi": false,
-        "sälekaihtimet": true
+        "välikarmi": true,
+        "sälekaihtimet": false
     },
     {
-        "koko": "1030x1390",
-        "pyoristetty_koko": "1000x1400",
+        "koko": "13,3x19,5",
+        "mm_koko": "1330x1950",
         "turvalasi": false,
-        "välikarmi": false,
-        "sälekaihtimet": true
+        "välikarmi": true,
+        "sälekaihtimet": false
     },
     {
-        "koko": "1030x1390",
-        "pyoristetty_koko": "1000x1400",
+        "koko": "13,3x13,5",
+        "mm_koko": "1330x1350",
         "turvalasi": false,
-        "välikarmi": false,
-        "sälekaihtimet": true
+        "välikarmi": true,
+        "sälekaihtimet": false
     },
     {
-        "koko": "1030x1390",
-        "pyoristetty_koko": "1000x1400",
+        "koko": "15,3x19",
+        "mm_koko": "1530x1900",
+        "turvalasi": true,
+        "välikarmi": false,
+        "sälekaihtimet": false
+    },
+    {
+        "koko": "15,3x19",
+        "mm_koko": "1530x1900",
+        "turvalasi": true,
+        "välikarmi": false,
+        "sälekaihtimet": false
+    },
+    {
+        "koko": "15,3x13,5",
+        "mm_koko": "1530x1350",
         "turvalasi": false,
         "välikarmi": false,
-        "sälekaihtimet": true
+        "sälekaihtimet": false
     }
 ]

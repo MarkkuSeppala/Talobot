@@ -1,79 +1,58 @@
 [
     {
-        "koko": "1430x1390",
-        "kpl": 1,
-        "turvalasi": false,
-        "välikarmi": true,
-        "sälekaihtimet": true
-    },
-    {
-        "koko": "530x530",
-        "kpl": 1,
+        "koko": "5,3x5,5",
+        "kpl": 3,
         "turvalasi": false,
         "välikarmi": false,
-        "sälekaihtimet": true
+        "sälekaihtimet": false
     },
     {
-        "koko": "1430x1390",
-        "kpl": 1,
-        "turvalasi": false,
-        "välikarmi": true,
-        "sälekaihtimet": true
-    },
-    {
-        "koko": "1430x1390",
-        "kpl": 1,
-        "turvalasi": false,
-        "välikarmi": false,
-        "sälekaihtimet": true
-    },
-    {
-        "koko": "530x1990",
+        "koko": "13,3x5,5",
         "kpl": 1,
         "turvalasi": true,
         "välikarmi": false,
-        "sälekaihtimet": true
+        "sälekaihtimet": false
     },
     {
-        "koko": "1730x1990",
-        "kpl": 1,
-        "turvalasi": true,
-        "välikarmi": false,
-        "sälekaihtimet": true
-    },
-    {
-        "koko": "1730x1990",
-        "kpl": 1,
-        "turvalasi": true,
-        "välikarmi": false,
-        "sälekaihtimet": true
-    },
-    {
-        "koko": "1430x1390",
-        "kpl": 1,
-        "turvalasi": false,
-        "välikarmi": true,
-        "sälekaihtimet": true
-    },
-    {
-        "koko": "1030x1390",
+        "koko": "10,3x13,5",
         "kpl": 1,
         "turvalasi": false,
         "välikarmi": false,
-        "sälekaihtimet": true
+        "sälekaihtimet": false
     },
     {
-        "koko": "1030x1390",
+        "koko": "15,3x19",
         "kpl": 2,
-        "turvalasi": false,
+        "turvalasi": true,
         "välikarmi": false,
-        "sälekaihtimet": true
+        "sälekaihtimet": false
     },
     {
-        "koko": "1030x1390",
+        "koko": "13,3x19,5",
+        "kpl": 3,
+        "turvalasi": false,
+        "välikarmi": true,
+        "sälekaihtimet": false
+    },
+    {
+        "koko": "13,3x13,5",
+        "kpl": 1,
+        "turvalasi": false,
+        "välikarmi": true,
+        "sälekaihtimet": false
+    },
+    {
+        "koko": "10,3x13,5",
         "kpl": 1,
         "turvalasi": false,
         "välikarmi": false,
-        "sälekaihtimet": true
+        "sälekaihtimet": false
+    },
+    {
+        "koko": "15,3x13,5",
+        "kpl": 1,
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": false
     }
 ]

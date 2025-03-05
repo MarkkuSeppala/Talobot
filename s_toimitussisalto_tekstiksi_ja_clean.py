@@ -26,7 +26,7 @@ def muuta_tekstiksi(pdf_file):
     # Varmista, että kansio 'data/' on olemassa ennen kirjoittamista
     os.makedirs("data/s", exist_ok=True)
     
-    csv_polku = "data/s/toimitussisältö_kokonaisuudessa_tekstina.txt"
+    csv_polku = "data/sievitalo/toimitussisältö_kokonaisuudessa_tekstina.txt"
     with open(csv_polku, "w", encoding="utf-8") as tiedosto:
         tiedosto.write(teksti)
 
@@ -55,6 +55,35 @@ def clean_text():
             sisalto = tiedosto.read()
 
     text = re.sub(r'[^a-zA-Z0-9äöüÄÖÜß\s@._,-:/]', '', sisalto)  # Poistetaan erikoismerkit (paitsi @, ., _ ja ,)
+    text = re.sub(r'\s+', ' ', text).strip()  # Poistetaan ylimääräiset välilyönnit
+    text = re.sub(r'(\d{1,3})\s(\d{3})', r'\1\2', text)  # Korjataan hajonneet numerot, esim. 173 500 € -> 173500 €
+    text = text.replace("•", "-")  # Korvataan listapallot viivoilla
+    
+
+    with open(korjattu_tiedosto, "w", encoding="utf-8") as tiedosto:
+        tiedosto.write(text)
+
+
+
+
+#============== S  I E V I T A L O ============#
+#==================================================================================================#
+#==================================================================================================#
+#==================================================================================================#
+
+
+
+#clean_text poistaa turhat erikoismerkit, korjaa numeromuodot ja selkeyttää tekstiä.
+#Saa tekstin, kirjoittaa polkuun: data/s/puhdistettu_toimitussisalto.txt
+def clean_text2(text):
+ 
+    korjattu_tiedosto = "data/s/puhdistettu_toimitussisalto.txt"
+
+    #if os.path.exists(tiedostopolku):
+    #    with open(tiedostopolku, 'r', encoding='utf-8') as tiedosto:
+    #        sisalto = tiedosto.read()
+
+    text = re.sub(r'[^a-zA-Z0-9äöüÄÖÜß\s@._,-:/]', '', text)  # Poistetaan erikoismerkit (paitsi @, ., _ ja ,)
     text = re.sub(r'\s+', ' ', text).strip()  # Poistetaan ylimääräiset välilyönnit
     text = re.sub(r'(\d{1,3})\s(\d{3})', r'\1\2', text)  # Korjataan hajonneet numerot, esim. 173 500 € -> 173500 €
     text = text.replace("•", "-")  # Korvataan listapallot viivoilla

@@ -14,7 +14,8 @@ from file_handler import lue_txt_tiedosto, kirjoita_txt_tiedosto, kirjoita_vasta
 
 
 
-# **API-kysely. Poimii kaikki ikkunatiedot poistamatta mitään**
+# **API-kysely. Poimii kaikki ikkunatiedot poistamatta mitään
+# **Kirjoittaa vastauksen: data/s/ikkunatiedot_kokonaisuudessa.txt
 
 def api_kysely_poimi_ikkunatiedot():
     genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
