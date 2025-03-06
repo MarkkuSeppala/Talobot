@@ -4,16 +4,19 @@
 #==================================================================================================#
 
 
-
-from flask import Flask, request, render_template_string, Response
 from flask import Flask, request, render_template, render_template_string, Response
 import os
-from s_toimitussisalto_tekstiksi_ja_clean import muuta_tekstiksi, clean_text2, poista_sanat_tekstista
-from file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet
+import sys
+
+sys.path.append(os.path.abspath("utils"))  # Lisää utils-kansion polku moduulihakemistoksi
+
+
 from datetime import datetime 
 import json
 from werkzeug.utils import secure_filename
 
+from file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet
+from s_toimitussisalto_tekstiksi_ja_clean import muuta_tekstiksi, clean_text2, poista_sanat_tekstista
 from s_ikkuna_API_kyselyt_tulostus_to_JSON import api_kysely_poimi_ikkunatiedot, api_ryhmittele_valitut_ikkunatiedot_json_muotoon, jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi
 from s_ulko_ovi_API_kyselyt_tulostus_to_JSON import api_kysely_poimi_ulko_ovitiedot, api_ryhmittele_valitut_ulko_ovitiedot_json_muotoon, api_poistaa_valitut_sanat_ulko_ovitiedoista_json_muotoon
 from s_valiovet_API_kyselyt_tulostus_to_JSON import api_kysely_poimi_valiovitiedot, api_kysely_anna_valiovimallit
@@ -36,7 +39,7 @@ app = Flask(__name__)
 
 @app.route("/suodata_tiedot", methods=["GET"])
 def suodata_tiedot():
-    
+    print("rivi 93")
     #api-ikkunakyselyt
     api_kysely_poimi_ikkunatiedot()
     api_ryhmittele_valitut_ikkunatiedot_json_muotoon()
@@ -85,17 +88,12 @@ def index():
                 #return f"Ei voitu tunnistaa toimittajaa tiedostosta"
 
             if toimittaja == "Sievitalo":
-                polku = tiedostopolut.get("Sievitalo")
-                tallenna_pdf_tiedosto(file, polku)
+                polku = tiedostopolut.get(teksti, toimittaja)
+                kirjoita_txt_tiedosto(teksti, "data\\sievitalo\\toimitussisallot\\sievitalo_toimitussisalto.txt")
+              
                 clean_text2(teksti)
                 painike_nayta = True
                 return render_template("sievitalo.html", painike_nayta=painike_nayta)
-            
-            
-            
-            
-            
-            
             
             
             if toimittaja == "Kastelli":

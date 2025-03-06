@@ -2,7 +2,7 @@ import os
 import re
 import fitz  # PyMuPDF
 import google.generativeai as genais
-from file_handler import lue_txt_tiedosto, kirjoita_txt_tiedosto
+#from file_handler import lue_txt_tiedosto, kirjoita_txt_tiedosto
 from datetime import datetime
 
 

@@ -1,24 +1,13 @@
-{
-    "ulko_ovet": [
-        {
-            "ovi": "Pääovi",
-            "merkki": "Pihla",
-            "malli": "Varma M31",
-            "lukko": "Yale Doorman L3",
-            "maara": "1 kpl"
-        },
-        {
-            "ovi": "Patio",
-            "tyyppi": "parvekeovi",
-            "lasi": "kirkas",
-            "ulkoväri": [
-                "valkoinen RAL9010",
-                "musta RAL9005",
-                "tummanharmaa RAL7024",
-                "tummanruskea RR32"
-            ],
-            "sisäväri": "valkoinen",
-            "maara": "1 kpl"
-        }
-    ]
-}
+[
+    {
+        "ovi": "Pääovi Pihla Varma M31",
+        "määrä": "1 kpl",
+        "lukko": "Yale Doorman L3",
+        "lasi": "kirkas"
+    },
+    {
+        "ovi": "Ulko-ovi - Patio",
+        "määrä": "1 kpl",
+        "lasi": "kirkas"
+    }
+]
