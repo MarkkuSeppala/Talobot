@@ -1,0 +1,1393 @@
+13.06.2024
+Laaksonen  Hanna & Laaksonen  Sami
+Alue: Etelä-Karjala, Pirkanmaa, Kanta-Häme, Päijät-Häme, Varsinais-Suomi
+Talomalli: OMAMALLI_Laaksonen&Laaksonen_2KRS
+Toimitustapa: Muuttovalmis
+Myyntiedustaja: Joona Ollila
+HALLINTO
+Hallinto ja palvelut.
+Omakotitalon rakennusaikainen vakuutus, kattaa Sievitalon kautta tulevat tarvikkeet ja työt
+Pääpiirustukset (asema-, pohja-, julkisivu- ja leikkauspiirustukset)
+Energiatodistus ja -selvitys (päivitetään ilmatiiveysmittauksen jälkeen)
+Ilmatiiveysmittaus
+Kosteusmittaus
+Sähkösuunnitelmat
+LVI-suunnitelmat (ei sisällä hule- eikä jätevesisuunnitelmia)
+Rakennesuunnitelmat (vain Sievitalon toimitukseen kuuluvien rakenteiden osalta)
+Perustussuunnittelu
+Raksa -tuotannonohjausjärjestelmän tunnukset
+Omavalvonta -palvelu
+Lämpöpuhallin + rakennuskuivain (rakentamisen aikainen)
+KVV/IV-työnjohto (rakennuksien sisäpuoliset LVI-työt)
+Sisustussuunnittelupalvelu (3h)
+Hiilijalanjälkilaskenta
+PERUSTUS
+Asiakkaan tehtävänä on toimittaa perustussuunnittelua varten pohjatutkimusaineisto, joka
+sisältää tutkimuskartan ja kairausdiagrammit.
+Mikäli toimitussisällön mukaista perustusta joudutaan muuttamaan, asiakas vastaa kaikista
+kustannuksista.
+Perustus (maanvarainen alapohja)
+Lämpöeristettysokkelipalkki SP 300-900. Sisäpinnassa EPS-eriste valuun kiinnitettynä.
+Mahdollisten terassien perustus 500x500 tai d=600 anturanapein.
+Asennettuna
+Perustus (kantava väliseinä)
+Lämpöeristettysokkelipalkki SP 300-900. Sisäpinnassa EPS-eriste valuun kiinnitettynä.
+Mahdollisten terassien perustus 500x500 tai d=600 anturanapein.
+Asennettuna
+Päärakennesuunnittelu
+Päärakennesuunnittelijana toimiminen
+- koskee vain Sievitalon toimitussisällön mukaisia rakenteita
+- keskeisin tehtävä on tutustua kaikkiin rakennekuviin, allekirjoittaa ja hyväksyttää ne
+rakennusvalvonnassa
+- täyttää rakennusvalvonnan vaatimat lomakkeet
+- asiakkaan tulee teettää ja toimittaa Sievitalolle virallinen pohjatutkimus
+- mikäli rakennusvalvonta vaatii erillisiä virasto- ja työmaapalavereita, nämä laskutetaan erikseen
+asiakkaalta toteuman mukaan ellei näistä ole muuta sovittu
+ALAPOHJA
+Maanvaraisissa perustuksissa tiivistetty sisätäyttö tilaajan hankintana puhtaalla, routimattomalla
+ja kivettömällä täyttöhiekalla tai seulotulla sepelillä, raekooltaan 6mm-16mm, tasaisuus +-10mm.
+Tuulettuvissa alapohjissa lattiavalu ontelolaattojen päälle.
+Lattiavalu
+Sievitalo Oy
+Mestarintie 6
+67101 KOKKOLA
+Y-tunnus: 2988131-5
+RAKENNE- JA
+TOIMITUSTAPASELOSTE
+1
+
+Lattiabetoni (teräshierretty)
+Asennettuna
+Raudoitusverkko
+Asennettuna
+EPS Lattia 50mm
+Asennettuna
+EPS Lattia 50mm
+Asennettuna
+EPS Lattia 100mm
+Asennettuna
+ULKOSEINÄT
+Ulkoseinäelementti lämmin USL 42x198.
+Ulkoseinäelementti lämmin USL 42x198
+Sisäpuolen koolaus 48x48
+Höyrynsulku
+Runko 42x198
+Lämmöneriste 200mm mineraalivilla
+Ylä- ja alajuoksu 42x198
+Aukonylityspalkki KP (määräytyy rakennesuunnittelussa)
+Tuulensuojakipsilevy 9mm
+Asennettuna
+Ristikon kanta
+Tuulensuojalevy
+Asennettuna
+Koolaus; Mitallistettu 48x48
+Asennettuna
+UYM 23x145 HS
+Asennettuna
+Ulkoseinän sisäverhous
+Sisäverhouskipsilevy; EK
+Asennettuna
+Koolausvälin lämmöneriste; mineraalivilla 45mm
+Asennettuna
+Päätykolmioelementti kylmä USPKK/42x98
+Päätykolmioseinäelementti kylmä USPKK 42x98
+Asennettuna
+Vaakapaneeli; UYM 23x145 HS
+Asennettuna
+Ulkoseinäverhoilu
+Mahdollisten tehostepanelointien pystysaumoissa 20x45mm lista ulkoverhouksen päälle
+asennettuna.
+Vaakapaneeli; UYM 23x145 HS
+Asennettuna
+Katoksen kylmä seinäelementti
+Ulkoseinäelementti kylmä USK/42x148
+Asennettuna
+Vaakapaneeli; UYM 23x145 HS
+Asennettuna
+Lämpöeristettysokkelipalkki SP 300-900. Sisäpinnassa EPS-eriste valuun kiinnitettynä.
+Mahdollisten terassien perustus 500x500 tai d=600 anturanapein.
+Asennettuna
+Jatkuva antura 500mm, h=200
+Asennettuna
+Pieneläinverkko (tehdas-asennus)
+Pieneläinverkko alimman ulkoverhouspaneelin taakse tehtaalla asennettuna. Asiakkaan
+vastuulla (MV- ja SI+-toimituksissa) tarkistaa ja poistaa mahdollinen puhallusvillapöly verkon
+päältä esim. imuroimalla ettei tuuletusrako umpeudu.
+Asennettuna
+Ulkoverhouksen pintakäsittely
+Ulkoverhouksen välimaalaus Teknoksen teollisuusmaalilla toimittajan ohjeiden mukaisesti
+sertifikaatit täyttäen.
+Sisältää ulkoverhouspaneelien välimaalauksen Sievitalon vakiosävyillä (valkoinen,
+vaaleanharmaa, tummanharmaa, musta, punainen ja keltainen) tai kirkas puunsuojakäsittely
+kahteen kertaan sekä nurkka-, otsa-, räystäs- ja ikkunapielilautojen välimaalauksen vakiosävyillä
+(valkoinen, tummanharmaa tai kirkas puunsuojakäsittely). Mahdolliset
+tehostepanelointisaumalistat pohjamaalattuna valkoiseksi.
+Pilarit, palkit, kaiderimat, sahauspäät ja naulankannat sekä avoräystäskohteissa kattoniskat
+käsittelemättömiä.
+Puunsuojakäsittelyn lopullinen sävy on tehtävä kuukauden sisällä asennuksesta pois lukien
+talvikausi. Talvikauden jälkeen kuukauden sisällä sään salliessa.
+Ulkoverhouksen lopullinen sävy saavutetaan pintamaalauksella tilaajan toimesta, ellei toisin ole
+erikseen sovittu.
+RÄYSTÄÄT
+Sivuräystäs (räystään yläpuolinen laudoitus)
+Räystään yläpuolinen laudoitus; UYV 23x95 HS
+Asennettuna
+Sievitalo Oy
+Mestarintie 6
+67101 KOKKOLA
+Y-tunnus: 2988131-5
+RAKENNE- JA
+TOIMITUSTAPASELOSTE
+2
+
+Otsalauta; 20x120 HS
+Asennettuna
+Päätyräystäs (räystään yläpuolinen laudoitus)
+Räystään yläpuolinen laudoitus; UYV 23x95 HS
+Asennettuna
+Puutavara 20x120 HS
+Asennettuna
+VÄLIPOHJA
+Välipohja (2.krs)
+Lattiavalu
+Asennettuna
+OSB-levy
+Välipohjapalkisto KP (rakennesuunnittelun mukaan)
+Asennettuna
+Mineraalivilla 100mm
+Asennettuna
+Höyrynsulku
+Asennettuna
+Koolaus; Mitallistettu 48x48
+Asennettuna
+YLÄPOHJA
+Yläpohja
+Koolaus; Mitallistettu 48x48
+Asennettuna
+Höyrynsulku
+Asennettuna
+Mineraalivilla 100mm
+Asennettuna
+Puhallusvilla yläpohjaan rakennesuunnitelman mukaisesti
+Asennettuna
+VESIKATTO
+Vesikatto
+Progantti 475 konesaumajäljitelmäpeltikate GreenCoat Crown BT Matta 0,5mm
+Weckman Standard 40 laatuluokka
+Värivaihtoehdot RR23, RR29, RR32, RR33 tai RR750
+Harja- ja päätypellit
+Kattoläpiviennit (mikäli LVI-työt sisältyvät toimitukseen)
+Asennettuna
+Ruodelauta (Ruodejako määräytyy rakennesuunnitteluvaiheessa)
+Asennettuna
+Puutavara 25x50 (Tuuletusrima)
+Asennettuna
+Aluskate
+Asennettuna
+Ristikot
+Pääkaton kaltevuus 30-astetta
+Harjakattoristikot
+Asennettuna
+Pulpettikattoristikot
+Asennettuna
+Tikkaat
+Seinätikas
+Värivaihtoehdot RR20, RR23, RR32 tai RR33
+Mikäli seinätikkaan nousukorkeus ylittää 8m, tikas on varustettava nousukiskolla ja
+poistumiskaarella, jotka hinnoitellaan erikseen tapauskohtaisesti.
+1 kpl
+Asennettuna
+Turvatikas
+Värivaihtoehdot (RR20, RR23, RR29, RR32, RR33 tai RR750)
+1 kpl
+Asennettuna
+Kattosilta
+Kattosilta
+Värivaihtoehdot RR23, RR29, RR32, RR33 tai RR750
+6 jm
+Asennettuna
+Lumieste
+Lumieste
+Värivaihtoehdot RR23, RR29, RR32, RR33 tai RR750
+32 jm
+Asennettuna
+Poistumisputki
+Poistumisputki
+Värivaihtoehdot RR23, RR29, RR32, RR33 tai RR750
+Asennettuna
+Sadevesijärjestelmä
+Sievitalo Oy
+Mestarintie 6
+67101 KOKKOLA
+Y-tunnus: 2988131-5
+RAKENNE- JA
+TOIMITUSTAPASELOSTE
+3
+
+Vesikouru P13 Ulkopuolinenkannake
+Värivaihtoehdot RR20, RR23, RR32 tai RR33
+Asennettuna
+Syöksysarja P10 Vesikouru
+Värivaihtoehdot RR20, RR23, RR32 tai RR33
+6 kpl
+Asennettuna
+TERASSIT JA PARVEKKEET
+Terassit ja mahdolliset parvekkeet asiakashankintana
+Terassien perustus mukana Sievitalon toimituksessa. Terassien rungot ja kansilaudat
+asiakashankintana töineen sekä tarvikkeineen.
+Kaikkien terassien ja mahdollisten parvekkeiden lattiarakenteet asiakashankintana tarvikkeineen
+ja töineen. Asiakas vastaa terassien ja mahdollisten parvekkeiden rungoista, kansilaudoituksista,
+askelmista sekä kaiteista, käsijohteista ja perustuksista kokonaisuudessaan.
+Avoterassi
+Avoterassien perustukset
+Autokatoksen sisäkatto
+Puutavara 20x95 HS
+Asennettuna
+Kipsilevy N 13mm
+Asennettuna
+Kipsilevy N 13mm
+Asennettuna
+Puutavara 48x48 Mitall.
+Asennettuna
+VÄLISEINÄT
+Väliseinä
+Kertopuu 39x66
+Asennettuna
+Mineraalivilla 45mm
+Asennettuna
+Kipsilevy EK 13mm
+Asennettuna
+Kipsilevy EK 13mm
+Asennettuna
+Väliseinä (vahvistettu 148mm)
+Puutavara 48x148 Mitall.
+Asennettuna
+Kipsilevy EK 13mm
+Asennettuna
+Kipsilevy EK 13mm
+Asennettuna
+Mineraalivilla 45mm
+Asennettuna
+KVS-elementti (kantava väliseinä)
+Kantava väliseinäelementti KVS/42x98
+Asennettuna
+Väliseinän ääneneristys; mineraalivilla
+Asennettuna
+Sisäverhouskipsilevy; EK
+Asennettuna
+LP-palkki (Koko määräytyy rakennesuunnittelussa)
+Asennettuna
+IKKUNAT
+Pihla Varma MSE/MEK ikkunoita. Karmi ja sisäpuite puuta, sävy valkoinen NCS S 0502-Y.
+Ulkopuite ja karmin ulkoverhous maalattua alumiinia, sävyt valkoinen RAL 9010, tummanharmaa
+RAL7024, musta RAL9005 tai tummanruskea RR32.
+Kaksinkertainen eristyslasielementti sisäpuitteessa. Selektiivilasitus ja kolmikertainen tiivistys.
+Lasivahvuus 4 mm, karmisyvyys 170mm. Pesuhuoneen ikkunassa karmisyvyys 210mm.
+Ikkunoiden U-arvo 1,0 W/m2K.
+Ikkunat
+OH
+Ikkuna 20x23
+1 kpl
+Asennettuna
+Kiinteä ikkuna MEK
+Ikkunan karmisyvyys 170mm
+Vesipelti
+Asennettuna
+Turvalasi sisä- ja ulkopuolella
+Smyygilauta HS
+Asennettuna
+Sievitalo Oy
+Mestarintie 6
+67101 KOKKOLA
+Y-tunnus: 2988131-5
+RAKENNE- JA
+TOIMITUSTAPASELOSTE
+4
+
+Ikkunat
+Keittiö
+Ikkuna 7x13
+1 kpl
+Asennettuna
+Avattava ikkuna MSE
+Ikkunan karmisyvyys 170mm
+Vesipelti
+Asennettuna
+Sälekaihdin integroitu (valkoinen)
+Asennettuna
+Smyygilauta HS
+Asennettuna
+Ikkunat
+Makuuhuoneet 1, 2, 3
+Ikkuna 15x14
+3 kpl
+Asennettuna
+Avattava ikkuna MSE
+Ikkunan karmisyvyys 170mm
+Vesipelti
+Asennettuna
+Sälekaihdin integroitu (valkoinen)
+Asennettuna
+Kiinteä välikarmi
+Asennettuna
+Tuuletusmekanismi (tuuletusikkunan maksimileveys 9 tai maksimikoko 1,5m2)
+Asennettuna
+Hätäpoistumistiekahva
+Asennettuna
+Smyygilauta HS
+Asennettuna
+Ikkunat
+MH4
+Ikkuna 15x14
+1 kpl
+Asennettuna
+Avattava ikkuna MSE
+Ikkunan karmisyvyys 170mm
+Vesipelti
+Asennettuna
+Sälekaihdin integroitu (valkoinen)
+Asennettuna
+Tuuletusmekanismi (tuuletusikkunan maksimileveys 9 tai maksimikoko 1,5m2)
+Asennettuna
+Kiinteä välikarmi
+Asennettuna
+Smyygilauta HS
+Asennettuna
+PALOIKKUNAT
+Pihla Varma MSE avattavia paloikkunoita. Karmi ja sisäpuite puuta, sävy valkoinen NCS S 0502-
+Y. Ulkopuite ja karmin ulkoverhous maalattua alumiinia, sävyt valkoinen RAL 9010,
+tummanharmaa RAL7024, musta RAL9005 tai tummanruskea RR32.
+Paloikkunoihin ei ole saatavissa sälekaihtimia eikä kiinteää painiketta, avattavissa tarvittaessa
+irtopainikkeella.
+Ikkunoiden U-arvo 1,0 W/m2K.
+Paloikkunat
+Ruokailutila
+Paloikkuna 8x15 [EI15]
+1 kpl
+Asennettuna
+Ikkunan karmisyvyys 170mm
+Vesipelti
+Asennettuna
+Smyygilauta HS
+Asennettuna
+ULKO-OVET
+Ulko-ovet valkoisia tiivistettyjä Pihla Varma levyrakenteisia lämpöovia, karmisyvyys 170mm.
+Pihla Patio-parvekeovet yksilehtisiä lämpöovia, sisäpuoli valkoinen sävy NCS S 0502-Y.
+Ulkopuoli maalattua alumiinia, sävyvaihtoehdot valkoinen RAL 9010, tummanharmaa RAL7024,
+musta RAL9005 tai tummanruskea RR32. Karmisyvyys 170mm.
+Varastonovet valkoisia Pihla Vieno levyrakenteisia lämpöovia, karmisyvyys 130mm.
+Pääovi
+EI-15 S30
+Pääovi Pihla EI-15 M31
+1 kpl
+Asennettuna
+Sievitalo Oy
+Mestarintie 6
+67101 KOKKOLA
+Y-tunnus: 2988131-5
+RAKENNE- JA
+TOIMITUSTAPASELOSTE
+5
+
+Kynnyspelti, alumiini
+Asennettuna
+Stocholm painike
+Asennettuna
+Lukitus
+Asennettuna
+Lasi; stippolyte
+Asennettuna
+Pääoven 1-värimaalaus Sievitalon värivalikoiman mukaisesti
+Asennettuna
+Ovipumppu
+Asennettuna
+Smyygilauta HS
+Asennettuna
+Ulko-ovi - Patio
+OH
+Parvekeovi Patio, kokolasi.
+Ulkopuolen alumiiniosien vakiovärit valkoinen RAL9010, musta RAL9005, tummanharmaa
+RAL7024 ja tummanruskea RR32. Sisäpuoli valkoinen.
+1 kpl
+Asennettuna
+Kynnyspelti, alumiini
+Asennettuna
+Hoppe-Tokyo, pitkäsuljin
+Asennettuna
+Lasi; kirkas
+Asennettuna
+Smyygilauta HS
+Asennettuna
+Ulko-ovi - Varasto
+EI-15 S34
+Ulko-ovi Pihla EI-15 S43 (Karmi 130 mm)
+1 kpl
+Asennettuna
+Kynnyspelti, alumiini
+Asennettuna
+Stocholm painike
+Asennettuna
+Lukitus
+Asennettuna
+Ulko-oven 1-värimaalaus Sievitalon värivalikoiman mukaisesti
+Asennettuna
+Ovipumppu
+Asennettuna
+Smyygilauta HS
+Asennettuna
+VÄLIOVET
+Väliovi (kosteantilan ovet)
+PH
+Bath satiini+, valkoinen ovipaketti satiinilasilla 8-9x21
+1 kpl
+Asennettuna
+Väliovi
+WC1
+Easy 201, kevytlaakaovi 7-10x21
+1 kpl
+Asennettuna
+Väliovenpainike (perusmalli, valkoinen tai satiinikromi)
+Asennettuna
+Tammikynnys
+Asennettuna
+Väliovi
+, ArkiET, KHH
+Easy 201, kevytlaakaovi 7-10x21
+2 kpl
+Asennettuna
+Väliovenpainike (perusmalli, valkoinen tai satiinikromi)
+Asennettuna
+Tammikynnys
+Asennettuna
+Väliovi
+Makuuhuoneet
+Easy 201, kevytlaakaovi 7-10x21
+4 kpl
+Asennettuna
+Väliovenpainike (perusmalli, valkoinen tai satiinikromi)
+Asennettuna
+SISUSTUS
+Huonekohtaiset pintamateriaalit huonetilaerittelyn ja valintojen mukaisesti.
+Mahdollisen teknisen tilan, autotallin sekä varaston katto ja seinät levypinnalla. Autotallin sekä
+varaston lattia betonipinnalla ja autokatoksen lattia sorapinnalla, ellei muuta ole erikseen sovittu.
+Myös teknisen tilan lattia betonipinnalla, ellei huonetilaerittelyssä muuta mainita.
+Laminaatit
+Sievitalo Oy
+Mestarintie 6
+67101 KOKKOLA
+Y-tunnus: 2988131-5
+RAKENNE- JA
+TOIMITUSTAPASELOSTE
+6
+
+HUOM! Katso erikseen sovitut muutokset.
+Orient Occident Loc Floor laminaattimallisto:
+LCF00290 Tammi Country
+LFC00263 Tammilankku Rustic Vharmaa
+LCF00289 Pesty Vanha Tammi 3-s
+LFC00281 Tammilankku Nature
+LCF00268 Tammilankku Tumma
+LCF00251 Tammilankku Valkaistu
+LCF00259 Tammilankku Vaalea
+LCF00374 Tammilankku Select
+LCF00275 Amerikan Pähkinä
+Asennettuna
+Sisäseinien pintamateriaali (kuivat tilat)
+Seinät maalattuina Sievitalon valikoiman mukaan, sisältää huonekohtaisen tehosteseinän
+maalattuna eri sävyyn. Sisäseinien ulkokulmissa valkoinen PVC-kulmalista.
+Asennettuna
+Märkätilan seinä (vesieristetty MV ja MV+ -toimituksissa)
+Seinälaatat HR1-4 valikoima
+30x60 Burlington: White, Sand, Greige, Pearl
+30x60 Statuario: Gold, White
+30x60 Brera: Grey, Soft Grey
+30x60 Calacatta: Oro
+30x60 Pure: Soft Grey, Grey, Antracite
+20x50 Replace sileät ja aaltolaatat: Bianco, Tortora, Antracite
+20x40 More: Silk, Slate, Smoke, Breeze, Clay, Sea
+Valkoiset kiiltävät ja matat koossa: 20x50, 20x40, 25x40, 10x30
+Asennettuna
+Märkätilakipsilevy 13mm
+Asennettuna
+Saumauslaasti (perusvärit valittavissa)
+Asennettuna
+Saniteettisilikoni (perusvärit valittavissa)
+Asennettuna
+Laattalattia (vesieristämätön iso laatta)
+Eteinen
+Lattialaatta iso HR3-4 valikoima
+45x45 Replace: Bianco, Beige, Grigio, Antracite
+45x45 Concept: Bianco, Grigio, Greige, Nero, Fango
+33x33 Qubus: Grey, Soft Grey, Dark Grey, Antracite
+Asennettuna
+Saumauslaasti (perusvärit valittavissa)
+Asennettuna
+Saniteettisilikoni (perusvärit valittavissa)
+Asennettuna
+Laattalattia (vesieristetty pieni laatta)
+Lattialaatta pieni HR1-2 valikoima
+10x10 More: Breeze, Sea, Silk, Smoke, Clay, Slate
+10x10 Concept: Bianco, Grigio, Greige, Beige, Nero, Fango
+10x10 Replace: Bianco, Grey, Beige, Antracite
+Asennettuna
+Saumauslaasti (perusvärit valittavissa)
+Asennettuna
+Saniteettisilikoni (perusvärit valittavissa)
+Asennettuna
+Peitelistat
+Peitelista 12x42
+Väri: valkoinen
+Materiaali: mänty
+Asennettuna
+Kattolistat
+Kattolista 14x40, 16x63 sileä tai 16x63 koriste
+Väri: valkoinen
+Materiaali: mänty
+Asennettuna
+Lattialistat
+Jalkalista 12x42 R10
+Väri: valkoinen tai sävyvalikoima
+Materiaali: mänty
+Asennettuna
+Sisäkattoverhous (kuivat tilat)
+MDF-paneeli STP10x160x2080
+Värivalikoima:
+valkoinen, valkosaarni ja hopeasaarni
+Asennettuna
+SAUNA JA PESUHUONE
+Saunan laude
+Sievitalo Oy
+Mestarintie 6
+67101 KOKKOLA
+Y-tunnus: 2988131-5
+RAKENNE- JA
+TOIMITUSTAPASELOSTE
+7
+
+L-laude upotuksella, (Sauna 2,2m2 - 3,0m2, syvyys min 1600mm)
+Laudetyyppinä Classic tai Relax valinnan mukaisesti.
+Classic
+Sisältää ylä- ja alalauteen havupuurunkoineen, välitilanritilät istuin- ja jalkalaudetason väliin,
+kallistetut ja ergonomiset selkänojat ja nousujakkaran 1-nousuisena.
+Laudelautana 90mm leveä tervaleppä tai lämpökäsitelty haapa.
+Relax
+Sisältää ylä- ja alalauteen havupuurunkoineen, välitilaritilät istuin- ja jalkatason väliin, selkänojat
+ja nousujakkaran 1-nousuisena.
+Laudelautana 120mm leveä tervaleppä tai lämpökäsitelty haapa.
+Asennettuna
+Lauteen päädyn verhoilu kokolasiseinää vasten
+Asennettuna
+Lasiseinä (Kokolasi)
+Lasiseinä (Kokolasi)
+Värivaihtoehdot: Kirkas, Savunharmaa, Pronssi
+1 kpl
+Asennettuna
+Shampoosyvennys 60x300x300-900mm
+Shampoosyvennys, paikka ja koko tarkistettava projektipäällikön kanssa ennen väliseinien
+asennusta
+Syvyys n.60mm
+1 kpl
+Asennettuna
+Pesuhuoneen katto
+Kuusipaneeli STS 14x120x2400 (Sävyt hiili, kelo tai vanilja)
+Asennettuna
+Puutavara 48x98 Mitall.
+Asennettuna
+Koolaus; Mitallistettu 48x48
+Asennettuna
+Saunan seinät ja katto
+Seinäpaneelien asennus vaakaan, mikäli panelointi Sievitalon toimituksena
+Kuusipaneeli STS 14x120x2400 (Sävyt hiili, kelo tai vanilja)
+Asennettuna
+Alumiinipintainen polyuretaanilevy 30mm
+Asennettuna
+Puutavara 48x98 Mitall.
+Asennettuna
+Koolaus; Mitallistettu 48x48
+Asennettuna
+KIINTOKALUSTEET OMEGA-KEITTIÖT
+Keittiö (h=2075mm)
+Kalusteiden kokonaiskorkeus 2075mm
+Maali- tai melamiinipintaiset ovet, ovien kuosit, sävyt ja vetimet Sievitalon valikoiman mukaan
+Seinäkaapit (320-703mm), pöytäkaapit (715mm), allas-, uuni-, ja kuivauskaapit
+Paikka mikroaaltouunille ja kylmälaitteille
+Kolme laatikostoa mikäli kalustemetrejä on alle 8m, neljä laatikostoa mikäli kalustemetrejä on
+kahdeksan tai enemmän
+Mahdollisessa kulmakaapissa kulmakaruselli
+Mahdollisen saarekkeen syvyys 800mm, tausta kalustelevyä
+Ovissa ja laatikoissa hidastimet
+Suora- tai taivereunaiset 30mm laminaattitasot Sievitalon valikoiman mukaan
+Rungot valkoiset (16mm melamiinilevy)
+Allas musta komposiittiallas
+Allaskaapissa pohjakiinnitteinen jätevaunu
+Ruokailuvälinelaatikko muovinen
+5,85 jm
+Asennettuna
+BORA Pure PURU
+Induktiokeittotaso integroidulla liesituulettimella
+Huoneilmaan palauttava
+Aktiivihiilisuodatin
+1 kpl
+Asennettuna
+Kodinhoitohuone (h=2075mm)
+Kalusteiden kokonaiskorkeus 2075mm
+Valkoiset maalatut ovet hidastimilla varustetuilla sivusaranoilla, vetimet Sievitalon valikoiman
+mukaan
+Suora- tai taivereunaiset 30mm laminaattitasot Sievitalon valikoiman mukaan
+Rungot valkoiset (16mm melamiinilevy)
+Allas 1-altainen teräsallas tasoon upotettuna
+Pyykkikorit 2 kpl
+Rosterijalat
+Siivoussetti
+3,10 jm
+Asennettuna
+Välitilalevy
+Aluco välitilalevy
+Värivaihtoehdot Sievitalon valikoiman mukaan
+4 jm
+Asennettuna
+Hylly- / tankokomero (h=2075mm)
+Sievitalo Oy
+Mestarintie 6
+67101 KOKKOLA
+Y-tunnus: 2988131-5
+RAKENNE- JA
+TOIMITUSTAPASELOSTE
+8
+
+ArkiET 1400mm
+Kokonaiskorkeus 2075mm
+Valkoiset maalatut ovet hidastimilla varustetuilla sivusaranoilla, vetimet Sievitalon valikoiman
+mukaan
+Rungot valkoiset (16mm melamiinilevy)
+1,40 jm
+Asennettuna
+Liukuovikaapisto (h=2043mm)
+Et 1400mm
+Kokonaiskorkeus 2092mm
+Peililiukuovet valkoisella tai alumiinin värisellä Flat kehyksellä ja kirkkaalla peilillä
+Rungot valkoiset (16mm melamiinilevy)
+1,40 jm
+Asennettuna
+WC- tai pesuhuonekalusteet
+KPH
+WC-kalustepaketti 3
+Allas suorakaiteen muotoinen valumarmoriallas, leveys 600mm
+Kaapisto, leveys 600mm
+Maalatut hidastimilla varustetut sivusaranoidut ovet, ovien kuosit, sävyt ja vetimet Sievitalon
+valikoiman mukaan
+Rungot valkoiset (16mm kosteussuojattu levy)
+Rosterijalat
+Peilikaappi
+1 kpl
+Asennettuna
+WC- tai pesuhuonekalusteet
+WC1
+WC-kalustepaketti 3
+Allas suorakaiteen muotoinen valumarmoriallas, leveys 600mm
+Kaapisto, leveys 600mm
+Maalatut hidastimilla varustetut sivusaranoidut ovet, ovien kuosit, sävyt ja vetimet Sievitalon
+valikoiman mukaan
+Rungot valkoiset (16mm kosteussuojattu levy)
+Rosterijalat
+Peilikaappi
+1 kpl
+Asennettuna
+KODINKONEET
+Kodinkoneet - Electrolux
+Jääkaappi: lrc8md39b Pakastin: lus7md28b.
+Jääkaappi LRT6ME38W1 (Paketti 2)
+Asennettuna
+Kaappipakastin LUT6NE28W1 (Paketti 2)
+Asennettuna
+Astianpesukone EES48400L (integroitava)
+Kalustelevyn hinta sovitaan kalustetoimittajan kanssa kalustetilauksen yhteydessä
+Asennettuna
+TULISIJA
+Tulisija asiakashankintana
+Korvausilmaputkisto (halkaisija 110mm)
+Asiakkaan ilmoitettava nousukohdan tarkka paikka ennen LVI-suunnittelun käynnistymistä.
+1 kpl
+Asennettuna
+Tulisijan alle laatanvahvennus maanvaraisissa perustamistavoissa.
+Ontelolaattakohteissa tulisijan perustus erillisen perustussuunnitelman mukaan.
+1 kpl
+Asennettuna
+LÄMMITYSJÄRJESTELMÄ
+Lämmönlähde
+Sievitalo Oy
+Mestarintie 6
+67101 KOKKOLA
+Y-tunnus: 2988131-5
+RAKENNE- JA
+TOIMITUSTAPASELOSTE
+9
+
+MAALÄMPÖ, (paketti 2)
+Sisältää 6kW maalämpöpumpun, porakaivon, nesteet yms. asennustarvikkeet käyttöönotettuna.
+Porakaivo ja maalämpöpumppu mitoitetaan kattamaan n.98% vuotuisesta laskennallisesta
+lämmitysenergiantarpeesta. Mikäli maalämpöpaketin kokoa joudutaan muuttamaan, laskutetaan
+muutoshinnat asiakkaalta. Asiakkaan vastuulle jää maapiirin keruuputkien hankinta ja asennus
+teknisestä tilasta, talon kivijalan alta porakaivolle maalämpötoimittajan ohjeistuksen mukaisesti
+sekä mahdollisten lupien hakeminen ja niiden kustannuksista vastaaminen. Asiakkaan on
+sovittava mahdollisen asiakashankintaisen talousrakennuksen vaikutukset
+lämmitysjärjestelmään maalämpötoimittajan kanssa. Asiakas vastaa mahdollisesta rakennusten
+välisestä lämpökanaalin hankinnasta ja asennuksesta sekä lisäkytkennöistä, ellei niistä ole
+muuta erikseen sovittu. Mikäli porakaivoa joudutaan poraamaan pehmeään maahan yli 18
+metriä, veloitamme siitä 92e/m. Mikäli porakaivon poraus ei onnistu maaperästä yms. johtuen,
+koko lämmitysjärjestelmä on päätettävä uudelleen. Poraustuhkan keräys ja poisvienti ei sisälly
+toimitukseen. Mitoitusohjelmana käytetään SULPU:n hyväksymää maalämpöpumppuvalmistajan
+mitoitusohjelmaa.
+1 kpl
+Asennettuna
+Lattialämmitys (vesikiertoinen)
+Vesikiertoinen lattialämmitys
+Asennettuna
+Lattialämmityksen termostaatit
+Lattialämmitystermostaatit kohdekohtaisen lattialämmityssuunnitelman mukaan
+Asennettuna
+VESI- JA VIEMÄRITYÖT
+Erillinen suunnitelma.
+Pistemäärät huonetilaerittelyn mukaisesti.
+Valmiiksi tehtynä kivijalan sisäpuolelle tuodusta vesimittarista lähtien.
+Viemäröinti kivijalan sisäpuolelle tuodusta viemäriputkesta lähtien.
+Keittiönhana
+Oras Vega 1839FG-33, musta
+Asennettuna
+Kodinhoitohuoneen vesihana
+Oras Vega 1839FG
+Asennettuna
+Pesualtaan vesihana
+Oras Vega 1812FG pesuallashana +bide
+Asennettuna
+Suihkut
+Oras Optima 7140
+Asennettuna
+Oras Optima suihkusetti 2790
+Asennettuna
+Wc-istuin
+Wc-istuin Ido Seven D 38310 (vakio kansi)
+Asennettuna
+Lattiakaivo
+Lattiakaivo
+Asennettuna
+Ritiläkansi RST harjattu
+Asennettuna
+Vesipostiventtiilit
+Vesipostiventtiili
+Asennettuna
+Kura-allas
+Kura-allas Midi 500x800
+Asennettuna
+Oras Vega 1870
+Asennettuna
+Oras kuraharja valkoinen
+Asennettuna
+Tulvari
+Tulvari 720 + 680
+Asennettuna
+Pyykinpesukoneen kytkentäpiste
+Pesukoneventtiili
+Asennettuna
+ILMANVAIHTOTYÖT
+Erillinen ilmanvaihtosuunnitelma
+Sievitalo Oy
+Mestarintie 6
+67101 KOKKOLA
+Y-tunnus: 2988131-5
+RAKENNE- JA
+TOIMITUSTAPASELOSTE
+10
+
+Ilmanvaihtokone (Airfi Model)
+Ilmanvaihtokone Airfi model 100 tai 130 (Tyyppi tarkentuu ilmanvaihtosuunnittelun yhteydessä)
+Asennettuna
+Ilmanvaihtoventtiilit ja kanavat
+Ilmanvaihtoventtiilit kohdekohtaisen ilmanvaihtosuunnitelman mukaan
+Asennettuna
+Kanavisto eristettynä kohdekohtaisen ilmanvaihtosuunnitelman mukaan
+Asennettuna
+Korvausilmaventtiili
+Korvausilmaventtiili
+Asennettuna
+SÄHKÖ
+Pääsulake 3x25A.
+Kaikki maahan laitettavat suojaputket ja kaapelit asiakashankintana.
+Asiakkaan tulee tuoda maanrakennusvaiheessa liittymiskaapeli ja rengasmaadoituksen kaapelin
+päät ulkomittauskeskukselle.
+Antenni- ja tietoliikenneliittymät kytkentöineen eivät sisälly toimitukseen.
+Antenni- ja tietoliikkennekaapelit tuodaan ryhmäkeskuksen dataosaan ja asiakas tilaa kytkennät
+paikalliselta puhelinlaitokselta.
+Antennivaraus ullakolle Sievitalon toimesta.
+Tonttikeskus
+Ulkomittauskeskus omalla jalalla, käytetään rakennusaikana työmaakeskuksena. Kytkentä ja
+mittarointipyyntö Sievitalon vastuulla.
+Asennettuna
+Erillisohjaimella varustetun kiukaan kytkentäpiste
+Harvia Cilindro PC90XE 9,0kW, RST, digitaalinen ohjauspaneeli
+Asennettuna
+Harvia Cilindro upotuskaulus, rst (HPC1)
+Asennettuna
+Ryhmäkeskus (Omakotitalo)
+Ryhmäkeskus okt
+Asennettuna
+SISÄPORTAAT JA KERROSKAIDE - TÄHTIPORRAS
+Kerroskaide
+Capella kerroskaide
+-Kaide mäntyä, malli KP1, maalattu valkoinen
+-Käsijohde KJ2, petsattu vakiosävyin (valkolakka, tammi, pähkinä, kuultava harmaa tai musta)
+-Tolpat mäntyä, malli TT3, maalattu valkoinen
+1 jm
+Asennettuna
+Sisäportaat
+Porrasmalli; U2 Capella
+- Askelmat koivua, petsattu vakiosävyin (valkolakka, tammi, pähkinä, kuultava harmaa tai musta)
+- Käsijohteet koivua, malli KJ2, petsattu vakiosävyin (sisältää 10jm asti)
+- Reisilankut mäntyä, maalattu valkoinen
+- Porraskaide mäntyä, malli KP1, maalattu valkoinen (sisältää 5jm asti)
+- Tolpat mäntyä, malli TT3, maalattu valkoinen
+Porras soveltuu kerroskorkeuteen 2851-3230, portaan leveys 821-920 ja etenemä 250-270.
+Muutoksista ja lisäyksistä sovittava erikseen porrastoimittajan kanssa.
+1 kpl
+Asennettuna
+TALON ULKOPUOLISET TUOTTEET
+Liiketunnistin
+Liiketunnistin Theben Theluxa S150
+1 kpl
+Asennettuna
+Sievitalo Oy
+Mestarintie 6
+67101 KOKKOLA
+Y-tunnus: 2988131-5
+RAKENNE- JA
+TOIMITUSTAPASELOSTE
+11
+
+ 
+HUONETILAERITTELY
+ Yleiset mittatiedot
+ Talon mittatiedot
+    Huonekorkeus (1.krs.)
+2,60 jm
+    Huonekorkeus (2.krs.)
+2,50 jm
+    Palovaroitin
+6 kpl
+    Betonilaatan vahvuus
+0,08 jm
+ Talon ulkopuoliset varusteet
+    Ulkopistorasiat RVT
+3 kpl
+    Ulkovalot (seinävalaisin Airam Alppila)
+8 kpl
+    Liiketunnistin
+1 kpl
+ Terassin ja parvekkeen tiedot
+    Terassiaskelman määrä
+1 kpl
+    Terassiaskelmien pituus (yht.)
+3 jm
+    Avoterassin neliöt
+35,50 m2
+ Ulkoseinän tiedot
+    Sivuräystään syvyys
+0,50 jm
+    Päätyräystään syvyys
+0,40 jm
+    Ristikon tukikorkeus
+0,70 jm
+ Autokatos (Talon yhteydessä)
+    Autokatoksen neliöt
+25 m2
+    Yleisvalaisin (Onnline Onnround)
+2 kpl
+    Ulkopistorasiat RVT
+1 kpl
+    Ulkovalot (seinävalaisin Airam Alppila)
+2 kpl
+    Valoryhmän kytkinohjaus
+1 kpl
+ Varasto (Autokatoksen yhteydessä)
+    Huonetilan neliöt
+5,20 m2
+    Valoryhmän kytkinohjaus
+1 kpl
+    Yleisvalaisin (Onnline Onnround)
+1 kpl
+    Pistorasia (2-os. tai sähköpistekojerasia)
+1 kpl
+    Lattialämmitys
+1 kpl
+    Korvausilmaventtiili (Painovoimainen)
+2 kpl
+ Huonetilat
+ Tekninen tila
+  Seinämateriaalit
+    Kuivan tilan seinä
+  Lattiamateriaalit
+    Laattalattia vesieristetty pieni laatta  (pohjakuvan mukaan)
+  Sähkömateriaalit
+    Yleisvalaisin (Onnline Onnround)
+1 kpl
+    Pistorasia (2-os. tai sähköpistekojerasia)
+2 kpl
+    Valoryhmän kytkinohjaus
+1 kpl
+    Lämmönlähteen kytkentäpiste
+1 kpl
+  LVI-materiaalit
+    Ilmanvaihtoventtiili
+1 kpl
+    LL jakotukki vesi
+1 kpl
+Sievitalo Oy
+Mestarintie 6
+67101 KOKKOLA
+Y-tunnus: 2988131-5
+RAKENNE- JA
+TOIMITUSTAPASELOSTE
+12
+
+    Ilmanvaihtokone
+1 kpl
+    Tulvari
+1 kpl
+    Vesipostiventtiili
+1 kpl
+    Lattialämmitys
+1 kpl
+    Lattiakaivo
+1 kpl
+ Eteinen + portaat
+  Seinämateriaalit
+    Kuivan tilan seinä
+    Laattalattia vesieristämätön iso laatta  (pohjakuvan mukaan)
+    Valoryhmän kytkinohjaus
+2 kpl
+    Valopiste (valaisinpistorasia tai varaus)
+2 kpl
+    Pistorasia (2-os. tai sähköpistekojerasia)
+2 kpl
+    Ovikello
+1 kpl
+  LVI-materiaalit
+    LL jakotukki vesi
+1 kpl
+    Lattialämmitys
+1 kpl
+ Keittiö
+  Seinämateriaalit
+    Kuivan tilan seinä
+  Lattiamateriaalit
+    Laminaattilattia (pohjakuvan mukaan)
+    Valoryhmän kytkinohjaus
+3 kpl
+    Valopiste (valaisinpistorasia tai varaus)
+2 kpl
+    Lieden kytkentäpiste
+1 kpl
+    Pistorasia (2-os. tai sähköpistekojerasia)
+6 kpl
+    Ilmanvaihtoventtiili
+1 kpl
+    Keittiöhana
+1 kpl
+    Lattialämmitys
+1 kpl
+ Olohuone/Ruokailutila
+  Seinämateriaalit
+    Kuivan tilan seinä
+  Lattiamateriaalit
+    Laminaattilattia (pohjakuvan mukaan)
+  Sähkömateriaalit
+    Antennirasia
+1 kpl
+    Atk rasia
+1 kpl
+    Valoryhmän kytkinohjaus
+3 kpl
+    Pistorasia (2-os. tai sähköpistekojerasia)
+4 kpl
+    Valopiste (valaisinpistorasia tai varaus)
+3 kpl
+  LVI-materiaalit
+    Ilmanvaihtoventtiili
+2 kpl
+    Lattialämmitys
+2 kpl
+ WC 1 (ak)
+  Seinämateriaalit
+    Kuivan tilan seinä
+  Lattiamateriaalit
+    Laattalattia vesieristetty pieni laatta  (pohjakuvan mukaan)
+  Sähkömateriaalit
+    Yleisvalaisin (Onnline Onnround)
+1 kpl
+    Valoryhmän kytkinohjaus
+1 kpl
+    Peilivalopiste
+1 kpl
+    Pistorasia (2-os. tai sähköpistekojerasia)
+1 kpl
+  LVI-materiaalit
+    Ilmanvaihtoventtiili
+1 kpl
+    Wc-istuin
+1 kpl
+Sievitalo Oy
+Mestarintie 6
+67101 KOKKOLA
+Y-tunnus: 2988131-5
+RAKENNE- JA
+TOIMITUSTAPASELOSTE
+13
+
+    Pesualtaan hana
+1 kpl
+    Lattiakaivo
+1 kpl
+    Lattialämmitys
+1 kpl
+ Kodinhoitohuone
+  Seinämateriaalit
+    Kuivan tilan seinä
+  Lattiamateriaalit
+    Laattalattia vesieristetty pieni laatta  (pohjakuvan mukaan)
+  Sähkömateriaalit
+    Yleisvalaisin (Onnline Onnround)
+2 kpl
+    Valoryhmän kytkinohjaus
+2 kpl
+    Pistorasia (2-os. tai sähköpistekojerasia)
+4 kpl
+  LVI-materiaalit
+    Ilmanvaihtoventtiili
+1 kpl
+    Khh-hana
+1 kpl
+    Pyykinpesukone (kytkentäpiste)
+1 kpl
+    Lattiakaivo
+1 kpl
+    Lattialämmitys
+1 kpl
+ Pesuhuone (Yläkerta)
+  Seinämateriaalit
+    Laattaseinä (pohjakuvan mukaan)
+  Lattiamateriaalit
+    Laattalattia vesieristetty pieni laatta  (pohjakuvan mukaan)
+  Sähkömateriaalit
+    Valoryhmän kytkinohjaus
+2 kpl
+    Yleisvalaisin (Onnline Onnround)
+1 kpl
+    Pistorasia (2-os. tai sähköpistekojerasia)
+1 kpl
+  LVI-materiaalit
+    Ilmanvaihtoventtiili
+1 kpl
+    Lattiakaivo
+1 kpl
+    Suihku
+2 kpl
+    Wc-istuin
+1 kpl
+    Pesualtaan hana
+1 kpl
+    Lattialämmitys
+1 kpl
+    Lattialämmityksen termostaatti
+1 kpl
+ Sauna
+  Lattiamateriaalit
+    Laattalattia vesieristetty pieni laatta  (pohjakuvan mukaan)
+  Lasiseinät
+    Lasiseinä (kokolasiseinä)
+1 kpl
+    Led-saunavalosarja 6 os. saunan kattoon
+1 kpl
+    Erillisohjaimella varustetun kiukaan kytkentäpiste
+1 kpl
+  LVI-materiaalit
+    Ilmanvaihtoventtiili
+2 kpl
+    Lattiakaivo
+1 kpl
+    Lattialämmitys
+1 kpl
+ Aula (yk.)
+  Seinämateriaalit
+    Kuivan tilan seinä
+  Lattiamateriaalit
+    Laminaattilattia (pohjakuvan mukaan)
+    Valoryhmän kytkinohjaus
+2 kpl
+    Pistorasia (2-os. tai sähköpistekojerasia)
+1 kpl
+    Valopiste (valaisinpistorasia tai varaus)
+1 kpl
+  LVI-materiaalit
+Sievitalo Oy
+Mestarintie 6
+67101 KOKKOLA
+Y-tunnus: 2988131-5
+RAKENNE- JA
+TOIMITUSTAPASELOSTE
+14
+
+    Ilmanvaihtoventtiili
+1 kpl
+    Lattialämmitys
+1 kpl
+ Makuuhuone 1
+  Seinämateriaalit
+    Kuivan tilan seinä
+  Lattiamateriaalit
+    Laminaattilattia (pohjakuvan mukaan)
+  Sähkömateriaalit
+    Antennirasia
+1 kpl
+    Atk rasia
+1 kpl
+    Pistorasia (2-os. tai sähköpistekojerasia)
+3 kpl
+    Valoryhmän kytkinohjaus
+1 kpl
+    Valopiste (valaisinpistorasia tai varaus)
+1 kpl
+  LVI-materiaalit
+    Ilmanvaihtoventtiili
+1 kpl
+    Lattialämmitys
+1 kpl
+ Makuuhuone 2
+  Seinämateriaalit
+    Kuivan tilan seinä
+  Lattiamateriaalit
+    Laminaattilattia (pohjakuvan mukaan)
+  Sähkömateriaalit
+    Antennirasia
+1 kpl
+    Atk rasia
+1 kpl
+    Pistorasia (2-os. tai sähköpistekojerasia)
+3 kpl
+    Valoryhmän kytkinohjaus
+1 kpl
+    Valopiste (valaisinpistorasia tai varaus)
+1 kpl
+  LVI-materiaalit
+    Ilmanvaihtoventtiili
+1 kpl
+    Lattialämmitys
+1 kpl
+ Makuuhuone 3
+  Seinämateriaalit
+    Kuivan tilan seinä
+  Lattiamateriaalit
+    Laminaattilattia (pohjakuvan mukaan)
+  Sähkömateriaalit
+    Antennirasia
+1 kpl
+    Atk rasia
+1 kpl
+    Pistorasia (2-os. tai sähköpistekojerasia)
+3 kpl
+    Valoryhmän kytkinohjaus
+1 kpl
+    Valopiste (valaisinpistorasia tai varaus)
+1 kpl
+  LVI-materiaalit
+    Ilmanvaihtoventtiili
+1 kpl
+    Lattialämmitys
+1 kpl
+ Makuuhuone 4
+  Seinämateriaalit
+    Kuivan tilan seinä
+  Lattiamateriaalit
+    Laminaattilattia (pohjakuvan mukaan)
+  Sähkömateriaalit
+    Antennirasia
+1 kpl
+    Atk rasia
+1 kpl
+    Pistorasia (2-os. tai sähköpistekojerasia)
+3 kpl
+    Valoryhmän kytkinohjaus
+1 kpl
+    Valopiste (valaisinpistorasia tai varaus)
+1 kpl
+Sievitalo Oy
+Mestarintie 6
+67101 KOKKOLA
+Y-tunnus: 2988131-5
+RAKENNE- JA
+TOIMITUSTAPASELOSTE
+15
+
+  LVI-materiaalit
+    Ilmanvaihtoventtiili
+1 kpl
+    Lattialämmitys
+1 kpl
+ Arkieteinen
+  Seinämateriaalit
+    Kuivan tilan seinä
+    Laattaseinä vesieristetty (pohjakuvan mukaan)
+  Lattiamateriaalit
+    Laattalattia vesieristetty pieni laatta  (pohjakuvan mukaan)
+  Sähkömateriaalit
+    Yleisvalaisin (Onnline Onnround)
+1 kpl
+    Valoryhmän kytkinohjaus
+2 kpl
+    Pistorasia (2-os. tai sähköpistekojerasia)
+2 kpl
+  LVI-materiaalit
+    Ilmanvaihtoventtiili
+1 kpl
+    Lattiakaivo
+1 kpl
+    Lattialämmitys
+1 kpl
+    Kura-allas (ei sisällä vesipistettä)
+1 kpl
+    Vesipiste kura-altaalle
+1 kpl
+ Vaatehuone
+  Seinämateriaalit
+    Kuivan tilan seinä
+  Lattiamateriaalit
+    Laminaattilattia (pohjakuvan mukaan)
+  Sähkömateriaalit
+    Valoryhmän kytkinohjaus
+1 kpl
+    Yleisvalaisin (Onnline Onnround)
+1 kpl
+    Pistorasia (2-os. tai sähköpistekojerasia)
+1 kpl
+  LVI-materiaalit
+    Ilmanvaihtoventtiili
+1 kpl
+Sievitalo Oy
+Mestarintie 6
+67101 KOKKOLA
+Y-tunnus: 2988131-5
+RAKENNE- JA
+TOIMITUSTAPASELOSTE
+16
+
+ 
+LISÄYKSET JA MUUTOKSET RAKENNE- JA TOIMITUSTAPASELOSTEESEEN:
+ 
+Ehdot
+Sievitalolla on oikeus pitää näyttely valmiissa talossa erikseen sovittuna ajankohtana
+1,00 kpl
+Rakennustekniset asiat (esim. osastoinnit, perustaminen, rakenneratkaisut yms.) tarkentuvat
+suunnitteluvaiheessa. Mikäli rakenteet vaativat tai viranomainen määrää sellaisia muutoksia, jotka vaikuttavat
+toimitussisältöön, myyjällä on oikeus tarkentaa sovittua kauppahintaa muutosten aiheuttamien kustannusten
+mukaisesti.
+1,00 kpl
+Ehdollinen kauppa. Sievitalo laskuttaa 3000e suunnittelukuluja rakennuslupakuvien valmistuttua. Summa
+vähennetään ensimmäisestä varsinaisesta maksuerästä. Kaupan peruuntuessa Sievitalolla on oikeus
+pidättää ko. summa suunnittelukuluina.
+1,00 kpl
+Ikkunat ja ulko-ovet
+Pääovi-, ulkoliukuovi tai nosto-ovimuutos (projektilaji 3610)
+Pääovi malliksi S30 (+60,00€) & Varaston ovi S34 (+60,00€) 120,00€
+Kampanja-paketit
+Myyntikampanja
+3000€ alennus toukokuun loppuun mennessä toimitettuun talopakettiin. Alennus on mukana tarjoushinnassa.
+LVI
+Radonin torjuntaa varten imukanavisto ylimpään maa-ainesten täyttökerrokseen asiakashankintana. Sievitalo
+asentaa poistokanavan läpivienteineen vesikatolle. Ei sisällä huippuimuria
+1,00 kpl
+Muut lisäykset ja muutokset
+Lattiamateriaalimuutos (kuivat tilat)
+Vakiovalikoiman laminaatti vaihtuu Loc Floor Plus Aqua Protect laminaattiin.
+Kodinkonemuutos
+Jääkaappi: lrc8md39b Pakastin: lus7md28b
+Maalaus- / tapetointimuutos
+168,01	Maalausmuutos	WC:n, arkieteisen / teknisen tilan sekä KHH:n seinät maalataan lisähintaisella Forte 7
+maalilla
+Laatoitusmuutos
+36,44	Laatoitusmuutos	WC:n välitilan maalaus vaihtuu laatoitukseksi ja laatoitetaan vakiomalliston laatalla
+(ks.pohja)
+764,13	Laatoitusmuutos	Eteisen lattia laatoitetaan lisähintaisella 60x60 Rare Stone Beige laatalla (ks.pohja)
+Sisäporrasmuutos
+791,58	Tähtiporras muutoshinta
+Pinta-alat
+Kerrosalahyvitys (kuivat tilat) muuttovalmis toimitussisältö
+5,00 m2
+Sähkö
+Sähkömuutos (Materiaali)
+2 087,25	Sähkömuutokset
+Sähkömuutos (Työ)
+2 087,25	Sähkömuutokset
+Yläpohja ja välipohja
+Räystään palo-osastointi vaativuusluokkaan EI-30
+Sivuräystäät talo/katos.
+16,00 m2
+Sievitalo Oy
+Mestarintie 6
+67101 KOKKOLA
+Y-tunnus: 2988131-5
+RAKENNE- JA
+TOIMITUSTAPASELOSTE
+17
+
+ 
+Toimittajan vastuulla olevat asiat:
+ 
+Kiintokalusteiden sisäänkanto
+Rakentamiseen tarvittavat nostot ja telineet Sievitalon kautta tulevien töiden osalta
+Rakennuksen vakuuttaminen rakentamisen ajaksi Sievitalon kautta tulevien tarvikkeiden ja töiden osalta
+Tilaajan vakuutettava työmaa ennen omien töiden aloittamista.
+Sievitalo vastaa työturvallisuudesta Sievitalon työntekijöiden ja aliurakoitsijoiden osalta
+ 
+Tilaajan vastuulla olevat asiat:
+ 
+Vastaava työnjohtaja, pääsuunnittelija sekä kosteudenhallintakoordinaattori, päärakennesuunnittelija tai joku muu erikoissuunnittelija, ellei niistä
+ole erikseen sovittu.
+Vesi tuodaan suojaputkessa vesimittarille LVI-nousukuvan mukaisesti ja viemäri tuodaan sokkelin sisäpuolelle 45 asteen kulmaan asennettuna
+LVI-nousukuvan mukaisesti.
+Maatyöt, sisätäytöt, maakiilat, perustuksen ulkopuolen routasuojaukset, salaojat, maahan asennettava sadevesijärjestelmä, patolevyt ja pihatyöt
+Ulkopuolen lopullinen pintamaalaus, myös suojakäsitellyille puuosille tulee tehdä lopullinen pintakäsittely
+Sokkelin pinnoitus ja liikuntasaumamassaus
+Rakennusaikainen sähkö. Sähkö on oltava tontilla ennen perustuksen valua
+Rakennuksen maa- ja maadoituskaapelien hankinta ja asennus
+Rakennusaikainen vesi
+Rakennusluvan hakeminen sekä siihen liittyvät tarkastukset
+Radonalueella tarvittavat suojaukset, mikäli niistä ei ole erikseen sovittu
+Työmaa-aikainen siivous ja jätteiden pois kuljettaminen tontilta
+Loppusiivous
+Lumityöt
+Tavaran vastaanotto ja sisäänkanto (paneelit, sisustusmateriaalit, väliovet, lauteet, sisäportaat)
+ 
+ 
+Asiakkaan tulee osoittaa perustusten teon sekä lattianvalun yhteydessä mahdollisesti jäävälle ylijäämäbetonille (max. 0,5m3/valu) purkupaikka ja
+huolehtia ylijäämäbetonille asianmukainen loppukäsittely.
+Mikäli em. paikkaa ei löydy tontilta, siirtyy betonin poisviennin kustannukset asiakkaalle
+ 
+Muuta huomioitavaa:
+ 
+Vain tässä sopimuksessa kirjallisesti sovitut asiat on päteviä, suullisia sopimuksia ei huomioida.
+Pidätämme oikeuden toimittaa talopaketti pre-cut toimituksena.
+ 
+Päivämäärä:
+ 
+Paikka:
+ 
+ 
+Allekirjoitukset:
+ 
+Tilaaja(t):
+Myyntiedustaja:
+Sievitalo Oy
+Mestarintie 6
+67101 KOKKOLA
+Y-tunnus: 2988131-5
+RAKENNE- JA
+TOIMITUSTAPASELOSTE
+18

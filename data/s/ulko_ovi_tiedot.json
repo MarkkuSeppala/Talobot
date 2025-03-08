@@ -1,39 +1,54 @@
 {
     "ulko_ovet": [
         {
-            "ovi": "Pääovi Pihla Varma M31",
-            "kappalemaara": "1 kpl",
-            "lisatiedot": [
-                "kynnyspelti (alumiini)",
-                "Yale Doorman L3 -älylukko (harjattu teräs tai mattamusta)",
-                "koodiavaus",
-                "kulkutunnisteavaus (3 kpl kulkutunnisteita)",
-                "avaamismahdollisuus tilapäisellä koodilla",
-                "murtohälytin",
-                "ääniopastus",
-                "kirkas lasi",
-                "1-värimaalaus Sievitalon värivalikoiman mukaisesti",
+            "ovi": "Pääovi EI-15 S30",
+            "tiedot": []
+        },
+        {
+            "ovi": "Pääovi Pihla EI-15 M31",
+            "tiedot": [
+                "1 kpl",
+                "kynnyspelti",
+                "alumiini",
+                "Stocholm painike",
+                "lukitus",
+                "lasi stippolyte",
+                "pääoven 1-värimaalaus Sievitalon värivalikoiman mukaisesti",
+                "ovipumppu",
                 "Smyygilauta HS"
             ]
         },
         {
-            "ovi": "Ulko-ovi - Patio OH, parvekeovi Patio (kokolasi)",
-            "kappalemaara": "1 kpl",
-            "lisatiedot": [
-                "ulkopuolen alumiiniosien vakiovärit: valkoinen RAL9010, musta RAL9005, tummanharmaa RAL7024 ja tummanruskea RR32",
-                "sisäpuoli valkoinen",
-                "kynnyspelti (alumiini)",
+            "ovi": "Ulko-ovi - Patio OH Parvekeovi Patio",
+            "tiedot": [
+                "kokolasi",
+                "Ulkopuolen alumiiniosien vakiovärit valkoinen RAL9010, musta RAL9005, tummanharmaa RAL7024 ja tummanruskea RR32",
+                "Sisäpuoli valkoinen",
+                "1 kpl",
+                "kynnyspelti",
+                "alumiini",
                 "Hoppe-Tokyo",
                 "pitkäsuljin",
-                "kirkas lasi",
+                "lasi kirkas",
                 "Smyygilauta HS"
             ]
         },
         {
-            "ovi": "Autotallin nosto-ovi",
-            "kappalemaara": null,
-            "lisatiedot": [
-                "tiedot puuttuvat tekstistä"
+            "ovi": "Ulko-ovi - Varasto EI-15 S34",
+            "tiedot": []
+        },
+        {
+            "ovi": "Ulko-ovi Pihla EI-15 S43",
+            "tiedot": [
+                "karmi 130 mm",
+                "1 kpl",
+                "kynnyspelti",
+                "alumiini",
+                "Stocholm painike",
+                "lukitus",
+                "ulko-oven 1-värimaalaus Sievitalon värivalikoiman mukaisesti",
+                "ovipumppu",
+                "Smyygilauta HS"
             ]
         }
     ]

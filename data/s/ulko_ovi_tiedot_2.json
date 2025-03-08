@@ -1,13 +1,24 @@
 [
     {
-        "ovi": "Pääovi Pihla Varma M31",
+        "ovi": "Pääovi Pihla EI-15 M31",
         "määrä": "1 kpl",
-        "lukko": "Yale Doorman L3",
-        "lasi": "kirkas"
+        "kynnyspelti": "alumiini",
+        "lukko": "Stocholm painike"
     },
     {
-        "ovi": "Ulko-ovi - Patio",
+        "ovi": "Ulko-ovi - Patio OH Parvekeovi Patio",
+        "lasi": "kirkas",
         "määrä": "1 kpl",
-        "lasi": "kirkas"
+        "kynnyspelti": "alumiini",
+        "kahva": "Hoppe-Tokyo",
+        "smyygilauta": "HS"
+    },
+    {
+        "ovi": "Ulko-ovi Pihla EI-15 S43",
+        "karmi": "130 mm",
+        "määrä": "1 kpl",
+        "kynnyspelti": "alumiini",
+        "lukko": "Stocholm painike",
+        "smyygilauta": "HS"
     }
 ]

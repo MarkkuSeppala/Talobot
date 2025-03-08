@@ -2,11 +2,14 @@ import io
 import os
 import re
 import fitz  # PyMuPDF
-import google.generativeai as genais
+import google.generativeai as genai
 import tkinter as tk
 from tkinter import filedialog
 from datetime import datetime
 
+
+
+## !!! TÄMÄ ON KESKEN. AINOASTAA POISTETTU MUUTAMA TURHA FUNKTIO
 
 
 ##======================= K A S T E L L I ==========================#
@@ -17,9 +20,9 @@ from datetime import datetime
 
 
 # **API-kysely. Poimii kaikki ikkunatiedot poistamatta mitään**
-def api_kysely_poimi_ikkunatiedot(file):
+def api_kysely_poimi_ikkunatiedot():
     genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
-    #tiedostopolku = "data/k/puhdistettu_toimitussisalto.txt"
+    tiedostopolku = "data/k/puhdistettu_toimitussisalto.txt"
 
     generation_config = {
         "temperature": 0.05,
@@ -55,20 +58,25 @@ def api_kysely_poimi_ikkunatiedot(file):
         system_instruction=system_instruction
     )
 
-    
-    kysymys = f"Tässä on teksti: \n{file}\n\nToimi ohjeen mukaan."
-    response = model.generate_content(kysymys)
+    if os.path.exists(tiedostopolku):
+        with open(tiedostopolku, 'r', encoding='utf-8') as tiedosto:
+            sisalto = tiedosto.read()
 
-    if response.text:
-        ikkuna1 = "data/k/ikkunatiedot_kokonaisuudessa.txt"
-        with open(ikkuna1, "w", encoding="utf-8") as tiedosto:
-            tiedosto.write(response.text)
+        kysymys = f"Tässä on teksti: \n{sisalto}\n\nToimi ohjeen mukaan."
+        response = model.generate_content(kysymys)
+
+        if response.text:
+            ikkuna1 = "data/k/ikkunatiedot_kokonaisuudessa.txt"
+            with open(ikkuna1, "w", encoding="utf-8") as tiedosto:
+                tiedosto.write(response.text)
             print("Tiedosto tallennettu:", ikkuna1)
-    else:
-        print("Virhe: response.text on tyhjä")
+        else:
+            print("Virhe: response.text on tyhjä")
 
         
-    
+    else:
+        print("Tiedostoa ei löytynyt. Tarkista polku.")
+
     kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     #tulosta_viesti("api_kysely_poimi_ikkunatiedot", kellonaika)
     return kellonaika
@@ -160,7 +168,9 @@ def api_ryhmittele_valitut_ikkunatiedot_json_muotoon():
         # Lähetä kysymys Gemini-mallille
         response = model.generate_content(kysymys)
 
-              
+        #print("Gemini API:n vastaus:", response.text)
+
+        
         if response.text:
             try:
                 ikkuna_data = json.loads(response.text)
@@ -169,7 +179,23 @@ def api_ryhmittele_valitut_ikkunatiedot_json_muotoon():
                 with open(ikkuna_tiedosto, "w", encoding="utf-8") as tiedosto:
                     json.dump(ikkuna_data, tiedosto, ensure_ascii=False, indent=4)
                 
-               
+                #print("JSON-tiedosto tallennettu:", ikkuna_tiedosto)
+
+                # Muodostetaan DataFrame ja tulostetaan se taulukkona
+                df = pd.DataFrame(ikkuna_data)
+                #print("\nIkkunat taulukkona:\n")
+                #print(df.to_string(index=False))
+
+                # Korvataan True "✓" ja False tyhjällä
+                df.replace({True: "😊", False: ""}, inplace=True)
+
+                # Muodostetaan kaunis taulukko
+                taulukko = tabulate(df, headers="keys", tablefmt="grid")
+
+
+                
+                # Tulostetaan JSON-objektit terminaaliin
+                #print(taulukko)
             except json.JSONDecodeError:
                 print("Virhe JSON-datan käsittelyssä. Tarkista Gemini-vastaus.")
         else:
@@ -184,7 +210,6 @@ def api_ryhmittele_valitut_ikkunatiedot_json_muotoon():
 
 
 
-##======================= K A S T E L L I ==========================#
 #========================================================================================================#
 #========================================================================================================#
 #========================================================================================================#
@@ -192,17 +217,12 @@ def api_ryhmittele_valitut_ikkunatiedot_json_muotoon():
 
 
 
-
-def jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi():
+def ikkunat_omille_riveille_koon_pyoristys():
     import json
     #import math
 
-
-    # **Ladataan JSON-tiedot tiedostosta ennen käyttöä**
-    with open("data/k/ikkuna_json.txt", "r", encoding="utf-8") as tiedosto:
-        json_data = json.load(tiedosto)
-
-    '''
+            
+    
     ikkuna_tiedosto = "data/k/ikkuna_json.txt"
     json_data = []  # Alustetaan tyhjä lista
 
@@ -220,7 +240,7 @@ def jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi():
         except json.JSONDecodeError:
             print(f"Virhe: Tiedosto {ikkuna_tiedosto} ei sisällä validia JSON-dataa.")
             return []
-    '''
+    
     
     output_json = []
 
@@ -250,111 +270,3 @@ def jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi():
 
     # Tulostetaan muunnettu JSON
     #print(json.dumps(output_json, ensure_ascii=False, indent=4))
-
-
-##======================= K A S T E L L I ==========================#
-#========================================================================================================#
-#========================================================================================================#
-#========================================================================================================#
-
-
-# Pyytää txt -tiedoston. Annettava puhdistettu_toimitussisalto.txt. Kutsuu api_kysely_poimi_ikkunatiedot(file), joka tekee API-kyselyn ja tallentaa tuloksen ikkunatiedot_kokonaisuudessa.txt -tiedostoon.
-
-# Kutsuu seuraavaksi api_ryhmittele_valitut_ikkunatiedot_json_muotoon(), joka avaa ikkunatiedot_kokonaisuudessa.txt, metodi ryhmittelee valitut ikkunatiedot JSON-muotoon.
-# Tallentaa tuloksen ikkuna_json.txt -tiedostoon.
-
-# Kutsuu seuraavaksi jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi() -metodia, joka avaa ikkuna_json.txt -tiedostoon., asettaa jokaisen ikkunan omalle riville ja muuttaa ikkunamitat millimetreiksi.
-# Tallettaa lopuksi ikkuna_json_2.txt -tiedostoon.
-
-# Tämä on Flask-sovellus. Eli käyttöliittymä on selaimessa.
-
-#================================================================#
-#================================================================#
-
-from flask import Flask, request
-import os
-import json
-import pandas as pd
-
-from datetime import datetime  # Lisätään kellonaika jokaiselle tapahtumalle
-
-app = Flask(__name__)
-print("line 261")
-
-@app.route("/", methods=["GET", "POST"])
-def index():
-    print("line 265")
-    txt_kasitelty = False
-    kellonaika = ""
-    status_viestit = []  # Lista, johon kerätään jokaisen vaiheen viestit
-    print(f"Pyynnön metodi: {request.method}")  # Tulostaa GET tai POST
-    if request.method == "POST":
-        print("request.files sisältö:", request.files)  # Näyttää, mitä selaimesta saapuu
-        if "txt" in request.files:  # Varmistetaan, että lomakkeessa on "txt"
-            print("line 270")
-            file = request.files["txt"]  # Haetaan tiedosto
-            if file and file.filename.endswith(".txt"):  # Tarkistetaan, että se on .txt
-                sisalto = file.read().decode("utf-8")  # Luetaan ja dekoodataan UTF-8-muotoon
-                
-                kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                api_kysely_poimi_ikkunatiedot(sisalto)
-                status_viestit.append(f"Poimi ikkunatiedot API:sta. Suoritettu - {kellonaika}")
-              
-                kellonaika = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                api_ryhmittele_valitut_ikkunatiedot_json_muotoon()
-                status_viestit.append(f"Ryhmittele ikkunat JSON-muotoon. Suoritettu - {kellonaika}")
-                print("line 291")
-             
-                jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi()
-
-                           
-
-                txt_kasitelty = True
-                
-                        
-    #**Luetaan tiedoston sisältö**
-    '''
-    puhd_toimitussialto = "data/s/puhdistettu_toimitussisalto.txt"
-    if os.path.exists(puhd_toimitussialto):
-        with open(puhd_toimitussialto, "r", encoding="utf-8") as tiedosto:
-            json_data = json.load(tiedosto)  # Lataa JSON-tiedot
-            df = pd.DataFrame(json_data)  # Muunna DataFrameksi
-            ikkuna_taulukko = df.to_html(classes='table', index=False)  # Muunna HTML-taulukoksi
-    else:
-        ikkuna_taulukko = "<p style='color: red;'>Virhe: ikkuna_json.txt -tiedostoa ei löytynyt.</p>"
-    '''
-    return f'''
-    <!DOCTYPE html>
-    <html lang="fi">
-    <head>
-        <meta charset="UTF-8">
-        <title>PDF Käsittely</title>
-    </head>
-    <body>
-         <h2>=== K A S T E L L I ===</h2><br>
-         <h4>Tähän saa syöttää vain tämän Kastellin tiedoston:<br>puhdistettu_toimitussisalto.txt<br><br>
-           Tuloksen skripti tallentaa tähän Kastellin tiedostoon:<br>ikkuna_json_2.txt</h4>
-
-        <form method="post" enctype="multipart/form-data">
-            <input type="file" name="txt">
-            <input type="submit" value="Lähetä">
-        </form>
-
-        {"<p>PDF käsitelty onnistuneesti!</p>" if txt_kasitelty else ""}
-                
-        <h3>Suoritusvaiheet:</h3>
-        <ul>
-            {"".join(f"<li>{viesti}</li>" for viesti in status_viestit)}
-        </ul>
-
-        
-
-               
-    </body>
-    </html>
-    '''
-    
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Railway käyttää PORT-muuttujaa
-    app.run(host="0.0.0.0", port=port, debug=True)

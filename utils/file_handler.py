@@ -2,6 +2,8 @@ import os
 import json
 from werkzeug.utils import secure_filename
 import fitz
+from pathlib import Path
+
 
 
 
@@ -29,24 +31,26 @@ def lue_txt_tiedosto(tiedostopolku: str) -> str:
 
 #Kirjoittaa annetun tekstin tiedostoon annettuun polkuun.
 #Palauttaa virheen, jos tiedostopolku ei ole kelvollinen.
-def kirjoita_txt_tiedosto(sisalto: str, tiedostopolku: str):
-    
+def kirjoita_txt_tiedosto(sisalto: str, tiedostopolku):
     try:
         if not sisalto:
             raise ValueError("Virhe: Sisältö ei voi olla tyhjä.")
 
-        if not tiedostopolku or not tiedostopolku.endswith(".txt"):
+        # Muunnetaan tiedostopolku merkkijonoksi tarvittaessa
+        tiedostopolku = str(tiedostopolku)
+
+        if not tiedostopolku.endswith(".txt"):
             raise ValueError("Virhe: Tiedostopolun täytyy olla kelvollinen .txt-tiedosto.")
 
         os.makedirs(os.path.dirname(tiedostopolku), exist_ok=True)  # Luo kansiot tarvittaessa
-
+        
         with open(tiedostopolku, "w", encoding="utf-8") as tiedosto:
             tiedosto.write(sisalto)
 
-        print(f"✅Tiedosto kirjoitettu onnistuneesti: {tiedostopolku}")
+        print(f"✅ Tiedosto kirjoitettu onnistuneesti: {tiedostopolku}")
 
     except Exception as e:
-        print(f"⚠️Virhe tiedostoa kirjoittaessa: {e}")
+        print(f"⚠️ Virhe tiedostoa kirjoittaessa: {e}")
 
 
 
@@ -56,7 +60,7 @@ def kirjoita_txt_tiedosto(sisalto: str, tiedostopolku: str):
 #Kirjoittaa annetun tekstin json-muodossa tiedostoon annettuun polkuun.
 #Palauttaa virheen, jos tiedostopolku ei ole kelvollinen.
 
-def kirjoita_vastaus_jsoniin(response, tiedostopolku: str):
+def kirjoita_vastaus_jsoniin(response, tiedostopolku):
     """Kirjoittaa AI-mallin JSON-muotoisen vastauksen tiedostoon."""
     try:
         if not response.text:
@@ -80,7 +84,7 @@ def kirjoita_vastaus_jsoniin(response, tiedostopolku: str):
 
 import json
 
-def kirjoita_json_tiedostoon(data, tiedostopolku: str):
+def kirjoita_json_tiedostoon(data, tiedostopolku):
     """Kirjoittaa annetun JSON-datan tiedostoon.
     
     Args:
@@ -188,6 +192,9 @@ def muuta_pdf_tekstiksi(pdf_file):
     except Exception as e:
         print(f"❌ Virhe PDF:n muuntamisessa: {e}")
         return ""  # Jos virhe, palautetaan tyhjä merkkijono
+
+
+
 
 
 #==================================================================================================#
