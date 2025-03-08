@@ -3,12 +3,150 @@
     <head>
         <meta charset="UTF-8">
         <title>PDF Käsittely</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            h1 {
+                color: #333;
+                margin-bottom: 20px;
+            }
+            .upload-container {
+                border: 2px dashed #ccc;
+                border-radius: 10px;
+                padding: 30px;
+                text-align: center;
+                margin: 20px 0;
+                transition: all 0.3s;
+            }
+            .upload-container.highlight {
+                border-color: #2196F3;
+                background-color: #e3f2fd;
+            }
+            .file-input {
+                display: none;
+            }
+            .upload-button {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+                margin-top: 10px;
+            }
+            .upload-button:hover {
+                background-color: #45a049;
+            }
+            .file-info {
+                margin-top: 15px;
+                font-size: 14px;
+                color: #666;
+            }
+            .submit-button {
+                background-color: #2196F3;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+                margin-top: 20px;
+                display: none;
+            }
+            .submit-button:hover {
+                background-color: #0b7dda;
+            }
+        </style>
     </head>
     <body>
-        <h4>Lataa toimitussisältö<br></h2>
-        <form method="post" enctype="multipart/form-data">
-            <input type="file" name="pdf">
-            <input type="submit" value="Lähetä">
+        <h1>Lataa toimitussisältö</h1>
+        
+        <form method="post" enctype="multipart/form-data" id="upload-form">
+            <div class="upload-container" id="drop-area">
+                <p>Raahaa PDF-tiedosto tähän tai</p>
+                <input type="file" name="pdf" id="file-input" class="file-input" accept=".pdf">
+                <button type="button" class="upload-button" id="select-button">Valitse tiedosto</button>
+                <div class="file-info" id="file-info"></div>
+            </div>
+            <input type="submit" value="Lähetä" class="submit-button" id="submit-button">
         </form>
-     </body>
+
+        <script>
+            const dropArea = document.getElementById('drop-area');
+            const fileInput = document.getElementById('file-input');
+            const selectButton = document.getElementById('select-button');
+            const fileInfo = document.getElementById('file-info');
+            const submitButton = document.getElementById('submit-button');
+
+            // Avaa tiedostoselain, kun "Valitse tiedosto" -painiketta klikataan
+            selectButton.addEventListener('click', () => {
+                fileInput.click();
+            });
+
+            // Näytä tiedoston nimi, kun tiedosto on valittu
+            fileInput.addEventListener('change', handleFileSelect);
+
+            // Estä oletustoiminta, kun tiedosto raahataan alueelle
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, preventDefaults, false);
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            // Lisää korostus, kun tiedosto raahataan alueelle
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropArea.addEventListener(eventName, highlight, false);
+            });
+
+            // Poista korostus, kun tiedosto poistuu alueelta
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropArea.addEventListener(eventName, unhighlight, false);
+            });
+
+            function highlight() {
+                dropArea.classList.add('highlight');
+            }
+
+            function unhighlight() {
+                dropArea.classList.remove('highlight');
+            }
+
+            // Käsittele pudotettu tiedosto
+            dropArea.addEventListener('drop', handleDrop, false);
+
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                
+                if (files.length > 0) {
+                    fileInput.files = files;
+                    handleFileSelect();
+                }
+            }
+
+            function handleFileSelect() {
+                if (fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    
+                    // Tarkista, että tiedosto on PDF
+                    if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
+                        fileInfo.textContent = `Valittu tiedosto: ${file.name}`;
+                        submitButton.style.display = 'inline-block';
+                    } else {
+                        fileInfo.textContent = 'Virhe: Valitse PDF-tiedosto.';
+                        submitButton.style.display = 'none';
+                        fileInput.value = '';
+                    }
+                }
+            }
+        </script>
+    </body>
     </html>
