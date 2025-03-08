@@ -20,6 +20,7 @@
 </head>
 <body>
     <h2>Ikkunat</h2>
+    {% if data1 and data1|length > 0 %}
     <table>
         <thead>
             <tr>
@@ -38,8 +39,12 @@
             {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <p>Ei ikkunatietoja saatavilla.</p>
+    {% endif %}
 
     <h2>Ulko-ovet</h2>
+    {% if data2 and data2|length > 0 %}
     <table>
         <thead>
             <tr>
@@ -58,8 +63,12 @@
             {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <p>Ei ulko-ovitietoja saatavilla.</p>
+    {% endif %}
 
     <h2>Väliovimallit</h2>
+    {% if data3 and data3.get("ovimallit") %}
     <table>
         <thead>
             <tr>
@@ -74,6 +83,9 @@
             {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <p>Ei väliovimalleja saatavilla.</p>
+    {% endif %}
     
 </body>
 </html>
