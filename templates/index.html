@@ -1,152 +1,410 @@
 <!DOCTYPE html>
-    <html lang="fi">
-    <head>
-        <meta charset="UTF-8">
-        <title>PDF Käsittely</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                max-width: 800px;
-                margin: 0 auto;
-                padding: 20px;
-            }
-            h1 {
-                color: #333;
-                margin-bottom: 20px;
-            }
-            .upload-container {
-                border: 2px dashed #ccc;
-                border-radius: 10px;
-                padding: 30px;
-                text-align: center;
-                margin: 20px 0;
-                transition: all 0.3s;
-            }
-            .upload-container.highlight {
-                border-color: #2196F3;
-                background-color: #e3f2fd;
-            }
-            .file-input {
-                display: none;
-            }
-            .upload-button {
-                background-color: #4CAF50;
-                color: white;
-                padding: 10px 20px;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                font-size: 16px;
-                margin-top: 10px;
-            }
-            .upload-button:hover {
-                background-color: #45a049;
-            }
-            .file-info {
-                margin-top: 15px;
-                font-size: 14px;
-                color: #666;
-            }
-            .submit-button {
-                background-color: #2196F3;
-                color: white;
-                padding: 10px 20px;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-                font-size: 16px;
-                margin-top: 20px;
-                display: none;
-            }
-            .submit-button:hover {
-                background-color: #0b7dda;
-            }
-        </style>
-    </head>
-    <body>
-        <h1>Lataa toimitussisältö</h1>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talobot - Omakotitalorakentajan apuri</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e67e22;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+            --error-color: #e74c3c;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
         
-        <form method="post" enctype="multipart/form-data" id="upload-form">
-            <div class="upload-container" id="drop-area">
-                <p>Raahaa PDF-tiedosto tähän tai</p>
-                <input type="file" name="pdf" id="file-input" class="file-input" accept=".pdf">
-                <button type="button" class="upload-button" id="select-button">Valitse tiedosto</button>
-                <div class="file-info" id="file-info"></div>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
+                              url('https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+        
+        main {
+            padding: 2rem 0;
+        }
+        
+        .hero {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.2rem;
+        }
+        
+        .features {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .feature {
+            flex: 1;
+            min-width: 250px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 0 10px 20px;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        
+        .feature h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .upload-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .upload-container {
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            padding: 3rem;
+            text-align: center;
+            margin: 2rem 0;
+            transition: all 0.3s;
+            background-color: #f9f9f9;
+        }
+        
+        .upload-container.highlight {
+            border-color: var(--secondary-color);
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .upload-icon {
+            font-size: 4rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .upload-text {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            color: #555;
+        }
+        
+        .upload-button {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .upload-button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .file-info {
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            color: #666;
+        }
+        
+        .submit-button {
+            background-color: var(--success-color);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            display: none;
+            transition: all 0.3s;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .submit-button:hover {
+            background-color: #219653;
+            transform: translateY(-2px);
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 1rem;
+            color: #ccc;
+        }
+        
+        @media (max-width: 768px) {
+            .features {
+                flex-direction: column;
+            }
+            
+            .feature {
+                margin: 0 0 20px;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <span class="logo-icon"><i class="fas fa-home"></i></span>
+                <span>Talobot</span>
             </div>
-            <input type="submit" value="Lähetä" class="submit-button" id="submit-button">
-        </form>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="hero">
+            <h1>Tervetuloa Talobotiin</h1>
+            <p class="subtitle">Analysoi talon toimitussisältö automaattisesti ja saa selkeä yhteenveto rakennusprojektisi materiaaleista</p>
+        </section>
+        
+        <section class="features">
+            <div class="feature">
+                <div class="feature-icon"><i class="fas fa-file-pdf"></i></div>
+                <h3>PDF-analyysi</h3>
+                <p>Lataa toimitussisältö PDF-muodossa ja saa automaattinen analyysi sen sisällöstä</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon"><i class="fas fa-window-restore"></i></div>
+                <h3>Ikkunatiedot</h3>
+                <p>Saa tarkat tiedot ikkunoiden määristä, koosta ja ominaisuuksista</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon"><i class="fas fa-door-open"></i></div>
+                <h3>Ovitiedot</h3>
+                <p>Tunnista ulko- ja väliovien määrät, mallit ja ominaisuudet</p>
+            </div>
+        </section>
+        
+        <section class="upload-section">
+            <h2>Lataa toimitussisältö</h2>
+            <form method="post" enctype="multipart/form-data" id="upload-form">
+                <div class="upload-container" id="drop-area">
+                    <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <p class="upload-text">Raahaa PDF-tiedosto tähän tai</p>
+                    <input type="file" name="pdf" id="file-input" class="file-input" accept=".pdf">
+                    <button type="button" class="upload-button" id="select-button">
+                        <i class="fas fa-file-pdf"></i> Valitse tiedosto
+                    </button>
+                    <div class="file-info" id="file-info"></div>
+                </div>
+                <input type="submit" value="Analysoi toimitussisältö" class="submit-button" id="submit-button">
+            </form>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3>Talobot</h3>
+                <p>Automaattinen toimitussisällön analysointi omakotitalorakentajille</p>
+            </div>
+            <div class="footer-section">
+                <h3>Ominaisuudet</h3>
+                <a href="#">PDF-analyysi</a>
+                <a href="#">Ikkunatiedot</a>
+                <a href="#">Ovitiedot</a>
+            </div>
+            <div class="footer-section">
+                <h3>Yhteystiedot</h3>
+                <p><i class="fas fa-envelope"></i> info@talobot.fi</p>
+                <p><i class="fas fa-phone"></i> 040 123 4567</p>
+            </div>
+        </div>
+        <div class="container copyright">
+            <p>&copy; 2024 Talobot. Kaikki oikeudet pidätetään.</p>
+        </div>
+    </footer>
 
-        <script>
-            const dropArea = document.getElementById('drop-area');
-            const fileInput = document.getElementById('file-input');
-            const selectButton = document.getElementById('select-button');
-            const fileInfo = document.getElementById('file-info');
-            const submitButton = document.getElementById('submit-button');
+    <script>
+        const dropArea = document.getElementById('drop-area');
+        const fileInput = document.getElementById('file-input');
+        const selectButton = document.getElementById('select-button');
+        const fileInfo = document.getElementById('file-info');
+        const submitButton = document.getElementById('submit-button');
 
-            // Avaa tiedostoselain, kun "Valitse tiedosto" -painiketta klikataan
-            selectButton.addEventListener('click', () => {
-                fileInput.click();
-            });
+        // Avaa tiedostoselain, kun "Valitse tiedosto" -painiketta klikataan
+        selectButton.addEventListener('click', () => {
+            fileInput.click();
+        });
 
-            // Näytä tiedoston nimi, kun tiedosto on valittu
-            fileInput.addEventListener('change', handleFileSelect);
+        // Näytä tiedoston nimi, kun tiedosto on valittu
+        fileInput.addEventListener('change', handleFileSelect);
 
-            // Estä oletustoiminta, kun tiedosto raahataan alueelle
-            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-                dropArea.addEventListener(eventName, preventDefaults, false);
-            });
+        // Estä oletustoiminta, kun tiedosto raahataan alueelle
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false);
+        });
 
-            function preventDefaults(e) {
-                e.preventDefault();
-                e.stopPropagation();
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        // Lisää korostus, kun tiedosto raahataan alueelle
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, highlight, false);
+        });
+
+        // Poista korostus, kun tiedosto poistuu alueelta
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, unhighlight, false);
+        });
+
+        function highlight() {
+            dropArea.classList.add('highlight');
+        }
+
+        function unhighlight() {
+            dropArea.classList.remove('highlight');
+        }
+
+        // Käsittele pudotettu tiedosto
+        dropArea.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            
+            if (files.length > 0) {
+                fileInput.files = files;
+                handleFileSelect();
             }
+        }
 
-            // Lisää korostus, kun tiedosto raahataan alueelle
-            ['dragenter', 'dragover'].forEach(eventName => {
-                dropArea.addEventListener(eventName, highlight, false);
-            });
-
-            // Poista korostus, kun tiedosto poistuu alueelta
-            ['dragleave', 'drop'].forEach(eventName => {
-                dropArea.addEventListener(eventName, unhighlight, false);
-            });
-
-            function highlight() {
-                dropArea.classList.add('highlight');
-            }
-
-            function unhighlight() {
-                dropArea.classList.remove('highlight');
-            }
-
-            // Käsittele pudotettu tiedosto
-            dropArea.addEventListener('drop', handleDrop, false);
-
-            function handleDrop(e) {
-                const dt = e.dataTransfer;
-                const files = dt.files;
+        function handleFileSelect() {
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
                 
-                if (files.length > 0) {
-                    fileInput.files = files;
-                    handleFileSelect();
+                // Tarkista, että tiedosto on PDF
+                if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
+                    fileInfo.innerHTML = `<i class="fas fa-check-circle" style="color: #27ae60;"></i> Valittu tiedosto: <strong>${file.name}</strong>`;
+                    submitButton.style.display = 'inline-block';
+                } else {
+                    fileInfo.innerHTML = `<i class="fas fa-exclamation-circle" style="color: #e74c3c;"></i> Virhe: Valitse PDF-tiedosto.`;
+                    submitButton.style.display = 'none';
+                    fileInput.value = '';
                 }
             }
-
-            function handleFileSelect() {
-                if (fileInput.files.length > 0) {
-                    const file = fileInput.files[0];
-                    
-                    // Tarkista, että tiedosto on PDF
-                    if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
-                        fileInfo.textContent = `Valittu tiedosto: ${file.name}`;
-                        submitButton.style.display = 'inline-block';
-                    } else {
-                        fileInfo.textContent = 'Virhe: Valitse PDF-tiedosto.';
-                        submitButton.style.display = 'none';
-                        fileInput.value = '';
-                    }
-                }
-            }
-        </script>
-    </body>
-    </html>
+        }
+    </script>
+</body>
+</html>
