@@ -52,26 +52,52 @@ app = Flask(__name__)
 @app.route("/suodata_tiedot", methods=["GET", "POST"])
 def suodata_tiedot():
     try:
-        #api-ikkunakyselyt
+        # Jos kyseessä on POST-pyyntö, käsittele PDF-tiedosto
+        if request.method == "POST" and "pdf" in request.files:
+            file = request.files["pdf"]
+            
+            # Tarkista, että tiedosto on valittu ja sillä on nimi
+            if file.filename == '':
+                if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                    return jsonify({"error": "Valitse tiedosto"})
+                return render_template("index.html", error="Valitse tiedosto")
+            
+            # Tunnista toimittaja
+            teksti = muuta_pdf_tekstiksi(file)
+            toimittaja = tunnista_toimittaja(teksti)
+            if not toimittaja:
+                if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                    return jsonify({"error": "Toimittajaa ei tunnistettu"})
+                return render_template("index.html", error="Toimittajaa ei tunnistettu")
+
+            if toimittaja != "Sievitalo":
+                if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                    return jsonify({"error": f"Toimittaja {toimittaja} ei ole tuettu"})
+                return render_template("index.html", error=f"Toimittaja {toimittaja} ei ole tuettu")
+            
+            # Käsittele Sievitalo-toimittajan tiedosto
+            kirjoita_txt_tiedosto(teksti, TOIMITUSSISALTO_TXT)
+            clean_text2(lue_txt_tiedosto(TOIMITUSSISALTO_TXT), PUHDISTETTU_TOIMITUSSISALTO_TXT)
+        
+        # API-kyselyt
         api_kysely_poimi_ikkunatiedot(PUHDISTETTU_TOIMITUSSISALTO_TXT, IKKUNATIEDOT_KOKONAISUUDESSA_TXT)
         api_ryhmittele_valitut_ikkunatiedot_json_muotoon(IKKUNATIEDOT_KOKONAISUUDESSA_TXT, IKKUNA_JSON)
         jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi(IKKUNA_JSON, IKKUNA2_JSON)
         
-        #api-ulko-ovikyselyt
+        # API-ulko-ovikyselyt
         api_kysely_poimi_ulko_ovitiedot(PUHDISTETTU_TOIMITUSSISALTO_TXT, ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT)
         api_ryhmittele_valitut_ulko_ovitiedot_json_muotoon(ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT, ULKO_OVI_TIEDOT_JSON)
         api_poistaa_valitut_sanat_ulko_ovitiedoista_json_muotoon(ULKO_OVI_TIEDOT_JSON, ULKO_OVI_TIEDOT_2_JSON)
 
-         #api-valiovikyselyt
+        # API-valiovikyselyt
         api_kysely_poimi_valiovitiedot(PUHDISTETTU_TOIMITUSSISALTO_TXT, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT) 
         api_kysely_anna_valiovimallit(VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT, VALIOVITYYPIT_TXT)
 
-
+        # Lue tiedostot
         json_ikkunat = lue_json_tiedosto(IKKUNA2_JSON)
         if json_ikkunat is None or len(json_ikkunat) == 0:
             json_ikkunat = []  # Varmista, että json_ikkunat on vähintään tyhjä lista
             print("Varoitus: Ikkunatietoja ei löytynyt tai tiedosto on tyhjä.")
-        
         
         json_ulko_ovet = lue_json_tiedosto(ULKO_OVI_TIEDOT_2_JSON)
         if json_ulko_ovet is None:
@@ -79,8 +105,7 @@ def suodata_tiedot():
             print("Varoitus: Ulko-ovitietoja ei löytynyt tai tiedosto on tyhjä.")
         json_ulko_ovet_normalisoitu = normalisoi_ulko_ovet(json_ulko_ovet)
             
-        
-       # Lue ja käsittele välivovimallit
+        # Lue ja käsittele välivovimallit
         valiovi_mallit = lue_txt_tiedosto(VALIOVITYYPIT_TXT)
         if valiovi_mallit is None or valiovi_mallit.strip() == "":
             valiovi_mallit = {"ovimallit": ["Ei löydetty välivovimalleja"]}
@@ -119,33 +144,7 @@ def suodata_tiedot():
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    if request.method == "POST":
-        if "pdf" in request.files:
-            file = request.files["pdf"]
-            
-            # Tarkista, että tiedosto on valittu ja sillä on nimi
-            if file.filename == '':
-                return render_template("index.html", error="Valitse tiedosto")
-            
-            # Tunnista toimittaja
-            teksti = muuta_pdf_tekstiksi(file)
-            toimittaja = tunnista_toimittaja(teksti)
-            if not toimittaja:
-                return render_template("index.html", error="Toimittajaa ei tunnistettu")
-
-            if toimittaja == "Sievitalo":
-                kirjoita_txt_tiedosto(teksti, TOIMITUSSISALTO_TXT)
-                clean_text2(lue_txt_tiedosto(TOIMITUSSISALTO_TXT), PUHDISTETTU_TOIMITUSSISALTO_TXT)
-                
-                # Jos pyyntö ei ole AJAX-pyyntö, ohjaa käyttäjä suoraan suodata_tiedot-funktioon
-                if request.headers.get('X-Requested-With') != 'XMLHttpRequest':
-                    return redirect(url_for('suodata_tiedot'))
-                
-                # Jos pyyntö on AJAX-pyyntö, palauta onnistumisviesti
-                return jsonify({"success": True, "message": "Tiedosto käsitelty onnistuneesti"})
-            else:
-                return render_template("index.html", error=f"Toimittaja {toimittaja} ei ole tuettu")
-
+    # Näytä index.html-sivu
     return render_template("index.html")
 
 if __name__ == "__main__":
