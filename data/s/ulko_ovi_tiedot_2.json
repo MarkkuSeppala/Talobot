@@ -1,24 +1,14 @@
 [
     {
-        "ovi": "Pääovi Pihla EI-15 M31",
-        "määrä": "1 kpl",
-        "kynnyspelti": "alumiini",
-        "lukko": "Stocholm painike"
+        "ovi": "Pääovi Pihla Varma M31",
+        "määrä": "1 kpl"
     },
     {
-        "ovi": "Ulko-ovi - Patio OH Parvekeovi Patio",
-        "lasi": "kirkas",
-        "määrä": "1 kpl",
-        "kynnyspelti": "alumiini",
-        "kahva": "Hoppe-Tokyo",
-        "smyygilauta": "HS"
+        "ovi": "Ulko-ovi - Patio Parvekeovi (Patio, kokolasi)",
+        "määrä": "1 kpl"
     },
     {
-        "ovi": "Ulko-ovi Pihla EI-15 S43",
-        "karmi": "130 mm",
-        "määrä": "1 kpl",
-        "kynnyspelti": "alumiini",
-        "lukko": "Stocholm painike",
-        "smyygilauta": "HS"
+        "ovi": "Ulko-ovi - Patio Parvekeovi (Patio, kokolasi)",
+        "määrä": "1 kpl"
     }
 ]

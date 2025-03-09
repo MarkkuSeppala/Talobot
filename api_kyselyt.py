@@ -4,6 +4,75 @@ import google.generativeai as genai
 from datetime import datetime
 from file_handler import lue_txt_tiedosto, kirjoita_txt_tiedosto, kirjoita_vastaus_jsoniin, lue_json_tiedosto, kirjoita_json_tiedostoon
 
+import google.generativeai as genai
+import os
+
+# Oletusasetukset
+DEFAULT_GENERATION_CONFIG = {
+    "temperature": 0.05,
+    "top_p": 0.80,
+    "top_k": 20,
+    "max_output_tokens": 8192,
+    "response_mime_type": "text/plain",
+}
+
+def suorita_api_kysely(sisalto, ohjeistus, tulostiedosto, malli="gemini-1.5-flash", generation_config=None):
+    """
+    Yleiskäyttöinen funktio suorittamaan API-kyselyitä eri tarkoituksiin.
+
+    :param sisalto: Teksti, jota analysoidaan
+    :param ohjeistus: Ohjeet AI-mallille (prompt)
+    :param tulostiedosto: Polku, johon vastaus tallennetaan
+    :param malli: Käytettävä AI-malli (oletus: "gemini-1.5-flash")
+    :param generation_config: AI:n asetukset (jos ei anneta, käytetään oletuksia)
+    """
+    try:
+        # Käytetään annettuja asetuksia tai oletusarvoja
+        generation_config = generation_config or DEFAULT_GENERATION_CONFIG
+
+        # Määritetään malli ja ohjeistus
+        genai.configure(api_key="YOUR_API_KEY")  # Vaihda omaan API-avaimeesi
+        model = genai.GenerativeModel(
+            model_name=malli,
+            generation_config=generation_config,
+            system_instruction=ohjeistus
+        )
+
+        # Kysely
+        kysymys = f"Tässä on teksti:\n{sisalto}\n\nToimi ohjeen mukaan."
+        vastaus = model.generate_content(kysymys)
+
+        # Tarkistetaan, että vastaus ei ole tyhjä
+        if vastaus and hasattr(vastaus, "text"):
+            teksti = vastaus.text
+        else:
+            teksti = "⚠️ Virhe: Ei saatu vastausta API:lta!"
+
+        # Tallennetaan vastaus tiedostoon
+        os.makedirs(os.path.dirname(tulostiedosto), exist_ok=True)
+        with open(tulostiedosto, "w", encoding="utf-8") as tiedosto:
+            tiedosto.write(teksti)
+
+        print(f"✅ Vastaus tallennettu: {tulostiedosto}")
+
+    except Exception as e:
+        print(f"⚠️ Virhe API-kyselyssä: {e}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #============== S  I E V I T A L O ============#
@@ -54,7 +123,7 @@ def api_kysely_poimi_ikkunatiedot(puhdistettu_toimitussisalto, ikkunatiedot_koko
     sisalto = lue_txt_tiedosto(puhdistettu_toimitussisalto)
     kysymys = f"Tässä on teksti: \n{sisalto}\n\nToimi ohjeen mukaan."
     response = model.generate_content(kysymys)
-
+        
     kirjoita_txt_tiedosto(response.text, ikkunatiedot_kokonaisuudessa)
 
     
@@ -255,6 +324,7 @@ def api_kysely_anna_valiovimallit(valiovi_tiedot_kokonaisuudessa_txt, valiovityy
      
     sisalto = lue_txt_tiedosto(valiovi_tiedot_kokonaisuudessa_txt)
         
+    #print("Tiedosto löytyi:", sisalto)
         #with open(tiedostopolku, 'r', encoding='utf-8') as tiedosto:
         #    sisalto = tiedosto.read()
 

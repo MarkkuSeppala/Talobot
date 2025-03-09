@@ -4,261 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Talobot - Omakotitalorakentajan apuri</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e67e22;
-            --light-color: #ecf0f1;
-            --dark-color: #2c3e50;
-            --success-color: #27ae60;
-            --error-color: #e74c3c;
-            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        /* Taulukoiden tyylit */
+        .results-section {
+            display: none;
+            margin-top: 2rem;
         }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .results-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
         }
         
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f5f5f5;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), 
-                              url('https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            border-radius: 5px;
+            overflow: hidden;
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
         }
         
-        header {
+        th {
             background-color: var(--primary-color);
             color: white;
-            padding: 1rem 0;
-            box-shadow: var(--box-shadow);
+            font-weight: 600;
         }
         
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-        
-        .logo-icon {
-            margin-right: 10px;
-            font-size: 2rem;
-        }
-        
-        main {
-            padding: 2rem 0;
-        }
-        
-        .hero {
-            background-color: white;
-            border-radius: 10px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--box-shadow);
-            text-align: center;
-        }
-        
-        h1 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-            font-size: 2.5rem;
-        }
-        
-        .subtitle {
-            color: #666;
-            margin-bottom: 2rem;
-            font-size: 1.2rem;
-        }
-        
-        .features {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-        
-        .feature {
-            flex: 1;
-            min-width: 250px;
-            background-color: white;
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 0 10px 20px;
-            box-shadow: var(--box-shadow);
-            text-align: center;
-        }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            color: var(--accent-color);
-            margin-bottom: 1rem;
-        }
-        
-        .feature h3 {
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-        
-        .upload-section {
-            background-color: white;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: var(--box-shadow);
-        }
-        
-        .upload-container {
-            border: 2px dashed #ccc;
-            border-radius: 10px;
-            padding: 3rem;
-            text-align: center;
-            margin: 2rem 0;
-            transition: all 0.3s;
+        tr:nth-child(even) {
             background-color: #f9f9f9;
         }
         
-        .upload-container.highlight {
-            border-color: var(--secondary-color);
-            background-color: rgba(52, 152, 219, 0.1);
+        tr:hover {
+            background-color: #f1f1f1;
         }
         
-        .file-input {
+        /* Lataussymbolin tyylit */
+        .loader-container {
             display: none;
+            text-align: center;
+            margin: 2rem 0;
         }
         
-        .upload-icon {
-            font-size: 4rem;
-            color: var(--secondary-color);
-            margin-bottom: 1rem;
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--secondary-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
         }
         
-        .upload-text {
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
-            color: #555;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
-        .upload-button {
-            background-color: var(--secondary-color);
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            box-shadow: var(--box-shadow);
-        }
-        
-        .upload-button:hover {
-            background-color: #2980b9;
-            transform: translateY(-2px);
-        }
-        
-        .file-info {
-            margin-top: 1.5rem;
-            font-size: 1rem;
-            color: #666;
-        }
-        
-        .submit-button {
-            background-color: var(--success-color);
-            color: white;
-            padding: 12px 30px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-top: 1.5rem;
-            display: none;
-            transition: all 0.3s;
-            box-shadow: var(--box-shadow);
-        }
-        
-        .submit-button:hover {
-            background-color: #219653;
-            transform: translateY(-2px);
-        }
-        
-        footer {
+        .back-to-upload {
             background-color: var(--primary-color);
             color: white;
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
-        
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-        
-        .footer-section {
-            flex: 1;
-            min-width: 250px;
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer-section h3 {
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-        
-        .footer-section p, .footer-section a {
-            color: #ccc;
-            margin-bottom: 0.5rem;
-            display: block;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            display: inline-block;
             text-decoration: none;
         }
         
-        .footer-section a:hover {
-            color: white;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 1rem;
-            color: #ccc;
-        }
-        
-        @media (max-width: 768px) {
-            .features {
-                flex-direction: column;
-            }
-            
-            .feature {
-                margin: 0 0 20px;
-            }
-            
-            .footer-content {
-                flex-direction: column;
-            }
+        .back-to-upload:hover {
+            background-color: #1a2530;
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
@@ -294,8 +122,14 @@
             </div>
         </section>
         
-        <section class="upload-section">
+        <!-- Latausosio -->
+        <section class="upload-section" id="upload-section">
             <h2>Lataa toimitussisältö</h2>
+            {% if error %}
+            <div class="error-message">
+                <i class="fas fa-exclamation-circle"></i> {{ error }}
+            </div>
+            {% endif %}
             <form method="post" enctype="multipart/form-data" id="upload-form">
                 <div class="upload-container" id="drop-area">
                     <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
@@ -308,6 +142,40 @@
                 </div>
                 <input type="submit" value="Analysoi toimitussisältö" class="submit-button" id="submit-button">
             </form>
+        </section>
+        
+        <!-- Lataussymboli -->
+        <div class="loader-container" id="loader-container">
+            <div class="loader"></div>
+            <p>Analysoidaan toimitussisältöä, odota hetki...</p>
+        </div>
+        
+        <!-- Tulososio -->
+        <section class="results-section" id="results-section">
+            <h2>Analyysin tulokset</h2>
+            
+            <div id="ikkunat-container">
+                <h3>Ikkunat</h3>
+                <div id="ikkunat-table-container">
+                    <p>Ei ikkunatietoja saatavilla.</p>
+                </div>
+            </div>
+            
+            <div id="ulko-ovet-container">
+                <h3>Ulko-ovet</h3>
+                <div id="ulko-ovet-table-container">
+                    <p>Ei ulko-ovitietoja saatavilla.</p>
+                </div>
+            </div>
+            
+            <div id="valiovet-container">
+                <h3>Väliovimallit</h3>
+                <div id="valiovet-table-container">
+                    <p>Ei väliovimalleja saatavilla.</p>
+                </div>
+            </div>
+            
+            <button class="back-to-upload" id="back-to-upload">Analysoi uusi toimitussisältö</button>
         </section>
     </main>
     
@@ -335,12 +203,18 @@
     </footer>
 
     <script>
+        // DOM-elementit
         const dropArea = document.getElementById('drop-area');
         const fileInput = document.getElementById('file-input');
         const selectButton = document.getElementById('select-button');
         const fileInfo = document.getElementById('file-info');
         const submitButton = document.getElementById('submit-button');
-
+        const uploadForm = document.getElementById('upload-form');
+        const uploadSection = document.getElementById('upload-section');
+        const loaderContainer = document.getElementById('loader-container');
+        const resultsSection = document.getElementById('results-section');
+        const backToUploadButton = document.getElementById('back-to-upload');
+        
         // Avaa tiedostoselain, kun "Valitse tiedosto" -painiketta klikataan
         selectButton.addEventListener('click', () => {
             fileInput.click();
@@ -404,6 +278,122 @@
                     fileInput.value = '';
                 }
             }
+        }
+        
+        // Lomakkeen lähetys AJAX:lla
+        uploadForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            // Näytä lataussymboli ja piilota latausosio
+            uploadSection.style.display = 'none';
+            loaderContainer.style.display = 'block';
+            
+            // Lähetä lomake
+            fetch('/suodata_tiedot', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Piilota lataussymboli
+                loaderContainer.style.display = 'none';
+                
+                if (data.error) {
+                    alert('Virhe: ' + data.error);
+                    uploadSection.style.display = 'block';
+                    return;
+                }
+                
+                // Näytä tulokset
+                renderResults(data);
+                resultsSection.style.display = 'block';
+            })
+            .catch(error => {
+                console.error('Virhe:', error);
+                loaderContainer.style.display = 'none';
+                uploadSection.style.display = 'block';
+                alert('Virhe analysoinnissa. Yritä uudelleen.');
+            });
+        });
+        
+        // Palaa takaisin latausosioon
+        backToUploadButton.addEventListener('click', function() {
+            resultsSection.style.display = 'none';
+            uploadSection.style.display = 'block';
+            fileInput.value = '';
+            fileInfo.innerHTML = '';
+            submitButton.style.display = 'none';
+        });
+        
+        // Renderöi tulokset
+        function renderResults(data) {
+            // Ikkunat
+            const ikkunatContainer = document.getElementById('ikkunat-table-container');
+            if (data.ikkunat && data.ikkunat.length > 0) {
+                ikkunatContainer.innerHTML = createTable(data.ikkunat);
+            } else {
+                ikkunatContainer.innerHTML = '<p>Ei ikkunatietoja saatavilla.</p>';
+            }
+            
+            // Ulko-ovet
+            const ulkoOvetContainer = document.getElementById('ulko-ovet-table-container');
+            if (data.ulko_ovet && data.ulko_ovet.length > 0) {
+                ulkoOvetContainer.innerHTML = createTable(data.ulko_ovet);
+            } else {
+                ulkoOvetContainer.innerHTML = '<p>Ei ulko-ovitietoja saatavilla.</p>';
+            }
+            
+            // Väliovet
+            const valiovetContainer = document.getElementById('valiovet-table-container');
+            if (data.valiovi_mallit && data.valiovi_mallit.ovimallit && data.valiovi_mallit.ovimallit.length > 0) {
+                let tableHtml = '<table><thead><tr><th>Ovimalli</th></tr></thead><tbody>';
+                
+                data.valiovi_mallit.ovimallit.forEach(malli => {
+                    tableHtml += `<tr><td>${malli}</td></tr>`;
+                });
+                
+                tableHtml += '</tbody></table>';
+                valiovetContainer.innerHTML = tableHtml;
+            } else {
+                valiovetContainer.innerHTML = '<p>Ei väliovimalleja saatavilla.</p>';
+            }
+        }
+        
+        // Luo taulukko JSON-datasta
+        function createTable(data) {
+            if (!data || data.length === 0) return '<p>Ei tietoja saatavilla.</p>';
+            
+            const keys = Object.keys(data[0]);
+            
+            let tableHtml = '<table><thead><tr>';
+            
+            // Otsikot
+            keys.forEach(key => {
+                tableHtml += `<th>${key}</th>`;
+            });
+            
+            tableHtml += '</tr></thead><tbody>';
+            
+            // Rivit
+            data.forEach(item => {
+                tableHtml += '<tr>';
+                
+                keys.forEach(key => {
+                    const value = item[key];
+                    tableHtml += `<td>${value !== null && value !== undefined ? value : ''}</td>`;
+                });
+                
+                tableHtml += '</tr>';
+            });
+            
+            tableHtml += '</tbody></table>';
+            
+            return tableHtml;
         }
     </script>
 </body>

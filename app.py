@@ -4,7 +4,7 @@
 #==================================================================================================#
 
 
-from flask import Flask, request, render_template, render_template_string, Response
+from flask import Flask, request, render_template, render_template_string, Response, redirect, url_for, jsonify
 import os
 import sys
 
@@ -49,9 +49,8 @@ app = Flask(__name__)
 
 
 #muuta_tekstiksi
-@app.route("/suodata_tiedot", methods=["GET"])
+@app.route("/suodata_tiedot", methods=["GET", "POST"])
 def suodata_tiedot():
-    print("rivi 93")
     try:
         #api-ikkunakyselyt
         api_kysely_poimi_ikkunatiedot(PUHDISTETTU_TOIMITUSSISALTO_TXT, IKKUNATIEDOT_KOKONAISUUDESSA_TXT)
@@ -91,38 +90,61 @@ def suodata_tiedot():
             except json.JSONDecodeError:
                 valiovi_mallit = {"ovimallit": ["Virheellinen JSON-muoto välivovimalleissa"]}
 
-        print("json_ikkunat:", type(json_ikkunat))
-        print("json_ulko_ovet_normalisoitu:", type(json_ulko_ovet_normalisoitu))
-        print("valiovi_mallit:", type(valiovi_mallit))
-        print("json_ikkunat sisältö:", json_ikkunat)
-
-
+        # Jos pyyntö on AJAX-pyyntö, palauta JSON-data
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return Response(
+                json.dumps({
+                    'ikkunat': json_ikkunat,
+                    'ulko_ovet': json_ulko_ovet_normalisoitu,
+                    'valiovi_mallit': valiovi_mallit
+                }),
+                mimetype='application/json'
+            )
+        
+        # Muussa tapauksessa palauta HTML-sivu
         return render_template("json_tulosteet.html", data1=json_ikkunat, data2=json_ulko_ovet_normalisoitu, data3=valiovi_mallit)
     except Exception as e:
         print(f"Virhe suodata_tiedot-funktiossa: {e}")
+        
+        # Jos pyyntö on AJAX-pyyntö, palauta virhe JSON-muodossa
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return Response(
+                json.dumps({'error': str(e)}),
+                mimetype='application/json'
+            )
+        
         return render_template("virhe.html", virheviesti=f"Tietojen käsittelyssä tapahtui virhe: {e}")
 
    
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    painike_nayta = False  # Aluksi painiketta ei näytetä
-
     if request.method == "POST":
         if "pdf" in request.files:
             file = request.files["pdf"]
+            
+            # Tarkista, että tiedosto on valittu ja sillä on nimi
+            if file.filename == '':
+                return render_template("index.html", error="Valitse tiedosto")
             
             # Tunnista toimittaja
             teksti = muuta_pdf_tekstiksi(file)
             toimittaja = tunnista_toimittaja(teksti)
             if not toimittaja:
-                return render_template("toimittajaa_ei_tunnisteta.html")
+                return render_template("index.html", error="Toimittajaa ei tunnistettu")
 
             if toimittaja == "Sievitalo":
                 kirjoita_txt_tiedosto(teksti, TOIMITUSSISALTO_TXT)
                 clean_text2(lue_txt_tiedosto(TOIMITUSSISALTO_TXT), PUHDISTETTU_TOIMITUSSISALTO_TXT)
-                painike_nayta = True
-                return render_template("sievitalo.html", painike_nayta=painike_nayta)
+                
+                # Jos pyyntö ei ole AJAX-pyyntö, ohjaa käyttäjä suoraan suodata_tiedot-funktioon
+                if request.headers.get('X-Requested-With') != 'XMLHttpRequest':
+                    return redirect(url_for('suodata_tiedot'))
+                
+                # Jos pyyntö on AJAX-pyyntö, palauta onnistumisviesti
+                return jsonify({"success": True, "message": "Tiedosto käsitelty onnistuneesti"})
+            else:
+                return render_template("index.html", error=f"Toimittaja {toimittaja} ei ole tuettu")
 
     return render_template("index.html")
 

@@ -1,1 +1,1 @@
-{"ovimallit": ["Bath", "Easy"]}
+{"ovimallit": ["Easy", "Bath", "Lasiovi"]}
