@@ -1,35 +1,30 @@
-Ikkunat OH
-Ikkuna 20x23 1 kpl Asennettuna Kiinteä ikkuna MEK Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Turvalasi sisä- ja ulkopuolella Smyygilauta HS Asennettuna
+Ikkuna 5x8 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Smyygilauta HS Asennettuna
 
 
 <br>
 <br>
 <br>
 
-Ikkunat Keittiö
-Ikkuna 7x13 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Sälekaihdin integroitu valkoinen Asennettuna Smyygilauta HS Asennettuna
+Ikkuna 5x9 2 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Alasaranoidun tuuletusikkunan aukipitolaite Asennettuna Tuuletusmekanismi tuuletusikkunan maksimileveys 9 tai maksimikoko 1,5m2 Asennettuna Smyygilauta HS Asennettuna
 
 
 <br>
 <br>
 <br>
 
-Ikkunat Makuuhuoneet 1, 2, 3
-Ikkuna 15x14 3 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Sälekaihdin integroitu valkoinen Asennettuna Kiinteä välikarmi Asennettuna Tuuletusmekanismi tuuletusikkunan maksimileveys 9 tai maksimikoko 1,5m2 Asennettuna Hätäpoistumistiekahva Asennettuna Smyygilauta HS Asennettuna
+Ikkuna 5x13 3 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Tuuletusmekanismi tuuletusikkunan maksimileveys 9 tai maksimikoko 1,5m2 Asennettuna Smyygilauta HS Asennettuna
 
 
 <br>
 <br>
 <br>
 
-Ikkunat MH4
-Ikkuna 15x14 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Sälekaihdin integroitu valkoinen Asennettuna Tuuletusmekanismi tuuletusikkunan maksimileveys 9 tai maksimikoko 1,5m2 Asennettuna Kiinteä välikarmi Asennettuna Smyygilauta HS Asennettuna
+Ikkuna 11x14 7 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Smyygilauta HS Asennettuna
 
 
 <br>
 <br>
 <br>
 
-Paloikkunat Ruokailutila
-Paloikkuna 8x15 EI15 1 kpl Asennettuna Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Smyygilauta HS Asennettuna
+Ikkuna 11x14 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Tuuletusmekanismi tuuletusikkunan maksimileveys 9 tai maksimikoko 1,5m2 Asennettuna Kiinteä välikarmi Asennettuna Smyygilauta HS Asennettuna
 

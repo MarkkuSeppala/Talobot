@@ -290,7 +290,7 @@
             uploadSection.style.display = 'none';
             loaderContainer.style.display = 'block';
             
-            // Lähetä lomake
+            // Lähetä lomake AJAX-pyynnöllä
             fetch('/suodata_tiedot', {
                 method: 'POST',
                 body: formData,
@@ -300,11 +300,16 @@
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('Verkkovirhe');
+                    throw new Error('Verkkovirhe: ' + response.status);
                 }
                 return response.json();
             })
             .then(data => {
+                console.log("Vastaanotettu data:", data);
+                console.log("Ulko-ovet:", data.ulko_ovet);
+                console.log("Ulko-ovien tyyppi:", typeof data.ulko_ovet);
+                console.log("Ulko-ovien pituus:", data.ulko_ovet ? data.ulko_ovet.length : "undefined");
+                
                 // Piilota lataussymboli
                 loaderContainer.style.display = 'none';
                 
@@ -337,8 +342,11 @@
         
         // Renderöi tulokset
         function renderResults(data) {
+            console.log("Renderöidään tulokset, data:", data);
+            
             // Ikkunat
             const ikkunatContainer = document.getElementById('ikkunat-table-container');
+            console.log("Ikkunat:", data.ikkunat);
             if (data.ikkunat && data.ikkunat.length > 0) {
                 ikkunatContainer.innerHTML = createTable(data.ikkunat);
             } else {
@@ -347,14 +355,20 @@
             
             // Ulko-ovet
             const ulkoOvetContainer = document.getElementById('ulko-ovet-table-container');
+            console.log("Ulko-ovet:", data.ulko_ovet);
+            console.log("Ulko-ovien tyyppi:", typeof data.ulko_ovet);
+            console.log("Ulko-ovien pituus:", data.ulko_ovet ? data.ulko_ovet.length : "undefined");
             if (data.ulko_ovet && data.ulko_ovet.length > 0) {
+                console.log("Luodaan taulukko ulko-ovista");
                 ulkoOvetContainer.innerHTML = createTable(data.ulko_ovet);
             } else {
+                console.log("Ei ulko-ovitietoja saatavilla");
                 ulkoOvetContainer.innerHTML = '<p>Ei ulko-ovitietoja saatavilla.</p>';
             }
             
             // Väliovet
             const valiovetContainer = document.getElementById('valiovet-table-container');
+            console.log("Väliovet:", data.valiovi_mallit);
             if (data.valiovi_mallit && data.valiovi_mallit.ovimallit && data.valiovi_mallit.ovimallit.length > 0) {
                 let tableHtml = '<table><thead><tr><th>Ovimalli</th></tr></thead><tbody>';
                 
@@ -371,34 +385,93 @@
         
         // Luo taulukko JSON-datasta
         function createTable(data) {
-            if (!data || data.length === 0) return '<p>Ei tietoja saatavilla.</p>';
+            console.log("Luodaan taulukko datasta:", data);
             
-            const keys = Object.keys(data[0]);
+            if (!data || data.length === 0) {
+                console.log("Data on tyhjä tai undefined");
+                return '<p>Ei tietoja saatavilla.</p>';
+            }
             
-            let tableHtml = '<table><thead><tr>';
-            
-            // Otsikot
-            keys.forEach(key => {
-                tableHtml += `<th>${key}</th>`;
-            });
-            
-            tableHtml += '</tr></thead><tbody>';
-            
-            // Rivit
-            data.forEach(item => {
-                tableHtml += '<tr>';
+            try {
+                // Tarkistetaan, onko kyseessä ulko-ovitaulukko
+                const isUlkoOvet = data[0] && (data[0].hasOwnProperty('Pääovi') || 
+                                              data[0].hasOwnProperty('Parvekeovi') || 
+                                              data[0].hasOwnProperty('Varastonovi') ||
+                                              data[0].hasOwnProperty('Autotallinovi'));
                 
-                keys.forEach(key => {
-                    const value = item[key];
-                    tableHtml += `<td>${value !== null && value !== undefined ? value : ''}</td>`;
-                });
+                let tableHtml = '<table><thead><tr>';
                 
-                tableHtml += '</tr>';
-            });
-            
-            tableHtml += '</tbody></table>';
-            
-            return tableHtml;
+                // Määritellään sarakkeet ulko-oville
+                if (isUlkoOvet) {
+                    tableHtml += '<th>Oven tyyppi</th>';
+                    tableHtml += '<th>Merkki</th>';
+                    tableHtml += '<th>Malli</th>';
+                    tableHtml += '<th>Lukko</th>';
+                    tableHtml += '<th>Määrä</th>';
+                } else {
+                    // Normaali käsittely muille taulukoille (ikkunat)
+                    const keys = Object.keys(data[0]);
+                    keys.forEach(key => {
+                        tableHtml += `<th>${key}</th>`;
+                    });
+                }
+                
+                tableHtml += '</tr></thead><tbody>';
+                
+                // Rivit
+                if (isUlkoOvet) {
+                    // Ulko-ovien käsittely
+                    data.forEach(ovi => {
+                        tableHtml += '<tr>';
+                        
+                        // Etsitään oven tyyppi (Pääovi, Parvekeovi, Varastonovi, Autotallinovi)
+                        let oviTyyppi = '';
+                        let merkki = '';
+                        
+                        if (ovi.hasOwnProperty('Pääovi')) {
+                            oviTyyppi = 'Pääovi';
+                            merkki = ovi['Pääovi'];
+                        } else if (ovi.hasOwnProperty('Parvekeovi')) {
+                            oviTyyppi = 'Parvekeovi';
+                            merkki = ovi['Parvekeovi'];
+                        } else if (ovi.hasOwnProperty('Varastonovi')) {
+                            oviTyyppi = 'Varastonovi';
+                            merkki = ovi['Varastonovi'];
+                        } else if (ovi.hasOwnProperty('Autotallinovi')) {
+                            oviTyyppi = 'Autotallinovi';
+                            merkki = ovi['Autotallinovi'];
+                        }
+                        
+                        tableHtml += `<td>${oviTyyppi}</td>`;
+                        tableHtml += `<td>${merkki || 'Ei tietoa'}</td>`;
+                        tableHtml += `<td>${ovi.malli || 'Ei tietoa'}</td>`;
+                        tableHtml += `<td>${ovi.lukko || 'Ei tietoa'}</td>`;
+                        tableHtml += `<td>${ovi.määrä || 'Ei tietoa'}</td>`;
+                        
+                        tableHtml += '</tr>';
+                    });
+                } else {
+                    // Normaali käsittely muille taulukoille (ikkunat)
+                    const keys = Object.keys(data[0]);
+                    data.forEach(item => {
+                        tableHtml += '<tr>';
+                        
+                        keys.forEach(key => {
+                            const value = item[key];
+                            tableHtml += `<td>${value !== null && value !== undefined ? value : ''}</td>`;
+                        });
+                        
+                        tableHtml += '</tr>';
+                    });
+                }
+                
+                tableHtml += '</tbody></table>';
+                
+                return tableHtml;
+            } catch (error) {
+                console.error("Virhe taulukon luonnissa:", error);
+                return '<p>Virhe taulukon luonnissa.</p>';
+            }
         }
     </script>
 </body>

@@ -202,18 +202,43 @@ def muuta_pdf_tekstiksi(pdf_file):
 def normalisoi_ulko_ovet(json_ulko_ovet):
     ovet_lista = []
     
+    print("Normalisoidaan ulko-ovet:", json_ulko_ovet)
+    
     # Jos json_ulko_ovet on sanakirja, etsitään "ulko_ovet"-avain
     if isinstance(json_ulko_ovet, dict):
         json_ulko_ovet = json_ulko_ovet.get("ulko_ovet", [])
+        print("Sanakirja-muodossa, ulko_ovet-avain:", json_ulko_ovet)
 
     # Jos json_ulko_ovet on lista, käsitellään suoraan
     if isinstance(json_ulko_ovet, list):
-        for ovi in json_ulko_ovet:
-            ovet_lista.append({
-                "nimi": ovi.get("ovi", "Tuntematon ovi"),
-                "määrä": ovi.get("määrä", "Ei tietoa"),
-                "lukko": ovi.get("lukko", "Ei tietoa")
-            })
+        for ovi_item in json_ulko_ovet:
+            # Tarkistetaan, onko ovi_item sanakirja, jossa on oven tyyppi avaimena
+            if isinstance(ovi_item, dict):
+                for ovi_tyyppi, ovi_tiedot in ovi_item.items():
+                    # Tarkistetaan, onko ovi_tiedot sanakirja
+                    if isinstance(ovi_tiedot, dict):
+                        ovet_lista.append({
+                            "nimi": ovi_tyyppi,
+                            "merkki": ovi_tiedot.get("merkki", "Ei tietoa"),
+                            "malli": ovi_tiedot.get("malli", "Ei tietoa"),
+                            "määrä": ovi_tiedot.get("määrä", "Ei tietoa"),
+                            "lukko": ovi_tiedot.get("lukko", "Ei tietoa")
+                        })
+                    else:
+                        # Jos ovi_tiedot ei ole sanakirja, käsitellään vanha rakenne
+                        ovet_lista.append({
+                            "nimi": ovi_tyyppi,
+                            "määrä": "Ei tietoa",
+                            "lukko": "Ei tietoa"
+                        })
+            # Vanha rakenne, jossa ovi on suoraan sanakirja
+            elif isinstance(ovi_item, dict) and "ovi" in ovi_item:
+                ovet_lista.append({
+                    "nimi": ovi_item.get("ovi", "Tuntematon ovi"),
+                    "määrä": ovi_item.get("määrä", "Ei tietoa"),
+                    "lukko": ovi_item.get("lukko", "Ei tietoa")
+                })
     
+    print("Normalisoitu lista:", ovet_lista)
     return ovet_lista
 

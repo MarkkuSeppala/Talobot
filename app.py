@@ -22,9 +22,8 @@ from werkzeug.utils import secure_filename
 from file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet
 from s_tietosissallon_kasittely import jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, clean_text2
 
-from s_api_kyselyt import (api_kysely_poimi_ikkunatiedot, api_ryhmittele_valitut_ikkunatiedot_json_muotoon, 
-                           api_kysely_poimi_ulko_ovitiedot, api_ryhmittele_valitut_ulko_ovitiedot_json_muotoon, 
-                           api_poistaa_valitut_sanat_ulko_ovitiedoista_json_muotoon,
+from s_api_kyselyt import (api_kysely_poimi_ikkunatiedot, api_ryhmittele_valitut_ikkunatiedot_json_muotoon,
+                           api_kysely_poimi_ulko_ovitiedot, api_poistaa_valitut_sanat_ulko_ovitiedoista_json_muotoon,
                            api_kysely_poimi_valiovitiedot, api_kysely_anna_valiovimallit)
 
 
@@ -79,32 +78,36 @@ def suodata_tiedot():
             kirjoita_txt_tiedosto(teksti, TOIMITUSSISALTO_TXT)
             clean_text2(lue_txt_tiedosto(TOIMITUSSISALTO_TXT), PUHDISTETTU_TOIMITUSSISALTO_TXT)
         
-        # API-kyselyt
+        # API-kyselyt ja ikkunat omille riveilleen
         api_kysely_poimi_ikkunatiedot(PUHDISTETTU_TOIMITUSSISALTO_TXT, IKKUNATIEDOT_KOKONAISUUDESSA_TXT)
         api_ryhmittele_valitut_ikkunatiedot_json_muotoon(IKKUNATIEDOT_KOKONAISUUDESSA_TXT, IKKUNA_JSON)
         jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi(IKKUNA_JSON, IKKUNA2_JSON)
         
         # API-ulko-ovikyselyt
         api_kysely_poimi_ulko_ovitiedot(PUHDISTETTU_TOIMITUSSISALTO_TXT, ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT)
-        api_ryhmittele_valitut_ulko_ovitiedot_json_muotoon(ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT, ULKO_OVI_TIEDOT_JSON)
-        api_poistaa_valitut_sanat_ulko_ovitiedoista_json_muotoon(ULKO_OVI_TIEDOT_JSON, ULKO_OVI_TIEDOT_2_JSON)
-
+        #api_ryhmittele_valitut_ulko_ovitiedot_json_muotoon(ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT, ULKO_OVI_TIEDOT_JSON)
+        api_poistaa_valitut_sanat_ulko_ovitiedoista_json_muotoon(ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT, ULKO_OVI_TIEDOT_2_JSON)
+       
         # API-valiovikyselyt
         api_kysely_poimi_valiovitiedot(PUHDISTETTU_TOIMITUSSISALTO_TXT, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT) 
         api_kysely_anna_valiovimallit(VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT, VALIOVITYYPIT_TXT)
 
-        # Lue tiedostot
+        # Lue ikk
         json_ikkunat = lue_json_tiedosto(IKKUNA2_JSON)
         if json_ikkunat is None or len(json_ikkunat) == 0:
             json_ikkunat = []  # Varmista, että json_ikkunat on vähintään tyhjä lista
             print("Varoitus: Ikkunatietoja ei löytynyt tai tiedosto on tyhjä.")
         
+        
+        #Lue ulko-ovitiedot
         json_ulko_ovet = lue_json_tiedosto(ULKO_OVI_TIEDOT_2_JSON)
+        #print("Luettu json_ulko_ovet:", json_ulko_ovet)
+        #print("Tyyppi:", type(json_ulko_ovet))
+        
         if json_ulko_ovet is None:
             json_ulko_ovet = []
             print("Varoitus: Ulko-ovitietoja ei löytynyt tai tiedosto on tyhjä.")
-        json_ulko_ovet_normalisoitu = normalisoi_ulko_ovet(json_ulko_ovet)
-            
+        
         # Lue ja käsittele välivovimallit
         valiovi_mallit = lue_txt_tiedosto(VALIOVITYYPIT_TXT)
         if valiovi_mallit is None or valiovi_mallit.strip() == "":
@@ -117,17 +120,20 @@ def suodata_tiedot():
 
         # Jos pyyntö on AJAX-pyyntö, palauta JSON-data
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            response_data = {
+                'ikkunat': json_ikkunat,
+                'ulko_ovet': json_ulko_ovet,
+                'valiovi_mallit': valiovi_mallit
+            }
+            #print("Lähetettävä JSON:", response_data)
+            
             return Response(
-                json.dumps({
-                    'ikkunat': json_ikkunat,
-                    'ulko_ovet': json_ulko_ovet_normalisoitu,
-                    'valiovi_mallit': valiovi_mallit
-                }),
+                json.dumps(response_data),
                 mimetype='application/json'
             )
         
         # Muussa tapauksessa palauta HTML-sivu
-        return render_template("json_tulosteet.html", data1=json_ikkunat, data2=json_ulko_ovet_normalisoitu, data3=valiovi_mallit)
+        return render_template("json_tulosteet.html", data1=json_ikkunat, data2=json_ulko_ovet, data3=valiovi_mallit)
     except Exception as e:
         print(f"Virhe suodata_tiedot-funktiossa: {e}")
         

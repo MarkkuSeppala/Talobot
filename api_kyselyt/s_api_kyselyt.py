@@ -280,6 +280,7 @@ def api_kysely_anna_valiovimallit(valiovi_tiedot_kokonaisuudessa_txt, valiovityy
 # **API-kysely. Poimii kaikki ikkunatiedot poistamatta mitään**
 
 def api_kysely_poimi_ulko_ovitiedot(puhdistettu_toimitussisalto_txt, ulko_ovi_tiedot_kokonaisuudessa_txt):
+    #print("api_kysely_poimi_ulko_ovitiedot2")
     genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
     #tiedostopolku = "data/s/puhdistettu_toimitussisalto.txt"
 
@@ -326,9 +327,10 @@ def api_kysely_poimi_ulko_ovitiedot(puhdistettu_toimitussisalto_txt, ulko_ovi_ti
 #==================================================================================================#
 
 
-
+'''
 # **API-kysely. Ryhmittelee valitut ulko-ovitiedot JSON-taulukoksi**
 def api_ryhmittele_valitut_ulko_ovitiedot_json_muotoon(ulko_ovi_tiedot_kokonaisuudessa_txt, ulko_ovi_tiedot_json):
+    print("api_ryhmittele_valitut_ulko_ovitiedot_json_muotoon2")
     #import os
     import json
     #import google.generativeai as genai
@@ -372,7 +374,7 @@ def api_ryhmittele_valitut_ulko_ovitiedot_json_muotoon(ulko_ovi_tiedot_kokonaisu
     
     kirjoita_vastaus_jsoniin(response, ulko_ovi_tiedot_json)
     return
-
+'''
 
 #============== S I E V I T A L O ============#
 #==================================================================================================#
@@ -382,7 +384,8 @@ def api_ryhmittele_valitut_ulko_ovitiedot_json_muotoon(ulko_ovi_tiedot_kokonaisu
 
 
 # **API-kysely. Ryhmittelee valitut ulko-ovitiedot JSON-taulukoksi**
-def api_poistaa_valitut_sanat_ulko_ovitiedoista_json_muotoon(ulko_ovi_tiedot_json, ulko_ovi_tiedot_2_json):
+def api_poistaa_valitut_sanat_ulko_ovitiedoista_json_muotoon(ulko_ovi_tiedot_kokonaisuudessa_txt, ulko_ovi_tiedot_2_json):
+    #print("api_poistaa_valitut_sanat_ulko_ovitiedoista_json_muotoon2")
     #import os
     import json
     #import google.generativeai as genai
@@ -403,42 +406,15 @@ def api_poistaa_valitut_sanat_ulko_ovitiedoista_json_muotoon(ulko_ovi_tiedot_jso
     }
 
     system_instruction = """
-    Sinä olet asiantunteva avustaja. Sinulle annetaan JSON-rakenne, jossa on ulko-ovien tietoja.  
-    Tehtäväsi on poistaa **turhat avain-arvot** jokaisesta ovesta:  
+    Sinä olet asiantunteva avustaja. Sinulle tekstitiedosto, jossa on ulko-ovien tietoja.  
+    Tehtäväsi on poistaa turhat tiedot jokaisesta ovesta ja palauttaa vastaus JSON-muodossa.
     
-    📌 **Esimerkki alkuperäisestä JSON-rakenteesta:**  
-    "Ulko-ovi - Patio": {
-        "merkki": "Pihla",
-        "malli": "Patio",
-        "tyyppi": "parvekeovi",
-        "lasi": "kirkas, Asennettuna",
-        "ulkoväri": [
-            "valkoinen RAL9010",
-            "musta RAL9005",
-            "tummanharmaa RAL7024",
-            "tummanruskea RR32"
-        ],
-        "sisäväri": "valkoinen",
-        "määrä": "1 kpl",
-        "asennus": "Asennettuna",
-        "kynnyspelti": "alumiini, Asennettuna",
-        "kahva": "Hoppe-Tokyo, pitkäsuljin, Asennettuna",
-        "smyygilauta": "HS, Asennettuna"
-        },
-    
-    
-    **Esimerkki halutusta lopputuloksesta:**
+    **Esimerkki halutusta, JSON -muotoisesta lopputuloksesta:**
     [
-    "Ulko-ovi - Pääovi": {
-        "merkki": "Pihla",
-        "malli": "EI-15 M31",
-        "lukko": "YALE dorman",
-        "määrä": "1 kpl"
-    }
+    {"Pääovi": "Pihla", "malli": "EI-15 M31", "lukko": "YALE dorman", "määrä": "1 kpl"}
+    {"Varastonovi": "Pihla", "malli": "Vieno S24", "lukko": "Abloy", "määrä": "1 kpl"}
+    {"Autotallinovi": "Turner", "malli": "830E", "lukko": "Turner sähköinen nostin 500R", "määrä": "1 kpl"}
     ]
-
-
-
     """
 
     # Alusta Gemini-malli system instructions -kentällä
@@ -448,7 +424,7 @@ def api_poistaa_valitut_sanat_ulko_ovitiedoista_json_muotoon(ulko_ovi_tiedot_jso
         system_instruction=system_instruction
     )
 
-    sisalto = lue_json_tiedosto(ulko_ovi_tiedot_json)
+    sisalto = lue_txt_tiedosto(ulko_ovi_tiedot_kokonaisuudessa_txt)
 
     kysymys = f"""Tässä on teksti: \n{sisalto}\n\nToimi ohjeen mukaan"""
     response = model.generate_content(kysymys)

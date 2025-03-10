@@ -1,37 +1,37 @@
 [
     {
-        "koko": "5x4",
+        "koko": "5x8",
         "kpl": 1,
         "turvalasi": false,
         "välikarmi": false,
         "sälekaihtimet": false
     },
     {
-        "koko": "6x20",
+        "koko": "5x9",
         "kpl": 2,
-        "turvalasi": true,
-        "välikarmi": false,
-        "sälekaihtimet": false
-    },
-    {
-        "koko": "10x20",
-        "kpl": 5,
-        "turvalasi": true,
-        "välikarmi": false,
-        "sälekaihtimet": false
-    },
-    {
-        "koko": "12x5",
-        "kpl": 1,
         "turvalasi": false,
         "välikarmi": false,
         "sälekaihtimet": false
     },
     {
-        "koko": "20x20",
-        "kpl": 2,
-        "turvalasi": true,
+        "koko": "5x13",
+        "kpl": 3,
+        "turvalasi": false,
         "välikarmi": false,
+        "sälekaihtimet": false
+    },
+    {
+        "koko": "11x14",
+        "kpl": 7,
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": false
+    },
+    {
+        "koko": "11x14",
+        "kpl": 1,
+        "turvalasi": false,
+        "välikarmi": true,
         "sälekaihtimet": false
     }
 ]

@@ -42,7 +42,7 @@
     {% else %}
     <p>Ei ikkunatietoja saatavilla.</p>
     {% endif %}
-
+<!--
     <h2>Ulko-ovet</h2>
     {% if data2 and data2|length > 0 %}
     <table>
@@ -66,6 +66,37 @@
     {% else %}
     <p>Ei ulko-ovitietoja saatavilla.</p>
     {% endif %}
+-->
+    <h2>Ulko-ovet WW</h2>
+    {% if data2 and data2|length > 0 %}
+    <table>
+        <thead>
+            <tr>
+                <th>Oven tyyppi</th>
+                <th>Merkki</th>
+                <th>Malli</th>
+                <th>Lukko</th>
+                <th>Määrä</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rivi in data2 %}
+            {% for tyyppi, tiedot in rivi.items() %}
+            <tr>
+                <td>{{ tyyppi }}</td>
+                <td>{{ tiedot["merkki"] }}</td>
+                <td>{{ tiedot["malli"] }}</td>
+                <td>{{ tiedot["lukko"] }}</td>
+                <td>{{ tiedot["määrä"] }}</td>
+            </tr>
+            {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Ei ulko-ovitietoja saatavilla.</p>
+    {% endif %}
+
 
     <h2>Väliovimallit</h2>
     {% if data3 and data3.get("ovimallit") %}
