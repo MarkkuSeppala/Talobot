@@ -1,10 +1,17 @@
 import os
 import re
+import sys
 import google.generativeai as genai
 from datetime import datetime
-from file_handler import lue_txt_tiedosto, kirjoita_txt_tiedosto, kirjoita_vastaus_jsoniin, lue_json_tiedosto, kirjoita_json_tiedostoon
+
+# Lisätään projektin juurihakemisto Python-polkuun
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from utils.file_handler import lue_txt_tiedosto, kirjoita_txt_tiedosto, kirjoita_vastaus_jsoniin, lue_json_tiedosto, kirjoita_json_tiedostoon
+from config_data import GEMINI_API_KEY
 
 
+genai.configure(api_key="GEMINI_API_KEY")
 
 #============== S  I E V I T A L O ============#
 #==================================================================================================#
