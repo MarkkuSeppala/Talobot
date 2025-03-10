@@ -1,26 +1,32 @@
 [
     {
         "Pääovi": "Pihla",
-        "malli": "EI-15 M31",
-        "lukko": "ei tietoa",
+        "malli": "M31",
+        "lukko": "Stocholm",
         "määrä": "1 kpl"
     },
     {
         "Parvekeovi": "Patio",
-        "malli": "ei tietoa",
-        "lukko": "ei tietoa",
+        "malli": "Patio",
+        "lukko": "Hoppe-Tokyo",
+        "määrä": "1 kpl"
+    },
+    {
+        "Parvekeovi": "Patio",
+        "malli": "M14",
+        "lukko": "Stocholm",
         "määrä": "1 kpl"
     },
     {
         "Varastonovi": "Pihla",
-        "malli": "EI-15 S24",
-        "lukko": "ei tietoa",
+        "malli": "Vieno S24",
+        "lukko": "Stocholm",
         "määrä": "1 kpl"
     },
     {
-        "Parvekeovi": "Pihla Varma",
-        "malli": "SS MH1",
-        "lukko": "ei tietoa",
+        "Autotallinovi": "Turner",
+        "malli": "830E",
+        "lukko": "Turner sähköinen nostin 500R",
         "määrä": "1 kpl"
     }
 ]

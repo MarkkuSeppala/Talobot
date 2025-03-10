@@ -29,16 +29,6 @@ from utils.s_tietosissallon_kasittely import jokainen_ikkuna_omalle_riveille_ja_
 
 from s_api_kyselyt import api_kysely_beta, api_kysely_kirjoitus_json
                         
-'''
-api_kysely_poimi_ikkunatiedot, api_ryhmittele_valitut_ikkunatiedot_json_muotoon,
-api_kysely_poimi_ulko_ovitiedot, api_poistaa_valitut_sanat_ulko_ovitiedoista_json_muotoon,
-api_kysely_poimi_valiovitiedot, api_kysely_anna_valiovimallit)
-'''
-
-
-
-
-
 
 
 def tunnista_toimittaja(teksti):
@@ -50,7 +40,6 @@ def tunnista_toimittaja(teksti):
             return nimi
     return None
 
-#tiedostopolut = {"Sievitalo": "data\\sievitalo\\toimitussisallot", "Kastelli": "data\\kastelli\\toimitussisallot", "Designtalo": "data\\designtalo\\toimitussisallot"}
 
 app = Flask(__name__)
 
@@ -89,45 +78,38 @@ def suodata_tiedot():
 
 
 
-        #////////////////////////////////////------IKKUNATIEDOT API-kyselyt------///////////////////////
-        #poimii kaikki ikkunatiedot poistamatta mitään
+        #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         api_kysely_beta(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, GENERATION_CONFIG, PUHDISTETTU_TOIMITUSSISALTO_TXT, IKKUNATIEDOT_KOKONAISUUDESSA_TXT)
-              
-        #ryhmittelee ikkunatiedot JSON-muotoon
         api_kysely_kirjoitus_json(PROMPT_SIEVITALO_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, GENERATION_CONFIG, IKKUNATIEDOT_KOKONAISUUDESSA_TXT, IKKUNA_JSON)
-        #///////////////////////////////////////////////////////////////////////////////////////////////
-        
+        #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                                           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 
         #00000000000000000000000000 IKKUNATIEDOT OMAAN RIVILLEEN JA KOKO MILLIMETREIKSI 000000000000000000000000000000
         #jokainen ikkuna omalle rivilleen ja koko millimetreiksi
         jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi(IKKUNA_JSON, IKKUNA2_JSON)
-        #00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+        #000000000000000000000000000                                                    000000000000000000000000000000
         
         
         
-        
-        
-        #////////////////////////////////////------ULKO-OVITIEDOT API-kyselyt------///////////////////////
+        #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxPROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         api_kysely_beta(PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT, GENERATION_CONFIG, PUHDISTETTU_TOIMITUSSISALTO_TXT, ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT)
         api_kysely_kirjoitus_json(PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_JSON_MUOTOON, GENERATION_CONFIG, ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT, ULKO_OVI_TIEDOT_2_JSON)
-
-        #api_kysely_poimi_ulko_ovitiedot(PUHDISTETTU_TOIMITUSSISALTO_TXT, ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT)
-        #api_ryhmittele_valitut_ulko_ovitiedot_json_muotoon(ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT, ULKO_OVI_TIEDOT_JSON)
-        #api_poistaa_valitut_sanat_ulko_ovitiedoista_json_muotoon(ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT, ULKO_OVI_TIEDOT_2_JSON)
-       #///////////////////////////////////////////////////////////////////////////////////////////////
+        #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         
         
-       #////////////////////////////////////------VÄLIOVITIEDOT API-kyselyt------///////////////////////
+        
+        #++++++++++++++++++++++++++++++++++++++++++++++PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT++++++++++++++++++++++++++++++++++++++++++++++
         api_kysely_beta(PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT, GENERATION_CONFIG, PUHDISTETTU_TOIMITUSSISALTO_TXT, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT)
-        #api_kysely_poimi_valiovitiedot(PUHDISTETTU_TOIMITUSSISALTO_TXT, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT)
-        
         api_kysely_beta(PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT, GENERATION_CONFIG, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT, VALIOVITYYPIT_TXT)
-        #api_kysely_anna_valiovimallit(VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT, VALIOVITYYPIT_TXT)
-
-        
-        
+        #++++++++++++++++++++++++++++++++++++++++++++++                                      ++++++++++++++++++++++++++++++++++++++++++++++++++++
     
+
+
+
+
+
+
         json_ikkunat = lue_json_tiedosto(IKKUNA2_JSON)
         if json_ikkunat is None or len(json_ikkunat) == 0:
             json_ikkunat = []  # Varmista, että json_ikkunat on vähintään tyhjä lista
@@ -204,3 +186,5 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port, debug=True)
 
+
+# %%
