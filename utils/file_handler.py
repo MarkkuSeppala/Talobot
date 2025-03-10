@@ -61,24 +61,18 @@ def kirjoita_txt_tiedosto(sisalto: str, tiedostopolku):
 #Palauttaa virheen, jos tiedostopolku ei ole kelvollinen.
 
 def kirjoita_vastaus_jsoniin(response, tiedostopolku):
-    """Kirjoittaa AI-mallin JSON-muotoisen vastauksen tiedostoon."""
     try:
+        import json
         if not response.text:
-            raise ValueError("⚠️Virhe: Response-objekti ei sisällä tekstiä.")
-
-        # Yritetään muuntaa vastaus JSON-muotoon
-        vastaus_json = json.loads(response.text)
-
-        # Tallennetaan JSON-tiedostoon
+            raise ValueError("Response-objekti ei sisällä tekstiä.")
+        # Poistetaan mahdollinen ```json merkintä vastauksesta
+        teksti = response.text.replace("```json", "").replace("```", "").strip()
+        vastaus_json = json.loads(teksti)
         with open(tiedostopolku, "w", encoding="utf-8") as tiedosto:
             json.dump(vastaus_json, tiedosto, ensure_ascii=False, indent=4)
-
-        print(f"✅Vastaus tallennettu JSON-tiedostoon: {tiedostopolku}")
-
-    except json.JSONDecodeError:
-        print("⚠️Virhe: Response ei ole kelvollinen JSON.")
+        print(f"Vastaus tallennettu JSON-tiedostoon: {tiedostopolku}")
     except Exception as e:
-        print(f"⚠️Virhe tiedostoa kirjoittaessa: {e}")
+        print(f"Virhe JSON-tiedostoa kirjoittaessa: {e}")
 
 #==================================================================================================#
 

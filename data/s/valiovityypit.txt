@@ -1,1 +1,1 @@
-{"ovimallit": ["Bath", "Lasiovi", "Easy"]}
+Bath, Lasiovi, Easy, Style, Eclisse

@@ -1,20 +1,26 @@
 [
     {
         "Pääovi": "Pihla",
-        "malli": "M31",
-        "lukko": "Stocholm-painike",
+        "malli": "EI-15 M31",
+        "lukko": "ei tietoa",
         "määrä": "1 kpl"
     },
     {
         "Parvekeovi": "Patio",
-        "malli": "OH",
-        "lukko": "Hoppe-Tokyo",
+        "malli": "ei tietoa",
+        "lukko": "ei tietoa",
         "määrä": "1 kpl"
     },
     {
-        "Autotallinovi": "Tuntematon",
-        "malli": "Tuntematon",
-        "lukko": "Tuntematon",
-        "määrä": "Tuntematon"
+        "Varastonovi": "Pihla",
+        "malli": "EI-15 S24",
+        "lukko": "ei tietoa",
+        "määrä": "1 kpl"
+    },
+    {
+        "Parvekeovi": "Pihla Varma",
+        "malli": "SS MH1",
+        "lukko": "ei tietoa",
+        "määrä": "1 kpl"
     }
 ]
