@@ -1,20 +1,20 @@
 [
     {
         "Pääovi": "Pihla",
-        "malli": "Varma M31",
-        "lukko": "ei tietoa",
+        "malli": "M31",
+        "lukko": "Stocholm",
         "määrä": "1 kpl"
     },
     {
         "Parvekeovi": "Patio",
-        "malli": "ei tietoa",
-        "lukko": "ei tietoa",
-        "määrä": "2 kpl"
+        "malli": "OH",
+        "lukko": "Hoppe-Tokyo",
+        "määrä": "1 kpl"
     },
     {
-        "Autotallinovi": "Turner",
-        "malli": "810E",
-        "lukko": "Turner sähköinen nostin 500R",
-        "määrä": "1 kpl"
+        "Autotallinovi": "ei tietoa",
+        "malli": "ei tietoa",
+        "lukko": "ei tietoa",
+        "määrä": "ei tietoa"
     }
 ]

@@ -54,5 +54,10 @@ def get_sievitalo_valiovi_mallit():
         try:
             valiovi_mallit_lista = [m.strip() for m in valiovi_mallit.split(",")]
             valiovi_mallit = {"ovimallit": valiovi_mallit_lista}
+        except Exception as e:
+            print(f"Virhe välivovimallien käsittelyssä: {e}")
+            valiovi_mallit = {"ovimallit": ["Virheellinen JSON-muoto välivovimalleissa"]}
+
+    return valiovi_mallit
 
 
