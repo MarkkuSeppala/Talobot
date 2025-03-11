@@ -1,58 +1,30 @@
-Ikkuna 5x8 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Smyygilauta HS Asennettuna
+Ikkuna 5x23 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Turvalasi sisä- ja ulkopuolella Smyygilauta HS Asennettuna
 
-
-<br>
-<br>
-<br>
-
-Ikkuna 5x14 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Sälekaihdin integroitu valkoinen Asennettuna Smyygilauta HS Asennettuna
-
-
-<br>
-<br>
-<br>
-
-Ikkuna 8x5 2 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Smyygilauta HS Asennettuna
-
-
-<br>
-<br>
-<br>
 
 Ikkuna 10x4 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Smyygilauta HS Asennettuna
 
 
-<br>
-<br>
-<br>
-
-Ikkuna 5x14 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Smyygilauta HS Asennettuna
+Ikkuna 10x5 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Smyygilauta HS Asennettuna
 
 
-<br>
-<br>
-<br>
-
-Ikkuna 11x16 3 kpl Asennettuna Kiinteä ikkuna MEK Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Turvalasi sisä- ja ulkopuolella Smyygilauta HS Asennettuna
+Ikkuna 10x20 2 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Smyygilauta HS Asennettuna
 
 
-<br>
-<br>
-<br>
-
-Ikkuna 15x14 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Sälekaihdin integroitu valkoinen Asennettuna Smyygilauta HS Asennettuna
+Ikkuna 14x18 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Turvalasi sisäpuolella Smyygilauta HS Asennettuna
 
 
-<br>
-<br>
-<br>
-
-Ikkuna 16x14 3 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Sälekaihdin integroitu valkoinen Asennettuna Smyygilauta HS Asennettuna
+Ikkuna 15x16 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Smyygilauta HS Asennettuna
 
 
-<br>
-<br>
-<br>
+Ikkuna 18x6 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Smyygilauta HS Asennettuna
 
-Ikkuna 23x14 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Smyygilauta HS Asennettuna
+
+
+Ikkuna 18x18 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Smyygilauta HS Asennettuna
+
+
+Ikkuna 20x23 3 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Turvalasi sisä- ja ulkopuolella Smyygilauta HS Asennettuna
+
+
+Ikkuna 23x23 MEK 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Turvalasi sisä- ja ulkopuolella Smyygilauta HS Asennettuna
 

@@ -1,31 +1,19 @@
 [
     {
         "Pääovi": "Pihla",
-        "malli": "M31",
-        "lukko": "Stocholm painike",
+        "malli": "Varma M31",
+        "lukko": "ei tietoa",
         "määrä": "1 kpl"
     },
     {
         "Parvekeovi": "Patio",
-        "malli": "Patio",
-        "lukko": "Hoppe-Tokyo",
-        "määrä": "1 kpl"
-    },
-    {
-        "Parvekeovi": "Patio",
-        "malli": "M14",
-        "lukko": "Stocholm painike",
-        "määrä": "1 kpl"
-    },
-    {
-        "Varastonovi": "Pihla",
-        "malli": "Vieno S24",
-        "lukko": "Stocholm painike",
-        "määrä": "1 kpl"
+        "malli": "ei tietoa",
+        "lukko": "ei tietoa",
+        "määrä": "2 kpl"
     },
     {
         "Autotallinovi": "Turner",
-        "malli": "830E",
+        "malli": "810E",
         "lukko": "Turner sähköinen nostin 500R",
         "määrä": "1 kpl"
     }
