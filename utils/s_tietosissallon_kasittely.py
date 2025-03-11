@@ -200,3 +200,49 @@ def  jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi(ikkuna_json, ikkuna2
     
 
     print("ikkuna2.json-tiedosto luotu onnistuneesti!")
+
+
+#============== K A S T E L L I ============#
+#==================================================================================================#
+#==================================================================================================#
+#==================================================================================================#
+
+
+def  kastelli_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi(ikkuna_json, ikkuna2_json):
+    output_json = []
+
+    ikkuna_json = lue_json_tiedosto(ikkuna_json)
+    for item in ikkuna_json:
+        leveys, korkeus = map(int, item["koko"].split("x"))  # Muutetaan mitat kokonaisluvuiksi (dm)
+        
+        # Muunnetaan mitat millimetreiksi
+        leveys_mm = leveys * 1
+        korkeus_mm = korkeus * 1
+        mm_koko = f"{leveys_mm}x{korkeus_mm}"
+
+        for _ in range(item["kpl"]):
+            output_json.append({
+                "koko": item["koko"],  # Alkuperäinen koko dm
+                "mm_koko": mm_koko,  # Muunnettu mm
+                "leveys_mm": leveys_mm,  # Tarvitaan lajittelua varten
+                "turvalasi": item["turvalasi"],
+                "välikarmi": item["välikarmi"],
+                "sälekaihtimet": item["sälekaihtimet"]
+            })
+
+    # **Lajitellaan lista leveyden mukaan pienimmästä suurimpaan**
+    output_json = sorted(output_json, key=lambda x: x["leveys_mm"])
+
+    # Poistetaan lajittelua varten lisätty "leveys_mm" ennen tallennusta
+    for item in output_json:
+        del item["leveys_mm"]
+
+    #print(output_json)
+    kirjoita_json_tiedostoon(output_json, ikkuna2_json)
+    # Tallennetaan JSON-tiedostoon
+    #with open("data/s/ikkuna_json_2.txt", "w", encoding="utf-8") as tiedosto:
+    #    json.dump(output_json, tiedosto, ensure_ascii=False, indent=4)
+
+    
+
+    print("ikkuna2.json-tiedosto luotu onnistuneesti!")

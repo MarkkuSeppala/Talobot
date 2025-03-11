@@ -13,10 +13,13 @@ sys.path.append(os.path.abspath("api_kyselyt"))
 
 from config_data import (VALIOVITYYPIT_TXT, TOIMITUSSISALTO_KOKONAISUUDESSA_TXT, ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT,  
                         IKKUNATIEDOT_KOKONAISUUDESSA_TXT, IKKUNA_JSON, PUHDISTETTU_TOIMITUSSISALTO_TXT, IKKUNA2_JSON, ULKO_OVI_TIEDOT_2_JSON,
-                        TEMP_1_TXT, TOIMITUSSISALTO_TXT, 
+                        TEMP_1_TXT, TOIMITUSSISALTO_SIEVITALO_TXT, TOIMITUSSISALTO_KASTELLI_TXT, TOIMITUSSISALTO_TXT,                        
                         PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, PROMPT_SIEVITALO_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, 
                         PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT, PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_JSON_MUOTOON,
-                        PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT, PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT)
+                        PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT, PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT,
+                        PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT)
+
+
 
 
 from datetime import datetime 
@@ -27,8 +30,8 @@ from generation_config import GENERATION_CONFIG
 from utils.file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet
 from utils.s_tietosissallon_kasittely import jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, clean_text2
 
-from api_run import api_run_sievitalo
-from factory import get_sievitalo_ikkunat, get_sievitalo_ulko_ovet, get_sievitalo_valiovi_mallit
+from api_run import api_run_sievitalo, api_run_kastelli
+from factory import get_sievitalo_ikkunat, get_sievitalo_ulko_ovet, get_sievitalo_valiovi_mallit, get_kastelli_ikkunat
 
 
 def tunnista_toimittaja(teksti):
@@ -48,72 +51,73 @@ app = Flask(__name__)
 @app.route("/suodata_tiedot", methods=["GET", "POST"])
 def suodata_tiedot():
     try:
-        # Alustetaan muuttujat oletusarvoilla
-        json_ikkunat = []
-        json_ulko_ovet = []
-        valiovi_mallit = []
-
-        # Jos kyseessä on POST-pyyntö, käsittele PDF-tiedosto
-        if request.method == "POST" and "pdf" in request.files:
-            file = request.files["pdf"]
+        # Jos kyseessä on POST-pyyntö, käsittele PDF-tiedostot
+        if request.method == "POST":
+            tulokset = {}
             
-            # Tarkista, että tiedosto on valittu ja sillä on nimi
-            if file.filename == '':
-                if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-                    return jsonify({"error": "Valitse tiedosto"})
-                return render_template("index.html", error="Valitse tiedosto")
-            
-            # Tunnista toimittaja
-            teksti = muuta_pdf_tekstiksi(file)
-            toimittaja = tunnista_toimittaja(teksti)
-            if not toimittaja:
-                if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-                    return jsonify({"error": "Toimittaja ei ole tuettu"})
-                return render_template("index.html", error="Toimittaja ei ole tuettu")
+            # Käsittele Sievitalon PDF
+            if "sievitalo_pdf" in request.files:
+                file = request.files["sievitalo_pdf"]
+                if file.filename != '':
+                    teksti = muuta_pdf_tekstiksi(file)
+                    toimittaja = tunnista_toimittaja(teksti)
+                    
+                    if toimittaja == "Sievitalo":
+                        # Tallenna Sievitalon tiedot
+                        kirjoita_txt_tiedosto(teksti, TOIMITUSSISALTO_TXT)
+                        clean_text2(lue_txt_tiedosto(TOIMITUSSISALTO_TXT), PUHDISTETTU_TOIMITUSSISALTO_TXT)
+                        api_run_sievitalo()
+                        tulokset["sievitalo"] = {
+                            "ikkunat": get_sievitalo_ikkunat(),
+                            "ulko_ovet": get_sievitalo_ulko_ovet(),
+                            "valiovi_mallit": get_sievitalo_valiovi_mallit()
+                        }
+                    else:
+                        tulokset["sievitalo"] = {"error": "Väärä toimittaja"}
 
-            if toimittaja != "Sievitalo":
-                return render_template("index.html", error=f"Toimittaja {toimittaja}")
-            
-            if toimittaja == "Sievitalo":
-                # Muuttaa pdf-tiedoston tekstiksi ja kirjoittaa sen tiedostoon.
-                kirjoita_txt_tiedosto(teksti, TOIMITUSSISALTO_TXT)
-                clean_text2(lue_txt_tiedosto(TOIMITUSSISALTO_TXT), PUHDISTETTU_TOIMITUSSISALTO_TXT)
-                api_run_sievitalo()
-                json_ikkunat = get_sievitalo_ikkunat()
-                json_ulko_ovet = get_sievitalo_ulko_ovet()
-                valiovi_mallit = get_sievitalo_valiovi_mallit()
+            # Käsittele Kastellin PDF
+            if "kastelli_pdf" in request.files:
+                file = request.files["kastelli_pdf"]
+                if file.filename != '':
+                    teksti = muuta_pdf_tekstiksi(file)
+                    toimittaja = tunnista_toimittaja(teksti)
+                    print(f"Toimittaja: {toimittaja}")
+                    
+                    if toimittaja == "Kastelli":
+                        # Tallenna Kastellin teksti omaan tiedostoon
+                        kirjoita_txt_tiedosto(teksti, TOIMITUSSISALTO_KASTELLI_TXT)
+                        clean_text2(lue_txt_tiedosto(TOIMITUSSISALTO_KASTELLI_TXT), PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT)
+                        api_run_kastelli()
+                        tulokset["kastelli"] = {
+                            "ikkunat": get_kastelli_ikkunat(),
+                            "ulko_ovet": get_sievitalo_ulko_ovet(),
+                            "valiovi_mallit": get_sievitalo_valiovi_mallit()
+                        }
+                    else:
+                        tulokset["kastelli"] = {"error": "Väärä toimittaja"}
 
-            if toimittaja == "Kastelli":
-                print("Kastelli")
-                kirjoita_txt_tiedosto(teksti, TOIMITUSSISALTO_TXT)
-                clean_text2(lue_txt_tiedosto(TOIMITUSSISALTO_TXT), PUHDISTETTU_TOIMITUSSISALTO_TXT)
-                api_run_sievitalo()
-                json_ikkunat = get_sievitalo_ikkunat()
-                json_ulko_ovet = get_sievitalo_ulko_ovet()
-                valiovi_mallit = get_sievitalo_valiovi_mallit()
-        
-        
-        
-        # Jos pyyntö on AJAX-pyyntö, palauta JSON-data
-        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            response_data = {
-                'ikkunat': json_ikkunat,
-                'ulko_ovet': json_ulko_ovet,
-                'valiovi_mallit': valiovi_mallit
-            }
-            return Response(
-                json.dumps(response_data),
-                mimetype='application/json'
-            )
+            
+           #=====================================================================================================================
+            if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+                return Response(
+                    json.dumps(tulokset),
+                    mimetype='application/json'
+                )
+            
+            # Jos ei ole AJAX-pyyntö, näytä template
+            return render_template("index.html", tulokset=tulokset)
 
     except Exception as e:
-        # Jos pyyntö on AJAX-pyyntö, palauta virhe JSON-muodossa
+        # Virheiden käsittely
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             return Response(
                 json.dumps({'error': str(e)}),
                 mimetype='application/json'
             )
         return render_template("virhe.html", virheviesti=f"Tietojen käsittelyssä tapahtui virhe: {e}")
+
+    # Oletuspalautus GET-pyynnölle
+    return render_template("index.html")
 
 
    

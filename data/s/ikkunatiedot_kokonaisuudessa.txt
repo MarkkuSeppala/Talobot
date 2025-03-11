@@ -1,30 +1,37 @@
-Ikkunat WC Ikkuna 5x8 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Smyygilauta HS Asennettuna
+Ikkuna 4x21 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Turvalasi sisä- ja ulkopuolella Sälekaihdin integroitu valkoinen Asennettuna Tuuletusmekanismi tuuletusikkunan maksimikoko 6x23 Asennettuna Smyygilauta HS Asennettuna
 
 
 <br>
 <br>
 <br>
 
-Ikkunat PH, S Ikkuna 5x9 2 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Alasaranoidun tuuletusikkunan aukipitolaite Asennettuna Tuuletusmekanismi tuuletusikkunan maksimileveys 9 tai maksimikoko 1,5m2 Asennettuna Smyygilauta HS Asennettuna
+Ikkuna 8x21 2 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Turvalasi sisäpuolella Sälekaihdin integroitu valkoinen Asennettuna Hätäpoistumistiekahva Asennettuna Smyygilauta HS Asennettuna
 
 
 <br>
 <br>
 <br>
 
-Ikkunat MH1, MH2, MH3 Ikkuna 5x13 3 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Tuuletusmekanismi tuuletusikkunan maksimileveys 9 tai maksimikoko 1,5m2 Asennettuna Smyygilauta HS Asennettuna
+Ikkuna 11x4 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Sälekaihdin integroitu valkoinen Asennettuna Smyygilauta HS Asennettuna
 
 
 <br>
 <br>
 <br>
 
-Ikkunat MH1, OH, OH, MH3, MH4, K, K Ikkuna 11x14 7 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Smyygilauta HS Asennettuna
+Ikkuna 11x23 3 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Turvalasi sisä- ja ulkopuolella Sälekaihdin integroitu valkoinen Asennettuna Smyygilauta HS Asennettuna
 
 
 <br>
 <br>
 <br>
 
-Ikkunat MH2 Ikkuna 11x14 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Tuuletusmekanismi tuuletusikkunan maksimileveys 9 tai maksimikoko 1,5m2 Asennettuna Kiinteä välikarmi Asennettuna Smyygilauta HS Asennettuna
+Ikkuna 17x5 1 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Sälekaihdin integroitu valkoinen Asennettuna Smyygilauta HS Asennettuna
+
+
+<br>
+<br>
+<br>
+
+Ikkuna 20x23 3 kpl Asennettuna Avattava ikkuna MSE Ikkunan karmisyvyys 170mm Vesipelti Asennettuna Turvalasi sisä- ja ulkopuolella Sälekaihdin integroitu valkoinen Asennettuna Smyygilauta HS Asennettuna
 

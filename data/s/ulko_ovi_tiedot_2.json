@@ -1,20 +1,26 @@
 [
     {
         "Pääovi": "Pihla",
-        "malli": "M31",
-        "lukko": "Stocholm",
+        "malli": "Varma S22",
+        "lukko": "ei tietoa",
         "määrä": "1 kpl"
     },
     {
         "Parvekeovi": "Patio",
-        "malli": "OH",
-        "lukko": "Hoppe-Tokyo",
-        "määrä": "1 kpl"
+        "malli": "Lasi täyskorkea",
+        "lukko": "Hoppe Tokyo",
+        "määrä": "2 kpl"
     },
     {
-        "Autotallinovi": "ei tietoa",
-        "malli": "ei tietoa",
+        "Ranskalainen parvekeovi": "Pihla Varma",
+        "malli": "parveke SS, kokolasi",
         "lukko": "ei tietoa",
-        "määrä": "ei tietoa"
+        "määrä": "2 kpl"
+    },
+    {
+        "Ulkoliukuovi": "Profin Clear",
+        "malli": "A-malli",
+        "lukko": "ei tietoa",
+        "määrä": "1 kpl"
     }
 ]

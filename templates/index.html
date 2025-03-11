@@ -7,84 +7,126 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Taulukoiden tyylit */
-        .results-section {
-            display: none;
-            margin-top: 2rem;
+        /* Yleiset tyylit */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --success-color: #27ae60;
+            --error-color: #e74c3c;
+            --background-color: #f8f9fa;
+            --box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        
-        .results-section h2 {
+
+        /* Lomakkeen tyylit */
+        .file-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .file-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .file-info {
+            font-size: 0.9em;
+            margin-top: 4px;
+            padding: 8px;
+            border-radius: 4px;
+            background-color: var(--background-color);
+        }
+
+        /* Painikkeiden tyylit */
+        button.disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        button:not(.disabled) {
+            background-color: var(--primary-color);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:not(.disabled):hover {
+            background-color: #1a2530;
+        }
+
+        /* Tulosten tyylit */
+        .results-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .toimittaja-kolumni {
+            flex: 1;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .toimittaja-otsikko {
+            font-size: 1.5em;
+            font-weight: bold;
             color: var(--primary-color);
-            margin-bottom: 1rem;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--secondary-color);
         }
-        
+
+        /* Taulukoiden tyylit */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 2rem;
+            margin-bottom: 20px;
             background-color: white;
-            box-shadow: var(--box-shadow);
-            border-radius: 5px;
-            overflow: hidden;
         }
-        
+
         th, td {
-            border: 1px solid #ddd;
             padding: 12px;
             text-align: left;
+            border: 1px solid #ddd;
         }
-        
+
         th {
             background-color: var(--primary-color);
             color: white;
-            font-weight: 600;
         }
-        
+
         tr:nth-child(even) {
-            background-color: #f9f9f9;
+            background-color: var(--background-color);
         }
-        
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-        
-        /* Lataussymbolin tyylit */
+
+        /* Latausanimaation tyylit */
         .loader-container {
             display: none;
             text-align: center;
-            margin: 2rem 0;
+            padding: 20px;
         }
-        
+
         .loader {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid var(--secondary-color);
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--secondary-color);
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 2s linear infinite;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
             margin: 0 auto;
         }
-        
+
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
-        }
-        
-        .back-to-upload {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            margin-top: 1rem;
-            display: inline-block;
-            text-decoration: none;
-        }
-        
-        .back-to-upload:hover {
-            background-color: #1a2530;
         }
     </style>
 </head>
@@ -97,200 +139,128 @@
             </div>
         </div>
     </header>
-    
+
     <main class="container">
         <section class="hero">
             <h1>Tervetuloa Talobotiin</h1>
             <p class="subtitle">Analysoi talon toimitussisältö automaattisesti ja saa selkeä yhteenveto rakennusprojektisi materiaaleista</p>
         </section>
-        
-        <section class="features">
-            <div class="feature">
-                <div class="feature-icon"><i class="fas fa-file-pdf"></i></div>
-                <h3>PDF-analyysi</h3>
-                <p>Lataa toimitussisältö PDF-muodossa ja saa automaattinen analyysi sen sisällöstä</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon"><i class="fas fa-window-restore"></i></div>
-                <h3>Ikkunatiedot</h3>
-                <p>Saa tarkat tiedot ikkunoiden määristä, koosta ja ominaisuuksista</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon"><i class="fas fa-door-open"></i></div>
-                <h3>Ovitiedot</h3>
-                <p>Tunnista ulko- ja väliovien määrät, mallit ja ominaisuudet</p>
-            </div>
-        </section>
-        
+
         <!-- Latausosio -->
         <section class="upload-section" id="upload-section">
-            <h2>Lataa toimitussisältö</h2>
-            {% if error %}
-            <div class="error-message">
-                <i class="fas fa-exclamation-circle"></i> {{ error }}
-            </div>
-            {% endif %}
-            <form method="post" enctype="multipart/form-data" id="upload-form">
-                <div class="upload-container" id="drop-area">
-                    <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
-                    <p class="upload-text">Raahaa PDF-tiedosto tähän tai</p>
-                    <input type="file" name="pdf" id="file-input" class="file-input" accept=".pdf">
-                    <button type="button" class="upload-button" id="select-button">
-                        <i class="fas fa-file-pdf"></i> Valitse tiedosto
+            <h2>Lataa toimitussisällöt</h2>
+            <div class="upload-form">
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <div class="file-inputs">
+                        <div class="file-input-group">
+                            <label for="sievitalo_pdf">Sievitalon toimitussisältö (PDF):</label>
+                            <input type="file" id="sievitalo_pdf" name="sievitalo_pdf" accept=".pdf">
+                            <div id="sievitalo-info" class="file-info">
+                                <i class="fas fa-exclamation-circle"></i> Tiedostoa ei ole valittu
+                            </div>
+                        </div>
+                        
+                        <div class="file-input-group">
+                            <label for="kastelli_pdf">Kastellin toimitussisältö (PDF):</label>
+                            <input type="file" id="kastelli_pdf" name="kastelli_pdf" accept=".pdf">
+                            <div id="kastelli-info" class="file-info">
+                                <i class="fas fa-exclamation-circle"></i> Tiedostoa ei ole valittu
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" id="submit-button" disabled class="disabled">
+                        Analysoi toimitussisällöt
                     </button>
-                    <div class="file-info" id="file-info"></div>
-                </div>
-                <input type="submit" value="Analysoi toimitussisältö" class="submit-button" id="submit-button">
-            </form>
+                </form>
+            </div>
         </section>
-        
-        <!-- Lataussymboli -->
+
+        <!-- Latausanimaatio -->
         <div class="loader-container" id="loader-container">
             <div class="loader"></div>
-            <p>Analysoidaan toimitussisältöä, odota hetki...</p>
+            <p>Analysoidaan toimitussisältöjä, odota hetki...</p>
         </div>
-        
+
         <!-- Tulososio -->
-        <section class="results-section" id="results-section">
+        <section class="results-section" id="results-section" style="display: none;">
             <h2>Analyysin tulokset</h2>
             
-            <div id="ikkunat-container">
-                <h3>Ikkunat</h3>
-                <div id="ikkunat-table-container">
-                    <p>Ei ikkunatietoja saatavilla.</p>
+            <div class="results-container">
+                <div class="toimittaja-kolumni">
+                    <div class="toimittaja-otsikko">Sievitalo</div>
+                    <div id="sievitalo-results"></div>
+                </div>
+                
+                <div class="toimittaja-kolumni">
+                    <div class="toimittaja-otsikko">Kastelli</div>
+                    <div id="kastelli-results"></div>
                 </div>
             </div>
             
-            <div id="ulko-ovet-container">
-                <h3>Ulko-ovet</h3>
-                <div id="ulko-ovet-table-container">
-                    <p>Ei ulko-ovitietoja saatavilla.</p>
-                </div>
-            </div>
-            
-            <div id="valiovet-container">
-                <h3>Väliovimallit</h3>
-                <div id="valiovet-table-container">
-                    <p>Ei väliovimalleja saatavilla.</p>
-                </div>
-            </div>
-            
-            <button class="back-to-upload" id="back-to-upload">Analysoi uusi toimitussisältö</button>
+            <button class="back-to-upload" id="back-to-upload">
+                Analysoi uudet toimitussisällöt
+            </button>
         </section>
     </main>
-    
-    <footer>
-        <div class="container footer-content">
-            <div class="footer-section">
-                <h3>Talobot</h3>
-                <p>Automaattinen toimitussisällön analysointi omakotitalorakentajille</p>
-            </div>
-            <div class="footer-section">
-                <h3>Ominaisuudet</h3>
-                <a href="#">PDF-analyysi</a>
-                <a href="#">Ikkunatiedot</a>
-                <a href="#">Ovitiedot</a>
-            </div>
-            <div class="footer-section">
-                <h3>Yhteystiedot</h3>
-                <p><i class="fas fa-envelope"></i> info@talobot.fi</p>
-                <p><i class="fas fa-phone"></i> 040 123 4567</p>
-            </div>
-        </div>
-        <div class="container copyright">
-            <p>&copy; 2024 Talobot. Kaikki oikeudet pidätetään.</p>
-        </div>
-    </footer>
 
     <script>
         // DOM-elementit
-        const dropArea = document.getElementById('drop-area');
-        const fileInput = document.getElementById('file-input');
-        const selectButton = document.getElementById('select-button');
-        const fileInfo = document.getElementById('file-info');
+        const sievitaloInput = document.getElementById('sievitalo_pdf');
+        const kastelliInput = document.getElementById('kastelli_pdf');
         const submitButton = document.getElementById('submit-button');
-        const uploadForm = document.getElementById('upload-form');
+        const uploadForm = document.getElementById('uploadForm');
         const uploadSection = document.getElementById('upload-section');
         const loaderContainer = document.getElementById('loader-container');
         const resultsSection = document.getElementById('results-section');
         const backToUploadButton = document.getElementById('back-to-upload');
-        
-        // Avaa tiedostoselain, kun "Valitse tiedosto" -painiketta klikataan
-        selectButton.addEventListener('click', () => {
-            fileInput.click();
-        });
 
-        // Näytä tiedoston nimi, kun tiedosto on valittu
-        fileInput.addEventListener('change', handleFileSelect);
-
-        // Estä oletustoiminta, kun tiedosto raahataan alueelle
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            dropArea.addEventListener(eventName, preventDefaults, false);
-        });
-
-        function preventDefaults(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-
-        // Lisää korostus, kun tiedosto raahataan alueelle
-        ['dragenter', 'dragover'].forEach(eventName => {
-            dropArea.addEventListener(eventName, highlight, false);
-        });
-
-        // Poista korostus, kun tiedosto poistuu alueelta
-        ['dragleave', 'drop'].forEach(eventName => {
-            dropArea.addEventListener(eventName, unhighlight, false);
-        });
-
-        function highlight() {
-            dropArea.classList.add('highlight');
-        }
-
-        function unhighlight() {
-            dropArea.classList.remove('highlight');
-        }
-
-        // Käsittele pudotettu tiedosto
-        dropArea.addEventListener('drop', handleDrop, false);
-
-        function handleDrop(e) {
-            const dt = e.dataTransfer;
-            const files = dt.files;
+        // Tiedostojen tarkistus
+        function checkFiles() {
+            const sievitaloFile = sievitaloInput.files[0];
+            const kastelliFile = kastelliInput.files[0];
             
-            if (files.length > 0) {
-                fileInput.files = files;
-                handleFileSelect();
+            const isSievitaloPdf = sievitaloFile && 
+                (sievitaloFile.type === 'application/pdf' || 
+                 sievitaloFile.name.toLowerCase().endsWith('.pdf'));
+            
+            const isKastelliPdf = kastelliFile && 
+                (kastelliFile.type === 'application/pdf' || 
+                 kastelliFile.name.toLowerCase().endsWith('.pdf'));
+            
+            submitButton.disabled = !(isSievitaloPdf && isKastelliPdf);
+            submitButton.classList.toggle('disabled', !isSievitaloPdf || !isKastelliPdf);
+            
+            updateFileInfo('sievitalo-info', sievitaloFile, isSievitaloPdf);
+            updateFileInfo('kastelli-info', kastelliFile, isKastelliPdf);
+        }
+
+        function updateFileInfo(elementId, file, isPdf) {
+            const infoElement = document.getElementById(elementId);
+            if (!file) {
+                infoElement.innerHTML = '<i class="fas fa-exclamation-circle" style="color: #e74c3c;"></i> Tiedostoa ei ole valittu';
+            } else if (!isPdf) {
+                infoElement.innerHTML = '<i class="fas fa-exclamation-circle" style="color: #e74c3c;"></i> Valitse PDF-tiedosto';
+            } else {
+                infoElement.innerHTML = `<i class="fas fa-check-circle" style="color: #27ae60;"></i> ${file.name}`;
             }
         }
 
-        function handleFileSelect() {
-            if (fileInput.files.length > 0) {
-                const file = fileInput.files[0];
-                
-                // Tarkista, että tiedosto on PDF
-                if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
-                    fileInfo.innerHTML = `<i class="fas fa-check-circle" style="color: #27ae60;"></i> Valittu tiedosto: <strong>${file.name}</strong>`;
-                    submitButton.style.display = 'inline-block';
-                } else {
-                    fileInfo.innerHTML = `<i class="fas fa-exclamation-circle" style="color: #e74c3c;"></i> Virhe: Valitse PDF-tiedosto.`;
-                    submitButton.style.display = 'none';
-                    fileInput.value = '';
-                }
-            }
-        }
-        
-        // Lomakkeen lähetys AJAX:lla
+        // Lomakkeen lähetys
         uploadForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const formData = new FormData(this);
+            const formData = new FormData();
             
-            // Näytä lataussymboli ja piilota latausosio
+            const sievitaloFile = sievitaloInput.files[0];
+            const kastelliFile = kastelliInput.files[0];
+            
+            if (sievitaloFile) formData.append('sievitalo_pdf', sievitaloFile);
+            if (kastelliFile) formData.append('kastelli_pdf', kastelliFile);
+            
             uploadSection.style.display = 'none';
             loaderContainer.style.display = 'block';
             
-            // Lähetä lomake AJAX-pyynnöllä
             fetch('/suodata_tiedot', {
                 method: 'POST',
                 body: formData,
@@ -298,19 +268,9 @@
                     'X-Requested-With': 'XMLHttpRequest'
                 }
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Verkkovirhe: ' + response.status);
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
                 console.log("Vastaanotettu data:", data);
-                console.log("Ulko-ovet:", data.ulko_ovet);
-                console.log("Ulko-ovien tyyppi:", typeof data.ulko_ovet);
-                console.log("Ulko-ovien pituus:", data.ulko_ovet ? data.ulko_ovet.length : "undefined");
-                
-                // Piilota lataussymboli
                 loaderContainer.style.display = 'none';
                 
                 if (data.error) {
@@ -319,7 +279,6 @@
                     return;
                 }
                 
-                // Näytä tulokset
                 renderResults(data);
                 resultsSection.style.display = 'block';
             })
@@ -330,149 +289,93 @@
                 alert('Virhe analysoinnissa. Yritä uudelleen.');
             });
         });
-        
-        // Palaa takaisin latausosioon
-        backToUploadButton.addEventListener('click', function() {
-            resultsSection.style.display = 'none';
-            uploadSection.style.display = 'block';
-            fileInput.value = '';
-            fileInfo.innerHTML = '';
-            submitButton.style.display = 'none';
-        });
-        
-        // Renderöi tulokset
+
+        // Tulosten renderöinti
         function renderResults(data) {
-            console.log("Renderöidään tulokset, data:", data);
+            const sievitaloContainer = document.getElementById('sievitalo-results');
+            const kastelliContainer = document.getElementById('kastelli-results');
             
+            sievitaloContainer.innerHTML = '';
+            kastelliContainer.innerHTML = '';
+            
+            if (data.sievitalo) {
+                renderToimittajaData(data.sievitalo, sievitaloContainer);
+            }
+            
+            if (data.kastelli) {
+                renderToimittajaData(data.kastelli, kastelliContainer);
+            }
+        }
+
+        function renderToimittajaData(data, container) {
             // Ikkunat
-            const ikkunatContainer = document.getElementById('ikkunat-table-container');
-            console.log("Ikkunat:", data.ikkunat);
             if (data.ikkunat && data.ikkunat.length > 0) {
-                ikkunatContainer.innerHTML = createTable(data.ikkunat);
-            } else {
-                ikkunatContainer.innerHTML = '<p>Ei ikkunatietoja saatavilla.</p>';
+                container.innerHTML += '<h3>Ikkunat</h3>';
+                container.innerHTML += createTable(data.ikkunat);
             }
             
             // Ulko-ovet
-            const ulkoOvetContainer = document.getElementById('ulko-ovet-table-container');
-            console.log("Ulko-ovet:", data.ulko_ovet);
-            console.log("Ulko-ovien tyyppi:", typeof data.ulko_ovet);
-            console.log("Ulko-ovien pituus:", data.ulko_ovet ? data.ulko_ovet.length : "undefined");
             if (data.ulko_ovet && data.ulko_ovet.length > 0) {
-                console.log("Luodaan taulukko ulko-ovista");
-                ulkoOvetContainer.innerHTML = createTable(data.ulko_ovet);
-            } else {
-                console.log("Ei ulko-ovitietoja saatavilla");
-                ulkoOvetContainer.innerHTML = '<p>Ei ulko-ovitietoja saatavilla.</p>';
+                container.innerHTML += '<h3>Ulko-ovet</h3>';
+                container.innerHTML += createTable(data.ulko_ovet);
             }
             
             // Väliovet
-            const valiovetContainer = document.getElementById('valiovet-table-container');
-            console.log("Väliovet:", data.valiovi_mallit);
-            if (data.valiovi_mallit && data.valiovi_mallit.ovimallit && data.valiovi_mallit.ovimallit.length > 0) {
-                let tableHtml = '<table><thead><tr><th>Ovimalli</th></tr></thead><tbody>';
-                
-                data.valiovi_mallit.ovimallit.forEach(malli => {
-                    tableHtml += `<tr><td>${malli}</td></tr>`;
-                });
-                
-                tableHtml += '</tbody></table>';
-                valiovetContainer.innerHTML = tableHtml;
-            } else {
-                valiovetContainer.innerHTML = '<p>Ei väliovimalleja saatavilla.</p>';
+            if (data.valiovi_mallit) {
+                container.innerHTML += '<h3>Väliovimallit</h3>';
+                if (data.valiovi_mallit.ovimallit && data.valiovi_mallit.ovimallit.length > 0) {
+                    container.innerHTML += createValioviTable(data.valiovi_mallit.ovimallit);
+                }
             }
         }
-        
-        // Luo taulukko JSON-datasta
+
         function createTable(data) {
-            console.log("Luodaan taulukko datasta:", data);
+            if (!data || data.length === 0) return '';
             
-            if (!data || data.length === 0) {
-                console.log("Data on tyhjä tai undefined");
-                return '<p>Ei tietoja saatavilla.</p>';
-            }
+            const headers = Object.keys(data[0]);
+            let tableHtml = '<table><thead><tr>';
             
-            try {
-                // Tarkistetaan, onko kyseessä ulko-ovitaulukko
-                const isUlkoOvet = data[0] && (data[0].hasOwnProperty('Pääovi') || 
-                                              data[0].hasOwnProperty('Parvekeovi') || 
-                                              data[0].hasOwnProperty('Varastonovi') ||
-                                              data[0].hasOwnProperty('Autotallinovi'));
-                
-                let tableHtml = '<table><thead><tr>';
-                
-                // Määritellään sarakkeet ulko-oville
-                if (isUlkoOvet) {
-                    tableHtml += '<th>Oven tyyppi</th>';
-                    tableHtml += '<th>Merkki</th>';
-                    tableHtml += '<th>Malli</th>';
-                    tableHtml += '<th>Lukko</th>';
-                    tableHtml += '<th>Määrä</th>';
-                } else {
-                    // Normaali käsittely muille taulukoille (ikkunat)
-                    const keys = Object.keys(data[0]);
-                    keys.forEach(key => {
-                        tableHtml += `<th>${key}</th>`;
-                    });
-                }
-                
-                tableHtml += '</tr></thead><tbody>';
-                
-                // Rivit
-                if (isUlkoOvet) {
-                    // Ulko-ovien käsittely
-                    data.forEach(ovi => {
-                        tableHtml += '<tr>';
-                        
-                        // Etsitään oven tyyppi (Pääovi, Parvekeovi, Varastonovi, Autotallinovi)
-                        let oviTyyppi = '';
-                        let merkki = '';
-                        
-                        if (ovi.hasOwnProperty('Pääovi')) {
-                            oviTyyppi = 'Pääovi';
-                            merkki = ovi['Pääovi'];
-                        } else if (ovi.hasOwnProperty('Parvekeovi')) {
-                            oviTyyppi = 'Parvekeovi';
-                            merkki = ovi['Parvekeovi'];
-                        } else if (ovi.hasOwnProperty('Varastonovi')) {
-                            oviTyyppi = 'Varastonovi';
-                            merkki = ovi['Varastonovi'];
-                        } else if (ovi.hasOwnProperty('Autotallinovi')) {
-                            oviTyyppi = 'Autotallinovi';
-                            merkki = ovi['Autotallinovi'];
-                        }
-                        
-                        tableHtml += `<td>${oviTyyppi}</td>`;
-                        tableHtml += `<td>${merkki || 'Ei tietoa'}</td>`;
-                        tableHtml += `<td>${ovi.malli || 'Ei tietoa'}</td>`;
-                        tableHtml += `<td>${ovi.lukko || 'Ei tietoa'}</td>`;
-                        tableHtml += `<td>${ovi.määrä || 'Ei tietoa'}</td>`;
-                        
-                        tableHtml += '</tr>';
-                    });
-                } else {
-                    // Normaali käsittely muille taulukoille (ikkunat)
-                    const keys = Object.keys(data[0]);
-                    data.forEach(item => {
-                        tableHtml += '<tr>';
-                        
-                        keys.forEach(key => {
-                            const value = item[key];
-                            tableHtml += `<td>${value !== null && value !== undefined ? value : ''}</td>`;
-                        });
-                        
-                        tableHtml += '</tr>';
-                    });
-                }
-                
-                tableHtml += '</tbody></table>';
-                
-                return tableHtml;
-            } catch (error) {
-                console.error("Virhe taulukon luonnissa:", error);
-                return '<p>Virhe taulukon luonnissa.</p>';
-            }
+            headers.forEach(header => {
+                tableHtml += `<th>${header}</th>`;
+            });
+            
+            tableHtml += '</tr></thead><tbody>';
+            
+            data.forEach(row => {
+                tableHtml += '<tr>';
+                headers.forEach(header => {
+                    tableHtml += `<td>${row[header] !== undefined ? row[header] : ''}</td>`;
+                });
+                tableHtml += '</tr>';
+            });
+            
+            tableHtml += '</tbody></table>';
+            return tableHtml;
         }
+
+        function createValioviTable(mallit) {
+            let tableHtml = '<table><thead><tr><th>Ovimalli</th></tr></thead><tbody>';
+            mallit.forEach(malli => {
+                tableHtml += `<tr><td>${malli}</td></tr>`;
+            });
+            tableHtml += '</tbody></table>';
+            return tableHtml;
+        }
+
+        // Tapahtumakuuntelijat
+        sievitaloInput.addEventListener('change', checkFiles);
+        kastelliInput.addEventListener('change', checkFiles);
+        
+        backToUploadButton.addEventListener('click', function() {
+            resultsSection.style.display = 'none';
+            uploadSection.style.display = 'block';
+            sievitaloInput.value = '';
+            kastelliInput.value = '';
+            checkFiles();
+        });
+
+        // Alusta tiedostojen tarkistus
+        checkFiles();
     </script>
 </body>
 </html>

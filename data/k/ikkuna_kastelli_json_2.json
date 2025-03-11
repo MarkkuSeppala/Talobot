@@ -1,77 +1,70 @@
 [
     {
-        "koko": "4x21",
-        "mm_koko": "400x2100",
-        "turvalasi": true,
-        "välikarmi": false,
-        "sälekaihtimet": true
-    },
-    {
-        "koko": "8x21",
-        "mm_koko": "800x2100",
-        "turvalasi": true,
-        "välikarmi": false,
-        "sälekaihtimet": true
-    },
-    {
-        "koko": "8x21",
-        "mm_koko": "800x2100",
-        "turvalasi": true,
-        "välikarmi": false,
-        "sälekaihtimet": true
-    },
-    {
-        "koko": "11x4",
-        "mm_koko": "1100x400",
+        "koko": "830x2090",
+        "mm_koko": "830x2090",
         "turvalasi": false,
         "välikarmi": false,
         "sälekaihtimet": true
     },
     {
-        "koko": "11x23",
-        "mm_koko": "1100x2300",
-        "turvalasi": true,
-        "välikarmi": false,
-        "sälekaihtimet": true
-    },
-    {
-        "koko": "11x23",
-        "mm_koko": "1100x2300",
-        "turvalasi": true,
-        "välikarmi": false,
-        "sälekaihtimet": true
-    },
-    {
-        "koko": "11x23",
-        "mm_koko": "1100x2300",
-        "turvalasi": true,
-        "välikarmi": false,
-        "sälekaihtimet": true
-    },
-    {
-        "koko": "17x5",
-        "mm_koko": "1700x500",
+        "koko": "830x2090",
+        "mm_koko": "830x2090",
         "turvalasi": false,
         "välikarmi": false,
         "sälekaihtimet": true
     },
     {
-        "koko": "20x23",
-        "mm_koko": "2000x2300",
+        "koko": "1130x2290",
+        "mm_koko": "1130x2290",
         "turvalasi": true,
         "välikarmi": false,
         "sälekaihtimet": true
     },
     {
-        "koko": "20x23",
-        "mm_koko": "2000x2300",
+        "koko": "1130x390",
+        "mm_koko": "1130x390",
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "1130x2290",
+        "mm_koko": "1130x2290",
         "turvalasi": true,
         "välikarmi": false,
         "sälekaihtimet": true
     },
     {
-        "koko": "20x23",
-        "mm_koko": "2000x2300",
+        "koko": "1130x2290",
+        "mm_koko": "1130x2290",
+        "turvalasi": true,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "1730x490",
+        "mm_koko": "1730x490",
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "2030x2290",
+        "mm_koko": "2030x2290",
+        "turvalasi": true,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "2030x2290",
+        "mm_koko": "2030x2290",
+        "turvalasi": true,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "2030x2290",
+        "mm_koko": "2030x2290",
         "turvalasi": true,
         "välikarmi": false,
         "sälekaihtimet": true

@@ -7,11 +7,12 @@ sys.path.append(os.path.abspath("api_kyselyt"))
 
 from config_data import (VALIOVITYYPIT_TXT, TOIMITUSSISALTO_KOKONAISUUDESSA_TXT, ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT,  
                         IKKUNATIEDOT_KOKONAISUUDESSA_TXT, IKKUNA_JSON, PUHDISTETTU_TOIMITUSSISALTO_TXT, IKKUNA2_JSON, ULKO_OVI_TIEDOT_2_JSON,
-                        TEMP_1_TXT, TOIMITUSSISALTO_TXT, 
+                        TEMP_1_TXT, TOIMITUSSISALTO_SIEVITALO_TXT, 
                         PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, PROMPT_SIEVITALO_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, 
                         PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT, PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_JSON_MUOTOON,
                         PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT, PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT)
 
+from config_data import (IKKUNA_KASTELLI_JSON_2)
 
 from datetime import datetime 
 import json
@@ -59,5 +60,17 @@ def get_sievitalo_valiovi_mallit():
             valiovi_mallit = {"ovimallit": ["Virheellinen JSON-muoto välivovimalleissa"]}
 
     return valiovi_mallit
+
+
+#==========================================================================================================================
+
+def get_kastelli_ikkunat():
+    json_ikkunat = lue_json_tiedosto(IKKUNA_KASTELLI_JSON_2)
+    if json_ikkunat is None or len(json_ikkunat) == 0:
+        json_ikkunat = []  # Varmista, että json_ikkunat on vähintään tyhjä lista
+        print("Varoitus: Ikkunatietoja ei löytynyt tai tiedosto on tyhjä.")
+
+    return json_ikkunat
+
 
 
