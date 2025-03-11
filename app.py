@@ -27,7 +27,9 @@ from generation_config import GENERATION_CONFIG
 from utils.file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet
 from utils.s_tietosissallon_kasittely import jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, clean_text2
 
-from s_api_kyselyt import api_kysely_beta, api_kysely_kirjoitus_json
+from s_api_kyselyt import api_kysely, api_kysely_kirjoitus_json
+
+from api_run import api_run_sievitalo
                         
 
 
@@ -63,29 +65,28 @@ def suodata_tiedot():
             toimittaja = tunnista_toimittaja(teksti)
             if not toimittaja:
                 if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-                    return jsonify({"error": "Toimittajaa ei tunnistettu"})
-                return render_template("index.html", error="Toimittajaa ei tunnistettu")
+                    return jsonify({"error": "Toimittaja ei ole tuettu"})
+                return render_template("index.html", error="Toimittaja ei ole tuettu")
 
             if toimittaja != "Sievitalo":
-                if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-                    return jsonify({"error": f"Toimittaja {toimittaja} ei ole tuettu"})
-                return render_template("index.html", error=f"Toimittaja {toimittaja} ei ole tuettu")
+                return render_template("index.html", error=f"Toimittaja {toimittaja}")
             
-            # Käsittele Sievitalo-toimittajan tiedosto
+            #Muuttaa pdf-tiedoston tekstiksi ja kirjoittaa sen tiedostoon.
             kirjoita_txt_tiedosto(teksti, TOIMITUSSISALTO_TXT)
+            #clean_text2 poistaa turhat erikoismerkit, korjaa numeromuodot ja selkeyttää tekstiä. Kirjoittaa puhdistetun tekstin tiedostoon.
             clean_text2(lue_txt_tiedosto(TOIMITUSSISALTO_TXT), PUHDISTETTU_TOIMITUSSISALTO_TXT)
         
+        api_run_sievitalo()
 
-
-
+        '''
         #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        api_kysely_beta(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, GENERATION_CONFIG, PUHDISTETTU_TOIMITUSSISALTO_TXT, IKKUNATIEDOT_KOKONAISUUDESSA_TXT)
+        api_kysely(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, GENERATION_CONFIG, PUHDISTETTU_TOIMITUSSISALTO_TXT, IKKUNATIEDOT_KOKONAISUUDESSA_TXT)
         api_kysely_kirjoitus_json(PROMPT_SIEVITALO_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, GENERATION_CONFIG, IKKUNATIEDOT_KOKONAISUUDESSA_TXT, IKKUNA_JSON)
         #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                                               %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
-        #00000000000000000000000000 IKKUNATIEDOT OMAAN RIVILLEEN JA KOKO MILLIMETREIKSI 000000000000000000000000000000
+        #00000000000000000000000000 IKKUNATIEDOT OMILLE RIVEILLEEN JA KOKO MILLIMETREIKSI 000000000000000000000000000000
         #jokainen ikkuna omalle rivilleen ja koko millimetreiksi
         jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi(IKKUNA_JSON, IKKUNA2_JSON)
         #000000000000000000000000000                                                    000000000000000000000000000000
@@ -93,17 +94,17 @@ def suodata_tiedot():
         
         
         #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx     PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        api_kysely_beta(PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT, GENERATION_CONFIG, PUHDISTETTU_TOIMITUSSISALTO_TXT, ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT)
+        api_kysely(PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT, GENERATION_CONFIG, PUHDISTETTU_TOIMITUSSISALTO_TXT, ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT)
         api_kysely_kirjoitus_json(PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_JSON_MUOTOON, GENERATION_CONFIG, ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT, ULKO_OVI_TIEDOT_2_JSON)
         #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         
         
         
         #++++++++++++++++++++++++++++++++++++++       ROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT     ++++++++++++++++++++++++++++++++++++++++++++++
-        api_kysely_beta(PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT, GENERATION_CONFIG, PUHDISTETTU_TOIMITUSSISALTO_TXT, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT)
-        api_kysely_beta(PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT, GENERATION_CONFIG, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT, VALIOVITYYPIT_TXT)
+        api_kysely(PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT, GENERATION_CONFIG, PUHDISTETTU_TOIMITUSSISALTO_TXT, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT)
+        api_kysely(PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT, GENERATION_CONFIG, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT, VALIOVITYYPIT_TXT)
         #++++++++++++++++++++++++++++++++++++++++++++++                                      ++++++++++++++++++++++++++++++++++++++++++++++++++++
-    
+        '''
 
 
 
