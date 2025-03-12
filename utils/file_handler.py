@@ -186,6 +186,18 @@ def muuta_pdf_tekstiksi(pdf_file):
     except Exception as e:
         print(f"❌ Virhe PDF:n muuntamisessa: {e}")
         return ""  # Jos virhe, palautetaan tyhjä merkkijono
+    
+
+#==================================================================================================#
+# **Muuta tekstiksi ja palauttaa txt-tiedoston**
+
+def muuta_pdf_tekstiksi_2(pdf_bytes):
+    try:
+        with fitz.open(stream=pdf_bytes, filetype="pdf") as doc:
+            return "\n".join(page.get_text() for page in doc)  # Muunnetaan kaikki sivut tekstiksi
+    except Exception as e:
+        print(f"❌ Virhe PDF:n muuntamisessa: {e}")
+        return ""  # Jos virhe, palautetaan tyhjä merkkijono
 
 
 
@@ -196,7 +208,7 @@ def muuta_pdf_tekstiksi(pdf_file):
 def normalisoi_ulko_ovet(json_ulko_ovet):
     ovet_lista = []
     
-    print("Normalisoidaan ulko-ovet:", json_ulko_ovet)
+    #print("Normalisoidaan ulko-ovet:", json_ulko_ovet)
     
     # Jos json_ulko_ovet on sanakirja, etsitään "ulko_ovet"-avain
     if isinstance(json_ulko_ovet, dict):
@@ -233,6 +245,6 @@ def normalisoi_ulko_ovet(json_ulko_ovet):
                     "lukko": ovi_item.get("lukko", "Ei tietoa")
                 })
     
-    print("Normalisoitu lista:", ovet_lista)
+    #print("Normalisoitu lista:", ovet_lista)
     return ovet_lista
 

@@ -23,9 +23,13 @@ Sinä olet asiantunteva avustaja, joka analysoi annettua tekstiä.
 
     
     Esimerkki JSON-vastauksesta:
+Esimerkki alkaa.
     [
-    {"koko": "15x13", "kpl": 3, "turvalasi": true, "välikarmi": true, "sälekaihtimet": false},
-    {"koko": "3x19", "kpl": 1, "turvalasi": true, "välikarmi": false, "sälekaihtimet": false}
+    {"koko": "1530x1390", "kpl": 3, "turvalasi": true, "välikarmi": true, "sälekaihtimet": false},
+    {"koko": "330x1990", "kpl": 1, "turvalasi": true, "välikarmi": false, "sälekaihtimet": false}
     ]
+Esimerkki päättyy.
 
-    Älä yhdistä eri kokoja tai arvioi tietoja. Palauta täsmälleen ne ikkunat, jotka esiintyvät tekstissä.
+Älä yhdistä eri kokoja tai arvioi tietoja. Palauta täsmälleen ne ikkunat, jotka esiintyvät tekstissä.
+
+

@@ -1,39 +1,92 @@
-**Ikkunaryhmä 1:**
+**Ikkunaryhmä 1**
 
-Nro: 10, 80  3 Kpl vas Tyyppi: A /20.4x23 Karmimitat:2030x2290 KARMITYYPPI: MSEL, avattava, karmisyvyys 170 mm SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U1,0, sisin lasi karkaistu 6 mm ULKOPUITTEEN LASITUS: Karkaistu lasi 6 mm PUUOSIEN PINTAKÄSITTELY: maalattu valkoinen ALUMIINIOSIEN VÄRI: musta RAL 9005 KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia HELOITUKSEN VÄRI: valkoinen SÄLEKAIHDIN: integroitu, matta valkoinen P2 tunnus S HUONETILA: OLOKEITTIÖ, OLOKEITTIÖ
-
-
-Nro: 20 1 Kpl vas Tyyppi: A /11.4x23 Karmimitat:1130x2290 KARMITYYPPI: MSEL, avattava, karmisyvyys 170 mm SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U1,0, sisin lasi karkaistu 6 mm ULKOPUITTEEN LASITUS: Karkaistu lasi 6 mm PUUOSIEN PINTAKÄSITTELY: maalattu valkoinen ALUMIINIOSIEN VÄRI: musta RAL 9005 KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia HELOITUKSEN VÄRI: valkoinen SÄLEKAIHDIN: integroitu, matta valkoinen P2 tunnus S RAITISILMAVENTTIILI: BIOBE VS-B60, yläkarmiin asennettuna, sis. suodattimen HUONETILA: OLOKEITTIÖ
-
-
-Nro: 40 1 Kpl ala Tyyppi: AT /11.4x4 Karmimitat:1130x390 KARMITYYPPI: MSEL, avattava, karmisyvyys 170 mm SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U1,0 ULKOPUITTEEN LASITUS: 1-kertainen tasolasi PUUOSIEN PINTAKÄSITTELY: maalattu valkoinen ALUMIINIOSIEN VÄRI: musta RAL 9005 KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia HELOITUKSEN VÄRI: valkoinen SÄLEKAIHDIN: integroitu, matta valkoinen P2 tunnus S TUULETUSIKKUNA: tuuletusikkunaheloitus tunnus T LISÄTARVIKE: Fix-84 alasaranoituun ikkunaan 2 kpl lisäaukipitolaitteita HUONETILA: KHH
-
-
-
-<br>
-<br>
-<br>
-
-**Ikkunaryhmä 2:**
-
-Nro: 50 1 Kpl ala Tyyppi: AT /17.4x5 Karmimitat:1730x490 KARMITYYPPI: MSEL, avattava, karmisyvyys 170 mm SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U1,0 ULKOPUITTEEN LASITUS: 1-kertainen tasolasi PUUOSIEN PINTAKÄSITTELY: väritön suojakäsittely ALUMIINIOSIEN VÄRI: musta RAL 9005 KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia HELOITUKSEN VÄRI: kromattu SÄLEKAIHDIN: integroitu, matta valkoinen P2 tunnus S TUULETUSIKKUNA: tuuletusheloitus Abloy WF-252 LISÄTARVIKE: Alasaranoituun ikkunaan 2 kpl Abloy WF 881 lisäaukipitolaitteita. HUONETILA: SAUNA HUOMAUTUS: HOX: Mahdolliselle saunan ikkunan sälekaihtimelle ei myönnetä takuuta.
-
-
-Nro: 60 1 Kpl oik Tyyppi: A /11.4x23 Karmimitat:1130x2290 KARMITYYPPI: MSEL, avattava, karmisyvyys 170 mm SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U1,0, sisin lasi karkaistu 4 mm ULKOPUITTEEN LASITUS: 1-kertainen tasolasi PUUOSIEN PINTAKÄSITTELY: maalattu valkoinen ALUMIINIOSIEN VÄRI: musta RAL 9005 KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia HELOITUKSEN VÄRI: valkoinen SÄLEKAIHDIN: integroitu, matta valkoinen P2 tunnus S LISÄTARVIKE: Varatieheloitus aukossa 1 ja tuuletusheloitus aukossa 2 HUONETILA: MH 2
-
-
-Nro: 70 1 Kpl vas Tyyppi: A /11.4x23 Karmimitat:1130x2290 KARMITYYPPI: MSEL, avattava, karmisyvyys 170 mm SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U1,0, sisin lasi karkaistu 4 mm ULKOPUITTEEN LASITUS: 1-kertainen tasolasi PUUOSIEN PINTAKÄSITTELY: maalattu valkoinen ALUMIINIOSIEN VÄRI: musta RAL 9005 KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia HELOITUKSEN VÄRI: valkoinen SÄLEKAIHDIN: integroitu, matta valkoinen P2 tunnus S LISÄTARVIKE: Varatieheloitus aukossa 2 ja tuuletusheloitus aukossa 1 HUONETILA: MH 1
-
-
-Nro: 90 1 Kpl oik Tyyppi: A /8.4x21 Karmimitat:830x2090 KARMITYYPPI: MSEL, avattava, karmisyvyys 170 mm SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U1,0 ULKOPUITTEEN LASITUS: 1-kertainen tasolasi PUUOSIEN PINTAKÄSITTELY: maalattu valkoinen ALUMIINIOSIEN VÄRI: musta RAL 9005 KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia HELOITUKSEN VÄRI: valkoinen SÄLEKAIHDIN: integroitu, matta valkoinen P2 tunnus S LISÄTARVIKE: Varatieheloitus aukossa 1 ja tuuletusheloitus aukossa 2 HUONETILA: MH 4 YLÄK.
-
-
-Nro: 100 1 Kpl vas Tyyppi: A /8.4x21 Karmimitat:830x2090 KARMITYYPPI: MSEL, avattava, karmisyvyys 170 mm SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U1,0 ULKOPUITTEEN LASITUS: 1-kertainen tasolasi PUUOSIEN PINTAKÄSITTELY: maalattu valkoinen ALUMIINIOSIEN VÄRI: musta RAL 9005 KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia HELOITUKSEN VÄRI: valkoinen SÄLEKAIHDIN: integroitu, matta valkoinen P2 tunnus S LISÄTARVIKE: Varatieheloitus aukossa 2 ja tuuletusheloitus aukossa 1 HUONETILA: MH 3 YLÄK.
-
+Nro: 101, 4 Kpl
+Tyyppi: A /11.4x20
+Karmimitat: 1130x1990
+KARMITYYPPI: MEKL 3-kertainen kiinteä, karmisyvyys 170 mm
+SISÄPUITTEEN LASITUS: 3-kertainen eristyslasielementti, U1,0, sisin ja uloin lasi karkaistu
+ULKOPUITTEEN LASITUS: Karkaistu lasi
+PUUOSIEN PINTAKÄSITTELY: valkoinen
+ALUMIINIOSIEN VÄRI: tummanharmaa RAL 7024 /RR23
+KARMI-/PUITEMATER: karmin ulkopuoli alumiinia
+HELOITUKSEN VÄRI:
+HUONETILA: MH1, MH2, MH3, KIRJ-TYÖH
 
 
 <br>
 <br>
 <br>
 
-Tekstistä ei löytynyt muita ikkunaryhmiä.
+**Ikkunaryhmä 2**
+
+Nro: 110, 4 Kpl
+Tyyppi: A /5.4x20
+Karmimitat: 530x1990
+KARMITYYPPI: MEKL 3-kertainen kiinteä, karmisyvyys 170 mm
+SISÄPUITTEEN LASITUS: 3-kertainen eristyslasielementti, U1,0, sisin ja uloin lasi karkaistu
+ULKOPUITTEEN LASITUS: Karkaistu lasi
+PUUOSIEN PINTAKÄSITTELY: valkoinen
+ALUMIINIOSIEN VÄRI: tummanharmaa RAL 7024 /RR23
+KARMI-/PUITEMATER: karmin ulkopuoli alumiinia
+HELOITUKSEN VÄRI:
+HUONETILA: MH2, WC2, MH3, VH
+
+
+<br>
+<br>
+<br>
+
+**Ikkunaryhmä 3**
+
+Nro: 120, 4 Kpl
+Tyyppi: A /14.4x20
+Karmimitat: 1430x1990
+KARMITYYPPI: MEKL 3-kertainen kiinteä, karmisyvyys 170 mm
+SISÄPUITTEEN LASITUS: 3-kertainen eristyslasielementti, U1,0, sisin ja uloin lasi karkaistu
+ULKOPUITTEEN LASITUS: Karkaistu lasi
+PUUOSIEN PINTAKÄSITTELY: valkoinen
+ALUMIINIOSIEN VÄRI: tummanharmaa RAL 7024 /RR23
+KARMI-/PUITEMATER: karmin ulkopuoli alumiinia
+HELOITUKSEN VÄRI:
+HUONETILA: OH, OH, RUOK. RUOK
+
+
+<br>
+<br>
+<br>
+
+**Ikkunaryhmä 4**
+
+Nro: 130, 1 Kpl
+Tyyppi: AT /14.4x5.4
+Karmimitat: 1430x530
+KARMITYYPPI: MSEL, avattava, karmisyvyys 170 mm
+SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U1,0
+ULKOPUITTEEN LASITUS: 1-kertainen tasolasi
+PUUOSIEN PINTAKÄSITTELY: väritön
+ALUMIINIOSIEN VÄRI: tummanharmaa RAL 7024 /RR23
+KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia
+HELOITUKSEN VÄRI: valkoinen
+TUULETUSIKKUNA: tuuletusikkunaheloitus tunnus T
+HUONETILA: SAUNA
+
+
+<br>
+<br>
+<br>
+
+**Ikkunaryhmä 5**
+
+Nro: 140, 1 Kpl
+Tyyppi: AT /11.4x5.4
+Karmimitat: 1130x530
+KARMITYYPPI: MSEL, avattava, karmisyvyys 170 mm
+SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U1,0
+ULKOPUITTEEN LASITUS: 1-kertainen tasolasi
+PUUOSIEN PINTAKÄSITTELY: valkoinen
+ALUMIINIOSIEN VÄRI: tummanharmaa RAL 7024 /RR23
+KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia
+HELOITUKSEN VÄRI: valkoinen
+TUULETUSIKKUNA: tuuletusikkunaheloitus tunnus T
+HUONETILA: PESUH
+

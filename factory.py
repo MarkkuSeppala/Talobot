@@ -7,12 +7,13 @@ sys.path.append(os.path.abspath("api_kyselyt"))
 
 from config_data import (VALIOVITYYPIT_TXT, TOIMITUSSISALTO_KOKONAISUUDESSA_TXT, ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT,  
                         IKKUNATIEDOT_KOKONAISUUDESSA_TXT, IKKUNA_JSON, PUHDISTETTU_TOIMITUSSISALTO_TXT, IKKUNA2_JSON, ULKO_OVI_TIEDOT_2_JSON,
-                        TEMP_1_TXT, TOIMITUSSISALTO_SIEVITALO_TXT, 
+                        TOIMITUSSISALTO_SIEVITALO_TXT, 
                         PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, PROMPT_SIEVITALO_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, 
                         PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT, PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_JSON_MUOTOON,
-                        PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT, PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT)
+                        PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT, PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT, ULKO_OVI_TIEDOT_KASTELLI_2_JSON)
 
-from config_data import (IKKUNA_KASTELLI_JSON_2)
+from config_data import (IKKUNA2_KASTELLI_JSON)
+
 
 from datetime import datetime 
 import json
@@ -20,9 +21,9 @@ from werkzeug.utils import secure_filename
 from generation_config import GENERATION_CONFIG
 
 from utils.file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet
-from utils.s_tietosissallon_kasittely import jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, clean_text2
+from utils.tietosissallon_kasittely import jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, clean_text2
 
-#from s_api_kyselyt import api_kysely, api_kysely_kirjoitus_json
+#from api_kyselyt import api_kysely, api_kysely_kirjoitus_json
                         
 
 
@@ -65,12 +66,21 @@ def get_sievitalo_valiovi_mallit():
 #==========================================================================================================================
 
 def get_kastelli_ikkunat():
-    json_ikkunat = lue_json_tiedosto(IKKUNA_KASTELLI_JSON_2)
+    json_ikkunat = lue_json_tiedosto(IKKUNA2_KASTELLI_JSON)
     if json_ikkunat is None or len(json_ikkunat) == 0:
         json_ikkunat = []  # Varmista, että json_ikkunat on vähintään tyhjä lista
         print("Varoitus: Ikkunatietoja ei löytynyt tai tiedosto on tyhjä.")
 
     return json_ikkunat
+
+
+def get_kastelli_ulko_ovet():
+    json_ulko_ovet = lue_json_tiedosto(ULKO_OVI_TIEDOT_KASTELLI_2_JSON)
+    if json_ulko_ovet is None:
+        json_ulko_ovet = []
+        print("Varoitus: Ulko-ovitietoja ei löytynyt tai tiedosto on tyhjä.")
+
+    return json_ulko_ovet
 
 
 

@@ -1,26 +1,26 @@
 [
     {
-        "Pääovi": "Pihla",
-        "malli": "Varma S22",
-        "lukko": "ei tietoa",
+        "Ovi": "Pihla",
+        "malli": "EI-15 M31",
+        "lukko": "Yale Doorman L3",
         "määrä": "1 kpl"
     },
     {
-        "Parvekeovi": "Patio",
-        "malli": "Lasi täyskorkea",
-        "lukko": "Hoppe Tokyo",
-        "määrä": "2 kpl"
+        "Ovi": "Patio",
+        "malli": "OH",
+        "lukko": "Hoppe-Tokyo",
+        "määrä": "1 kpl"
     },
     {
-        "Ranskalainen parvekeovi": "Pihla Varma",
-        "malli": "parveke SS, kokolasi",
-        "lukko": "ei tietoa",
-        "määrä": "2 kpl"
+        "Ovi": "Patio",
+        "malli": "PUKUH",
+        "lukko": "ei mainittu",
+        "määrä": "1 kpl"
     },
     {
-        "Ulkoliukuovi": "Profin Clear",
-        "malli": "A-malli",
-        "lukko": "ei tietoa",
+        "Ovi": "Pihla",
+        "malli": "Vieno S24",
+        "lukko": "ei mainittu",
         "määrä": "1 kpl"
     }
 ]

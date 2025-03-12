@@ -1,44 +1,72 @@
 [
     {
-        "koko": "4x21",
+        "koko": "5x16",
         "kpl": 1,
-        "turvalasi": true,
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": false
+    },
+    {
+        "koko": "6x6",
+        "kpl": 1,
+        "turvalasi": false,
         "välikarmi": false,
         "sälekaihtimet": true
     },
     {
-        "koko": "8x21",
+        "koko": "6x15",
+        "kpl": 2,
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": false
+    },
+    {
+        "koko": "12x6",
+        "kpl": 1,
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": true
+    },
+    {
+        "koko": "20x6",
+        "kpl": 1,
+        "turvalasi": false,
+        "välikarmi": false,
+        "sälekaihtimet": false
+    },
+    {
+        "koko": "12x21",
         "kpl": 2,
         "turvalasi": true,
         "välikarmi": false,
-        "sälekaihtimet": true
+        "sälekaihtimet": false
     },
     {
-        "koko": "11x4",
+        "koko": "23x21",
+        "kpl": 1,
+        "turvalasi": true,
+        "välikarmi": false,
+        "sälekaihtimet": false
+    },
+    {
+        "koko": "12x6",
         "kpl": 1,
         "turvalasi": false,
         "välikarmi": false,
         "sälekaihtimet": true
     },
     {
-        "koko": "11x23",
-        "kpl": 3,
-        "turvalasi": true,
-        "välikarmi": false,
-        "sälekaihtimet": true
-    },
-    {
-        "koko": "17x5",
+        "koko": "12x15",
         "kpl": 1,
         "turvalasi": false,
         "välikarmi": false,
-        "sälekaihtimet": true
+        "sälekaihtimet": false
     },
     {
-        "koko": "20x23",
-        "kpl": 3,
+        "koko": "23x21",
+        "kpl": 1,
         "turvalasi": true,
         "välikarmi": false,
-        "sälekaihtimet": true
+        "sälekaihtimet": false
     }
 ]

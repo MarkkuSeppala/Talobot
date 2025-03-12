@@ -1,9 +1,3 @@
-#============== S  I E V I T A L O ============#
-#==================================================================================================#
-#==================================================================================================#
-#==================================================================================================#
-
-
 from flask import Flask, request, render_template, render_template_string, Response, redirect, url_for, jsonify
 import os
 import sys
@@ -13,7 +7,7 @@ sys.path.append(os.path.abspath("api_kyselyt"))
 
 from config_data import (VALIOVITYYPIT_TXT, TOIMITUSSISALTO_KOKONAISUUDESSA_TXT, ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT,  
                         IKKUNATIEDOT_KOKONAISUUDESSA_TXT, IKKUNA_JSON, PUHDISTETTU_TOIMITUSSISALTO_TXT, IKKUNA2_JSON, ULKO_OVI_TIEDOT_2_JSON,
-                        TEMP_1_TXT, TOIMITUSSISALTO_SIEVITALO_TXT, TOIMITUSSISALTO_KASTELLI_TXT, TOIMITUSSISALTO_TXT,                        
+                        TOIMITUSSISALTO_SIEVITALO_TXT, TOIMITUSSISALTO_KASTELLI_TXT, TOIMITUSSISALTO_TXT,                        
                         PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, PROMPT_SIEVITALO_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, 
                         PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT, PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_JSON_MUOTOON,
                         PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT, PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT,
@@ -28,10 +22,10 @@ from werkzeug.utils import secure_filename
 from generation_config import GENERATION_CONFIG
 
 from utils.file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet
-from utils.s_tietosissallon_kasittely import jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, clean_text2
+from utils.tietosissallon_kasittely import jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, clean_text2
 
 from api_run import api_run_sievitalo, api_run_kastelli
-from factory import get_sievitalo_ikkunat, get_sievitalo_ulko_ovet, get_sievitalo_valiovi_mallit, get_kastelli_ikkunat
+from factory import get_sievitalo_ikkunat, get_sievitalo_ulko_ovet, get_sievitalo_valiovi_mallit, get_kastelli_ikkunat, get_kastelli_ulko_ovet
 
 
 def tunnista_toimittaja(teksti):
@@ -90,7 +84,7 @@ def suodata_tiedot():
                         api_run_kastelli()
                         tulokset["kastelli"] = {
                             "ikkunat": get_kastelli_ikkunat(),
-                            "ulko_ovet": get_sievitalo_ulko_ovet(),
+                            "ulko_ovet": get_kastelli_ulko_ovet(),
                             "valiovi_mallit": get_sievitalo_valiovi_mallit()
                         }
                     else:
