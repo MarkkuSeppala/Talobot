@@ -8,7 +8,7 @@ Eli sinun pitää löytää tekstistä yhtämonta ovimallia kuin tekstissä on m
 Mutta tulosta tarkasti ainostaan löytämäsi ovimallit. 
 Sama ovimalli saa esiintyä vastauksessasi ainoastaan kerran.
 
-Älä lisää mitään ylimääräistä.
+Älä lisää mitään ylimääräistä
 
 
 Tulosta löytämäsi väliovimallit täsmälleen seuraavassa muodossa JSON-tyylisesti, jotta funktio pystyy käsittelemään ne oikein:
