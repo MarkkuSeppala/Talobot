@@ -1,1 +1,5 @@
-Bath, Unique, Lasiovi, Sound, Eclisse
+```json
+{
+  "ovimallit": ["Bath", "Lasiovi", "Unique", "Sound", "Eclisse"]
+}
+```

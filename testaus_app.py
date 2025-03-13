@@ -1,4 +1,3 @@
-
 #==================================================================================================#
 #==================================================================================================#
 #==================================================================================================#
@@ -11,7 +10,7 @@ import sys
 
 
 
-from config_data import (VALIOVITYYPIT_TXT, ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT,  
+from config_data import (VALIOVITYYPIT_SIEVITALO_JSON, ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT,  
                         IKKUNATIEDOT_KOKONAISUUDESSA_TXT, IKKUNA_JSON, PUHDISTETTU_TOIMITUSSISALTO_TXT, IKKUNA2_JSON, ULKO_OVI_TIEDOT_2_JSON,
                         PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, PROMPT_SIEVITALO_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, 
                         PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT, PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_JSON_MUOTOON,
@@ -20,7 +19,8 @@ from config_data import (VALIOVITYYPIT_TXT, ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT,
                         PROMPT_KASTELLI_POIMI_IKKUNATIEDOT_TXT, PROMPT_KASTELLI_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON,
                         IKKUNATIEDOT_KASTELLI_KOKONAISUUDESSA_TXT, IKKUNA2_KASTELLI_JSON, PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT,
                         PROMPT_KASTELLI_POIMI_VALIOVITIEDOT_TXT, PROMPT_KASTELLI_POIMI_ULKO_OVI_TIEDOT_TXT, PROMPT_KASTELLI_ANNA_VALIOVIMALLIT_TXT, 
-                        PROMPT_KASTELLI_ULKO_OVI_TIEDOT_JSON_MUOTOON, IKKUNA_KASTELLI_JSON, TOIMITUSSISALTO_KASTELLI_TXT, ULKO_OVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT)
+                        PROMPT_KASTELLI_ULKO_OVI_TIEDOT_JSON_MUOTOON, IKKUNA_KASTELLI_JSON, TOIMITUSSISALTO_KASTELLI_TXT, ULKO_OVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT,
+                        VALIOVITYYPIT_KASTELLI_TXT, VALIOVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT, VALIOVITYYPIT_KASTELLI_JSON)
 
 from api_run import api_run_sievitalo, api_run_kastelli
 from utils.file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet, muuta_pdf_tekstiksi_2
@@ -32,39 +32,6 @@ from tkinter import filedialog
 import json
 
 
-#==================================================================================================#
-#==================================================================================================#
-#==================================================================================================#
-
-
-# def lataa_json():
-#     def valitse_tiedosto():
-#         tiedosto = filedialog.askopenfilename(filetypes=[("JSON Files", "*.json")])
-#         if tiedosto:
-#             print(f"Tiedosto {tiedosto} ladattu onnistuneesti!")
-#             with open(tiedosto, 'r', encoding='utf-8') as file:
-#                 data = json.load(file)
-#                 print("Tiedoston sisältö:")
-#                 print(json.dumps(data, indent=4, ensure_ascii=False))
-#             root.destroy()
-#             global json_data
-#             json_data = data
-    
-#     root = tk.Tk()
-#     root.title("Valitse JSON-tiedosto")
-#     root.geometry("300x150")
-    
-#     button = tk.Button(root, text="Lataa JSON", command=valitse_tiedosto)
-#     button.pack(pady=20)
-    
-#     root.mainloop()
-    
-#     return json_data if 'json_data' in globals() else None
-
-
-#==================================================================================================#
-#==================================================================================================#
-#==================================================================================================#
 
 
 
@@ -111,18 +78,20 @@ else:
 
 
 teksti = muuta_pdf_tekstiksi_2(pdf_tiedosto)
-print( "muutettu teksti:", teksti)
+#print( "muutettu teksti:", teksti)
 kirjoita_txt_tiedosto(teksti, TOIMITUSSISALTO_KASTELLI_TXT)
 #print(lue_txt_tiedosto(TOIMITUSSISALTO_KASTELLI_TXT))
 teksti2 = lue_txt_tiedosto(TOIMITUSSISALTO_KASTELLI_TXT)
 clean_text2(teksti2, PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT)
 #print(lue_txt_tiedosto(PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT))
+print(lue_txt_tiedosto(PROMPT_KASTELLI_ANNA_VALIOVIMALLIT_TXT))
 api_run_kastelli()
 
 #print(lue_json_tiedosto(IKKUNA_KASTELLI_JSON))
-print(lue_txt_tiedosto(ULKO_OVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT))
+#print(lue_txt_tiedosto(ULKO_OVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT))
 #print(lue_json_tiedosto(ULKO_OVI_TIEDOT_2_JSON))
-
+print(lue_txt_tiedosto(VALIOVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT))
+print(lue_json_tiedosto(VALIOVITYYPIT_KASTELLI_JSON))
 
 # Käyttö:
 # json_tiedosto = lataa_json()

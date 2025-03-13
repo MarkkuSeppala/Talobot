@@ -1,6 +1,0 @@
-{
-  "ovimallit": [
-    "Perusovi",
-    "Kylpyhuoneovi"
-  ]
-}

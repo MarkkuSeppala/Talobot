@@ -36,12 +36,11 @@
         }
 
         .file-info {
-            margin-top: 5px;
             font-size: 0.9em;
-        }
-
-        .file-info i {
-            margin-right: 5px;
+            margin-top: 4px;
+            padding: 8px;
+            border-radius: 4px;
+            background-color: var(--background-color);
         }
 
         /* Painikkeiden tyylit */
@@ -216,22 +215,22 @@
         const resultsSection = document.getElementById('results-section');
         const backToUploadButton = document.getElementById('back-to-upload');
 
-        // Lisää funktio tiedostojen tarkistamiseen
+        // Tiedostojen tarkistus
         function checkFiles() {
             const sievitaloFile = sievitaloInput.files[0];
             const kastelliFile = kastelliInput.files[0];
             
-            // Tarkista että molemmat tiedostot on valittu ja ovat PDF-muodossa
             const isSievitaloPdf = sievitaloFile && 
-                (sievitaloFile.type === 'application/pdf' || sievitaloFile.name.toLowerCase().endsWith('.pdf'));
+                (sievitaloFile.type === 'application/pdf' || 
+                 sievitaloFile.name.toLowerCase().endsWith('.pdf'));
+            
             const isKastelliPdf = kastelliFile && 
-                (kastelliFile.type === 'application/pdf' || kastelliFile.name.toLowerCase().endsWith('.pdf'));
+                (kastelliFile.type === 'application/pdf' || 
+                 kastelliFile.name.toLowerCase().endsWith('.pdf'));
             
-            // Aktivoi tai deaktivoi painike
             submitButton.disabled = !(isSievitaloPdf && isKastelliPdf);
-            submitButton.classList.toggle('disabled', !(isSievitaloPdf && isKastelliPdf));
+            submitButton.classList.toggle('disabled', !isSievitaloPdf || !isKastelliPdf);
             
-            // Päivitä tiedostojen tila
             updateFileInfo('sievitalo-info', sievitaloFile, isSievitaloPdf);
             updateFileInfo('kastelli-info', kastelliFile, isKastelliPdf);
         }
@@ -253,18 +252,15 @@
             
             const formData = new FormData();
             
-            // Lisää molemmat tiedostot FormDataan
-            const sievitaloFile = document.getElementById('sievitalo_pdf').files[0];
-            const kastelliFile = document.getElementById('kastelli_pdf').files[0];
+            const sievitaloFile = sievitaloInput.files[0];
+            const kastelliFile = kastelliInput.files[0];
             
             if (sievitaloFile) formData.append('sievitalo_pdf', sievitaloFile);
             if (kastelliFile) formData.append('kastelli_pdf', kastelliFile);
             
-            // Näytä lataussymboli ja piilota latausosio
             uploadSection.style.display = 'none';
             loaderContainer.style.display = 'block';
             
-            // Lähetä lomake AJAX-pyynnöllä
             fetch('/suodata_tiedot', {
                 method: 'POST',
                 body: formData,
@@ -272,22 +268,9 @@
                     'X-Requested-With': 'XMLHttpRequest'
                 }
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Verkkovirhe: ' + response.status);
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
-                console.log("Koko vastaanotettu data:", data);
-                if (data.kastelli) {
-                    console.log("Kastellin väliovimallit:", data.kastelli.valiovi_mallit);
-                }
-                if (data.sievitalo) {
-                    console.log("Sievitalon väliovimallit:", data.sievitalo.valiovi_mallit);
-                }
-                
-                // Piilota lataussymboli
+                console.log("Vastaanotettu data:", data);
                 loaderContainer.style.display = 'none';
                 
                 if (data.error) {
@@ -296,126 +279,124 @@
                     return;
                 }
                 
-                // Tyhjennä aiemmat tulokset
-                document.getElementById('sievitalo-results').innerHTML = '';
-                document.getElementById('kastelli-results').innerHTML = '';
-                
-                // Näytä tulososio
+                renderResults(data);
                 resultsSection.style.display = 'block';
-                
-                // Renderöi tulokset
-                if (data.sievitalo) {
-                    renderToimittajaData(data.sievitalo, 'sievitalo-results');
-                }
-                if (data.kastelli) {
-                    renderToimittajaData(data.kastelli, 'kastelli-results');
-                }
             })
             .catch(error => {
                 console.error('Virhe:', error);
                 loaderContainer.style.display = 'none';
                 uploadSection.style.display = 'block';
-                alert('Virhe analysoinnissa: ' + error.message);
+                alert('Virhe analysoinnissa. Yritä uudelleen.');
             });
         });
 
-        // Lisää uusi renderToimittajaData-funktio
-        function renderToimittajaData(data, targetId) {
-            const container = document.getElementById(targetId);
+        // Tulosten renderöinti
+        function renderResults(data) {
+            const sievitaloContainer = document.getElementById('sievitalo-results');
+            const kastelliContainer = document.getElementById('kastelli-results');
             
+            sievitaloContainer.innerHTML = '';
+            kastelliContainer.innerHTML = '';
+            
+            if (data.sievitalo) {
+                renderToimittajaData(data.sievitalo, sievitaloContainer);
+            }
+            
+            if (data.kastelli) {
+                renderToimittajaData(data.kastelli, kastelliContainer);
+            }
+        }
+
+        function renderToimittajaData(data, container) {
             // Ikkunat
             if (data.ikkunat && data.ikkunat.length > 0) {
                 container.innerHTML += '<h3>Ikkunat</h3>';
                 container.innerHTML += createTable(data.ikkunat);
-            } else {
-                container.innerHTML += '<h3>Ikkunat</h3><p>Ei ikkunatietoja saatavilla.</p>';
             }
             
             // Ulko-ovet
             if (data.ulko_ovet && data.ulko_ovet.length > 0) {
                 container.innerHTML += '<h3>Ulko-ovet</h3>';
                 container.innerHTML += createTable(data.ulko_ovet);
-            } else {
-                container.innerHTML += '<h3>Ulko-ovet</h3><p>Ei ulko-ovitietoja saatavilla.</p>';
             }
             
             // Väliovet
-            if (data.valiovi_mallit && data.valiovi_mallit.ovimallit) {
+            if (data.valiovi_mallit) {
                 container.innerHTML += '<h3>Väliovimallit</h3>';
-                const ovimallit = data.valiovi_mallit.ovimallit;
                 
-                if (Array.isArray(ovimallit) && ovimallit.length > 0) {
-                    let tableHtml = `
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Ovimalli</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${ovimallit.map(malli => `
-                                    <tr>
-                                        <td>${malli}</td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>`;
-                    container.innerHTML += tableHtml;
-                } else {
-                    container.innerHTML += '<p>Ei väliovimalleja saatavilla.</p>';
+                let valioviMallit = data.valiovi_mallit;
+
+                if (typeof valioviMallit === "string") {
+                    try {
+                        valioviMallit = JSON.parse(valioviMallit);
+                    } catch (e) {
+                        console.error("Virhe JSON-parsinnassa:", e);
+                        valioviMallit = [];
+                    }
                 }
-            } else {
-                container.innerHTML += '<h3>Väliovimallit</h3><p>Ei väliovimalleja saatavilla.</p>';
             }
-        }
 
-        // Päivitä createTable-funktio
+    if (Array.isArray(valioviMallit)) {
+        container.innerHTML += createValioviTable(valioviMallit);
+    } else {
+        container.innerHTML += "<p>Ei löydettyjä väliovimalleja.</p>";
+    }
+}
+
+
         function createTable(data) {
-            if (!data || data.length === 0) return '<p>Ei tietoja saatavilla.</p>';
+            if (!data || data.length === 0) return '';
             
-            try {
-                const headers = Object.keys(data[0]);
-                let tableHtml = '<table><thead><tr>';
-                
+            const headers = Object.keys(data[0]);
+            let tableHtml = '<table><thead><tr>';
+            
+            headers.forEach(header => {
+                tableHtml += `<th>${header}</th>`;
+            });
+            
+            tableHtml += '</tr></thead><tbody>';
+            
+            data.forEach(row => {
+                tableHtml += '<tr>';
                 headers.forEach(header => {
-                    tableHtml += `<th>${header}</th>`;
+                    tableHtml += `<td>${row[header] !== undefined ? row[header] : ''}</td>`;
                 });
-                
-                tableHtml += '</tr></thead><tbody>';
-                
-                data.forEach(row => {
-                    tableHtml += '<tr>';
-                    headers.forEach(header => {
-                        const value = row[header];
-                        tableHtml += `<td>${value !== undefined && value !== null ? value : ''}</td>`;
-                    });
-                    tableHtml += '</tr>';
-                });
-                
-                tableHtml += '</tbody></table>';
-                return tableHtml;
-            } catch (error) {
-                console.error('Virhe taulukon luonnissa:', error);
-                return '<p>Virhe taulukon luonnissa.</p>';
-            }
+                tableHtml += '</tr>';
+            });
+            
+            tableHtml += '</tbody></table>';
+            return tableHtml;
         }
 
-        // Lisää virheiden käsittely tiedostojen valintaan
-        document.getElementById('sievitalo_pdf').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file && !file.type.includes('pdf')) {
-                alert('Valitse PDF-tiedosto Sievitalolle');
-                e.target.value = '';
+        function createValioviTable(ovimallit) {
+            if (!Array.isArray(ovimallit)) {
+                console.error("createValioviTable sai virheellisen datan:", ovimallit);
+                return "<p>Ei löydettyjä väliovimalleja.</p>";
             }
-        });
 
-        document.getElementById('kastelli_pdf').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file && !file.type.includes('pdf')) {
-                alert('Valitse PDF-tiedosto Kastellille');
-                e.target.value = '';
-            }
-        });
+            let tableHtml = '<table><thead><tr><th>Ovimalli</th></tr></thead><tbody>';
+            ovimallit.forEach(malli => {
+                tableHtml += `<tr><td>${malli}</td></tr>`;
+            });
+            tableHtml += '</tbody></table>';
+            return tableHtml;
+        }
+
+
+
+
+    if (!Array.isArray(ovimallit)) {
+        return "<p>Ei löydettyjä väliovimalleja.</p>";
+    }
+
+    let tableHtml = '<table><thead><tr><th>Ovimalli</th></tr></thead><tbody>';
+    ovimallit.forEach(malli => {
+        tableHtml += `<tr><td>${malli}</td></tr>`;
+    });
+    tableHtml += '</tbody></table>';
+    return tableHtml;
+}
+
 
         // Tapahtumakuuntelijat
         sievitaloInput.addEventListener('change', checkFiles);

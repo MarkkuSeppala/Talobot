@@ -1,0 +1,65 @@
+**Nro:** 100
+**Tyyppi:** Laakaovi Easy 201 7-10x21, valkoinen
+**Valmistaja:** JELD-WEN
+**Materiaali:**  Ei määritelty tarkemmin, mutta valkoinen.
+**Koko:** 7-10x21 (leveys Kastellin lupakuvien mukaan, korkeus 21M)
+**Määrä:** 5 kpl
+**Koneistus:** Väliovipainike 756 Polarita ja avainkilpi, satiini
+**Huonetila:** Ei määritelty
+
+**Nro:** 110
+**Tyyppi:** Laakaovi Easy 201 7-10x21, valkoinen
+**Valmistaja:** JELD-WEN
+**Materiaali:** Ei määritelty tarkemmin, mutta valkoinen.
+**Koko:** 7-10x21 (leveys Kastellin lupakuvien mukaan, korkeus 21M)
+**Määrä:** 1 kpl
+**Koneistus:** Väliovipainike 756 Polarita ja WC-vääntönuppi, satiini
+**Huonetila:** WC/PUKUH
+
+**Nro:** 120
+**Tyyppi:** Ei käytössä Laakaovi Easy 201 13/15x21 sym. valkoinen, pariovi
+**Valmistaja:** JELD-WEN
+**Materiaali:** Ei määritelty tarkemmin, mutta valkoinen. Valkoinen karmi.
+**Koko:** 13/15x21 (leveys Kastellin lupakuvien mukaan, korkeus 21M), pariovi
+**Määrä:** 1 kpl
+**Huonetila:** TYÖH.
+
+**Nro:** 130, 150
+**Tyyppi:** Laakaäänieristysovi Sound 201 DB 9x21
+**Materiaali:** Tiivistetty ovilehti, karmi ja kynnys
+**Rw:** 30 dB
+**Ääniluokka:** 25 dB
+**Koko:** 9x21
+**Määrä:** 2 kpl
+**Koneistus:** Väliovipainike 756 Polarita ja WC-vääntönuppi, satiini
+**Huonetila:** WC, VH/KHH
+**Huom:** sis. karmi ja kynnys
+
+**Nro:** 140
+**Tyyppi:** Laakaäänieristysovi Sound 201 DB 8x21
+**Materiaali:** Tiivistetty ovilehti, karmi ja kynnys
+**Rw:** 30 dB
+**Ääniluokka:** 25 dB
+**Koko:** 8x21
+**Määrä:** 1 kpl
+**Koneistus:** Väliovipainike 756 Polarita ja WC-vääntönuppi, satiini
+**Huonetila:** WC/MH1
+**Huom:** sis. karmi ja kynnys
+
+**Nro:** 160
+**Tyyppi:** Bath SATIINI 7-9x21 valkoinen läpikuultava, kostean tilan lasiovi
+**Valmistaja:** JELD-WEN
+**Materiaali:** 8 mm karkaistu kirkas lasi, silkkipainettu valkoinen, valkoinen roiskevedenkestävä karmi
+**Koko:** 7-9x21
+**Määrä:** 1 kpl
+**Koneistus:** Lukittava vääntönupillinen
+**Huonetila:** PH
+
+**Nro:** 170
+**Tyyppi:** Sauna 83 HARMAA 7-9x19 saunan kokolasiovi
+**Valmistaja:** JELD-WEN
+**Materiaali:** 8 mm karkaistu lasi
+**Koko:** 7-9x19 (leveys Kastellin lupakuvien mukaan, korkeus 19M)
+**Määrä:** 1 kpl
+**Koneistus:** Pyöreä vedin
+**Huonetila:** SAUNA
