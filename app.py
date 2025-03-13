@@ -64,7 +64,8 @@ def suodata_tiedot():
                         tulokset["sievitalo"] = {
                             "ikkunat": get_sievitalo_ikkunat(),
                             "ulko_ovet": get_sievitalo_ulko_ovet(),
-                            "valiovi_mallit": get_sievitalo_valiovi_mallit()
+                            
+                            #"valiovi_mallit": get_sievitalo_valiovi_mallit()
                         }
                     else:
                         tulokset["sievitalo"] = {"error": "Väärä toimittaja"}
