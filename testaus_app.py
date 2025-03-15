@@ -95,7 +95,7 @@ kirjoita_txt_tiedosto(teksti, TOIMITUSSISALTO_DESIGNTALO_TXT)
 #============== run()  =========#
 run_designtalo()
 
-#print(lue_json_tiedosto(IKKUNA_KASTELLI_JSON))
+print(lue_json_tiedosto(IKKUNA_KASTELLI_JSON))
 #print(lue_txt_tiedosto(ULKO_OVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT))
 #print(lue_json_tiedosto(ULKO_OVI_TIEDOT_2_JSON))
 # print(lue_txt_tiedosto(VALIOVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT))
