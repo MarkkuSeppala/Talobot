@@ -20,9 +20,13 @@ from config_data import (VALIOVITYYPIT_SIEVITALO_JSON, ULKO_OVI_TIEDOT_KOKONAISU
                         IKKUNATIEDOT_KASTELLI_KOKONAISUUDESSA_TXT, IKKUNA2_KASTELLI_JSON, PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT,
                         PROMPT_KASTELLI_POIMI_VALIOVITIEDOT_TXT, PROMPT_KASTELLI_POIMI_ULKO_OVI_TIEDOT_TXT, PROMPT_KASTELLI_ANNA_VALIOVIMALLIT_TXT, 
                         PROMPT_KASTELLI_ULKO_OVI_TIEDOT_JSON_MUOTOON, IKKUNA_KASTELLI_JSON, TOIMITUSSISALTO_KASTELLI_TXT, ULKO_OVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT,
-                        VALIOVITYYPIT_KASTELLI_TXT, VALIOVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT, VALIOVITYYPIT_KASTELLI_JSON)
+                        VALIOVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT, VALIOVITYYPIT_KASTELLI_JSON,
 
-from api_run import api_run_sievitalo, api_run_kastelli
+                        PROMPT_DESIGNTALO_POIMI_IKKUNATIEDOT_TXT, PROMPT_DESIGNTALO_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON,
+                        IKKUNATIEDOT_DESIGNTALO_KOKONAISUUDESSA_TXT, IKKUNA2_DESIGNTALO_JSON, PUHDISTETTU_TOIMITUSSISALTO_DESIGNTALO_TXT, TOIMITUSSISALTO_DESIGNTALO_TXT, 
+                        PROMPT_DESIGNTALO_POIMI_VALIOVITIEDOT_TXT, PROMPT_DESIGNTALO_ANNA_VALIOVIMALLIT_TXT)
+
+from run import run_sievitalo, run_designtalo, run_kastelli
 from utils.file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet, muuta_pdf_tekstiksi_2
 from utils.tietosissallon_kasittely import jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, clean_text2
 
@@ -79,19 +83,23 @@ else:
 
 teksti = muuta_pdf_tekstiksi_2(pdf_tiedosto)
 #print( "muutettu teksti:", teksti)
-kirjoita_txt_tiedosto(teksti, TOIMITUSSISALTO_KASTELLI_TXT)
+kirjoita_txt_tiedosto(teksti, TOIMITUSSISALTO_DESIGNTALO_TXT)
+
 #print(lue_txt_tiedosto(TOIMITUSSISALTO_KASTELLI_TXT))
-teksti2 = lue_txt_tiedosto(TOIMITUSSISALTO_KASTELLI_TXT)
-clean_text2(teksti2, PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT)
+#teksti2 = lue_txt_tiedosto(TOIMITUSSISALTO_KASTELLI_TXT)
+#clean_text2(teksti, PUHDISTETTU_TOIMITUSSISALTO_DESIGNTALO_TXT)
+#clean_text2(teksti2, PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT)
 #print(lue_txt_tiedosto(PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT))
-print(lue_txt_tiedosto(PROMPT_KASTELLI_ANNA_VALIOVIMALLIT_TXT))
-api_run_kastelli()
+#print(lue_txt_tiedosto(PROMPT_KASTELLI_ANNA_VALIOVIMALLIT_TXT))
+
+#============== run()  =========#
+run_designtalo()
 
 #print(lue_json_tiedosto(IKKUNA_KASTELLI_JSON))
 #print(lue_txt_tiedosto(ULKO_OVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT))
 #print(lue_json_tiedosto(ULKO_OVI_TIEDOT_2_JSON))
-print(lue_txt_tiedosto(VALIOVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT))
-print(lue_json_tiedosto(VALIOVITYYPIT_KASTELLI_JSON))
+# print(lue_txt_tiedosto(VALIOVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT))
+# print(lue_json_tiedosto(VALIOVITYYPIT_KASTELLI_JSON))
 
 # Käyttö:
 # json_tiedosto = lataa_json()

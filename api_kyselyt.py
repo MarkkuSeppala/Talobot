@@ -42,7 +42,7 @@ print("Gemini API konfiguroitu onnistuneesti!")
 
 
 def api_kysely(system_instruction, generation_config, input_text, output_text):
-    genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
+    genai.configure(api_key=GEMINI_API_KEY)  # Vaihda API-avain
     #tiedostopolku = "data/s/puhdistettu_toimitussisalto.txt"
 
     model = genai.GenerativeModel(
@@ -50,11 +50,12 @@ def api_kysely(system_instruction, generation_config, input_text, output_text):
         generation_config=generation_config,
         system_instruction=lue_txt_tiedosto(system_instruction)
     )
-
+    #print("system_instruction", lue_txt_tiedosto(system_instruction))
+    #print("input_text 54", lue_txt_tiedosto(input_text))
     sisalto = lue_txt_tiedosto(input_text)
     kysymys = f"Tässä on teksti: \n{sisalto}\n\nToimi ohjeen mukaan."
     response = model.generate_content(kysymys)
-
+    #print("response.text", response.text)
     kirjoita_txt_tiedosto(response.text, output_text)
 
 
@@ -69,7 +70,7 @@ def api_kysely(system_instruction, generation_config, input_text, output_text):
 # **Kirjoittaa vastauksen: data/s/ikkunatiedot_kokonaisuudessa.txt
 
 def api_kysely_kirjoitus_json(system_instruction, generation_config, input_text, output_text):
-    genai.configure(api_key="AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")  # Vaihda API-avain
+    genai.configure(api_key=GEMINI_API_KEY)  # Vaihda API-avain
     #tiedostopolku = "data/s/puhdistettu_toimitussisalto.txt"
 
     model = genai.GenerativeModel(

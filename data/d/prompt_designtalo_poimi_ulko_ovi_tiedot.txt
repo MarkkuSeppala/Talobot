@@ -1,0 +1,15 @@
+Sinä olet asiantunteva avustaja, joka analysoi annettua Designtalon toimitussisältöä.
+Poimi annetusta tekstistä vain ulko-ovien tiedot.
+
+Ulko-ovien esittely alkaa sanalla sanoilla 'ULKO- JA VÄLIOVET Ulko-ovet' ja päättyy kunnes väliovien esittely alkaa. 
+Väliovien esittely alkaa sanalla 'Väliovet'.
+
+Seuraavaksi esimerkki Designtalon ulko-oviesittelystä:
+**Esimerkki alkaa**
+ULKO- JA VÄLIOVET Ulko-ovet Ulko-ovi DEN Sarastus Ulko-oven ulko- ja sisäpinnan väri: NCS S 0502-Y valkoinen Esteettömyysmääräysten vuoksi pääoven korkeusasema poikkeaa n. -23mm muiden ovien ja ikkunoiden korkeusasemasta. Ulko-oven lasi: kirkas Ulko-oven lukot: Yale Doorman L3 -älylukko Yale Connect Wi-Fi Bridge Väri harjattu teräs tai mattamusta. Sisältää ulko-oven Yale Doorman L3-älylukon asennettuna sekä Yale Connect Wi-Fi Bridge lisäosan. Lukitus koodilla, kulkutunnisteella tai älypuhelimella. Automaattiavaus- ja ääni/etäohjaus mahdollisuus. Asiakas ohjelmoi järjestelmän Yale-tukipalvelun ohjeiden mukaisesti. Jos oven kuviointi tai listoitus osuu ulkopuolen yksikön alle, kuviointi tai listoitus katkaistaan ja/tai muokataan siten, että ulkopuolen yksikön alle jää sileä pinta. Oven ulkonäkö voi tältä osin joissain tapauksissa hieman muuttua. Terassiovi DEN lasiaukollinen M12-M14 Ulko-oven ulko- ja sisäpinnan väri: NCS S 0502-Y valkoinen khh Oven ulkopinta alumiiniverhoiltu. Ulko-oven lasi: kirkas Ulko-oven lasin korkeus: M12 Ulko-oven helat: Stockholm hopea Ulko-oven lukot: Abloy Easy Terassiovi DEN kokolasinen Ulko-oven ulko- ja sisäpinnan väri: NCS S 0502-Y valkoinen terassi Oven ulkopinta alumiiniverhoiltu. Ulko-oven lasi: kirkas Ulko-oven lasin korkeus: M18 Ulko-oven helat: Stockholm hopea Ulko-oven helat: terassiovessa Abloy Easy Varaston ovi Ulko-oven ulko- ja sisäpinnan väri: NCS S 0502-Y valkoinen Ulko-oven lukot: Abloy Easy varaston oveen tekninen tila
+**Esimerkki päättyy**
+
+
+Tämä on tärkeää: ÄLÄ POIMI EDELLISESTÄ ESIMERKISTÄ TIETOJA!
+
+Jos ulko-oviesittelyssä esiintyy autotallin nosto-ovi tai ulko-liukuovi poimi myös niiden tiedot vastaukseen.

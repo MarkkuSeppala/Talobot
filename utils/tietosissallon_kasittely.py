@@ -93,8 +93,7 @@ def puhdista_ja_kirjoita_tiedosto(input_tiedostopolku, output_tiedostopolku):
 #Saa tekstin, kirjoittaa annettuun polkuun
 def clean_text2(text, korjattu_tiedosto):
  
-    #korjattu_tiedosto = "data/s/puhdistettu_toimitussisalto.txt"
-
+    
     #if os.path.exists(tiedostopolku):
     #    with open(tiedostopolku, 'r', encoding='utf-8') as tiedosto:
     #        sisalto = tiedosto.read()
@@ -107,6 +106,10 @@ def clean_text2(text, korjattu_tiedosto):
 
     with open(korjattu_tiedosto, "w", encoding="utf-8") as tiedosto:
         tiedosto.write(text)
+
+
+
+
 
 
 
@@ -204,6 +207,50 @@ def  jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi(ikkuna_json, ikkuna2
 
 
 def  kastelli_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi(ikkuna_json, ikkuna2_json):
+    output_json = []
+
+    ikkuna_json = lue_json_tiedosto(ikkuna_json)
+    for item in ikkuna_json:
+        leveys, korkeus = map(int, item["koko"].split("x"))  # Muutetaan mitat kokonaisluvuiksi (dm)
+        
+        # Muunnetaan mitat millimetreiksi
+        leveys_mm = leveys * 1
+        korkeus_mm = korkeus * 1
+        mm_koko = f"{leveys_mm}x{korkeus_mm}"
+
+        for _ in range(item["kpl"]):
+            output_json.append({
+                "koko": item["koko"],  # Alkuperäinen koko dm
+                "mm_koko": mm_koko,  # Muunnettu mm
+                "leveys_mm": leveys_mm,  # Tarvitaan lajittelua varten
+                "turvalasi": item["turvalasi"],
+                "välikarmi": item["välikarmi"],
+                "sälekaihtimet": item["sälekaihtimet"]
+            })
+
+    # **Lajitellaan lista leveyden mukaan pienimmästä suurimpaan**
+    output_json = sorted(output_json, key=lambda x: x["leveys_mm"])
+
+    # Poistetaan lajittelua varten lisätty "leveys_mm" ennen tallennusta
+    for item in output_json:
+        del item["leveys_mm"]
+
+    #print(output_json)
+    kirjoita_json_tiedostoon(output_json, ikkuna2_json)
+    # Tallennetaan JSON-tiedostoon
+    #with open("data/s/ikkuna_json_2.txt", "w", encoding="utf-8") as tiedosto:
+    #    json.dump(output_json, tiedosto, ensure_ascii=False, indent=4)
+
+
+
+
+#============== D E S I G N T A L O ============#
+#==================================================================================================#
+#==================================================================================================#
+#==================================================================================================#
+
+
+def  designtalo_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi(ikkuna_json, ikkuna2_json):
     output_json = []
 
     ikkuna_json = lue_json_tiedosto(ikkuna_json)

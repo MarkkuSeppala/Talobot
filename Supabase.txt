@@ -1,0 +1,5 @@
+@$BcXMf$P8d38Qr
+
+api key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd1a2tmcmNibmJpcWdheWRlZmxjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDIwMzA4MDUsImV4cCI6MjA1NzYwNjgwNX0.VOMhTyi9xfwDj3UVov2Gz2vA5SPb_lsdeBzfKmW_tNE
+
+url: https://gukkfrcbnbiqgaydeflc.supabase.co

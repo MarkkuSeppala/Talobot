@@ -27,8 +27,7 @@
 **Nro:** 130, 150
 **Tyyppi:** Laakaäänieristysovi Sound 201 DB 9x21
 **Materiaali:** Tiivistetty ovilehti, karmi ja kynnys
-**Rw:** 30 dB
-**Ääniluokka:** 25 dB
+**Rw:** 30 dB, ääniluokka 25 dB
 **Koko:** 9x21
 **Määrä:** 2 kpl
 **Koneistus:** Väliovipainike 756 Polarita ja WC-vääntönuppi, satiini
@@ -38,8 +37,7 @@
 **Nro:** 140
 **Tyyppi:** Laakaäänieristysovi Sound 201 DB 8x21
 **Materiaali:** Tiivistetty ovilehti, karmi ja kynnys
-**Rw:** 30 dB
-**Ääniluokka:** 25 dB
+**Rw:** 30 dB, ääniluokka 25 dB
 **Koko:** 8x21
 **Määrä:** 1 kpl
 **Koneistus:** Väliovipainike 756 Polarita ja WC-vääntönuppi, satiini
