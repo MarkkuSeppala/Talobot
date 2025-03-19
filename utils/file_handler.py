@@ -47,7 +47,7 @@ def kirjoita_txt_tiedosto(sisalto: str, tiedostopolku):
         with open(tiedostopolku, "w", encoding="utf-8") as tiedosto:
             tiedosto.write(sisalto)
 
-        print(f"✅ Tiedosto kirjoitettu onnistuneesti: {tiedostopolku}")
+        #print(f"✅ Tiedosto kirjoitettu onnistuneesti: {tiedostopolku}")
 
     except Exception as e:
         print(f"⚠️ Virhe tiedostoa kirjoittaessa: {e}")
@@ -186,6 +186,27 @@ def muuta_pdf_tekstiksi(pdf_file):
     except Exception as e:
         print(f"❌ Virhe PDF:n muuntamisessa: {e}")
         return ""  # Jos virhe, palautetaan tyhjä merkkijono
+    
+
+#==================================================================================================#
+# **Muuta tekstiksi ja palauttaa txt-tidoston**
+
+
+def muuta_pdf_tekstiksi_ilman_tallennusta(pdf_file):
+    """
+    Muuntaa PDF-tiedoston tekstiksi ja palauttaa sen merkkijonona.
+    
+    :param pdf_file: BytesIO-tiedosto-objekti
+    :return: PDF:n sisältämä teksti merkkijonona
+    """
+    try:
+        with fitz.open(stream=pdf_file, filetype="pdf") as doc:  # Luetaan muistista
+            return "\n".join(page.get_text() for page in doc)  # Yhdistetään sivut rivinvaihdoilla
+        
+    except Exception as e:
+        print(f"❌ Virhe PDF:n muuntamisessa: {e}")
+        return ""  # Jos virhe, palautetaan tyhjä merkkijono
+
     
 
 #==================================================================================================#
