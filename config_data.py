@@ -21,7 +21,7 @@ DATA_DIR = BASE_DIR / "data"
 
 GEMINI_API_KEY = "AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg"
 TOIMITUSSISALTO_TXT = DATA_DIR / "toimitussisalto.txt"
-UPLOAD_FOLDER_DATA = DATA_DIR / "toimitussisallot_pdf"
+UPLOAD_FOLDER_DATA = DATA_DIR / "ladatut_toimitussisallot"
 
 
 
