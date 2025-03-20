@@ -105,7 +105,7 @@ def suodata_tiedot():
                 txt_filename = f"{unique_id}.txt"
                 txt_filepath = os.path.join(UPLOAD_FOLDER_DATA, txt_filename)
                 kirjoita_txt_tiedosto(teksti, txt_filepath)
-                print(f"🔹 Tallennetaan tekstidata tiedostoksi 97")
+                #print(f"🔹 Tallennetaan tekstidata tiedostoksi 97")
             else:
                 tulokset["sievitalo"] = {"error": "Väärä toimittaja"}
             # print(pdf_filepath)
