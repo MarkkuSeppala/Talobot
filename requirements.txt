@@ -6,3 +6,4 @@ pandas
 tabulate
 sqlalchemy
 python-dotenv
+psycopg2
