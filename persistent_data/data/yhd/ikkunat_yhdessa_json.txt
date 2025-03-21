@@ -1,0 +1,122 @@
+[
+    {
+        "Sievitalo_mm_koko": null,
+        "Kastellin_pyoristetty_koko": "500x500",
+        "Sievitalo_turvalasi": null,
+        "Kastelli_turvalasi": false,
+        "Sievitalo_välikarmi": null,
+        "Kastelli_välikarmi": false,
+        "Sievitalo_sälekaihtimet": null,
+        "Kastelli_sälekaihtimet": true
+    },
+    {
+        "Sievitalo_mm_koko": null,
+        "Kastellin_pyoristetty_koko": "500x2000",
+        "Sievitalo_turvalasi": null,
+        "Kastelli_turvalasi": true,
+        "Sievitalo_välikarmi": null,
+        "Kastelli_välikarmi": false,
+        "Sievitalo_sälekaihtimet": null,
+        "Kastelli_sälekaihtimet": true
+    },
+    {
+        "Sievitalo_mm_koko": "600x600",
+        "Kastellin_pyoristetty_koko": null,
+        "Sievitalo_turvalasi": false,
+        "Kastelli_turvalasi": null,
+        "Sievitalo_välikarmi": false,
+        "Kastelli_välikarmi": null,
+        "Sievitalo_sälekaihtimet": true,
+        "Kastelli_sälekaihtimet": null
+    },
+    {
+        "Sievitalo_mm_koko": "600x1600",
+        "Kastellin_pyoristetty_koko": null,
+        "Sievitalo_turvalasi": false,
+        "Kastelli_turvalasi": null,
+        "Sievitalo_välikarmi": false,
+        "Kastelli_välikarmi": null,
+        "Sievitalo_sälekaihtimet": true,
+        "Kastelli_sälekaihtimet": null
+    },
+    {
+        "Sievitalo_mm_koko": "600x2000",
+        "Kastellin_pyoristetty_koko": null,
+        "Sievitalo_turvalasi": true,
+        "Kastelli_turvalasi": null,
+        "Sievitalo_välikarmi": false,
+        "Kastelli_välikarmi": null,
+        "Sievitalo_sälekaihtimet": true,
+        "Kastelli_sälekaihtimet": null
+    },
+    {
+        "Sievitalo_mm_koko": "800x1700",
+        "Kastellin_pyoristetty_koko": null,
+        "Sievitalo_turvalasi": true,
+        "Kastelli_turvalasi": null,
+        "Sievitalo_välikarmi": false,
+        "Kastelli_välikarmi": null,
+        "Sievitalo_sälekaihtimet": true,
+        "Kastelli_sälekaihtimet": null
+    },
+    {
+        "Sievitalo_mm_koko": "800x2000",
+        "Kastellin_pyoristetty_koko": null,
+        "Sievitalo_turvalasi": true,
+        "Kastelli_turvalasi": null,
+        "Sievitalo_välikarmi": false,
+        "Kastelli_välikarmi": null,
+        "Sievitalo_sälekaihtimet": true,
+        "Kastelli_sälekaihtimet": null
+    },
+    {
+        "Sievitalo_mm_koko": null,
+        "Kastellin_pyoristetty_koko": "1000x1400",
+        "Sievitalo_turvalasi": null,
+        "Kastelli_turvalasi": false,
+        "Sievitalo_välikarmi": null,
+        "Kastelli_välikarmi": false,
+        "Sievitalo_sälekaihtimet": null,
+        "Kastelli_sälekaihtimet": true
+    },
+    {
+        "Sievitalo_mm_koko": null,
+        "Kastellin_pyoristetty_koko": "1400x1400",
+        "Sievitalo_turvalasi": null,
+        "Kastelli_turvalasi": false,
+        "Sievitalo_välikarmi": null,
+        "Kastelli_välikarmi": true,
+        "Sievitalo_sälekaihtimet": null,
+        "Kastelli_sälekaihtimet": true
+    },
+    {
+        "Sievitalo_mm_koko": "1500x1400",
+        "Kastellin_pyoristetty_koko": null,
+        "Sievitalo_turvalasi": false,
+        "Kastelli_turvalasi": null,
+        "Sievitalo_välikarmi": true,
+        "Kastelli_välikarmi": null,
+        "Sievitalo_sälekaihtimet": true,
+        "Kastelli_sälekaihtimet": null
+    },
+    {
+        "Sievitalo_mm_koko": "1600x1400",
+        "Kastellin_pyoristetty_koko": null,
+        "Sievitalo_turvalasi": false,
+        "Kastelli_turvalasi": null,
+        "Sievitalo_välikarmi": true,
+        "Kastelli_välikarmi": null,
+        "Sievitalo_sälekaihtimet": true,
+        "Kastelli_sälekaihtimet": null
+    },
+    {
+        "Sievitalo_mm_koko": "1700x2000",
+        "Kastellin_pyoristetty_koko": "1700x2000",
+        "Sievitalo_turvalasi": true,
+        "Kastelli_turvalasi": true,
+        "Sievitalo_välikarmi": false,
+        "Kastelli_välikarmi": false,
+        "Sievitalo_sälekaihtimet": true,
+        "Kastelli_sälekaihtimet": true
+    }
+]

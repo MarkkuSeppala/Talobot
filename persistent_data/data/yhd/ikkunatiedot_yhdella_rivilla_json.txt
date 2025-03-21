@@ -1,0 +1,1 @@
+{"Sievitalo_ikkunat": 8, "Kastelli_ikkunat": 5, "Sievitalo_turvalasit": 4, "Kastelli_turvalasit": 2, "Sievitalo_välikarmit": 2, "Kastelli_välikarmit": 1, "Sievitalo_sälekaihtimet": 8, "Kastelli_sälekaihtimet": 5}
