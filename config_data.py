@@ -5,13 +5,14 @@ from pathlib import Path
 
 #Lisää juurikansio Pythonin moduulihakemistoon
 sys.path.append(os.path.abspath("."))
-#sys.path.append(os.path.abspath("utils"))
-#sys.path.append(os.path.abspath("api_kyselyt"))
+
 
 
 
 # Määritä peruskansio, jossa data sijaitsee
 BASE_DIR = Path(__file__).parent  # Tämä varmistaa, että polut ovat suhteellisia skriptiin
+
+PERSISTENT_DISK = Path("/persistent_data") if os.path.exists("/persistent_data") else Path(__file__).parent
 
 # Data-kansio
 S_DIR = BASE_DIR / "data" / "s"
@@ -20,6 +21,9 @@ D_DIR = BASE_DIR / "data" / "d"
 DATA_DIR = BASE_DIR / "data"
 
 GEMINI_API_KEY = "AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg"
+
+
+DATA_DIR = PERSISTENT_DISK / "data"
 TOIMITUSSISALTO_TXT = DATA_DIR / "toimitussisalto.txt"
 UPLOAD_FOLDER_DATA = DATA_DIR / "ladatut_toimitussisallot"
 
