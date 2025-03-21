@@ -12,7 +12,7 @@ sys.path.append(os.path.abspath("."))
 # Määritä peruskansio, jossa data sijaitsee
 BASE_DIR = Path(__file__).parent  # Tämä varmistaa, että polut ovat suhteellisia skriptiin
 
-PERSISTENT_DISK = Path("/persistent_data/data") if os.path.exists("/persistent_data/data") else Path(__file__).parent
+PERSISTENT_DISK = Path("/persistent_data") if os.path.exists("/persistent_data") else Path(__file__).parent
 #render@srv-cvali32j1k6c738u3qtg-779dd6f789-d2tq9:/persistent_data/data/ladatut_toimitussisallot$
 # Data-kansio
 S_DIR = BASE_DIR / "data" / "s"
@@ -22,8 +22,8 @@ DATA_DIR = BASE_DIR / "data"
 
 GEMINI_API_KEY = "AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg"
 
-PERSISTENT_DISK = Path("/persistent_data/data")
-#PERSISTENT_DISK = Path("/var/data")
+#PERSISTENT_DISK = Path("/persistent_data/data")cd
+PERSISTENT_DISK = Path("/var/data")
 DATA_DIR = PERSISTENT_DISK / "data"
 TOIMITUSSISALTO_TXT = DATA_DIR / "toimitussisalto.txt"
 UPLOAD_FOLDER_DATA = DATA_DIR / "ladatut_toimitussisallot"
