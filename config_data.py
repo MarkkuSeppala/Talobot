@@ -22,8 +22,8 @@ DATA_DIR = BASE_DIR / "data"
 
 GEMINI_API_KEY = "AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg"
 
-#PERSISTENT_DISK = Path("/persistent_data/data")cd
-PERSISTENT_DISK = Path("/var/data")
+PERSISTENT_DISK = Path("/persistent_data")
+#PERSISTENT_DISK = Path("/var/data")
 DATA_DIR = PERSISTENT_DISK / "data"
 TOIMITUSSISALTO_TXT = DATA_DIR / "toimitussisalto.txt"
 UPLOAD_FOLDER_DATA = DATA_DIR / "ladatut_toimitussisallot"
