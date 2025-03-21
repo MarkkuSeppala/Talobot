@@ -81,16 +81,80 @@ def suodata_tiedot():
                 # 🔹 Luo UUID-tunniste ja tallenna PDF palvelimelle
                 unique_id = generate_uuid()
                 pdf_filename = f"{unique_id}.pdf"
-                pdf_filepath = os.path.join(UPLOAD_FOLDER_DATA, pdf_filename)
+                pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename
+                #pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename
 
                 # 🔹 Lue tiedosto muistiin ennen tallennusta
                 file_data = file.read()  # Lue sisältö talteen
+                print(f"🔹 Tiedoston koko: {len(file_data)} tavua")
+
+                # 🔹 Varmista, että kansio on olemassa
+                if not UPLOAD_FOLDER_DATA.exists():
+                    print("❌ Kansio puuttuu, luodaan...")
+                    UPLOAD_FOLDER_DATA.mkdir(parents=True, exist_ok=True)
+
+
+
+
+
+                #pdf_filepath = str(UPLOAD_FOLDER_DATA / pdf_filename)
+             
+                print(f"✅ PDF tallennetaan polkuun: {pdf_filepath}")
+                
+                print(f"🔹 Tarkistetaan tallennuspolku: {pdf_filepath}")
+                print("🔹 Kansion olemassaolo:", UPLOAD_FOLDER_DATA.exists())   
+               
+
+                pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename  # tämä on Path-objekti
+                #print(f"✅ PDF tallennetaan Path-objektiin: {pdf_path}")
+                # with open(pdf_path, "wb") as f:
+                #     f.write(file_data)
+
+
+                print("📂 UPLOAD_FOLDER_DATA tyyppi:", type(UPLOAD_FOLDER_DATA))
+                print("📂 UPLOAD_FOLDER_DATA:", UPLOAD_FOLDER_DATA)
+                print("📂 Tiedostonnimi:", pdf_filename)
+                print("📂 Tallennuspolku:", pdf_filepath)
+                print("📌 Nykyinen työpolku:", os.getcwd())
+
+
+               
+
+
+
+                from pathlib import Path
+
+                #testpolku = Path("persistent_data/data/ladatut_toimitussisallot")
+                #print("📂 Todellinen polku:", testpolku.resolve())
+
+
+
+                # testipolku = "persistent_data/data/ladatut_toimitussisallot/testi_flaskilta.txt"
+                # with open(testipolku, "wb") as f:
+                #     f.write("TÄMÄ ON TESTITIEDOSTO FLASKISTA\n".encode("utf-8"))
+
+                print("📄 Tiedoston koko: pitää olla > 0", len(file_data))  # pitää olla > 0
+
+                print("📌 Todellinen tiedostopolku:", Path(pdf_filepath).resolve())
 
                 # 🔹 Tallenna tiedosto palvelimelle
                 with open(pdf_filepath, "wb") as f:
                     f.write(file_data)  # Kirjoitetaan alkuperäinen tiedosto levylle
 
-                print(f"🔹 Tallennetaan PDF-tiedosto: {pdf_filepath}")
+                
+                print("📁 Tiedoston listaus:")
+                print(os.listdir(UPLOAD_FOLDER_DATA))
+
+
+                if pdf_filepath and Path(pdf_filepath).exists():
+                    print(f"✅ Vahvistettu: PDF tallennettu tiedostoon {pdf_filepath}")
+                else:
+                    print(f"❌ PDF-tiedosto EI löytynyt polusta: {pdf_filepath}")
+
+                    print(f"🔹 Tallennetaan PDF-tiedosto: {pdf_filepath}")
+
+
+
                 
                 # 🔹 Muunna PDF tekstiksi
                 # Muunna PDF tekstiksi ilman tallennusta
@@ -103,7 +167,7 @@ def suodata_tiedot():
 
                 # 🔹 Tallennetaan tekstidata tiedostoksi
                 txt_filename = f"{unique_id}.txt"
-                txt_filepath = os.path.join(UPLOAD_FOLDER_DATA, txt_filename)
+                txt_filepath = UPLOAD_FOLDER_DATA / txt_filename
                 kirjoita_txt_tiedosto(teksti, txt_filepath)
                 #print(f"🔹 Tallennetaan tekstidata tiedostoksi 97")
             else:
@@ -116,8 +180,8 @@ def suodata_tiedot():
                 uusi_toimitussisalto = Toimitussisallot(
                     kayttaja_id=1,
                     uuid=unique_id,
-                    pdf_url=pdf_filepath,
-                    txt_sisalto=txt_filepath,
+                    pdf_url=str(pdf_filepath),
+                    txt_sisalto=str(txt_filepath),
                     toimittaja=toimittaja,
                 )
                 db.add(uusi_toimitussisalto)
@@ -133,6 +197,8 @@ def suodata_tiedot():
 
 
 
+            print("Tallennuspolku:", UPLOAD_FOLDER_DATA)
+            print("Kansio löytyy:", UPLOAD_FOLDER_DATA.exists())
 
 
         '''

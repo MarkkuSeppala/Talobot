@@ -6,29 +6,65 @@ from pathlib import Path
 #Lisää juurikansio Pythonin moduulihakemistoon
 sys.path.append(os.path.abspath("."))
 
-
-
+print(" jos seuraava true, sitten väärin")
+print(os.path.exists("/persistent_data"))
 
 # Määritä peruskansio, jossa data sijaitsee
 BASE_DIR = Path(__file__).parent  # Tämä varmistaa, että polut ovat suhteellisia skriptiin
+#BASE_DIR = Path("C:/Users/Public/testibot/Talobot")
 
-PERSISTENT_DISK = Path("/persistent_data") if os.path.exists("/persistent_data") else Path(__file__).parent
+# Hae juurihakemisto riippuen ympäristöstä
+if os.path.exists("/persistent_data") and not os.path.exists("C:/persistent_data"):  # 🔹 Renderin polku
+    PERSISTENT_DISK = Path("/persistent_data")
+    DATA_DIR = PERSISTENT_DISK / "data"
+    print("📌 PERSISTENT_DISK: rivi 20")
+else:  # 🔹 Windowsin polku
+    BASE_DIR = Path(__file__).resolve().parent
+    DATA_DIR = BASE_DIR / "data"
+    print("📌 BASE_DIR: rivi 24")
+#     PERSISTENT_DISK = BASE_DIR / "C:/Users/Public/testibot/Talobot/"
+
+# 🔹 Tarkista ensin, ollaanko Renderissä
+# if os.path.exists("/persistent_data"):  
+#     PERSISTENT_DISK = Path("/persistent_data")  # 🔹 Renderin polku
+
+# # 🔹 Jos EI olla Renderissä, tarkista oikea Windows-polku
+# elif os.path.exists("C:/persistent_data") and not os.path.exists("C:/Users/Public/testibot/Talobot/persistent_data"):
+#     PERSISTENT_DISK = Path("C:/persistent_data")  # 🔹 Windowsin erikoistapaus
+
+# # 🔹 Jos ollaan kehitysympäristössä (eli Windows ja oikea hakemisto löytyy)
+# else:
+#     BASE_DIR = Path(__file__).resolve().parent
+#     PERSISTENT_DISK = BASE_DIR / "persistent_data"  # 🔹 Käytä Windowsin oikeaa polkua
+
+
+#PERSISTENT_DISK = Path("/persistent_data") if os.path.exists("/persistent_data") else Path(__file__).parent
+
+
+
+
 #render@srv-cvali32j1k6c738u3qtg-779dd6f789-d2tq9:/persistent_data/data/ladatut_toimitussisallot$
 # Data-kansiot
-DATA_DIR = PERSISTENT_DISK / "data"
-S_DIR = BASE_DIR / "data" / "s"
-K_DIR = BASE_DIR / "data" / "k"
-D_DIR = BASE_DIR / "data" / "d"
+#PERSISTENT_DISK = BASE_DIR / "persistent_data"
+#DATA_DIR = PERSISTENT_DISK / "data"
+#DATA_DIR = BASE_DIR / "data"
+S_DIR = DATA_DIR / "s"
+K_DIR = DATA_DIR / "k"
+D_DIR = DATA_DIR / "d"
 #DATA_DIR = BASE_DIR / "data"
 
 GEMINI_API_KEY = "AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg"
 
-PERSISTENT_DISK = Path("/persistent_data")
+#PERSISTENT_DISK = Path("/persistent_data")
 #PERSISTENT_DISK = Path("/var/data")
 #DATA_DIR = PERSISTENT_DISK / "data"
 TOIMITUSSISALTO_TXT = DATA_DIR / "toimitussisalto.txt"
 UPLOAD_FOLDER_DATA = DATA_DIR / "ladatut_toimitussisallot"
 
+print("📌 BASE_DIR:", BASE_DIR.resolve())
+#print("📌 PERSISTENT_DISK:", PERSISTENT_DISK.resolve())
+print("📌 DATA_DIR:", DATA_DIR.resolve())
+print("📌 UPLOAD_FOLDER_DATA:", UPLOAD_FOLDER_DATA.resolve())
 
 
 #===============  SIEVITALO  polut ================#
