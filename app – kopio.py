@@ -44,127 +44,6 @@ def tunnista_toimittaja(teksti):
             return nimi
     return None
 
-#------------------------------------------------------------------
-#kirjoitetaan ensimmainen_toimitussisalto kantaan
-#-----------------------------------------------------------------
-def ensimmainen_toimitussisalto(file):
-    print("ensimmainen_toimitussisalto")
-    file = request.files["ensimmainen_toimitussisalto"]            
-        # 🔹 Luo UUID-tunniste ja tallenna PDF palvelimelle
-    unique_id = generate_uuid()
-    pdf_filename = f"{unique_id}.pdf"
-    pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename
-    
-    # 🔹 Lue tiedosto muistiin ennen tallennusta
-    file_data = file.read()  # Lue sisältö talteen
-    
-    # 🔹 Varmista, että kansio on olemassa
-    if not UPLOAD_FOLDER_DATA.exists():
-        print("❌ Kansio puuttuu, luodaan...")
-        UPLOAD_FOLDER_DATA.mkdir(parents=True, exist_ok=True)
-
-    pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename  # tämä on Path-objekti
-    
-    # 🔹 Tallenna tiedosto palvelimelle
-    with open(pdf_filepath, "wb") as f:
-        f.write(file_data)  # Kirjoitetaan alkuperäinen tiedosto levylle
-    
-    # Muunna PDF tekstiksi ilman tallennusta
-    teksti = muuta_pdf_tekstiksi(io.BytesIO(file_data))  # Luo muistissa oleva tiedosto-objekti
-    
-    # 🔹 Tunnista toimittaja
-    toimittaja = tunnista_toimittaja(teksti)
-    
-    # 🔹 Tallennetaan tekstidata tiedostoksi
-    txt_filename = f"{unique_id}.txt"
-    txt_filepath = UPLOAD_FOLDER_DATA / txt_filename
-    kirjoita_txt_tiedosto(teksti, txt_filepath)
-    print(f"🔹 Tallennetaan tekstidata tiedostoksi 97")
-
-        
-          
-    db = SessionLocal()
-    try:
-        uusi_toimitussisalto = Toimitussisallot(
-            kayttaja_id=1,
-            uuid=unique_id,
-            pdf_url=str(pdf_filepath),
-            txt_sisalto=str(txt_filepath),
-            toimittaja=toimittaja,
-        )
-        db.add(uusi_toimitussisalto)
-        db.flush()  # 🌟 Varmistaa, että ID generoituu ennen commitointia
-        db.commit()
-        db.refresh(uusi_toimitussisalto)  # 🌟 Päivittää objektin tietokannasta
-        print("✅ Uusi toimitussisalto lisätty ID:", uusi_toimitussisalto.id)
-    except Exception as e:
-        db.rollback()  # 🌟 Jos virhe, kumoa kaikki muutokset
-        print(f"❌ Virhe lisättäessä tietoa: {e}")
-    finally:
-        db.close()  # Sulje istunto aina
-
-
-
-
-
-#------------------------------------------------------------------
-#kirjoitetaan toinen_toimitussisalto kantaan
-#-----------------------------------------------------------------
-def toinen_toimitussisalto(file):
-    print("toinen_toimitussisalto")
-    file = request.files["toinen_toimitussisalto"]            
-        # 🔹 Luo UUID-tunniste ja tallenna PDF palvelimelle
-    unique_id = generate_uuid()
-    pdf_filename = f"{unique_id}.pdf"
-    pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename
-    
-    # 🔹 Lue tiedosto muistiin ennen tallennusta
-    file_data = file.read()  # Lue sisältö talteen
-    
-    # 🔹 Varmista, että kansio on olemassa
-    if not UPLOAD_FOLDER_DATA.exists():
-        print("❌ Kansio puuttuu, luodaan...")
-        UPLOAD_FOLDER_DATA.mkdir(parents=True, exist_ok=True)
-
-    pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename  # tämä on Path-objekti
-    
-    # 🔹 Tallenna tiedosto palvelimelle
-    with open(pdf_filepath, "wb") as f:
-        f.write(file_data)  # Kirjoitetaan alkuperäinen tiedosto levylle
-    
-    # Muunna PDF tekstiksi ilman tallennusta
-    teksti = muuta_pdf_tekstiksi(io.BytesIO(file_data))  # Luo muistissa oleva tiedosto-objekti
-    
-    # 🔹 Tunnista toimittaja
-    toimittaja = tunnista_toimittaja(teksti)
-    
-    # 🔹 Tallennetaan tekstidata tiedostoksi
-    txt_filename = f"{unique_id}.txt"
-    txt_filepath = UPLOAD_FOLDER_DATA / txt_filename
-    kirjoita_txt_tiedosto(teksti, txt_filepath)
-    print(f"🔹 Tallennetaan tekstidata tiedostoksi 97")
-
-        
-          
-    db = SessionLocal()
-    try:
-        uusi_toimitussisalto = Toimitussisallot(
-            kayttaja_id=1,
-            uuid=unique_id,
-            pdf_url=str(pdf_filepath),
-            txt_sisalto=str(txt_filepath),
-            toimittaja=toimittaja,
-        )
-        db.add(uusi_toimitussisalto)
-        db.flush()  # 🌟 Varmistaa, että ID generoituu ennen commitointia
-        db.commit()
-        db.refresh(uusi_toimitussisalto)  # 🌟 Päivittää objektin tietokannasta
-        print("✅ Uusi toimitussisalto lisätty ID:", uusi_toimitussisalto.id)
-    except Exception as e:
-        db.rollback()  # 🌟 Jos virhe, kumoa kaikki muutokset
-        print(f"❌ Virhe lisättäessä tietoa: {e}")
-    finally:
-        db.close()  # Sulje istunto aina
 
 app = Flask(__name__)
 
@@ -196,15 +75,6 @@ def suodata_tiedot():
             #Onko painettu nappia Sievitalo
             if "ensimmainen_toimitussisalto" in request.files:
                 file = request.files["ensimmainen_toimitussisalto"]            
-                print("rivi 78")
-                ensimmainen_toimitussisalto(file)
-            if print("rivi 81"):
-                   toinen_toimitussisalto(file)
-            else:
-                print("else toinen_")
-        
-
-            """
                 # 🔹 Luo UUID-tunniste ja tallenna PDF palvelimelle
                 unique_id = generate_uuid()
                 pdf_filename = f"{unique_id}.pdf"
@@ -258,7 +128,7 @@ def suodata_tiedot():
                 print(f"❌ Virhe lisättäessä tietoa: {e}")
             finally:
                 db.close()  # Sulje istunto aina
-            """
+
 
         '''
             # Käsittele Sievitalon PDF
@@ -369,4 +239,4 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", port=port, debug=True)
 
 
-
+# %%

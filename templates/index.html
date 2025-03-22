@@ -154,17 +154,17 @@
                 <form id="uploadForm" enctype="multipart/form-data">
                     <div class="file-inputs">
                         <div class="file-input-group">
-                            <label for="sievitalo_pdf">Sievitalon toimitussisältö (PDF):</label>
-                            <input type="file" id="sievitalo_pdf" name="sievitalo_pdf" accept=".pdf">
-                            <div id="sievitalo-info" class="file-info">
+                            <label for="ensimmainen_toimitussisalto">Lataa ensimmäinen toimitussisältö (PDF):</label>
+                            <input type="file" id="ensimmainen_toimitussisalto" name="ensimmainen_toimitussisalto" accept=".pdf">
+                            <div id="ensimmainen_toimitussisalto-info" class="file-info">
                                 <i class="fas fa-exclamation-circle"></i> Tiedostoa ei ole valittu
                             </div>
                         </div>
                         
                         <div class="file-input-group">
-                            <label for="kastelli_pdf">Kastellin toimitussisältö (PDF):</label>
-                            <input type="file" id="kastelli_pdf" name="kastelli_pdf" accept=".pdf">
-                            <div id="kastelli-info" class="file-info">
+                            <label for="toinen_toimitussisalto">Lataa toinen toimitussisältö (PDF):</label>
+                            <input type="file" id="toinen_toimitussisalto" name="toinen_toimitussisalto" accept=".pdf">
+                            <div id="toinen_toimitussisalto-info" class="file-info">
                                 <i class="fas fa-exclamation-circle"></i> Tiedostoa ei ole valittu
                             </div>
                         </div>
@@ -207,8 +207,8 @@
 
     <script>
         // DOM-elementit
-        const sievitaloInput = document.getElementById('sievitalo_pdf');
-        const kastelliInput = document.getElementById('kastelli_pdf');
+        const ensimmainen_toimitussisaltoInput = document.getElementById('ensimmainen_toimitussisalto');
+        const toinen_toimitussisaltoInput = document.getElementById('toinen_toimitussisalto');
         const submitButton = document.getElementById('submit-button');
         const uploadForm = document.getElementById('uploadForm');
         const uploadSection = document.getElementById('upload-section');
@@ -218,22 +218,22 @@
 
         // Lisää funktio tiedostojen tarkistamiseen
         function checkFiles() {
-            const sievitaloFile = sievitaloInput.files[0];
-            const kastelliFile = kastelliInput.files[0];
+            const ensimmainen_toimitussisaltoFile = ensimmainen_toimitussisaltoInput.files[0];
+            const toinen_toimitussisaltoFile = toinen_toimitussisaltoInput.files[0];
             
             // Tarkista että molemmat tiedostot on valittu ja ovat PDF-muodossa
-            const isSievitaloPdf = sievitaloFile && 
-                (sievitaloFile.type === 'application/pdf' || sievitaloFile.name.toLowerCase().endsWith('.pdf'));
-            const isKastelliPdf = kastelliFile && 
-                (kastelliFile.type === 'application/pdf' || kastelliFile.name.toLowerCase().endsWith('.pdf'));
+            const isSievitaloPdf = ensimmainen_toimitussisaltoFile && 
+                (ensimmainen_toimitussisaltoFile.type === 'application/pdf' || ensimmainen_toimitussisaltoFile.name.toLowerCase().endsWith('.pdf'));
+            const isKastelliPdf = toinen_toimitussisaltoFile && 
+                (toinen_toimitussisaltoFile.type === 'application/pdf' || toinen_toimitussisaltoFile.name.toLowerCase().endsWith('.pdf'));
             
             // Aktivoi tai deaktivoi painike
             submitButton.disabled = !(isSievitaloPdf && isKastelliPdf);
             submitButton.classList.toggle('disabled', !(isSievitaloPdf && isKastelliPdf));
             
             // Päivitä tiedostojen tila
-            updateFileInfo('sievitalo-info', sievitaloFile, isSievitaloPdf);
-            updateFileInfo('kastelli-info', kastelliFile, isKastelliPdf);
+            updateFileInfo('ensimmainen_toimitussisalto-info', ensimmainen_toimitussisaltoFile, isSievitaloPdf);
+            updateFileInfo('toinen_toimitussisalto-info', toinen_toimitussisaltoFile, isKastelliPdf);
         }
 
         function updateFileInfo(elementId, file, isPdf) {
@@ -254,11 +254,11 @@
             const formData = new FormData();
             
             // Lisää molemmat tiedostot FormDataan
-            const sievitaloFile = document.getElementById('sievitalo_pdf').files[0];
-            const kastelliFile = document.getElementById('kastelli_pdf').files[0];
+            const ensimmainen_toimitussisaltoFile = document.getElementById('ensimmainen_toimitussisalto').files[0];
+            const toinen_toimitussisaltoFile = document.getElementById('toinen_toimitussisalto').files[0];
             
-            if (sievitaloFile) formData.append('sievitalo_pdf', sievitaloFile);
-            if (kastelliFile) formData.append('kastelli_pdf', kastelliFile);
+            if (ensimmainen_toimitussisaltoFile) formData.append('ensimmainen_toimitussisalto', ensimmainen_toimitussisaltoFile);
+            if (toinen_toimitussisaltoFile) formData.append('toinen_toimitussisalto', toinen_toimitussisaltoFile);
             
             // Näytä lataussymboli ja piilota latausosio
             uploadSection.style.display = 'none';
@@ -297,18 +297,18 @@
                 }
                 
                 // Tyhjennä aiemmat tulokset
-                document.getElementById('sievitalo-results').innerHTML = '';
-                document.getElementById('kastelli-results').innerHTML = '';
+                document.getElementById('ensimmainen_toimittaja-results').innerHTML = '';
+                document.getElementById('toinen_toimittaja-results').innerHTML = '';
                 
                 // Näytä tulososio
                 resultsSection.style.display = 'block';
                 
                 // Renderöi tulokset
-                if (data.sievitalo) {
-                    renderToimittajaData(data.sievitalo, 'sievitalo-results');
+                if (data.ensimmainen_toimittaja) {
+                    renderToimittajaData(data.ensimmainen_toimittaja, 'ensimmainen_toimittaja-results');
                 }
                 if (data.kastelli) {
-                    renderToimittajaData(data.kastelli, 'kastelli-results');
+                    renderToimittajaData(data.toinen_toimittaja, 'toinen_toimittaja-results');
                 }
             })
             .catch(error => {
@@ -401,31 +401,31 @@
         }
 
         // Lisää virheiden käsittely tiedostojen valintaan
-        document.getElementById('sievitalo_pdf').addEventListener('change', function(e) {
+        document.getElementById('ensimmainen_toimitussisalto').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file && !file.type.includes('pdf')) {
-                alert('Valitse PDF-tiedosto Sievitalolle');
+                alert('Valitse PDF-tiedosto ensimmäiselle toimittajalle');
                 e.target.value = '';
             }
         });
 
-        document.getElementById('kastelli_pdf').addEventListener('change', function(e) {
+        document.getElementById('toinen_toimitussisalto').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file && !file.type.includes('pdf')) {
-                alert('Valitse PDF-tiedosto Kastellille');
+                alert('Valitse PDF-tiedosto toiselle toimittajalle');
                 e.target.value = '';
             }
         });
 
         // Tapahtumakuuntelijat
-        sievitaloInput.addEventListener('change', checkFiles);
-        kastelliInput.addEventListener('change', checkFiles);
+        ensimmainen_toimitussisaltoInput.addEventListener('change', checkFiles);
+        toinen_toimitussisaltoInput.addEventListener('change', checkFiles);
         
         backToUploadButton.addEventListener('click', function() {
             resultsSection.style.display = 'none';
             uploadSection.style.display = 'block';
-            sievitaloInput.value = '';
-            kastelliInput.value = '';
+            ensimmainen_toimitussisaltoInput.value = '';
+            toinen_toimitussisaltoInput.value = '';
             checkFiles();
         });
 
