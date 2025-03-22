@@ -198,10 +198,12 @@ def suodata_tiedot():
                 file = request.files["ensimmainen_toimitussisalto"]            
                 print("rivi 78")
                 ensimmainen_toimitussisalto(file)
-            if print("rivi 81"):
-                   toinen_toimitussisalto(file)
-            else:
-                print("else toinen_")
+                print("ensimmainen_toimitussialato lisatty")
+            if "toinen_toimitussisalto" in request.files:
+                file = request.files["toinen_toimitussisalto"]            
+                toinen_toimitussisalto(file)
+                print("toinen_toimitussialato lisatty")
+           
         
 
             """

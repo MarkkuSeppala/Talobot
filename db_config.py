@@ -54,9 +54,68 @@ class Kayttajat(Base):
     viimeksi_kirjautunut = Column(DateTime)
     aktiivinen = Column(Boolean, default=True)
 
+
 class Toimittajat(Base):
     __tablename__ = "toimittajat"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     nimi = Column(String(100), nullable=False, unique=True)  # Pituus 100, kuten tietokannassa
     created_at = Column(DateTime, default=datetime.utcnow, nullable=True)  # Vastaamaan tietokannan määrittelyä
+
+
+class Ikkunat(Base):
+    __tablename__ = "ikkunat"
+    id = Column(Integer, primary_key=True)
+    leveys = Column(Integer)
+    korkeus = Column(Integer)
+    turvalasi = Column(Boolean)
+    valikarmi = Column(Boolean)
+    salekaihtimet = Column(Boolean)
+    created_at = Column(DateTime, default=datetime.now(datetime.UTC))
+    toimitussisalto_id = Column(Integer, ForeignKey("toimitussisallot.id", ondelete="CASCADE"))
+
+
+class UlkoOvet(Base):
+    __tablename__ = "ulko_ovet"
+    id = Column(Integer, primary_key=True)
+    malli = Column(String(255), nullable=False)
+    paloluokitus_EI_15 = Column(Boolean)
+    maara = Column(Integer)
+    luotu = Column(DateTime, default=datetime.utcnow)
+    toimitussisalto_id = Column(Integer, ForeignKey("toimitussisallot.id", ondelete="CASCADE"))
+
+
+class Valiovet(Base):
+    __tablename__ = "valiovet"
+    id = Column(Integer, primary_key=True)
+    malli = Column(String(255), nullable=False)
+    luotu = Column(DateTime, default=datetime.utcnow)
+    toimitussisalto_id = Column(Integer, ForeignKey("toimitussisallot.id", ondelete="CASCADE"))
+
+
+class Materiaalikategoriat(Base):
+    __tablename__ = "materiaalikategoriat"
+    id = Column(Integer, primary_key=True)
+    nimi = Column(String(100), nullable=False)
+    kuvaus = Column(Text)
+
+
+class MateriaalitJaPalvelut(Base):
+    __tablename__ = "materiaalit_ja_palvelut"
+    id = Column(Integer, primary_key=True)
+    kategoria_id = Column(Integer, ForeignKey("materiaalikategoriat.id", ondelete="SET NULL"))
+    nimi = Column(String(100), nullable=False)
+    yksikko = Column(String(50), nullable=False)
+    hinta = Column(DECIMAL(10,2))
+
+
+class ToimitussisaltoMateriaalitJaPalvelut(Base):
+    __tablename__ = "toimitussisalto_materiaalit_ja_palvelut"
+    id = Column(Integer, primary_key=True)
+    toimitussisalto_id = Column(Integer, ForeignKey("toimitussisallot.id", ondelete="CASCADE"))
+    materiaali_id = Column(Integer, ForeignKey("materiaalit_ja_palvelut.id", ondelete="CASCADE"))
+    maara = Column(DECIMAL(10,2), nullable=False)
+    hinta_yksikko = Column(DECIMAL(10,2))
+    hinta = Column(DECIMAL(10,2))
+    luotu = Column(DateTime, default=datetime.utcnow)
+

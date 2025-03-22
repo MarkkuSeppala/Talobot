@@ -22,42 +22,15 @@ else:  # 🔹 Windowsin polku
     BASE_DIR = Path(__file__).resolve().parent
     DATA_DIR = BASE_DIR / "data"
     print("📌 BASE_DIR: rivi 24")
-#     PERSISTENT_DISK = BASE_DIR / "C:/Users/Public/testibot/Talobot/"
 
-# 🔹 Tarkista ensin, ollaanko Renderissä
-# if os.path.exists("/persistent_data"):  
-#     PERSISTENT_DISK = Path("/persistent_data")  # 🔹 Renderin polku
-
-# # 🔹 Jos EI olla Renderissä, tarkista oikea Windows-polku
-# elif os.path.exists("C:/persistent_data") and not os.path.exists("C:/Users/Public/testibot/Talobot/persistent_data"):
-#     PERSISTENT_DISK = Path("C:/persistent_data")  # 🔹 Windowsin erikoistapaus
-
-# # 🔹 Jos ollaan kehitysympäristössä (eli Windows ja oikea hakemisto löytyy)
-# else:
-#     BASE_DIR = Path(__file__).resolve().parent
-#     PERSISTENT_DISK = BASE_DIR / "persistent_data"  # 🔹 Käytä Windowsin oikeaa polkua
-
-
-#PERSISTENT_DISK = Path("/persistent_data") if os.path.exists("/persistent_data") else Path(__file__).parent
-
-
-
-
-#render@srv-cvali32j1k6c738u3qtg-779dd6f789-d2tq9:/persistent_data/data/ladatut_toimitussisallot$
-# Data-kansiot
-#PERSISTENT_DISK = BASE_DIR / "persistent_data"
-#DATA_DIR = PERSISTENT_DISK / "data"
-#DATA_DIR = BASE_DIR / "data"
 S_DIR = DATA_DIR / "s"
 K_DIR = DATA_DIR / "k"
 D_DIR = DATA_DIR / "d"
-#DATA_DIR = BASE_DIR / "data"
+
 
 GEMINI_API_KEY = "AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg"
 
-#PERSISTENT_DISK = Path("/persistent_data")
-#PERSISTENT_DISK = Path("/var/data")
-#DATA_DIR = PERSISTENT_DISK / "data"
+
 TOIMITUSSISALTO_TXT = DATA_DIR / "toimitussisalto.txt"
 UPLOAD_FOLDER_DATA = DATA_DIR / "ladatut_toimitussisallot"
 

@@ -187,7 +187,7 @@ def tulosta_toimitussisallot():
 
 # 🔹 Aja funktio
 if __name__ == "__main__":
-    tulosta_toimitussisallot()
+    #tulosta_toimitussisallot()
     print("🔹 Tulostetaan `toimitussisallot`-taulun sisältö...")
 
 
@@ -350,3 +350,7 @@ if __name__ == "__main__":
     #toimittaja_nimi = input("Syötä lisättävän toimittajan nimi: ")
     #lisaa_toimittaja(toimittaja_nimi)
     print("🔹 Lisätään toimittaja...")
+
+from pathlib import Path
+
+
