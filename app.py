@@ -86,7 +86,7 @@ def suodata_tiedot():
 
                 # 🔹 Lue tiedosto muistiin ennen tallennusta
                 file_data = file.read()  # Lue sisältö talteen
-                print(f"🔹 Tiedoston koko: {len(file_data)} tavua")
+                #print(f"🔹 Tiedoston koko: {len(file_data)} tavua")
 
                 # 🔹 Varmista, että kansio on olemassa
                 if not UPLOAD_FOLDER_DATA.exists():
@@ -99,10 +99,10 @@ def suodata_tiedot():
 
                 #pdf_filepath = str(UPLOAD_FOLDER_DATA / pdf_filename)
              
-                print(f"✅ PDF tallennetaan polkuun: {pdf_filepath}")
+                # print(f"✅ PDF tallennetaan polkuun: {pdf_filepath}")
                 
-                print(f"🔹 Tarkistetaan tallennuspolku: {pdf_filepath}")
-                print("🔹 Kansion olemassaolo:", UPLOAD_FOLDER_DATA.exists())   
+                # print(f"🔹 Tarkistetaan tallennuspolku: {pdf_filepath}")
+                # print("🔹 Kansion olemassaolo:", UPLOAD_FOLDER_DATA.exists())   
                
 
                 pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename  # tämä on Path-objekti
@@ -111,18 +111,8 @@ def suodata_tiedot():
                 #     f.write(file_data)
 
 
-                print("📂 UPLOAD_FOLDER_DATA tyyppi:", type(UPLOAD_FOLDER_DATA))
-                print("📂 UPLOAD_FOLDER_DATA:", UPLOAD_FOLDER_DATA)
-                print("📂 Tiedostonnimi:", pdf_filename)
-                print("📂 Tallennuspolku:", pdf_filepath)
-                print("📌 Nykyinen työpolku:", os.getcwd())
 
-
-               
-
-
-
-                from pathlib import Path
+                #from pathlib import Path
 
                 #testpolku = Path("persistent_data/data/ladatut_toimitussisallot")
                 #print("📂 Todellinen polku:", testpolku.resolve())
@@ -133,25 +123,25 @@ def suodata_tiedot():
                 # with open(testipolku, "wb") as f:
                 #     f.write("TÄMÄ ON TESTITIEDOSTO FLASKISTA\n".encode("utf-8"))
 
-                print("📄 Tiedoston koko: pitää olla > 0", len(file_data))  # pitää olla > 0
+                # print("📄 Tiedoston koko: pitää olla > 0", len(file_data))  # pitää olla > 0
 
-                print("📌 Todellinen tiedostopolku:", Path(pdf_filepath).resolve())
+                # print("📌 Todellinen tiedostopolku:", Path(pdf_filepath).resolve())
 
                 # 🔹 Tallenna tiedosto palvelimelle
                 with open(pdf_filepath, "wb") as f:
                     f.write(file_data)  # Kirjoitetaan alkuperäinen tiedosto levylle
 
                 
-                print("📁 Tiedoston listaus:")
-                print(os.listdir(UPLOAD_FOLDER_DATA))
+                # print("📁 Tiedoston listaus:")
+                # print(os.listdir(UPLOAD_FOLDER_DATA))
 
 
-                if pdf_filepath and Path(pdf_filepath).exists():
-                    print(f"✅ Vahvistettu: PDF tallennettu tiedostoon {pdf_filepath}")
-                else:
-                    print(f"❌ PDF-tiedosto EI löytynyt polusta: {pdf_filepath}")
+                # if pdf_filepath and Path(pdf_filepath).exists():
+                #     print(f"✅ Vahvistettu: PDF tallennettu tiedostoon {pdf_filepath}")
+                # else:
+                #     print(f"❌ PDF-tiedosto EI löytynyt polusta: {pdf_filepath}")
 
-                    print(f"🔹 Tallennetaan PDF-tiedosto: {pdf_filepath}")
+                #     print(f"🔹 Tallennetaan PDF-tiedosto: {pdf_filepath}")
 
 
 
@@ -197,8 +187,8 @@ def suodata_tiedot():
 
 
 
-            print("Tallennuspolku:", UPLOAD_FOLDER_DATA)
-            print("Kansio löytyy:", UPLOAD_FOLDER_DATA.exists())
+            # print("Tallennuspolku:", UPLOAD_FOLDER_DATA)
+            # print("Kansio löytyy:", UPLOAD_FOLDER_DATA.exists())
 
 
         '''
