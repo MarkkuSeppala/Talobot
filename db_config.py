@@ -3,9 +3,11 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 import os
 from dotenv import load_dotenv
 
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Boolean, Text
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Boolean, Text, DECIMAL
 from sqlalchemy.orm import relationship
-from datetime import datetime
+from datetime import datetime, timezone
+
+import psycopg2
 
 #from database import Base  # Base pitää olla määritelty
 
@@ -71,7 +73,7 @@ class Ikkunat(Base):
     turvalasi = Column(Boolean)
     valikarmi = Column(Boolean)
     salekaihtimet = Column(Boolean)
-    created_at = Column(DateTime, default=datetime.now(datetime.UTC))
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=True)
     toimitussisalto_id = Column(Integer, ForeignKey("toimitussisallot.id", ondelete="CASCADE"))
 
 

@@ -6,7 +6,6 @@ from werkzeug.utils import secure_filename
 import io
 from db_config import SessionLocal, Toimitussisallot
 
-
 from sqlalchemy import create_engine, text
 
 sys.path.append(os.path.abspath("utils"))  # Lisää utils-kansion polku moduulihakemistoksi
@@ -32,7 +31,7 @@ from utils.tietosissallon_kasittely import jokainen_ikkuna_omalle_riveille_ja_ko
 from run import run_sievitalo, run_kastelli
 from factory import get_sievitalo_ikkunat, get_sievitalo_ulko_ovet, get_sievitalo_valiovi_mallit, get_kastelli_ikkunat, get_kastelli_ulko_ovet, get_kastelli_valiovi_mallit
 
-
+print(f"aika nyt {datetime.now}")
 
 #🔹 Tunnistaa toimittajan nimen toimitussisällöstä
 def tunnista_toimittaja(teksti):
