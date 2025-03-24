@@ -13,13 +13,42 @@ from pathlib import Path
 #==================================================================================================#
 
 
+def lue_txt_sisalto_uuidlla(uuid: str, polku: str) -> str | None:
+    """
+    Lukee UUID:n ja polun perusteella tekstitiedoston sisällön.
+    
+    Args:
+        uuid (str): Tekstitiedoston UUID, esim. 'abc-123-xyz'
+        polku (str): Kansion polku, jossa tiedosto sijaitsee
+    
+    Returns:
+        str | None: Tiedoston sisältö merkkijonona, tai None jos ei löydy
+    """
+    try:
+        tiedostopolku = Path(polku) / f"{uuid}.txt"
+        print("tiedostopolku", tiedostopolku)
+        if not tiedostopolku.exists():
+            print(f"❌ Tiedostoa ei löytynyt: {tiedostopolku}")
+            return None
+
+        with tiedostopolku.open("r", encoding="utf-8") as tiedosto:
+            sisalto = tiedosto.read()
+            print(f"✅ Tiedosto luettu: {tiedostopolku}")
+            return sisalto
+
+    except Exception as e:
+        print(f"❌ Virhe tiedostoa luettaessa: {e}")
+        return None
+
+#==================================================================================================#
 # Lukee annetun txt-tiedoston ja palauttaa sen sisällön merkkijonona."""
 def lue_txt_tiedosto(tiedostopolku: str) -> str:
     try:
         with open(tiedostopolku, "r", encoding="utf-8") as tiedosto:
             return tiedosto.read()
     except FileNotFoundError:
-        print(f"Virhe: Tiedostoa '{tiedostopolku}' ei löytynyt.")
+        #print(f"Virhe: Tiedostoa '{tiedostopolku}' ei löytynyt.")
+      
         return ""
     except Exception as e:
         print(f"Virhe tiedostoa luettaessa: {e}")

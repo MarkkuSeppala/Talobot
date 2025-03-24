@@ -27,8 +27,8 @@ S_DIR = DATA_DIR / "s"
 K_DIR = DATA_DIR / "k"
 D_DIR = DATA_DIR / "d"
 
-
-GEMINI_API_KEY = "AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg"
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+#GEMINI_API_KEY = "AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg"
 
 
 TOIMITUSSISALTO_TXT = DATA_DIR / "toimitussisalto.txt"

@@ -26,10 +26,18 @@ from config_data import (VALIOVITYYPIT_SIEVITALO_JSON, ULKO_OVI_TIEDOT_KOKONAISU
 from datetime import datetime 
 import json
 from generation_config import GENERATION_CONFIG
-from utils.file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet, muuta_pdf_tekstiksi_ilman_tallennusta
-from utils.tietosissallon_kasittely import jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, clean_text2
+
+from utils.file_handler import (tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto,
+                                kirjoita_txt_tiedosto, normalisoi_ulko_ovet, muuta_pdf_tekstiksi_ilman_tallennusta, 
+                                lue_txt_sisalto_uuidlla)
+
+from utils.tietosissallon_kasittely import sievitalo_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, clean_text2
 from run import run_sievitalo, run_kastelli
 from factory import get_sievitalo_ikkunat, get_sievitalo_ulko_ovet, get_sievitalo_valiovi_mallit, get_kastelli_ikkunat, get_kastelli_ulko_ovet, get_kastelli_valiovi_mallit
+from SQL_kyselyt import hae_toimittaja_uuidlla, hae_toimitussisalto_txt_polku_uuidlla
+
+def generate_uuid():
+    return str(uuid.uuid4())
 
 print(f"aika nyt {datetime.now}")
 
@@ -48,8 +56,8 @@ def tunnista_toimittaja(teksti):
 #-----------------------------------------------------------------
 def ensimmainen_toimitussisalto(file):
     print("ensimmainen_toimitussisalto")
-    file = request.files["ensimmainen_toimitussisalto"]            
-        # 🔹 Luo UUID-tunniste ja tallenna PDF palvelimelle
+    #file = request.files["ensimmainen_toimitussisalto"]            
+    # 🔹 Luo UUID-tunniste ja tallenna PDF palvelimelle
     unique_id = generate_uuid()
     pdf_filename = f"{unique_id}.pdf"
     pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename
@@ -101,7 +109,8 @@ def ensimmainen_toimitussisalto(file):
         print(f"❌ Virhe lisättäessä tietoa: {e}")
     finally:
         db.close()  # Sulje istunto aina
-
+    #return hae_toimittaja_uuidlla(unique_id)    
+    return unique_id
 
 
 
@@ -111,7 +120,7 @@ def ensimmainen_toimitussisalto(file):
 #-----------------------------------------------------------------
 def toinen_toimitussisalto(file):
     print("toinen_toimitussisalto")
-    file = request.files["toinen_toimitussisalto"]            
+    #file = request.files["toinen_toimitussisalto"]            
         # 🔹 Luo UUID-tunniste ja tallenna PDF palvelimelle
     unique_id = generate_uuid()
     pdf_filename = f"{unique_id}.pdf"
@@ -172,9 +181,6 @@ os.makedirs(UPLOAD_FOLDER_DATA, exist_ok=True)
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER_DATA
 
-def generate_uuid():
-    return str(uuid.uuid4())  # 🔹 Luo yksilöllinen UUID
-
 
 
 @app.route("/suodata_tiedot", methods=["GET", "POST"])
@@ -192,74 +198,39 @@ def suodata_tiedot():
             # tallentaa tekstidata tiedostoksi
             # tallentaa tiedot tietokantaan
             
-            #Onko painettu nappia Sievitalo
+            #Ensimmainen toimitussisalto. Tallentaa pdf ja tekstitiedoston palvelimelle uuid -tunnuksella
             if "ensimmainen_toimitussisalto" in request.files:
                 file = request.files["ensimmainen_toimitussisalto"]            
                 print("rivi 78")
-                ensimmainen_toimitussisalto(file)
+                unique_id = ensimmainen_toimitussisalto(file)
                 print("ensimmainen_toimitussialato lisatty")
+                print(f"toimittaja: {unique_id}")
+            #Toinen toimitussisalto. Tallentaa pdf ja tekstitiedoston palvelimelle uuid -tunnuksella
             if "toinen_toimitussisalto" in request.files:
                 file = request.files["toinen_toimitussisalto"]            
                 toinen_toimitussisalto(file)
                 print("toinen_toimitussialato lisatty")
-           
-        
 
-            """
-                # 🔹 Luo UUID-tunniste ja tallenna PDF palvelimelle
-                unique_id = generate_uuid()
-                pdf_filename = f"{unique_id}.pdf"
-                pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename
-             
-                # 🔹 Lue tiedosto muistiin ennen tallennusta
-                file_data = file.read()  # Lue sisältö talteen
-             
-                # 🔹 Varmista, että kansio on olemassa
-                if not UPLOAD_FOLDER_DATA.exists():
-                    print("❌ Kansio puuttuu, luodaan...")
-                    UPLOAD_FOLDER_DATA.mkdir(parents=True, exist_ok=True)
 
-                pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename  # tämä on Path-objekti
-              
-                # 🔹 Tallenna tiedosto palvelimelle
-                with open(pdf_filepath, "wb") as f:
-                    f.write(file_data)  # Kirjoitetaan alkuperäinen tiedosto levylle
-                
-                # Muunna PDF tekstiksi ilman tallennusta
-                teksti = muuta_pdf_tekstiksi(io.BytesIO(file_data))  # Luo muistissa oleva tiedosto-objekti
-                
-                # 🔹 Tunnista toimittaja
-                toimittaja = tunnista_toimittaja(teksti)
-                
-                # 🔹 Tallennetaan tekstidata tiedostoksi
-                txt_filename = f"{unique_id}.txt"
-                txt_filepath = UPLOAD_FOLDER_DATA / txt_filename
-                kirjoita_txt_tiedosto(teksti, txt_filepath)
-                #print(f"🔹 Tallennetaan tekstidata tiedostoksi 97")
-            else:
-                tulokset["sievitalo"] = {"error": "Väärä toimittaja"}
-        
+        #Käsittele Sievitalo txt-tiedosto
+        if hae_toimittaja_uuidlla(unique_id) == "Sievitalo":
+            #kirjoita_txt_tiedosto(teksti, TOIMITUSSISALTO_SIEVITALO_TXT)
+            #teksti = lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id))
+            #print(f"teksti: {teksti}")
+            #print("hae_toimitussisalto_txt_polku_uuidlla(unique_id")
+            #print("hae_toimitussisalto_txt_polku_uuidlla(unique_id)",lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id))[:1000])
+            #print("lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id)),clean_text2",clean_text2(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id))[:1000]))
+            #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     run_sievitalo       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            run_sievitalo(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id)))
+            #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-            db = SessionLocal()
-            try:
-                uusi_toimitussisalto = Toimitussisallot(
-                    kayttaja_id=1,
-                    uuid=unique_id,
-                    pdf_url=str(pdf_filepath),
-                    txt_sisalto=str(txt_filepath),
-                    toimittaja=toimittaja,
-                )
-                db.add(uusi_toimitussisalto)
-                db.flush()  # 🌟 Varmistaa, että ID generoituu ennen commitointia
-                db.commit()
-                db.refresh(uusi_toimitussisalto)  # 🌟 Päivittää objektin tietokannasta
-                print("✅ Uusi toimitussisalto lisätty ID:", uusi_toimitussisalto.id)
-            except Exception as e:
-                db.rollback()  # 🌟 Jos virhe, kumoa kaikki muutokset
-                print(f"❌ Virhe lisättäessä tietoa: {e}")
-            finally:
-                db.close()  # Sulje istunto aina
-            """
+            tulokset["sievitalo"] = {
+                "ikkunat": get_sievitalo_ikkunat(),
+                "ulko_ovet": get_sievitalo_ulko_ovet(),
+                "valiovi_mallit": get_sievitalo_valiovi_mallit()
+            }
+        else:
+            tulokset["sievitalo"] = {"error": "Väärä toimittaja"}
 
         '''
             # Käsittele Sievitalon PDF

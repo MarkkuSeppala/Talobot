@@ -187,7 +187,7 @@ def tulosta_toimitussisallot():
 
 # 🔹 Aja funktio
 if __name__ == "__main__":
-    #tulosta_toimitussisallot()
+    tulosta_toimitussisallot()
     print("🔹 Tulostetaan `toimitussisallot`-taulun sisältö...")
 
 

@@ -13,7 +13,7 @@ import psycopg2
 
 
 # 🔹 Lataa ympäristömuuttujat
-load_dotenv("ymparistomuuttujat.env")
+#load_dotenv("ymparistomuuttujat.env")
 
 # 🔹 Hae tietokantayhteys
 DATABASE_URL = os.getenv("DATABASE_URL")

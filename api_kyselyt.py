@@ -52,12 +52,12 @@ def api_kysely(system_instruction, generation_config, input_text, output_text):
     )
     #print("system_instruction", lue_txt_tiedosto(system_instruction))
     #print("input_text 54", lue_txt_tiedosto(input_text))
-    sisalto = lue_txt_tiedosto(input_text)
-    kysymys = f"Tässä on teksti: \n{sisalto}\n\nToimi ohjeen mukaan."
+    #sisalto = lue_txt_tiedosto(input_text)
+    kysymys = f"Tässä on teksti: \n{input_text}\n\nToimi ohjeen mukaan."
     response = model.generate_content(kysymys)
     #print("response.text", response.text)
     kirjoita_txt_tiedosto(response.text, output_text)
-
+    return response.text
 
     
 #============== API-KYSELY, KIRJOITUS JSON ============#
@@ -67,7 +67,7 @@ def api_kysely(system_instruction, generation_config, input_text, output_text):
 
 
 # **API-kysely. Poimii kaikki ikkunatiedot poistamatta mitään
-# **Kirjoittaa vastauksen: data/s/ikkunatiedot_kokonaisuudessa.txt
+
 
 def api_kysely_kirjoitus_json(system_instruction, generation_config, input_text, output_text):
     genai.configure(api_key=GEMINI_API_KEY)  # Vaihda API-avain
@@ -79,11 +79,12 @@ def api_kysely_kirjoitus_json(system_instruction, generation_config, input_text,
         system_instruction=lue_txt_tiedosto(system_instruction)
     )
 
-    sisalto = lue_txt_tiedosto(input_text)
-    kysymys = f"Tässä on teksti: \n{sisalto}\n\nToimi ohjeen mukaan."
+    #sisalto = lue_txt_tiedosto(input_text)
+    kysymys = f"Tässä on teksti: \n{input_text}\n\nToimi ohjeen mukaan."
     response = model.generate_content(kysymys)
-    #print("response.text", response.text)
+    print("response.text", response.text)
     kirjoita_vastaus_jsoniin(response, output_text)
+    return response.text
    
 
 
