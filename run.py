@@ -60,7 +60,8 @@ def run_sievitalo(toimitussisalto_txt_polku: str, toimitussisalto_id: str):
         
         
         #---------------------------------------     PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT      ----------------------------------------
-        ikkunatiedot_kokonaisuudessa = api_kysely(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, GENERATION_CONFIG, puhdistettu_toimitussisalto, IKKUNATIEDOT_KOKONAISUUDESSA_TXT)
+        #print("PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT", PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT)
+        ikkunatiedot_kokonaisuudessa = api_kysely(GENERATION_CONFIG, PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, puhdistettu_toimitussisalto)
         print(parsi_rivit_tiedoiksi(ikkunatiedot_kokonaisuudessa))
         ikkunat_json = muunna_raaka_ikkunat_yksittaisiksi(parsi_rivit_tiedoiksi(ikkunatiedot_kokonaisuudessa))
         print("run_sievitalo 64", toimitussisalto_id)
@@ -108,7 +109,7 @@ def run_kastelli(toimitussisalto_txt_polku: str, toimitussisalto_id: str):
 
 
         #---------------------------------------     PROMPT_KASTELLI_POIMI_IKKUNATIEDOT_TXT      ----------------------------------------
-        ikkunatiedot_kokonaisuudessa = api_kysely(PROMPT_KASTELLI_POIMI_IKKUNATIEDOT_TXT, GENERATION_CONFIG, puhdistettu_toimitussisalto, IKKUNATIEDOT_KASTELLI_KOKONAISUUDESSA_TXT)
+        ikkunatiedot_kokonaisuudessa = api_kysely(GENERATION_CONFIG, PROMPT_KASTELLI_POIMI_IKKUNATIEDOT_TXT, puhdistettu_toimitussisalto)
         #print("ikkunatiedot_kokonaisuudessa", ikkunatiedot_kokonaisuudessa)
         print(kastelli_parsi_rivit_tiedoiksi(ikkunatiedot_kokonaisuudessa))
         ikkunat_json = muunna_raaka_ikkunat_yksittaisiksi_kastelli(kastelli_parsi_rivit_tiedoiksi(ikkunatiedot_kokonaisuudessa))

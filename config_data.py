@@ -2,6 +2,11 @@
 import sys
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Ladataan ympäristömuuttujat .env-tiedostosta
+load_dotenv()
+
 
 #Lisää juurikansio Pythonin moduulihakemistoon
 sys.path.append(os.path.abspath("."))
@@ -27,8 +32,11 @@ S_DIR = DATA_DIR / "s"
 K_DIR = DATA_DIR / "k"
 D_DIR = DATA_DIR / "d"
 
+
+# Ladataan ympäristömuuttujat .env-tiedostosta
+load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-#GEMINI_API_KEY = "AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg"
+
 
 
 TOIMITUSSISALTO_TXT = DATA_DIR / "toimitussisalto.txt"
