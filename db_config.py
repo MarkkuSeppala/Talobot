@@ -7,6 +7,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Boolean, T
 from sqlalchemy.orm import relationship
 from datetime import datetime, timezone
 
+
 import psycopg2
 
 #from database import Base  # Base pitää olla määritelty

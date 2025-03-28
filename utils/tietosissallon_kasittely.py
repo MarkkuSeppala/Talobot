@@ -211,35 +211,24 @@ def designtalo_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi(ikkuna_jso
 def _kasittele_ikkunat(ikkuna_json, ikkuna2_json, kerroin):
     """Yhteinen käsittelyfunktio kaikille ikkunoille"""
     try:
-        # Tarkistetaan onko input None tai tyhjä
-        if ikkuna_json is None:
-            print("Virhe: ikkuna_json on None")
-            return []
-            
-        if not ikkuna_json:
-            print("Virhe: ikkuna_json on tyhjä")
-            return []
-
-        # Jos ikkuna_json on jo lista/dict, käytetään sitä suoraan
-        if isinstance(ikkuna_json, (list, dict)):
-            data = ikkuna_json
-        # Jos ikkuna_json on string, yritetään parsia se
-        elif isinstance(ikkuna_json, str):
+        # Jos ikkuna_json on merkkijono, muunnetaan se Python-objektiksi
+        if isinstance(ikkuna_json, str):
             try:
-                data = json.loads(ikkuna_json)
+                ikkuna_json = json.loads(ikkuna_json)
                 print("JSON parsittu onnistuneesti")
             except json.JSONDecodeError as e:
                 print(f"Virhe JSON:in jäsentämisessä: {e}")
-                print(f"Yritetty parsia: '{ikkuna_json}'")
                 return []
-        else:
-            print(f"Virhe: ikkuna_json on väärää tyyppiä: {type(ikkuna_json)}")
-            return []
 
         output_json = []
-        print("Käsiteltävä data:", data)
+        print("ikkuna_json tyyppi:", type(ikkuna_json))
+        print("ikkuna_json sisältö:", ikkuna_json)
+        
+        if not ikkuna_json:
+            print("Varoitus: ikkuna_json on tyhjä")
+            return []
 
-        for item in data:
+        for item in ikkuna_json:
             try:
                 print("Käsitellään item:", item)
                 leveys, korkeus = map(int, item["koko"].split("x"))

@@ -33,7 +33,7 @@ def get_sievitalo_ikkunat():
     json_ikkunat = lue_json_tiedosto(IKKUNA2_JSON)
     if json_ikkunat is None or len(json_ikkunat) == 0:
         json_ikkunat = []  # Varmista, että json_ikkunat on vähintään tyhjä lista
-        print("Varoitus: Ikkunatietoja ei löytynyt tai tiedosto on tyhjä.")
+        print("get_sievitalo_ikkunat: Varoitus: Ikkunatietoja ei löytynyt tai tiedosto on tyhjä.")
 
 
     return json_ikkunat

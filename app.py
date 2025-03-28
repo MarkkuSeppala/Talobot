@@ -34,7 +34,7 @@ from utils.file_handler import (tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_
 from utils.tietosissallon_kasittely import sievitalo_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, clean_text2
 from run import run_sievitalo, run_kastelli
 from factory import get_sievitalo_ikkunat, get_sievitalo_ulko_ovet, get_sievitalo_valiovi_mallit, get_kastelli_ikkunat, get_kastelli_ulko_ovet, get_kastelli_valiovi_mallit
-from SQL_kyselyt import hae_toimittaja_uuidlla, hae_toimitussisalto_txt_polku_uuidlla
+from SQL_kyselyt import hae_toimittaja_uuidlla, hae_toimitussisalto_txt_polku_uuidlla, hae_toimitussisalto_id_uuidlla
 
 def generate_uuid():
     return str(uuid.uuid4())
@@ -113,15 +113,13 @@ def ensimmainen_toimitussisalto(file):
     return unique_id
 
 
-
-
 #------------------------------------------------------------------
 #kirjoitetaan toinen_toimitussisalto kantaan
 #-----------------------------------------------------------------
 def toinen_toimitussisalto(file):
     print("toinen_toimitussisalto")
     #file = request.files["toinen_toimitussisalto"]            
-        # 🔹 Luo UUID-tunniste ja tallenna PDF palvelimelle
+    # 🔹 Luo UUID-tunniste ja tallenna PDF palvelimelle
     unique_id = generate_uuid()
     pdf_filename = f"{unique_id}.pdf"
     pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename
@@ -173,16 +171,19 @@ def toinen_toimitussisalto(file):
         print(f"❌ Virhe lisättäessä tietoa: {e}")
     finally:
         db.close()  # Sulje istunto aina
+    #return hae_toimittaja_uuidlla(unique_id)    
+    return unique_id
+
+
+
+
+
+
+
 
 app = Flask(__name__)
-
-
 os.makedirs(UPLOAD_FOLDER_DATA, exist_ok=True)
-
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER_DATA
-
-
-
 @app.route("/suodata_tiedot", methods=["GET", "POST"])
 def suodata_tiedot():
     try:
@@ -190,30 +191,23 @@ def suodata_tiedot():
         if request.method == "POST":
             tulokset = {}
         
-            # uuttaa koodia:
-            # tallentaa pdf -toimitussillön palvelimelle uuid -tunnuksella
-            # muuttaa pdf -tiedoston tekstiksi
-            # tunnistaa toimittajan
-            # käsittelee toimittajan tiedot
-            # tallentaa tekstidata tiedostoksi
-            # tallentaa tiedot tietokantaan
             
             #Ensimmainen toimitussisalto. Tallentaa pdf ja tekstitiedoston palvelimelle uuid -tunnuksella
             if "ensimmainen_toimitussisalto" in request.files:
                 file = request.files["ensimmainen_toimitussisalto"]            
                 print("rivi 78")
-                unique_id = ensimmainen_toimitussisalto(file)
+                unique_id_ensimmainen_toimitussisalto = ensimmainen_toimitussisalto(file)
                 print("ensimmainen_toimitussialato lisatty")
-                print(f"toimittaja: {unique_id}")
+                print(f"toimittaja: {unique_id_ensimmainen_toimitussisalto}")
             #Toinen toimitussisalto. Tallentaa pdf ja tekstitiedoston palvelimelle uuid -tunnuksella
             if "toinen_toimitussisalto" in request.files:
                 file = request.files["toinen_toimitussisalto"]            
-                toinen_toimitussisalto(file)
-                print("toinen_toimitussialato lisatty")
+                unique_id_toinen_toimitussisalto = toinen_toimitussisalto(file)
+                print("toinen_toimitussisalto lisatty")
 
 
         #Käsittele Sievitalo txt-tiedosto
-        if hae_toimittaja_uuidlla(unique_id) == "Sievitalo":
+        if hae_toimittaja_uuidlla(unique_id_ensimmainen_toimitussisalto) == "Sievitalo":
             #kirjoita_txt_tiedosto(teksti, TOIMITUSSISALTO_SIEVITALO_TXT)
             #teksti = lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id))
             #print(f"teksti: {teksti}")
@@ -221,63 +215,22 @@ def suodata_tiedot():
             #print("hae_toimitussisalto_txt_polku_uuidlla(unique_id)",lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id))[:1000])
             #print("lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id)),clean_text2",clean_text2(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id))[:1000]))
             #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     run_sievitalo       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            run_sievitalo(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id)))
+            print("run_sievitalo 224")
+            run_sievitalo(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id_ensimmainen_toimitussisalto)), hae_toimitussisalto_id_uuidlla(unique_id_ensimmainen_toimitussisalto))
+            #run_sievitalo(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id)))
             #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-            tulokset["sievitalo"] = {
-                "ikkunat": get_sievitalo_ikkunat(),
-                "ulko_ovet": get_sievitalo_ulko_ovet(),
-                "valiovi_mallit": get_sievitalo_valiovi_mallit()
-            }
+            print(f"unique_id_toinen_toimitussisalto: {unique_id_toinen_toimitussisalto}")
+        if hae_toimittaja_uuidlla(unique_id_toinen_toimitussisalto) == "Kastelli":
+            print("app.py 224")
+            run_kastelli(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id_toinen_toimitussisalto)), hae_toimitussisalto_id_uuidlla(unique_id_toinen_toimitussisalto))
+        
         else:
+            print("app.py 228")
             tulokset["sievitalo"] = {"error": "Väärä toimittaja"}
 
         '''
-            # Käsittele Sievitalon PDF
-            if "sievitalo_pdf" in request.files:
-                file = request.files["sievitalo_pdf"]
-                if file.filename != '':
-                    teksti = muuta_pdf_tekstiksi(file)
-                    toimittaja = tunnista_toimittaja(teksti)
-                    
-                    if toimittaja == "Sievitalo":
-                        kirjoita_txt_tiedosto(teksti, TOIMITUSSISALTO_SIEVITALO_TXT)
-                        
-                        #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     run_sievitalo       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                        run_sievitalo()
-                        #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-                        tulokset["sievitalo"] = {
-                            "ikkunat": get_sievitalo_ikkunat(),
-                            "ulko_ovet": get_sievitalo_ulko_ovet(),
-                            "valiovi_mallit": get_sievitalo_valiovi_mallit()
-                        }
-                    else:
-                        tulokset["sievitalo"] = {"error": "Väärä toimittaja"}
-
-            # Käsittele Kastellin PDF
-            if "kastelli_pdf" in request.files:
-                file = request.files["kastelli_pdf"]
-                if file.filename != '':
-                    teksti = muuta_pdf_tekstiksi(file)
-                    toimittaja = tunnista_toimittaja(teksti)
-                    
-
-                    if toimittaja == "Kastelli":
-                        kirjoita_txt_tiedosto(teksti, TOIMITUSSISALTO_KASTELLI_TXT)
-                        
-                        #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     run_kastelli       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                        run_kastelli()
-                        #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                                               
-                        tulokset["kastelli"] = {
-                            "ikkunat": get_kastelli_ikkunat(),
-                            "ulko_ovet": get_kastelli_ulko_ovet(),
-                            "valiovi_mallit": get_kastelli_valiovi_mallit()
-                        }
-                    else:
-                        tulokset["kastelli"] = {"error": "Väärä toimittaja"}
-
+       
 
 
             # Käsittele Designtalon PDF
