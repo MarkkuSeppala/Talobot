@@ -36,8 +36,24 @@ from run import run_sievitalo, run_kastelli
 from factory import get_sievitalo_ikkunat, get_sievitalo_ulko_ovet, get_sievitalo_valiovi_mallit, get_kastelli_ikkunat, get_kastelli_ulko_ovet, get_kastelli_valiovi_mallit
 from SQL_kyselyt import hae_toimittaja_uuidlla, hae_toimitussisalto_txt_polku_uuidlla, hae_toimitussisalto_id_uuidlla
 
+
+
+# Sovelluksen käynnistyessä
+print("🔹 Sovellus käynnistyy")
+print("🔹 Tarkistetaan ympäristömuuttujat:")
+print(f"- DATABASE_URL löytyy: {'Kyllä' if os.environ.get('DATABASE_URL') else 'Ei'}")
+print(f"- GEMINI_API_KEY löytyy: {'Kyllä' if os.environ.get('GEMINI_API_KEY') else 'Ei'}")
+
 def generate_uuid():
     return str(uuid.uuid4())
+
+# Jos käytät tietokantayhteyttä, lisää sen testaus
+try:
+    with SessionLocal() as db:
+        db.execute(text("SELECT 1"))
+        print("✅ Tietokantayhteys toimii")
+except Exception as e:
+    print(f"❌ Tietokantayhteys epäonnistui: {str(e)}")
 
 print(f"aika nyt {datetime.now}")
 
