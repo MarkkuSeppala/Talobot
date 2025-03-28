@@ -67,7 +67,7 @@ PROMPT_SIEVITALO_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON = S_DIR / "prompt_
 PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT = S_DIR / "prompt_sievitalo_poimi_ulko_ovi_tiedot.txt"
 PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT = S_DIR / "prompt_sievitalo_anna_valiovimallit.txt"
 PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT = S_DIR / "prompt_sievitalo_poimi_valiovtiedot.txt"
-PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_JSON_MUOTOON = S_DIR / "prompt_sievitalo_ulko_ovi_tiedot_json_muotoon.txt"
+PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_LUOKKAMUOTOON = S_DIR / "prompt_sievitalo_ulko_ovi_tiedot_luokkamuotoon.txt"
 
 
 

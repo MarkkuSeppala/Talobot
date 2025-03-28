@@ -1,7 +1,7 @@
-from sqlalchemy import text, create_engine
-#from db_config import SessionLocal, Toimittajat
-from db_config import SessionLocal, Toimitussisallot, Kayttajat, Toimittajat, Ikkunat
 
+from luokat_ikkuna_ulkoovi_valiovi import UlkoOvi
+from db_luokat import SessionLocal, Toimitussisallot, Kayttajat, Toimittajat, Ikkunat
+from sqlalchemy import text  # Lisää tämä rivi
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import ProgrammingError
 #from db_config import Base, engine, SessionLocal
@@ -677,3 +677,82 @@ def update_toimitussisallot_table():
 
 # if __name__ == "__main__":
 #    update_toimitussisallot_table()
+
+#==================================== paivita_ulko_ovet_taulu()
+def paivita_ulko_ovet_taulu():
+    """
+    Päivittää ulko_ovet-taulun rakenteen vastaamaan UlkoOvet-luokan määrittelyä.
+    """
+    try:
+        with SessionLocal() as db:
+            print("🔹 Päivitetään ulko_ovet-taulun rakenne...")
+            
+            # Lisää puuttuva lukko-sarake ja aseta NOT NULL rajoitteet
+            muutokset = [
+                # Lisää puuttuva lukko-sarake
+                "ALTER TABLE ulko_ovet ADD COLUMN IF NOT EXISTS lukko VARCHAR(255)",
+                
+                # Aseta väliaikainen arvo lukko-sarakkeeseen
+                "UPDATE ulko_ovet SET lukko = 'ei määritelty' WHERE lukko IS NULL",
+                
+                # Aseta NOT NULL rajoitteet
+                "ALTER TABLE ulko_ovet ALTER COLUMN malli SET NOT NULL",
+                "ALTER TABLE ulko_ovet ALTER COLUMN lukko SET NOT NULL",
+                
+                # Päivitä CASCADE delete
+                """
+                ALTER TABLE ulko_ovet 
+                DROP CONSTRAINT IF EXISTS ulko_ovet_toimitussisalto_id_fkey,
+                ADD CONSTRAINT ulko_ovet_toimitussisalto_id_fkey 
+                    FOREIGN KEY (toimitussisalto_id) 
+                    REFERENCES toimitussisallot(id) 
+                    ON DELETE CASCADE
+                """
+            ]
+
+            for muutos in muutokset:
+                try:
+                    db.execute(text(muutos))
+                    print(f"✅ Suoritettu: {muutos}")
+                except Exception as e:
+                    print(f"❌ Virhe muutoksessa: {muutos}")
+                    print(f"Virhe: {str(e)}")
+
+            db.commit()
+            print("✅ Ulko_ovet-taulu päivitetty onnistuneesti!")
+
+    except Exception as e:
+        print(f"❌ Virhe taulun päivityksessä: {str(e)}")
+        db.rollback()
+
+
+#==================================== lisaa_ulko_ovet_kantaan()
+
+def lisaa_ulko_ovet_kantaan(ovet: list[UlkoOvi], toimitussisalto_id: int):
+    """
+    Lisää UlkoOvi-oliot tietokantaan.
+    
+    Args:
+        ovet: Lista UlkoOvi-olioita
+        toimitussisalto_id: Toimitussisällön ID
+    """
+    try:
+        with SessionLocal() as db:
+            lisatty = 0
+            for ovi in ovet:
+                uusi_ovi = UlkoOvet(
+                    malli=ovi.malli,
+                    paloluokitus_EI_15=ovi.paloluokitus_EI_15,
+                    lukko=ovi.lukko,
+                    maara=ovi.maara,
+                    toimitussisalto_id=toimitussisalto_id
+                )
+                db.add(uusi_ovi)
+                lisatty += 1
+            
+            db.commit()
+            print(f"✅ Lisätty {lisatty} ovea tietokantaan")
+            
+    except Exception as e:
+        print(f"❌ Virhe ovien lisäämisessä: {str(e)}")
+        db.rollback()

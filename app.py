@@ -4,7 +4,7 @@ import sys
 import uuid
 from werkzeug.utils import secure_filename
 import io
-from db_config import SessionLocal, Toimitussisallot
+from db_luokat import SessionLocal, Toimitussisallot
 
 from sqlalchemy import create_engine, text
 
@@ -15,7 +15,7 @@ from config_data import (VALIOVITYYPIT_SIEVITALO_JSON, ULKO_OVI_TIEDOT_KOKONAISU
                         IKKUNATIEDOT_KOKONAISUUDESSA_TXT, IKKUNA_JSON, PUHDISTETTU_TOIMITUSSISALTO_TXT, IKKUNA2_JSON, ULKO_OVI_TIEDOT_2_JSON,
                         TOIMITUSSISALTO_SIEVITALO_TXT, TOIMITUSSISALTO_KASTELLI_TXT, TOIMITUSSISALTO_TXT,                        
                         PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, PROMPT_SIEVITALO_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, 
-                        PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT, PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_JSON_MUOTOON,
+                        PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT,
                         PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT, PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT,
                         PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT, PROMPT_KASTELLI_ANNA_VALIOVIMALLIT_TXT, VALIOVITYYPIT_KASTELLI_JSON, TOIMITUSSISALTO_DESIGNTALO_TXT,
                         UPLOAD_FOLDER_DATA)
@@ -224,17 +224,15 @@ def suodata_tiedot():
 
         #Käsittele Sievitalo txt-tiedosto
         if hae_toimittaja_uuidlla(unique_id_ensimmainen_toimitussisalto) == "Sievitalo":
-            #kirjoita_txt_tiedosto(teksti, TOIMITUSSISALTO_SIEVITALO_TXT)
-            #teksti = lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id))
-            #print(f"teksti: {teksti}")
-            #print("hae_toimitussisalto_txt_polku_uuidlla(unique_id")
-            #print("hae_toimitussisalto_txt_polku_uuidlla(unique_id)",lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id))[:1000])
-            #print("lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id)),clean_text2",clean_text2(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id))[:1000]))
+            
             #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     run_sievitalo       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             print("run_sievitalo 224")
             run_sievitalo(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id_ensimmainen_toimitussisalto)), hae_toimitussisalto_id_uuidlla(unique_id_ensimmainen_toimitussisalto))
             #run_sievitalo(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id)))
-            #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+           
+           
+           
+            #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     run_kastelli       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
             print(f"unique_id_toinen_toimitussisalto: {unique_id_toinen_toimitussisalto}")
         if hae_toimittaja_uuidlla(unique_id_toinen_toimitussisalto) == "Kastelli":

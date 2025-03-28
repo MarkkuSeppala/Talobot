@@ -78,11 +78,12 @@ class Ikkunat(Base):
     toimitussisalto_id = Column(Integer, ForeignKey("toimitussisallot.id", ondelete="CASCADE"))
 
 
-class UlkoOvet(Base):
+class Ulko_ovet(Base):
     __tablename__ = "ulko_ovet"
     id = Column(Integer, primary_key=True)
     malli = Column(String(255), nullable=False)
     paloluokitus_EI_15 = Column(Boolean)
+    lukko = Column(String(255), nullable=False)
     maara = Column(Integer)
     luotu = Column(DateTime, default=datetime.utcnow)
     toimitussisalto_id = Column(Integer, ForeignKey("toimitussisallot.id", ondelete="CASCADE"))

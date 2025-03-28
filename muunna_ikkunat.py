@@ -1,24 +1,9 @@
 import json
-from dataclasses import dataclass, asdict
+from luokat_ikkuna_ulkoovi_valiovi import IkkunaRaaka, Ikkuna, UlkoOvi
 from typing import List
 import re 
 
-# ----- Luokat -----
-@dataclass
-class IkkunaRaaka:
-    koko: str
-    kpl: int
-    turvalasi: bool
-    välikarmi: bool
-    sälekaihtimet: bool
 
-@dataclass
-class Ikkuna:
-    koko: str
-    mm_koko: str
-    turvalasi: bool
-    välikarmi: bool
-    sälekaihtimet: bool
 
 # ----- Apufunktio -----
 def koko_to_mm(koko: str) -> str:

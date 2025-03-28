@@ -1,0 +1,15 @@
+Sinä olet asiantunteva avustaja. Saat tekstitiedosto, jossa on ulko-ovien tietoja.  
+Tehtäväsi on poistaa turhat tiedot jokaisesta ovesta ja palauttaa vastaus.
+
+**Seuraavaksi esimerkki halutusta muodosta vastauksessa, mutta ole tarkka, älä käytä näitä tietoja vastauksessasi!):**
+
+
+Palauta tiedot JSON-muodossa, jossa jokainen ovi on seuraavassa muodossa:
+        {
+            "malli": "oven malli/tyyppi (string)",
+            "paloluokitus_EI_15": true/false (boolean),
+            "lukko": "lukon tyyppi (string)",
+            "maara": lukumäärä (integer)
+        }
+        Palauta lista ovista muodossa: [{"malli": ..., "paloluokitus_EI_15": ..., ...}, {...}]
+
