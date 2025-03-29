@@ -90,7 +90,7 @@ def puhdista_ja_kirjoita_tiedosto(input_tiedostopolku, output_tiedostopolku):
 #clean_text2 poistaa turhat erikoismerkit, korjaa numeromuodot ja selkeyttää tekstiä.
 #Saa tekstin ja palauttaa sen
 def clean_text2(text):
-    print("clean_text2")
+    print("Siistitään teksti [clean_text2]")
     if not isinstance(text, str):
         print(f"Varoitus: Teksti ei ole string-muodossa vaan {type(text)}")
         text = str(text) if text is not None else ""

@@ -72,7 +72,7 @@ def tunnista_toimittaja(teksti):
 #kirjoitetaan ensimmainen_toimitussisalto kantaan
 #-----------------------------------------------------------------
 def ensimmainen_toimitussisalto(file):
-    print("ensimmainen_toimitussisalto")
+    print("Aloitetaan ensimmainen_toimitussisalto")
     #file = request.files["ensimmainen_toimitussisalto"]            
     # 🔹 Luo UUID-tunniste ja tallenna PDF palvelimelle
     unique_id = generate_uuid()

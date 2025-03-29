@@ -54,7 +54,7 @@ def run_sievitalo(toimitussisalto_txt_polku: str, toimitussisalto_id: str):
         #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     clean_text2       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         puhdistettu_toimitussisalto = clean_text2(toimitussisalto_txt_polku)
         #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        
+        print("puhdistettu_toimitussisalto", puhdistettu_toimitussisalto)
         
         #---------------------------------------     PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT      ----------------------------------------
         

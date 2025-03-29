@@ -47,7 +47,7 @@ def lue_txt_tiedosto(tiedostopolku: str) -> str:
         with open(tiedostopolku, "r", encoding="utf-8") as tiedosto:
             return tiedosto.read()
     except FileNotFoundError:
-        #print(f"Virhe: Tiedostoa '{tiedostopolku}' ei löytynyt.")
+        print(f"Virhe: Tiedostoa '{tiedostopolku}' ei löytynyt.")
       
         return ""
     except Exception as e:
@@ -60,7 +60,7 @@ def lue_txt_tiedosto(tiedostopolku: str) -> str:
 
 #Kirjoittaa annetun tekstin tiedostoon annettuun polkuun.
 #Palauttaa virheen, jos tiedostopolku ei ole kelvollinen.
-def kirjoita_txt_tiedosto(sisalto: str, tiedostopolku):
+def kirjoita_txt_tiedosto(sisalto: str, tiedostopolku: str):
     try:
         if not sisalto:
             raise ValueError("Virhe: Sisältö ei voi olla tyhjä.")
