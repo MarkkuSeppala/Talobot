@@ -34,7 +34,7 @@ D_DIR = DATA_DIR / "d"
 
 
 # Ladataan ympäristömuuttujat .env-tiedostosta
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+#GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 
 

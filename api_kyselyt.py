@@ -2,7 +2,7 @@ import os
 import re
 import sys
 from pathlib import Path
-from config_data import GEMINI_API_KEY
+#from config_data import GEMINI_API_KEY
 from utils.file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet, kirjoita_vastaus_jsoniin
 from luokat_ikkuna_ulkoovi_valiovi import UlkoOvi
 import json
@@ -29,8 +29,8 @@ from datetime import datetime
 # except ImportError as e:
 #     print(f"Virhe config_data tuonnissa: {e}")
 #GEMINI_API_KEY = os.getenv("AIzaSyADY6K_HFjgeyjr3IHHoY5UmK6hSoG_RYg")    
-genai.configure(api_key=GEMINI_API_KEY)
-print("Gemini API konfiguroitu onnistuneesti!")
+#genai.configure(api_key=GEMINI_API_KEY)
+#print("Gemini API konfiguroitu onnistuneesti!")
 
 
 # model = genai.GenerativeModel(
@@ -83,7 +83,7 @@ def api_kysely(generation_config, system_instruction, input_text):
 
 
 def api_kysely_kirjoitus_json(system_instruction, generation_config, input_text, output_text):
-    genai.configure(api_key=GEMINI_API_KEY)  # Vaihda API-avain
+    #genai.configure(api_key=GEMINI_API_KEY) 
     #tiedostopolku = "data/s/puhdistettu_toimitussisalto.txt"
 
     # model = genai.GenerativeModel(

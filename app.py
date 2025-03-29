@@ -5,7 +5,6 @@ import uuid
 from werkzeug.utils import secure_filename
 import io
 from db_luokat import SessionLocal, Toimitussisallot
-
 from sqlalchemy import create_engine, text
 
 sys.path.append(os.path.abspath("utils"))  # Lisää utils-kansion polku moduulihakemistoksi
@@ -36,6 +35,8 @@ from run import run_sievitalo, run_kastelli
 from factory import get_sievitalo_ikkunat, get_sievitalo_ulko_ovet, get_sievitalo_valiovi_mallit, get_kastelli_ikkunat, get_kastelli_ulko_ovet, get_kastelli_valiovi_mallit
 from SQL_kyselyt import hae_toimittaja_uuidlla, hae_toimitussisalto_txt_polku_uuidlla, hae_toimitussisalto_id_uuidlla
 
+import google.generativeai as genai 
+
 
 
 # Sovelluksen käynnistyessä
@@ -43,6 +44,9 @@ print("🔹 Sovellus käynnistyy")
 print("🔹 Tarkistetaan ympäristömuuttujat:")
 print(f"- DATABASE_URL löytyy: {'Kyllä' if os.environ.get('DATABASE_URL') else 'Ei'}")
 print(f"- GEMINI_API_KEY löytyy: {'Kyllä' if os.environ.get('GEMINI_API_KEY') else 'Ei'}")
+
+genai.configure(api_key=os.environ.get('GEMINI_API_KEY'))
+print("🔹 Gemini API konfiguroitu onnistuneesti!")
 
 def generate_uuid():
     return str(uuid.uuid4())
