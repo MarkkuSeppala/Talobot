@@ -1,4 +1,3 @@
-
 from luokat_ikkuna_ulkoovi_valiovi import UlkoOvi
 from db_luokat import SessionLocal, Toimitussisallot, Kayttajat, Toimittajat, Ikkunat
 from sqlalchemy import text  # Lisää tämä rivi
@@ -8,6 +7,7 @@ from sqlalchemy.exc import ProgrammingError
 from datetime import datetime
 import hashlib
 #from sqlalchemy import create_engine
+import json
 
 
 
@@ -414,38 +414,57 @@ def hae_toimitussisalto_txt_polku_uuidlla(uuid: str) -> str | None:
         return None
 
 
-#==================================== lisaa_ikkunat_kantaan(ikkunat_lista, toimitussisalto_id)
+#==================================== lisaa_ikkunat_kantaan(ikkunat_json, toimitussisalto_id)
 
-def lisaa_ikkunat_kantaan(ikkunat_lista, toimitussisalto_id: int):
+def lisaa_ikkunat_kantaan(ikkunat_json_str, toimitussisalto_id: int):
     """
-    Lisää ikkunatiedot tietokantaan.
+    Lisää ikkunatiedot tietokantaan JSON-merkkijonosta.
 
     Args:
-        ikkunat_lista: Lista Ikkuna-olioita muunna_raaka_ikkunat_yksittaisiksi-funktiolta
+        ikkunat_json_str: JSON-merkkijono ikkunoista
         toimitussisalto_id: Toimitussisällön ID, johon ikkunat liittyvät
     """
     try:
+        # Muunna JSON-merkkijono Python-listaksi
+        ikkunat_lista = json.loads(ikkunat_json_str)
+        print(f"✅ JSON muunnettu Python-listaksi: {len(ikkunat_lista)} ikkunaa")
+        
         with SessionLocal() as db:
-            for ikkuna in ikkunat_lista:
-                # Parsitaan leveys ja korkeus mm_koko-kentästä
-                leveys, korkeus = map(int, ikkuna.mm_koko.split('x'))
+            lisatty = 0
+            for ikkuna_data in ikkunat_lista:
+                # Parsitaan leveys ja korkeus koko-kentästä
+                leveys_dm, korkeus_dm = map(int, ikkuna_data["koko"].split('x'))
                 
-                # Luodaan uusi ikkuna-tietue
-                uusi_ikkuna = Ikkunat(
-                    leveys=leveys,
-                    korkeus=korkeus,
-                    turvalasi=ikkuna.turvalasi,
-                    valikarmi=ikkuna.välikarmi,
-                    salekaihtimet=ikkuna.sälekaihtimet,
-                    toimitussisalto_id=toimitussisalto_id
-                )
-                db.add(uusi_ikkuna)
+                # Luodaan ikkuna jokaiselle kappaleelle
+                for _ in range(ikkuna_data["kpl"]):
+                    # Muunnetaan mitat millimetreiksi
+                    leveys_mm = leveys_dm * 100
+                    korkeus_mm = korkeus_dm * 100
+                    
+                    # Luodaan uusi ikkuna-tietue
+                    uusi_ikkuna = Ikkunat(
+                        leveys=leveys_mm,
+                        korkeus=korkeus_mm,
+                        turvalasi=ikkuna_data["turvalasi"],
+                        valikarmi=ikkuna_data["välikarmi"],
+                        salekaihtimet=ikkuna_data["sälekaihtimet"],
+                        toimitussisalto_id=toimitussisalto_id
+                    )
+                    db.add(uusi_ikkuna)
+                    lisatty += 1
             
             db.commit()
-            print(f"✅ Lisätty {len(ikkunat_lista)} ikkunaa kantaan")
+            print(f"✅ Lisätty {lisatty} ikkunaa kantaan")
             
+    except json.JSONDecodeError as e:
+        print(f"❌ Virheellinen JSON-muoto: {str(e)}")
+        print(f"JSON (ensimmäiset 100 merkkiä): {ikkunat_json_str[:100]}...")
+    except KeyError as e:
+        print(f"❌ Puuttuva kenttä JSON:issa: {str(e)}")
+        db.rollback()
     except Exception as e:
         print(f"❌ Virhe ikkunoiden lisäämisessä: {str(e)}")
+        print(f"Ensimmäiset 100 merkkiä: {ikkunat_json_str[:100]}...")
         db.rollback()
 
 #==================================== hae_kaikki_ikkunat()
@@ -580,7 +599,8 @@ def hae_paivan_ikkunat(paivamaara: str):
                 
                 # Tulostetaan ikkunan tiedot
                 print(f"Ikkuna ID: {ikkuna['id']}")
-                print(f"Koko: {ikkuna['leveys']}x{ikkuna['korkeus']} mm")
+                print(f"Leveys: {ikkuna['leveys']} mm")
+                print(f"Korkeus: {ikkuna['korkeus']} mm")
                 print(f"Toimittaja: {ikkuna['toimittaja']}")
                 print(f"Turvalasi: {'Kyllä' if ikkuna['turvalasi'] else 'Ei'}")
                 print(f"Välikarmi: {'Kyllä' if ikkuna['valikarmi'] else 'Ei'}")

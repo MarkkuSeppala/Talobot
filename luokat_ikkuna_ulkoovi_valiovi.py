@@ -1,26 +1,21 @@
-from dataclasses import dataclass, asdict
+from pydantic import BaseModel
 
-@dataclass
-class IkkunaRaaka:
+class IkkunaRaaka(BaseModel):
     koko: str
     kpl: int
     turvalasi: bool
     välikarmi: bool
     sälekaihtimet: bool
 
-@dataclass
-class Ikkuna:
-    koko: str
-    mm_koko: str
+class Ikkuna(BaseModel):
+    leveys_mm: int
+    korkeus_mm: int
     turvalasi: bool
     välikarmi: bool
     sälekaihtimet: bool
 
-@dataclass
-class UlkoOvi:
-    """
-    Edustaa ulko-ovea ja sen ominaisuuksia.  Käyttää dataclass-koristetta.
-    """
+class UlkoOvi(BaseModel):
+
     malli: str
     paloluokitus_EI_15: bool
     lukko: str
