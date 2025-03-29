@@ -55,6 +55,11 @@ def api_kysely(generation_config, system_instruction, input_text):
     #genai.configure(api_key=GEMINI_API_KEY)  # Vaihda API-avain
     #tiedostopolku = "data/s/puhdistettu_toimitussisalto.txt"
 
+    api_key = os.environ.get('GEMINI_API_KEY')
+    genai.configure(api_key=api_key)
+    print("🔹 Gemini API konfiguroitu onnistuneesti!")
+    print(f"🔹 Gemini API-avain: {api_key}")
+
     model = genai.GenerativeModel(
         model_name="gemini-1.5-flash",
         generation_config=generation_config,

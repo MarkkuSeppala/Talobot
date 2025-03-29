@@ -45,12 +45,6 @@ print("🔹 Tarkistetaan ympäristömuuttujat:")
 print(f"- DATABASE_URL löytyy: {'Kyllä' if os.environ.get('DATABASE_URL') else 'Ei'}")
 print(f"- GEMINI_API_KEY löytyy: {'Kyllä' if os.environ.get('GEMINI_API_KEY') else 'Ei'}")
 
-api_key = os.environ.get('GEMINI_API_KEY')
-genai.configure(api_key=api_key)
-print("🔹 Gemini API konfiguroitu onnistuneesti!")
-print(f"🔹 Gemini API-avain: {api_key}")
-
-
 def generate_uuid():
     return str(uuid.uuid4())
 
