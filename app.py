@@ -49,6 +49,8 @@ print(f"Ympäristö: {env}")
 print("TULOSTETAAN PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT")
 print(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT)
 
+print("JUHON LISÄYS")
+
 print("Lue PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT")
 with open("C:\\talobot_env\data\s\prompt_sievitalo_poimi_ikkunatiedot.txt", "r") as tiedosto:
     print(tiedosto.read())
