@@ -57,6 +57,9 @@ print(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT)
 with open("data/s/testi.txt", "r") as tiedosto:
     print(tiedosto.read())
 
+with open(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, "r") as tiedosto:
+    print(tiedosto.read())
+
 
 def generate_uuid():
     return str(uuid.uuid4())
