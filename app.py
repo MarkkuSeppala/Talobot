@@ -41,9 +41,16 @@ import google.generativeai as genai
 
 # Sovelluksen käynnistyessä
 print("🔹 Sovellus käynnistyy")
-print("🔹 Tarkistetaan ympäristömuuttujat:")
+
+print("Haetaan ympäristömuuttujat")
 print(f"- DATABASE_URL löytyy: {'Kyllä' if os.environ.get('DATABASE_URL') else 'Ei'}")
 print(f"- GEMINI_API_KEY löytyy: {'Kyllä' if os.environ.get('GEMINI_API_KEY') else 'Ei'}")
+env = os.getenv('ENV')
+print(f"Ympäristö: {env}")
+
+print("TULOSTETAAN PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT")
+print(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT)
+
 
 def generate_uuid():
     return str(uuid.uuid4())
