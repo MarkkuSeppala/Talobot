@@ -6,3 +6,4 @@ class Ikkuna(BaseModel):
     turvalasi: bool
     valikarmi: bool
     salekaihtimet: bool
+    karmi: bool
