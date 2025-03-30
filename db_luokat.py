@@ -33,22 +33,24 @@ Base = declarative_base()
 
 
 
-class Toimitussisallot(Base):
-    __tablename__ = "toimitussisallot"  # Varmista, että nimi on pienillä kirjaimilla!
-
+class Toimitussisalto(Base):
+    __tablename__ = "toimitussisallot"
     id = Column(Integer, primary_key=True)
-    kayttaja_id = Column(Integer, ForeignKey("kayttajat.id", ondelete="SET NULL"), nullable=False)
-    toimittaja_id = Column(Integer, ForeignKey("toimittajat.id", ondelete="SET NULL"), nullable=True)
-    uuid = Column(String(36), unique=True, nullable=False)
+    kayttaja_id = Column(Integer, nullable=False)
+    toimittaja_id = Column(Integer, nullable=True)
+    alkuperainen_tiedosto_url = Column(Text, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    aktiivinen = Column(Boolean, nullable=False)
+    jarjestysnro = Column(Integer, nullable=True)
+    uuid = Column(String(36), nullable=False)
     pdf_url = Column(Text, nullable=False)
     txt_sisalto = Column(Text, nullable=False)
     toimittaja = Column(String(100), nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    aktiivinen = Column(Boolean, default=True, nullable=False)
-    jarjestysnro = Column(Integer, nullable=True)
+
+    ikkunat = relationship("Ikkuna", back_populates="toimitussisalto", cascade="all, delete-orphan")
 
 
-class Kayttajat(Base):
+class Kayttaja(Base):
     __tablename__ = "kayttajat"
     id = Column(Integer, primary_key=True)
     email = Column(String(255), nullable=False)
@@ -58,7 +60,7 @@ class Kayttajat(Base):
     aktiivinen = Column(Boolean, default=True)
 
 
-class Toimittajat(Base):
+class Toimittaja(Base):
     __tablename__ = "toimittajat"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -66,7 +68,7 @@ class Toimittajat(Base):
     created_at = Column(DateTime, default=datetime.utcnow, nullable=True)  # Vastaamaan tietokannan määrittelyä
 
 
-class Ikkunat(Base):
+class Ikkuna(Base):
     __tablename__ = "ikkunat"
     id = Column(Integer, primary_key=True)
     leveys = Column(Integer)
@@ -77,8 +79,11 @@ class Ikkunat(Base):
     created_at = Column(DateTime, default=datetime.utcnow, nullable=True)
     toimitussisalto_id = Column(Integer, ForeignKey("toimitussisallot.id", ondelete="CASCADE"))
 
+    toimitussisalto = relationship("Toimitussisalto", back_populates="ikkunat")
 
-class Ulko_ovet(Base):
+
+
+class Ulko_ovi(Base):
     __tablename__ = "ulko_ovet"
     id = Column(Integer, primary_key=True)
     malli = Column(String(255), nullable=False)
@@ -89,7 +94,7 @@ class Ulko_ovet(Base):
     toimitussisalto_id = Column(Integer, ForeignKey("toimitussisallot.id", ondelete="CASCADE"))
 
 
-class Valiovet(Base):
+class Valiovi(Base):
     __tablename__ = "valiovet"
     id = Column(Integer, primary_key=True)
     malli = Column(String(255), nullable=False)
@@ -97,14 +102,14 @@ class Valiovet(Base):
     toimitussisalto_id = Column(Integer, ForeignKey("toimitussisallot.id", ondelete="CASCADE"))
 
 
-class Materiaalikategoriat(Base):
+class Materiaalikategoria(Base):
     __tablename__ = "materiaalikategoriat"
     id = Column(Integer, primary_key=True)
     nimi = Column(String(100), nullable=False)
     kuvaus = Column(Text)
 
 
-class MateriaalitJaPalvelut(Base):
+class Materiaali_ja_palvelu(Base):
     __tablename__ = "materiaalit_ja_palvelut"
     id = Column(Integer, primary_key=True)
     kategoria_id = Column(Integer, ForeignKey("materiaalikategoriat.id", ondelete="SET NULL"))
@@ -113,7 +118,7 @@ class MateriaalitJaPalvelut(Base):
     hinta = Column(DECIMAL(10,2))
 
 
-class ToimitussisaltoMateriaalitJaPalvelut(Base):
+class Toimitussisalto_materiaali_ja_palvelu(Base):
     __tablename__ = "toimitussisalto_materiaalit_ja_palvelut"
     id = Column(Integer, primary_key=True)
     toimitussisalto_id = Column(Integer, ForeignKey("toimitussisallot.id", ondelete="CASCADE"))

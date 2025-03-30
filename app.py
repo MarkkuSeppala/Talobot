@@ -4,7 +4,7 @@ import sys
 import uuid
 from werkzeug.utils import secure_filename
 import io
-from db_luokat import SessionLocal, Toimitussisallot
+from db_luokat import SessionLocal, Toimitussisalto
 from sqlalchemy import create_engine, text
 import logging
 
@@ -46,12 +46,6 @@ print(f"- GEMINI_API_KEY löytyy: {'Kyllä' if os.environ.get('GEMINI_API_KEY') 
 env = os.getenv('ENV')
 print(f"Ympäristö: {env}")
 
-print("TULOSTETAAN PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT")
-print(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT)
-
-print("Lue PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT")
-with open("C:\\talobot_env\data\s\prompt_sievitalo_poimi_ikkunatiedot.txt", "r") as tiedosto:
-    print(tiedosto.read())
 
 #with open(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, "r") as tiedosto:
     #print(tiedosto.read())
@@ -121,12 +115,13 @@ def ensimmainen_toimitussisalto(file):
           
     db = SessionLocal()
     try:
-        uusi_toimitussisalto = Toimitussisallot(
+        uusi_toimitussisalto = Toimitussisalto(
             kayttaja_id=1,
             uuid=unique_id,
             pdf_url=str(pdf_filepath),
             txt_sisalto=str(txt_filepath),
             toimittaja=toimittaja,
+            aktiivinen=True,
         )
         db.add(uusi_toimitussisalto)
         db.flush()  # 🌟 Varmistaa, että ID generoituu ennen commitointia
@@ -183,7 +178,7 @@ def toinen_toimitussisalto(file):
           
     db = SessionLocal()
     try:
-        uusi_toimitussisalto = Toimitussisallot(
+        uusi_toimitussisalto = Toimitussisalto(
             kayttaja_id=1,
             uuid=unique_id,
             pdf_url=str(pdf_filepath),

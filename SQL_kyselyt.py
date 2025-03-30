@@ -1,5 +1,5 @@
 from luokat_ikkuna_ulkoovi_valiovi import UlkoOvi
-from db_luokat import SessionLocal, Toimitussisallot, Kayttajat, Toimittajat, Ikkunat
+from db_luokat import SessionLocal, Toimitussisalto, Kayttaja, Toimittaja, Ikkuna
 from sqlalchemy import text  # Lisää tämä rivi
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import ProgrammingError
@@ -166,7 +166,7 @@ def tulosta_toimitussisallot():
     try:
         with SessionLocal() as db:
             # 🔹 Hae kaikki tietueet
-            toimitussisallot = db.query(Toimitussisallot).all()
+            toimitussisallot = db.query(Toimitussisalto).all()
 
             if not toimitussisallot:
                 print("❌ Tietokanta on tyhjä! Ei toimitussisältöjä.")
@@ -201,7 +201,7 @@ def add_user(email, password):
     """Lisää uusi käyttäjä kayttajat-tauluun."""
     with SessionLocal() as db:
         # Tarkista, onko käyttäjä jo olemassa
-        existing_user = db.query(Kayttajat).filter(Kayttajat.email == email).first()
+        existing_user = db.query(Kayttaja).filter(Kayttaja.email == email).first()
         if existing_user:
             print(f"❌ Käyttäjä '{email}' on jo olemassa.")
             return
@@ -210,7 +210,7 @@ def add_user(email, password):
         password_hash = hashlib.sha256(password.encode()).hexdigest()
 
         # Luo uusi käyttäjä
-        new_user = Kayttajat(
+        new_user = Kayttaja(
             email="testi@testi.com",
             salasana_hash="testi",
             created_at=datetime.utcnow(),
@@ -240,7 +240,7 @@ def tulosta_kayttajat():
     try:
         with SessionLocal() as db:
             # 🔹 Hae kaikki käyttäjät
-            kayttajat = db.query(Kayttajat).all()
+            kayttajat = db.query(Kayttaja).all()
 
             if not kayttajat:
                 print("❌ Tietokanta on tyhjä! Ei käyttäjiä.")
@@ -276,7 +276,7 @@ def aktivoi_kayttaja(kayttaja_id):
     try:
         with SessionLocal() as db:
             # 🔹 Etsi käyttäjä ID:n perusteella
-            kayttaja = db.query(Kayttajat).filter(Kayttajat.id == kayttaja_id).first()
+            kayttaja = db.query(Kayttaja).filter(Kayttaja.id == kayttaja_id).first()
 
             if not kayttaja:
                 print(f"❌ Käyttäjää ID:llä {kayttaja_id} ei löytynyt.")
@@ -307,7 +307,7 @@ def tulosta_toimittajat():
     try:
         with SessionLocal() as db:
             # 🔹 Hae kaikki tietueet
-            toimittajat = db.query(Toimittajat).all()
+            toimittajat = db.query(Toimittaja).all()
 
             if not toimittajat:
                 print("❌ Toimittajat-taulu on tyhjä!")
@@ -336,7 +336,7 @@ def lisaa_toimittaja(nimi):
     """Lisää uuden toimittajan tietokantaan."""
     try:
         with SessionLocal() as db:
-            uusi_toimittaja = Toimittajat(nimi=nimi)
+            uusi_toimittaja = Toimittaja(nimi=nimi)
             db.add(uusi_toimittaja)
             db.commit()
             db.refresh(uusi_toimittaja)
@@ -442,7 +442,7 @@ def lisaa_ikkunat_kantaan(ikkunat_json_str, toimitussisalto_id: int):
                     korkeus_mm = korkeus_dm * 100
                     
                     # Luodaan uusi ikkuna-tietue
-                    uusi_ikkuna = Ikkunat(
+                    uusi_ikkuna = Ikkuna(
                         leveys=leveys_mm,
                         korkeus=korkeus_mm,
                         turvalasi=ikkuna_data["turvalasi"],
@@ -542,84 +542,74 @@ def hae_kaikki_ikkunat():
 
 #==================================== hae_paivan_ikkunat(paivamaara)
 
+from sqlalchemy.orm import joinedload
+from datetime import datetime
+from sqlalchemy import func
+
+
+from sqlalchemy import func
+from datetime import datetime
+
 def hae_paivan_ikkunat(paivamaara: str):
     """
     Hakee tietyn päivän aikana luodut ikkunat tietokannasta.
-    
+
     Args:
         paivamaara: Päivämäärä suomalaisessa muodossa (pp.mm.vvvv)
     """
     try:
-        # Muunnetaan suomalainen päivämäärä datetime-objektiksi
+        # Muunna suomalainen päivämäärä datetime-objektiksi
         paiva = datetime.strptime(paivamaara, "%d.%m.%Y")
         
         with SessionLocal() as db:
-            kysely = text("""
-                SELECT 
-                    i.id,
-                    i.leveys,
-                    i.korkeus,
-                    i.turvalasi,
-                    i.valikarmi,
-                    i.salekaihtimet,
-                    i.created_at,
-                    i.toimitussisalto_id,
-                    t.toimittaja,
-                    t.uuid
-                FROM ikkunat i
-                LEFT JOIN toimitussisallot t ON i.toimitussisalto_id = t.id
-                WHERE DATE(i.created_at) = DATE(:paiva)
-                ORDER BY i.created_at, i.toimitussisalto_id;
-            """)
-            
-            tulokset = db.execute(kysely, {"paiva": paiva}).fetchall()
-            
+            # Tee kysely SQLAlchemyn avulla
+            tulokset = db.query(Ikkuna, Toimitussisalto).join(Toimitussisalto).filter(
+                func.date(Ikkuna.created_at) == paiva.date()
+            ).order_by(Ikkuna.created_at, Ikkuna.toimitussisalto_id).all()
+
             if not tulokset:
                 print(f"❌ Ei ikkunoita päivämäärällä {paivamaara}")
                 return []
-            
+
             print(f"\n🔹 Löydetty {len(tulokset)} ikkunaa päivämäärällä {paivamaara}:")
             print("=" * 80)
-            
+
             ikkunat = []
-            for tulos in tulokset:
-                ikkuna = {
-                    "id": tulos[0],
-                    "leveys": tulos[1],
-                    "korkeus": tulos[2],
-                    "turvalasi": tulos[3],
-                    "valikarmi": tulos[4],
-                    "salekaihtimet": tulos[5],
-                    "luotu": tulos[6],
-                    "toimitussisalto_id": tulos[7],
-                    "toimittaja": tulos[8],
-                    "toimitussisalto_uuid": tulos[9]
+            for ikkuna, toimitus in tulokset:
+                ikkuna_tiedot = {
+                    "id": ikkuna.id,
+                    "leveys": ikkuna.leveys,
+                    "korkeus": ikkuna.korkeus,
+                    "turvalasi": ikkuna.turvalasi,
+                    "valikarmi": ikkuna.valikarmi,
+                    "salekaihtimet": ikkuna.salekaihtimet,
+                    "luotu": ikkuna.created_at,
+                    "toimitussisalto_id": ikkuna.toimitussisalto_id,
+                    "toimittaja": toimitus.toimittaja,
+                    "toimitussisalto_uuid": toimitus.uuid
                 }
-                ikkunat.append(ikkuna)
-                
+                ikkunat.append(ikkuna_tiedot)
+
                 # Tulostetaan ikkunan tiedot
-                print(f"Ikkuna ID: {ikkuna['id']}")
-                print(f"Leveys: {ikkuna['leveys']} mm")
-                print(f"Korkeus: {ikkuna['korkeus']} mm")
-                print(f"Toimittaja: {ikkuna['toimittaja']}")
-                print(f"Turvalasi: {'Kyllä' if ikkuna['turvalasi'] else 'Ei'}")
-                print(f"Välikarmi: {'Kyllä' if ikkuna['valikarmi'] else 'Ei'}")
-                print(f"Sälekaihtimet: {'Kyllä' if ikkuna['salekaihtimet'] else 'Ei'}")
-                print(f"Luotu: {ikkuna['luotu'].strftime('%d.%m.%Y %H:%M:%S')}")
+                print(f"Ikkuna ID: {ikkuna_tiedot['id']}")
+                print(f"Leveys: {ikkuna_tiedot['leveys']} mm")
+                print(f"Korkeus: {ikkuna_tiedot['korkeus']} mm")
+                print(f"Toimittaja: {ikkuna_tiedot['toimittaja']}")
+                print(f"Turvalasi: {'Kyllä' if ikkuna_tiedot['turvalasi'] else 'Ei'}")
+                print(f"Välikarmi: {'Kyllä' if ikkuna_tiedot['valikarmi'] else 'Ei'}")
+                print(f"Sälekaihtimet: {'Kyllä' if ikkuna_tiedot['salekaihtimet'] else 'Ei'}")
+                print(f"Luotu: {ikkuna_tiedot['luotu'].strftime('%d.%m.%Y %H:%M:%S')}")
                 print("-" * 80)
-            
+
             return ikkunat
 
-    except ValueError as e:
+    except ValueError:
         print(f"❌ Virheellinen päivämäärän muoto. Käytä muotoa pp.mm.vvvv")
         return []
     except Exception as e:
         print(f"❌ Virhe ikkunoiden haussa: {str(e)}")
         return []
 
-# if __name__ == "__main__":
-#     ikkunat = hae_paivan_ikkunat("28.03.2025")
-#     print(f"Yhteensä {len(ikkunat)} ikkunaa haettu")
 
 
 
