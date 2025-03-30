@@ -8,7 +8,6 @@ from db_luokat import SessionLocal, Toimitussisallot
 from sqlalchemy import create_engine, text
 import logging
 
-
 sys.path.append(os.path.abspath("utils"))  # Lisää utils-kansion polku moduulihakemistoksi
 sys.path.append(os.path.abspath("api_kyselyt"))
 
@@ -20,8 +19,6 @@ from config_data import (VALIOVITYYPIT_SIEVITALO_JSON, ULKO_OVI_TIEDOT_KOKONAISU
                         PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT, PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT,
                         PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT, PROMPT_KASTELLI_ANNA_VALIOVIMALLIT_TXT, VALIOVITYYPIT_KASTELLI_JSON, TOIMITUSSISALTO_DESIGNTALO_TXT,
                         UPLOAD_FOLDER_DATA)
-
-
 
 
 from datetime import datetime 
@@ -39,8 +36,6 @@ from SQL_kyselyt import hae_toimittaja_uuidlla, hae_toimitussisalto_txt_polku_uu
 
 import google.generativeai as genai 
 
-
-
 # Sovelluksen käynnistyessä
 logging.basicConfig(level=logging.INFO)
 logging.info("🔹 Sovellus käynnistyy")
@@ -54,11 +49,12 @@ print(f"Ympäristö: {env}")
 print("TULOSTETAAN PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT")
 print(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT)
 
-with open("data/s/testi.txt", "r") as tiedosto:
+print("Lue PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT")
+with open("C:\\talobot_env\data\s\prompt_sievitalo_poimi_ikkunatiedot.txt", "r") as tiedosto:
     print(tiedosto.read())
 
-with open(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, "r") as tiedosto:
-    print(tiedosto.read())
+#with open(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, "r") as tiedosto:
+    #print(tiedosto.read())
 
 
 def generate_uuid():

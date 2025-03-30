@@ -12,18 +12,25 @@ print(" jos seuraava true, sitten väärin")
 print(os.path.exists("/persistent_data"))
 
 # Määritä peruskansio, jossa data sijaitsee
-BASE_DIR = Path(__file__).parent  # Tämä varmistaa, että polut ovat suhteellisia skriptiin
+#BASE_DIR = Path(__file__).parent  # Tämä varmistaa, että polut ovat suhteellisia skriptiin
 #BASE_DIR = Path("C:/Users/Public/testibot/Talobot")
 
 # Hae juurihakemisto riippuen ympäristöstä
-if os.path.exists("/persistent_data") and not os.path.exists("C:/persistent_data"):  # 🔹 Renderin polku
-    PERSISTENT_DISK = Path("")
-    DATA_DIR = PERSISTENT_DISK / "data"
-    print("📌 PERSISTENT_DISK: rivi 20")
-else:  # 🔹 Windowsin polku
-    BASE_DIR = Path(__file__).resolve().parent
-    DATA_DIR = BASE_DIR / "data"
-    print("📌 BASE_DIR: rivi 24")
+# if os.path.exists("/persistent_data") and not os.path.exists("C:/persistent_data"):  # 🔹 Renderin polku
+#     PERSISTENT_DISK = Path("")
+#     DATA_DIR = PERSISTENT_DISK / "data"
+#     print("📌 PERSISTENT_DISK: rivi 20")
+# else:  # 🔹 Windowsin polku
+#     BASE_DIR = Path(__file__).resolve().parent
+#     DATA_DIR = BASE_DIR / "data"
+#     print("📌 BASE_DIR: rivi 24")
+
+BASE_DIR = Path(__file__).resolve().parent
+DATA_DIR = BASE_DIR / "data"
+print("BASE_DIR:")
+print(__file__)
+
+
 
 S_DIR = DATA_DIR / "s"
 K_DIR = DATA_DIR / "k"
