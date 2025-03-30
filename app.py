@@ -4,9 +4,9 @@ import sys
 import uuid
 from werkzeug.utils import secure_filename
 import io
-from db_config import SessionLocal, Toimitussisallot
-
+from db_luokat import SessionLocal, Toimitussisallot
 from sqlalchemy import create_engine, text
+import logging
 
 sys.path.append(os.path.abspath("utils"))  # Lisää utils-kansion polku moduulihakemistoksi
 sys.path.append(os.path.abspath("api_kyselyt"))
@@ -15,12 +15,10 @@ from config_data import (VALIOVITYYPIT_SIEVITALO_JSON, ULKO_OVI_TIEDOT_KOKONAISU
                         IKKUNATIEDOT_KOKONAISUUDESSA_TXT, IKKUNA_JSON, PUHDISTETTU_TOIMITUSSISALTO_TXT, IKKUNA2_JSON, ULKO_OVI_TIEDOT_2_JSON,
                         TOIMITUSSISALTO_SIEVITALO_TXT, TOIMITUSSISALTO_KASTELLI_TXT, TOIMITUSSISALTO_TXT,                        
                         PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, PROMPT_SIEVITALO_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, 
-                        PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT, PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_JSON_MUOTOON,
+                        PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT,
                         PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT, PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT,
                         PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT, PROMPT_KASTELLI_ANNA_VALIOVIMALLIT_TXT, VALIOVITYYPIT_KASTELLI_JSON, TOIMITUSSISALTO_DESIGNTALO_TXT,
                         UPLOAD_FOLDER_DATA)
-
-
 
 
 from datetime import datetime 
@@ -36,13 +34,28 @@ from run import run_sievitalo, run_kastelli
 from factory import get_sievitalo_ikkunat, get_sievitalo_ulko_ovet, get_sievitalo_valiovi_mallit, get_kastelli_ikkunat, get_kastelli_ulko_ovet, get_kastelli_valiovi_mallit
 from SQL_kyselyt import hae_toimittaja_uuidlla, hae_toimitussisalto_txt_polku_uuidlla, hae_toimitussisalto_id_uuidlla
 
-
+import google.generativeai as genai 
 
 # Sovelluksen käynnistyessä
-print("🔹 Sovellus käynnistyy")
-print("🔹 Tarkistetaan ympäristömuuttujat:")
+logging.basicConfig(level=logging.INFO)
+logging.info("🔹 Sovellus käynnistyy")
+
+print("Haetaan ympäristömuuttujat")
 print(f"- DATABASE_URL löytyy: {'Kyllä' if os.environ.get('DATABASE_URL') else 'Ei'}")
 print(f"- GEMINI_API_KEY löytyy: {'Kyllä' if os.environ.get('GEMINI_API_KEY') else 'Ei'}")
+env = os.getenv('ENV')
+print(f"Ympäristö: {env}")
+
+print("TULOSTETAAN PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT")
+print(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT)
+
+print("Lue PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT")
+with open("C:\\talobot_env\data\s\prompt_sievitalo_poimi_ikkunatiedot.txt", "r") as tiedosto:
+    print(tiedosto.read())
+
+#with open(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, "r") as tiedosto:
+    #print(tiedosto.read())
+
 
 def generate_uuid():
     return str(uuid.uuid4())
@@ -71,7 +84,7 @@ def tunnista_toimittaja(teksti):
 #kirjoitetaan ensimmainen_toimitussisalto kantaan
 #-----------------------------------------------------------------
 def ensimmainen_toimitussisalto(file):
-    print("ensimmainen_toimitussisalto")
+    print("Aloitetaan ensimmainen_toimitussisalto")
     #file = request.files["ensimmainen_toimitussisalto"]            
     # 🔹 Luo UUID-tunniste ja tallenna PDF palvelimelle
     unique_id = generate_uuid()
@@ -224,27 +237,27 @@ def suodata_tiedot():
 
         #Käsittele Sievitalo txt-tiedosto
         if hae_toimittaja_uuidlla(unique_id_ensimmainen_toimitussisalto) == "Sievitalo":
-            #kirjoita_txt_tiedosto(teksti, TOIMITUSSISALTO_SIEVITALO_TXT)
-            #teksti = lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id))
-            #print(f"teksti: {teksti}")
-            #print("hae_toimitussisalto_txt_polku_uuidlla(unique_id")
-            #print("hae_toimitussisalto_txt_polku_uuidlla(unique_id)",lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id))[:1000])
-            #print("lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id)),clean_text2",clean_text2(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id))[:1000]))
+            
             #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     run_sievitalo       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             print("run_sievitalo 224")
             run_sievitalo(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id_ensimmainen_toimitussisalto)), hae_toimitussisalto_id_uuidlla(unique_id_ensimmainen_toimitussisalto))
-            #run_sievitalo(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id)))
-            #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                      
+           
+           
+            #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     run_kastelli       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
             print(f"unique_id_toinen_toimitussisalto: {unique_id_toinen_toimitussisalto}")
         if hae_toimittaja_uuidlla(unique_id_toinen_toimitussisalto) == "Kastelli":
             print("app.py 224")
             run_kastelli(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id_toinen_toimitussisalto)), hae_toimitussisalto_id_uuidlla(unique_id_toinen_toimitussisalto))
         
-        else:
-            print("app.py 228")
-            tulokset["sievitalo"] = {"error": "Väärä toimittaja"}
+        
 
+
+            #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     run_designtalo       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        else:
+                    print("app.py 228")
+                    tulokset["sievitalo"] = {"error": "Väärä toimittaja"}
         '''
        
 

@@ -2,10 +2,7 @@
 import sys
 import os
 from pathlib import Path
-from dotenv import load_dotenv
 
-# Ladataan ympäristömuuttujat .env-tiedostosta
-load_dotenv()
 
 
 #Lisää juurikansio Pythonin moduulihakemistoon
@@ -15,18 +12,25 @@ print(" jos seuraava true, sitten väärin")
 print(os.path.exists("/persistent_data"))
 
 # Määritä peruskansio, jossa data sijaitsee
-BASE_DIR = Path(__file__).parent  # Tämä varmistaa, että polut ovat suhteellisia skriptiin
+#BASE_DIR = Path(__file__).parent  # Tämä varmistaa, että polut ovat suhteellisia skriptiin
 #BASE_DIR = Path("C:/Users/Public/testibot/Talobot")
 
 # Hae juurihakemisto riippuen ympäristöstä
-if os.path.exists("/persistent_data") and not os.path.exists("C:/persistent_data"):  # 🔹 Renderin polku
-    PERSISTENT_DISK = Path("/persistent_data")
-    DATA_DIR = PERSISTENT_DISK / "data"
-    print("📌 PERSISTENT_DISK: rivi 20")
-else:  # 🔹 Windowsin polku
-    BASE_DIR = Path(__file__).resolve().parent
-    DATA_DIR = BASE_DIR / "data"
-    print("📌 BASE_DIR: rivi 24")
+# if os.path.exists("/persistent_data") and not os.path.exists("C:/persistent_data"):  # 🔹 Renderin polku
+#     PERSISTENT_DISK = Path("")
+#     DATA_DIR = PERSISTENT_DISK / "data"
+#     print("📌 PERSISTENT_DISK: rivi 20")
+# else:  # 🔹 Windowsin polku
+#     BASE_DIR = Path(__file__).resolve().parent
+#     DATA_DIR = BASE_DIR / "data"
+#     print("📌 BASE_DIR: rivi 24")
+
+BASE_DIR = Path(__file__).resolve().parent
+DATA_DIR = BASE_DIR / "data"
+print("BASE_DIR:")
+print(__file__)
+
+
 
 S_DIR = DATA_DIR / "s"
 K_DIR = DATA_DIR / "k"
@@ -34,8 +38,7 @@ D_DIR = DATA_DIR / "d"
 
 
 # Ladataan ympäristömuuttujat .env-tiedostosta
-load_dotenv()
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+#GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 
 
@@ -67,7 +70,7 @@ PROMPT_SIEVITALO_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON = S_DIR / "prompt_
 PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT = S_DIR / "prompt_sievitalo_poimi_ulko_ovi_tiedot.txt"
 PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT = S_DIR / "prompt_sievitalo_anna_valiovimallit.txt"
 PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT = S_DIR / "prompt_sievitalo_poimi_valiovtiedot.txt"
-PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_JSON_MUOTOON = S_DIR / "prompt_sievitalo_ulko_ovi_tiedot_json_muotoon.txt"
+PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_LUOKKAMUOTOON = S_DIR / "prompt_sievitalo_ulko_ovi_tiedot_luokkamuotoon.txt"
 
 
 

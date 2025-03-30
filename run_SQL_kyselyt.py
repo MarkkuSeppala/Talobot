@@ -13,5 +13,11 @@ from SQL_kyselyt import *
 #hae_toimittaja_uuidlla(uuid: str)
 #hae_toimitussisalto_txt_polku_uuidlla(uuid: str) 
 #hae_kaikki_ikkunat()
-hae_paivan_ikkunat("28.03.2025")
+hae_paivan_ikkunat("30.03.2025")
 #update_toimitussisallot_table
+#paivita_ulko_ovet_taulu()
+
+
+
+
+
