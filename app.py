@@ -7,6 +7,7 @@ import io
 from db_luokat import SessionLocal, Toimitussisallot
 from sqlalchemy import create_engine, text
 
+
 sys.path.append(os.path.abspath("utils"))  # Lisää utils-kansion polku moduulihakemistoksi
 sys.path.append(os.path.abspath("api_kyselyt"))
 
@@ -50,6 +51,9 @@ print(f"Ympäristö: {env}")
 
 print("TULOSTETAAN PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT")
 print(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT)
+
+print("Lue PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT")
+print(lue_txt_tiedosto(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT))
 
 
 def generate_uuid():
