@@ -27,10 +27,6 @@ print(os.path.exists("/persistent_data"))
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
-print("BASE_DIR:")
-print(__file__)
-
-
 
 S_DIR = DATA_DIR / "s"
 K_DIR = DATA_DIR / "k"

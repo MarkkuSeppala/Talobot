@@ -51,30 +51,29 @@ from api_kyselyt import api_kysely, api_kysely_kirjoitus_json, api_kysely_ulko_o
 
 
 def run_sievitalo(toimitussisalto_txt_polku: str, toimitussisalto_id: str):
-        #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     clean_text2       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+       
         puhdistettu_toimitussisalto = clean_text2(toimitussisalto_txt_polku)
-        #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        print("puhdistettu_toimitussisalto", puhdistettu_toimitussisalto)
+       
+       
         
-        #---------------------------------------     PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT      ----------------------------------------
+        #---------------------------------------     Sievitalo ikkunat kantaan      ----------------------------------------
         
         
         ikkunatiedot_kokonaisuudessa = api_kysely(GENERATION_CONFIG, PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, puhdistettu_toimitussisalto)
-        print("ikkunatiedot_kokonaisuudessa", ikkunatiedot_kokonaisuudessa)
         ikkunat_json = api_kysely(GENERATION_CONFIG_JSON, PROMPT_SIEVITALO_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, ikkunatiedot_kokonaisuudessa)
-        print("ikkunat_json run_sievitalo 66", ikkunat_json)
         lisaa_ikkunat_kantaan(ikkunat_json, toimitussisalto_id)
-        print("run_sievitalo 66")
+      
 
 
-        #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx     PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        #---------------------------------------     Sievitalo ulko-ovet kantaan      ----------------------------------------
         #print("ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT", api_kysely(GENERATION_CONFIG, PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT, puhdistettu_toimitussisalto))
-        ulko_ovet = api_kysely_ulko_ovet(GENERATION_CONFIG, PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_LUOKKAMUOTOON, api_kysely(GENERATION_CONFIG, PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT, puhdistettu_toimitussisalto))     
-        for ovi in ulko_ovet:
+        ulko_ovet = api_kysely(GENERATION_CONFIG, PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT, puhdistettu_toimitussisalto)  
+        ulko_ovet_json = api_kysely_ulko_ovet(GENERATION_CONFIG, PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_LUOKKAMUOTOON, ulko_ovet)
+        for ovi in ulko_ovet_json:
          print(f"Ovi: {ovi.malli}, Lukko: {ovi.lukko}, Määrä: {ovi.maara}") 
         lisaa_ulko_ovet_kantaan(ulko_ovet, toimitussisalto_id)
         #api_kysely_kirjoitus_json(PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_JSON_MUOTOON, GENERATION_CONFIG, ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT, ULKO_OVI_TIEDOT_2_JSON)
-        #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                          xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+       
         
         
         
