@@ -40,7 +40,7 @@ import google.generativeai as genai
 logging.basicConfig(level=logging.INFO)
 logging.info("🔹 Sovellus käynnistyy")
 
-print("Juhon uusi tulostus1!")
+print("Juhon uusi tulostus2!")
 
 print("Haetaan ympäristömuuttujat")
 print(f"- DATABASE_URL löytyy: {'Kyllä' if os.environ.get('DATABASE_URL') else 'Ei'}")
