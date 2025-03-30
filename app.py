@@ -46,6 +46,12 @@ print(f"- GEMINI_API_KEY löytyy: {'Kyllä' if os.environ.get('GEMINI_API_KEY') 
 env = os.getenv('ENV')
 print(f"Ympäristö: {env}")
 
+print("TULOSTETAAN PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT")
+print(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT)
+
+print("Lue PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT")
+with open("C:\\talobot_env\data\s\prompt_sievitalo_poimi_ikkunatiedot.txt", "r") as tiedosto:
+    print(tiedosto.read())
 
 #with open(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, "r") as tiedosto:
     #print(tiedosto.read())
