@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 import io
 from db_luokat import SessionLocal, Toimitussisallot
 from sqlalchemy import create_engine, text
+import logging
 
 
 sys.path.append(os.path.abspath("utils"))  # Lisää utils-kansion polku moduulihakemistoksi
@@ -41,7 +42,8 @@ import google.generativeai as genai
 
 
 # Sovelluksen käynnistyessä
-print("🔹 Sovellus käynnistyy")
+logging.basicConfig(level=logging.INFO)
+logging.info("🔹 Sovellus käynnistyy")
 
 print("Haetaan ympäristömuuttujat")
 print(f"- DATABASE_URL löytyy: {'Kyllä' if os.environ.get('DATABASE_URL') else 'Ei'}")
@@ -52,8 +54,8 @@ print(f"Ympäristö: {env}")
 print("TULOSTETAAN PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT")
 print(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT)
 
-print("Lue PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT")
-print(lue_txt_tiedosto(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT))
+with open("data/s/testi.txt", "r") as tiedosto:
+    print(tiedosto.read())
 
 
 def generate_uuid():
