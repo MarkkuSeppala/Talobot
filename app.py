@@ -40,6 +40,8 @@ import google.generativeai as genai
 logging.basicConfig(level=logging.INFO)
 logging.info("🔹 Sovellus käynnistyy")
 
+print("Juhon uusi tulostus!")
+
 print("Haetaan ympäristömuuttujat")
 print(f"- DATABASE_URL löytyy: {'Kyllä' if os.environ.get('DATABASE_URL') else 'Ei'}")
 print(f"- GEMINI_API_KEY löytyy: {'Kyllä' if os.environ.get('GEMINI_API_KEY') else 'Ei'}")
