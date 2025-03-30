@@ -36,50 +36,32 @@ from SQL_kyselyt import hae_toimittaja_uuidlla, hae_toimitussisalto_txt_polku_uu
 
 import google.generativeai as genai 
 
-# Sovelluksen käynnistyessä
+# Loggerin alustus
 logging.basicConfig(level=logging.INFO)
-logging.info("🔹 Sovellus käynnistyy")
-
-print("Juhon uusi tulostus3!")
-
-print("Haetaan ympäristömuuttujat")
-print(f"- DATABASE_URL löytyy: {'Kyllä' if os.environ.get('DATABASE_URL') else 'Ei'}")
-print(f"- GEMINI_API_KEY löytyy: {'Kyllä' if os.environ.get('GEMINI_API_KEY') else 'Ei'}")
-env = os.getenv('ENV')
-print(f"Ympäristö: {env}")
-
-print("TULOSTETAAN PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT")
-print(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT)
-
-print("Lue PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT")
-with open("C:\\talobot_env\data\s\prompt_sievitalo_poimi_ikkunatiedot.txt", "r") as tiedosto:
-    print(tiedosto.read())
-
-#with open(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, "r") as tiedosto:
-    #print(tiedosto.read())
+logging.info("App.py importit ladattu")
 
 
 def generate_uuid():
     return str(uuid.uuid4())
 
-# Jos käytät tietokantayhteyttä, lisää sen testaus
+# Tietokantayhteyden testaus
 try:
     with SessionLocal() as db:
         db.execute(text("SELECT 1"))
-        print("✅ Tietokantayhteys toimii")
+        logging.info("✅ Tietokantayhteys toimii")
 except Exception as e:
-    print(f"❌ Tietokantayhteys epäonnistui: {str(e)}")
+    logging.warning(f"❌ Tietokantayhteys epäonnistui: {str(e)}")
 
-print(f"aika nyt {datetime.now}")
 
-#🔹 Tunnistaa toimittajan nimen toimitussisällöstä
+# Tunnistaa toimittajan nimen toimitussisällöstä
 def tunnista_toimittaja(teksti):
     """Etsii toimittajan nimen toimitussisällöstä"""
-    #toimittajat = ["Sievitalo", "Kastelli"]
     toimittajat = ["Sievitalo", "Kastelli", "Designtalo"]
     for nimi in toimittajat:
         if nimi in teksti:
+            logging.info(f"Toimittajan nimi löytyi: {nimi}")
             return nimi
+    logging.warning("TOIMITTAJAN NIMEÄ EI LÖYTYNYT TOIMITUSSISÄLLÖSTÄ!")
     return None
 
 #------------------------------------------------------------------
