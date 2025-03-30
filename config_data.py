@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).parent  # Tämä varmistaa, että polut ovat suhteelli
 
 # Hae juurihakemisto riippuen ympäristöstä
 if os.path.exists("/persistent_data") and not os.path.exists("C:/persistent_data"):  # 🔹 Renderin polku
-    PERSISTENT_DISK = Path("/persistent_data")
+    PERSISTENT_DISK = Path("")
     DATA_DIR = PERSISTENT_DISK / "data"
     print("📌 PERSISTENT_DISK: rivi 20")
 else:  # 🔹 Windowsin polku
