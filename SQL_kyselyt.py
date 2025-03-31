@@ -7,8 +7,8 @@ import uuid
 
 
 
-from luokat_ikkuna_ulkoovi_valiovi import UlkoOvi
-from db_luokat import SessionLocal, Toimitussisalto, Kayttaja, Toimittaja, Ikkuna
+#from luokat_ikkuna_ulkoovi_valiovi import UlkoOvi
+from db_luokat import SessionLocal, Toimitussisalto, Kayttaja, Toimittaja, Ikkuna, Ulko_ovi, Valiovi
 from sqlalchemy import text  # Lisää tämä rivi
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import ProgrammingError
@@ -802,7 +802,7 @@ def update_toimitussisallot_table():
                 "ALTER TABLE toimitussisallot ADD COLUMN IF NOT EXISTS toimittaja VARCHAR(100) NOT NULL"
             ]
 
-            # 🔹 Muutetaan sarakkeiden `NULL`-asetuksia
+            # 🔹 Muutetaan sarakkeiden `NULL`-asetukset, jotta ne eivät voi olla tyhjiä
             alter_nullable_statements = [
                 "ALTER TABLE toimitussisallot ALTER COLUMN kayttaja_id SET NOT NULL",
                 "ALTER TABLE toimitussisallot ALTER COLUMN created_at SET NOT NULL",
@@ -876,7 +876,7 @@ def paivita_ulko_ovet_taulu():
 
 #==================================== lisaa_ulko_ovet_kantaan()
 
-def lisaa_ulko_ovet_kantaan(ovet: list[UlkoOvi], toimitussisalto_id: int):
+def lisaa_ulko_ovet_kantaan(ovet: list[Ulko_ovi], toimitussisalto_id: int):
     """
     Lisää UlkoOvi-oliot tietokantaan.
     
@@ -888,7 +888,7 @@ def lisaa_ulko_ovet_kantaan(ovet: list[UlkoOvi], toimitussisalto_id: int):
         with SessionLocal() as db:
             lisatty = 0
             for ovi in ovet:
-                uusi_ovi = UlkoOvet(
+                uusi_ovi = Ulko_ovi(
                     malli=ovi.malli,
                     paloluokitus_EI_15=ovi.paloluokitus_EI_15,
                     lukko=ovi.lukko,
@@ -1115,4 +1115,128 @@ def hae_paivan_toimitussisallot(paivamaara: str) -> list:
         return []
     except Exception as e:
         print(f"❌ Virhe toimitussisältöjen haussa: {str(e)}")
+        return []
+    
+
+
+#==================================== hae_paivan_ulko_ovet(paivamaara)
+
+def hae_paivan_ulko_ovet(paivamaara: str) -> list:
+    """
+    Hakee tietyn päivän aikana luodut ulko-ovet tietokannasta.
+
+    Args:
+        paivamaara: Päivämäärä suomalaisessa muodossa (pp.mm.vvvv)
+        
+    Returns:
+        list: Lista ulko-ovista tai tyhjä lista jos ei löydy
+    """
+    try:
+        # Muunna suomalainen päivämäärä datetime-objektiksi
+        paiva = datetime.strptime(paivamaara, "%d.%m.%Y")
+        
+        with SessionLocal() as db:
+            # Hae päivän ulko-ovet ja niihin liittyvät toimitussisällöt
+            ovet = (
+                db.query(Ulko_ovi, Toimitussisalto)
+                .join(Toimitussisalto)
+                .filter(func.date(Ulko_ovi.luotu) == paiva.date())
+                .order_by(Ulko_ovi.luotu)
+                .all()
+            )
+
+            if not ovet:
+                print(f"❌ Ei ulko-ovia päivämäärällä {paivamaara}")
+                return []
+
+            print(f"\n🔹 Löydetty {len(ovet)} ulko-ovea päivämäärällä {paivamaara}:")
+            print("=" * 80)
+
+            tulokset = []
+            for ovi, toimitussisalto in ovet:
+                ovi_tiedot = {
+                    "id": ovi.id,
+                    "malli": ovi.malli,
+                    "paloluokitus_EI_15": ovi.paloluokitus_EI_15,
+                    "lukko": ovi.lukko,
+                    "maara": ovi.maara,
+                    "luotu": ovi.luotu,
+                    "toimitussisalto_id": ovi.toimitussisalto_id,
+                    "toimittaja": toimitussisalto.toimittaja
+                }
+                tulokset.append(ovi_tiedot)
+                
+                # Tulostetaan oven tiedot
+                print(f"Ovi ID: {ovi.id}")
+                print(f"Malli: {ovi.malli}")
+                print(f"Paloluokitus EI 15: {'Kyllä' if ovi.paloluokitus_EI_15 else 'Ei'}")
+                print(f"Lukko: {ovi.lukko}")
+                print(f"Määrä: {ovi.maara}")
+                print(f"Luotu: {ovi.luotu.strftime('%d.%m.%Y %H:%M:%S')}")
+                print(f"Toimittaja: {toimitussisalto.toimittaja}")
+                print("-" * 80)
+
+            return tulokset
+
+    except ValueError:
+        print(f"❌ Virheellinen päivämäärän muoto. Käytä muotoa pp.mm.vvvv")
+        return []
+    except Exception as e:
+        print(f"❌ Virhe ulko-ovien haussa: {str(e)}")
+        return []
+
+def tulosta_kaikki_ulko_ovet(maara: int = 10) -> list:
+    """
+    Hakee ja tulostaa ulko-ovet tietokannasta annetun määrän.
+
+    Args:
+        maara: Montako ovea tulostetaan (default 10)
+        
+    Returns:
+        list: Lista haetuista ulko-ovista
+    """
+    try:
+        with SessionLocal() as db:
+            # Hae rajoitettu määrä ulko-ovia
+            ovet = (
+                db.query(Ulko_ovi)
+                .order_by(Ulko_ovi.luotu)
+                .limit(maara)
+                .all()
+            )
+
+            if not ovet:
+                print("❌ Ei ulko-ovia tietokannassa")
+                return []
+
+            print(f"\n🔹 Tulostetaan {len(ovet)} ulko-ovea:")
+            print("=" * 80)
+
+            tulokset = []
+            for ovi in ovet:
+                ovi_tiedot = {
+                    "id": ovi.id,
+                    "malli": ovi.malli,
+                    "paloluokitus_EI_15": ovi.paloluokitus_EI_15,
+                    "lukko": ovi.lukko,
+                    "maara": ovi.maara,
+                    "luotu": ovi.luotu,
+                    "toimitussisalto_id": ovi.toimitussisalto_id
+                }
+                tulokset.append(ovi_tiedot)
+                
+                # Tulostetaan oven tiedot
+                print(f"Ovi ID: {ovi.id}")
+                print(f"Malli: {ovi.malli}")
+                print(f"Paloluokitus EI 15: {'Kyllä' if ovi.paloluokitus_EI_15 else 'Ei'}")
+                print(f"Lukko: {ovi.lukko}")
+                print(f"Määrä: {ovi.maara}")
+                print(f"Luotu: {ovi.luotu.strftime('%d.%m.%Y %H:%M:%S')}")
+                print(f"Toimitussisältö ID: {ovi.toimitussisalto_id}")
+                print("-" * 80)
+
+            return tulokset
+
+    except Exception as e:
+        print(f"❌ Virhe ulko-ovien haussa: {str(e)}")
         return []

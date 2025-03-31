@@ -66,11 +66,10 @@ def run_sievitalo(toimitussisalto_txt_polku: str, toimitussisalto_id: str):
 
 
         #---------------------------------------     Sievitalo ulko-ovet kantaan      ----------------------------------------
-        #print("ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT", api_kysely(GENERATION_CONFIG, PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT, puhdistettu_toimitussisalto))
         ulko_ovet = api_kysely(GENERATION_CONFIG, PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT, puhdistettu_toimitussisalto)  
         ulko_ovet_json = api_kysely_ulko_ovet(GENERATION_CONFIG, PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_LUOKKAMUOTOON, ulko_ovet)
-        for ovi in ulko_ovet_json:
-         print(f"Ovi: {ovi.malli}, Lukko: {ovi.lukko}, Määrä: {ovi.maara}") 
+        # for ovi in ulko_ovet_json:
+        #  print(f"Ovi: {ovi.malli}, Lukko: {ovi.lukko}, Määrä: {ovi.maara}") 
         lisaa_ulko_ovet_kantaan(ulko_ovet, toimitussisalto_id)
         #api_kysely_kirjoitus_json(PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_JSON_MUOTOON, GENERATION_CONFIG, ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT, ULKO_OVI_TIEDOT_2_JSON)
        

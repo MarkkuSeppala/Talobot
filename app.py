@@ -86,17 +86,29 @@ def suodata_tiedot():
                 
         #Oliko toimitussisalto sievitalon?
         if hae_toimittaja_uuidlla(unique_id_ensimmainen_toimitussisalto) == "Sievitalo":
+
             #Sievitalon toimitussisalto puhdistetaan turhista merkeistä ja suodatetaan ikkunat, ulko-ovet, valiovet ja tallennetaaan ne kantaan
             run_sievitalo(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id_ensimmainen_toimitussisalto)), hae_toimitussisalto_id_uuidlla(unique_id_ensimmainen_toimitussisalto))
 
         #Oliko toimitussisalto kastellin?
         if hae_toimittaja_uuidlla(unique_id_toinen_toimitussisalto) == "Kastelli":
+
             #Kastellin toimitussisalto puhdistetaan turhista merkeistä ja suodatetaan ikkunat, ulko-ovet, valiovet ja tallennetaaan ne kantaan
             run_kastelli(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id_toinen_toimitussisalto)), hae_toimitussisalto_id_uuidlla(unique_id_toinen_toimitussisalto))
         
         #Oliko toimitussisalto .....
+        #if hae_toimittaja_uuidlla(unique_id_toinen_toimitussisalto) == "Designtalo":
+        
+            #Designtalon toimitussisalto puhdistetaan turhista merkeistä ja suodatetaan ikkunat, ulko-ovet, valiovet ja tallennetaaan ne kantaan
+            #run_designtalo(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id_toinen_toimitussisalto)), hae_toimitussisalto_id_uuidlla(unique_id_toinen_toimitussisalto)) 
+    
+
         else:
-            tulokset["sievitalo"] = {"error": "Väärä toimittaja"}
+            tulokset["sievitalo"] = {"error": "Tuntematon toimittaja"}
+
+
+
+
         '''
        
 

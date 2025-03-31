@@ -21,6 +21,6 @@ from SQL_kyselyt import *
 #hae_toimitussisalto(501)
 #print("toimittaja_uuid", hae_toimittajan_id_nimella("Sievitalo"))
 #hae_paivan_toimitussisallot("31.03.2025")
-
-
+#hae_paivan_ulko_ovet("29.03.2025")
+tulosta_kaikki_ulko_ovet(10) #parametri -> montako viimeisintä ulko-ovetta tulostetaan. Tyhjä -> tulostetaan kaikki ulko-ovet.
 

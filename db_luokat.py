@@ -90,7 +90,7 @@ class Ulko_ovi(Base):
     paloluokitus_EI_15 = Column(Boolean)
     lukko = Column(String(255), nullable=False)
     maara = Column(Integer)
-    luotu = Column(DateTime, default=datetime.utcnow)
+    luotu = Column(DateTime, default=datetime.utcnow, nullable=True)
     toimitussisalto_id = Column(Integer, ForeignKey("toimitussisallot.id", ondelete="CASCADE"))
 
 
