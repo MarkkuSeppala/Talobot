@@ -36,7 +36,7 @@ from SQL_kyselyt import hae_toimittaja_uuidlla, hae_toimitussisalto_txt_polku_uu
 
 import google.generativeai as genai 
 
-# Sovelluksen käynnistyessä
+# Loggerin alustus
 logging.basicConfig(level=logging.INFO)
 logging.info("🔹 Sovellus käynnistyy")
 
@@ -48,33 +48,19 @@ print(f"- GEMINI_API_KEY löytyy: {'Kyllä' if os.environ.get('GEMINI_API_KEY') 
 env = os.getenv('ENV')
 print(f"Ympäristö: {env}")
 
-#print("TULOSTETAAN PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT")
-#print(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT)
-
-#print("Lue PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT")
-# with open("C:\\talobot_env\data\s\prompt_sievitalo_poimi_ikkunatiedot.txt", "r") as tiedosto:
- #   print(tiedosto.read())
-
-#with open(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, "r") as tiedosto:
-    #print(tiedosto.read())
 
 
-
-
-# Jos käytät tietokantayhteyttä, lisää sen testaus
+# Tietokantayhteyden testaus
 try:
     with SessionLocal() as db:
         db.execute(text("SELECT 1"))
-        print("✅ Tietokantayhteys toimii")
+        logging.info("✅ Tietokantayhteys toimii")
 except Exception as e:
-    print(f"❌ Tietokantayhteys epäonnistui: {str(e)}")
+    logging.warning(f"❌ Tietokantayhteys epäonnistui: {str(e)}")
 
 print(f"aika nyt {datetime.now}")
 
-
-
-
-
+#==================================== app = Flask(__name__)
 app = Flask(__name__)
 os.makedirs(UPLOAD_FOLDER_DATA, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER_DATA

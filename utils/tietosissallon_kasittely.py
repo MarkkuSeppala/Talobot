@@ -5,7 +5,7 @@ import fitz  # PyMuPDF
 import google.generativeai as genais
 #from file_handler import lue_txt_tiedosto, kirjoita_txt_tiedosto
 from datetime import datetime
-from file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet, kirjoita_json_tiedostoon
+from utils.file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet, kirjoita_json_tiedostoon
 import json
 #sys.path.append(os.path.abspath(".."))
 #sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))

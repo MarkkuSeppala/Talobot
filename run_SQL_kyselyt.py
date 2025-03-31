@@ -16,9 +16,11 @@ from SQL_kyselyt import *
 #hae_paivan_ikkunat("31.03.2025")
 #update_toimitussisallot_table
 #paivita_ulko_ovet_taulu()
-#hae_toimitussisallon_ikkunat(1, 501)
+#hae_toimitussisallon_ikkunat(4, 545)
 #hae_toimittajan_sisallot(2)
 #hae_toimitussisalto(501)
+#print("toimittaja_uuid", hae_toimittajan_id_nimella("Sievitalo"))
+#hae_paivan_toimitussisallot("31.03.2025")
 
 
 

@@ -54,7 +54,7 @@ def kirjoita_ensimmainen_toimitussisalto(file):
     
     # 🔹 Tunnista toimittaja
     toimittaja = tunnista_toimittaja(teksti)
-    
+    print("toimittaja", toimittaja)
     # 🔹 Tallennetaan tekstidata tiedostoksi
     txt_filename = f"{unique_id}.txt"
     txt_filepath = UPLOAD_FOLDER_DATA / txt_filename
@@ -65,6 +65,7 @@ def kirjoita_ensimmainen_toimitussisalto(file):
     try:
         uusi_toimitussisalto = Toimitussisalto(
             kayttaja_id=1,
+            toimittaja_id=hae_toimittajan_id_nimella(toimittaja),
             uuid=unique_id,
             pdf_url=str(pdf_filepath),
             txt_sisalto=str(txt_filepath),
@@ -126,6 +127,7 @@ def kirjoita_toinen_toimitussisalto(file):
     try:
         uusi_toimitussisalto = Toimitussisalto(
             kayttaja_id=1,
+            toimittaja_id=hae_toimittajan_id_nimella(toimittaja),
             uuid=unique_id,
             pdf_url=str(pdf_filepath),
             txt_sisalto=str(txt_filepath),
@@ -1028,3 +1030,89 @@ def hae_toimitussisalto(toimitussisalto_id: int) -> None:
                 
     except Exception as e:
         print(f"❌ Virhe toimitussisällön haussa: {str(e)}")
+
+
+#==================================== hae_toimittaja_nimella(toimittaja)
+
+def hae_toimittajan_id_nimella(toimittaja: str) -> int | None:
+    """
+    Hakee toimittajan ID:n nimen perusteella.
+    
+    Args:
+        toimittaja: Toimittajan nimi
+        
+    Returns:
+        int | None: Toimittajan ID tai None jos ei löydy
+    """
+    try:
+        with SessionLocal() as db:
+            kysely = text("""
+                SELECT id
+                FROM toimittajat
+                WHERE nimi = :toimittaja
+                LIMIT 1;
+            """)
+            tulos = db.execute(kysely, {"toimittaja": toimittaja}).fetchone()
+
+            if not tulos:
+                print(f"❌ Ei löytynyt toimittajaa nimellä {toimittaja}")
+                return None
+
+            toimittaja_id = tulos[0]
+            print(f"✅ Toimittajan {toimittaja} ID on: {toimittaja_id}")
+            return toimittaja_id
+
+    except Exception as e:
+        print(f"❌ Virhe kyselyssä: {str(e)}")
+        return None
+
+#==================================== hae_paivan_toimitussisallot(paivamaara)
+
+def hae_paivan_toimitussisallot(paivamaara: str) -> list:
+    """
+    Hakee tietyn päivän aikana luodut toimitussisällöt tietokannasta.
+
+    Args:
+        paivamaara: Päivämäärä suomalaisessa muodossa (pp.mm.vvvv)
+        
+    Returns:
+        list: Lista toimitussisällöistä tai tyhjä lista jos ei löydy
+    """
+    try:
+        # Muunna suomalainen päivämäärä datetime-objektiksi
+        paiva = datetime.strptime(paivamaara, "%d.%m.%Y")
+        
+        with SessionLocal() as db:
+            # Hae päivän toimitussisällöt
+            toimitussisallot = (
+                db.query(Toimitussisalto)
+                .filter(func.date(Toimitussisalto.created_at) == paiva.date())
+                .order_by(Toimitussisalto.created_at)
+                .all()
+            )
+
+            if not toimitussisallot:
+                print(f"❌ Ei toimitussisältöjä päivämäärällä {paivamaara}")
+                return []
+
+            print(f"\n🔹 Löydetty {len(toimitussisallot)} toimitussisältöä päivämäärällä {paivamaara}:")
+            print("=" * 80)
+
+            for sisalto in toimitussisallot:
+                print(f"Toimitussisältö ID: {sisalto.id}")
+                print(f"Toimittaja ID: {sisalto.toimittaja_id}")
+                print(f"UUID: {sisalto.uuid}")
+                print(f"Toimittaja: {sisalto.toimittaja}")
+                print(f"Luotu: {sisalto.created_at.strftime('%d.%m.%Y %H:%M:%S')}")
+                print(f"PDF URL: {sisalto.pdf_url}")
+                print(f"Aktiivinen: {'Kyllä' if sisalto.aktiivinen else 'Ei'}")
+                print("-" * 80)
+
+            return toimitussisallot
+
+    except ValueError:
+        print(f"❌ Virheellinen päivämäärän muoto. Käytä muotoa pp.mm.vvvv")
+        return []
+    except Exception as e:
+        print(f"❌ Virhe toimitussisältöjen haussa: {str(e)}")
+        return []
