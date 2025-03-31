@@ -32,7 +32,7 @@ from utils.file_handler import (tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_
 from utils.tietosissallon_kasittely import sievitalo_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, clean_text2
 from run import run_sievitalo, run_kastelli
 from factory import get_sievitalo_ikkunat, get_sievitalo_ulko_ovet, get_sievitalo_valiovi_mallit, get_kastelli_ikkunat, get_kastelli_ulko_ovet, get_kastelli_valiovi_mallit
-from SQL_kyselyt import hae_toimittaja_uuidlla, hae_toimitussisalto_txt_polku_uuidlla, hae_toimitussisalto_id_uuidlla, kirjoita_ensimmainen_toimitussisalto, kirjoita_toinen_toimitussisalto
+from SQL_kyselyt import hae_toimittaja_uuidlla, hae_toimitussisalto_txt_polku_uuidlla, hae_toimitussisalto_id_uuidlla, vastaanota_toimitussisalto
 
 import google.generativeai as genai 
 
@@ -55,8 +55,6 @@ os.makedirs(UPLOAD_FOLDER_DATA, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER_DATA
 
 @app.route("/suodata_tiedot", methods=["GET", "POST"])
-
-
 def suodata_tiedot():
     try:
         # Jos kyseessä on POST-pyyntö, käsittele PDF-tiedostot
@@ -64,26 +62,27 @@ def suodata_tiedot():
             tulokset = {}
         
             
-            #Luetaan ensimmainen toimitussisalto ja tallennetaan se pdf ja tekstitiedostona palvelimelle uuid -tunnuksella
+            #Ensimmainen toimitussisalto. Tallentaa pdf ja tekstitiedoston palvelimelle uuid -tunnuksella
             if "ensimmainen_toimitussisalto" in request.files:
                 file = request.files["ensimmainen_toimitussisalto"]            
-                unique_id_ensimmainen_toimitussisalto = kirjoita_ensimmainen_toimitussisalto(file)
-
-                
-            #Luetaan toinen toimitussisalto ja tallennetaan se pdf ja tekstitiedostona palvelimelle uuid -tunnuksella
+                unique_id_ensimmainen_toimitussisalto = vastaanota_toimitussisalto(file)
+                    
+            #Toinen toimitussisalto. Tallentaa pdf ja tekstitiedoston palvelimelle uuid -tunnuksella
             if "toinen_toimitussisalto" in request.files:
                 file = request.files["toinen_toimitussisalto"]            
-                unique_id_toinen_toimitussisalto = kirjoita_toinen_toimitussisalto(file)
-                logging.info("Toinen toimitussisältö lisätty, toimittaja: {unique_id_toinen_toimitussisalto}")
+                unique_id_toinen_toimitussisalto = vastaanota_toimitussisalto(file)
+                logging.info("Toinen toimitussisältö lisätty, toimittaja: {unique_id__toimitussisalto}")
+
                 
         #Oliko toimitussisalto sievitalon?
-        if hae_toimittaja_uuidlla(unique_id_ensimmainen_toimitussisalto) == "Sievitalo":
+        logging.info(unique_id_ensimmainen_toimitussisalto)
+        if hae_toimitussisalto_id_uuidlla(unique_id_ensimmainen_toimitussisalto) == "Sievitalo":
 
             #Sievitalon toimitussisalto puhdistetaan turhista merkeistä ja suodatetaan ikkunat, ulko-ovet, valiovet ja tallennetaaan ne kantaan
             run_sievitalo(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id_ensimmainen_toimitussisalto)), hae_toimitussisalto_id_uuidlla(unique_id_ensimmainen_toimitussisalto))
 
         #Oliko toimitussisalto kastellin?
-        if hae_toimittaja_uuidlla(unique_id_toinen_toimitussisalto) == "Kastelli":
+        if hae_toimitussisalto_id_uuidlla(unique_id_toinen_toimitussisalto) == "Kastelli":
 
             #Kastellin toimitussisalto puhdistetaan turhista merkeistä ja suodatetaan ikkunat, ulko-ovet, valiovet ja tallennetaaan ne kantaan
             run_kastelli(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id_toinen_toimitussisalto)), hae_toimitussisalto_id_uuidlla(unique_id_toinen_toimitussisalto))
@@ -97,7 +96,6 @@ def suodata_tiedot():
 
         else:
             tulokset["sievitalo"] = {"error": "Tuntematon toimittaja"}
-
 
 
 

@@ -13,7 +13,7 @@ import json
 import io
 import logging
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 
 
 
@@ -24,41 +24,7 @@ def anna_polku(unique_id: str):
     logging.info(f"...tiedostopolku: {str(UPLOAD_FOLDER_DATA / pdf_filename)}")
     return UPLOAD_FOLDER_DATA / pdf_filename
 
-
-#==================================== kirjoita_ensimmainen_toimitussisalto()
-def kirjoita_ensimmainen_toimitussisalto(file) -> str:
-    logging.info("Kirjoitetaan ensimmäistä toimitussisältöä")
-
-    # Muodostetaan yksilöllinen ID
-    unique_id = str(uuid.uuid4())
-
-    # Lue tiedosto muistiin ennen tallennusta
-    file_data = file.read()  # Lue sisältö talteen
-    
-    # Varmista, että kansio on olemassa
-    if not UPLOAD_FOLDER_DATA.exists():
-        logging.warning("❌ Kansio puuttuu, luodaan...")
-        UPLOAD_FOLDER_DATA.mkdir(parents=True, exist_ok=True)
-
-    #pdf_filename = luo_uuid_ja_anna_polku()
-    pdf_filepath = anna_polku(unique_id)
-    
-    # Tallenna tiedosto palvelimelle
-    with open(pdf_filepath, "wb") as f:
-        f.write(file_data)  # Kirjoitetaan alkuperäinen tiedosto levylle
-    
-    # Muunna PDF tekstiksi ilman tallennusta
-    teksti = muuta_pdf_tekstiksi(io.BytesIO(file_data))  # Luo muistissa oleva tiedosto-objekti
-    
-    # Tunnista toimittaja
-    toimittaja = tunnista_toimittaja(teksti)
-    print("toimittaja", toimittaja)
-    # Tallennetaan tekstidata tiedostoksi
-    txt_filename = f"{unique_id}.txt"
-    txt_filepath = UPLOAD_FOLDER_DATA / txt_filename
-    kirjoita_txt_tiedosto(teksti, txt_filepath)
-    print(f"🔹 Tallennetaan tekstidata tiedostoksi 97")
-
+def tallenna_toimitussisalto_tietokantaan(toimittaja: str, pdf_filepath, txt_filepath, unique_id):
     db = SessionLocal()
     try:
         uusi_toimitussisalto = Toimitussisalto(
@@ -79,72 +45,118 @@ def kirjoita_ensimmainen_toimitussisalto(file) -> str:
         db.rollback()  # 🌟 Jos virhe, kumoa kaikki muutokset
         print(f"❌ Virhe lisättäessä tietoa: {e}")
     finally:
-        db.close()  # Sulje istunto aina
-    #return hae_toimittaja_uuidlla(unique_id)
-    print(f"🔹 Uusi toimitussisalto lisätty ID: {unique_id}")
-    return unique_id
+        db.close()
 
 
-
-#==================================== kirjoita_toinen_toimitussisalto()
-def kirjoita_toinen_toimitussisalto(file) -> str:
-    print("toinen_toimitussisalto")
-    #file = request.files["toinen_toimitussisalto"]            
-    # 🔹 Luo UUID-tunniste ja tallenna PDF palvelimelle
+def vastaanota_toimitussisalto(file) -> str:
+    """KORVAA funktiot kirjoita_ensimmäinen_toimitussisalto(file) ja kirjoita_toinen_toimitussisältö(file)
+        Vastaanottaa käyttäjän lähettämän toimitussisällön
+        1. Muodostaa yksilöllisen ID:n
+        2. Tallentaa PDF:n palvelimelle
+        3. Tallentaa viitteen toimitussisällöstä tietokantaan (toimittaja, PDF:n tiedostopolku, TXT:n tiedostopolku, yksilöllinen ID)
+        4. Palauttaa yksilöllisen ID:n"""
+    
+    logging.info("Aloitetaan toimitussisällön käsittely")
 
     # Muodostetaan yksilöllinen ID
-    unique_id = str(uuid.uuid4())    
-    pdf_filepath = anna_polku(unique_id)
-    
-    # 🔹 Lue tiedosto muistiin ennen tallennusta
+    unique_id = str(uuid.uuid4())
+
+    # Lue tiedosto muistiin ennen tallennusta
     file_data = file.read()  # Lue sisältö talteen
     
-    # 🔹 Varmista, että kansio on olemassa
+    # Varmista, että kansio on olemassa
     if not UPLOAD_FOLDER_DATA.exists():
-        print("❌ Kansio puuttuu, luodaan...")
+        logging.warning("❌ Kansio puuttuu, luodaan...")
         UPLOAD_FOLDER_DATA.mkdir(parents=True, exist_ok=True)
 
-    #pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename  # tämä on Path-objekti
+    #pdf_filename = luo_uuid_ja_anna_polku()
+    pdf_filepath = anna_polku(unique_id)
     
-    # 🔹 Tallenna tiedosto palvelimelle
+    # Tallenna PDF-tiedosto palvelimelle
     with open(pdf_filepath, "wb") as f:
-        f.write(file_data)  # Kirjoitetaan alkuperäinen tiedosto levylle
+        f.write(file_data)
+    logging.debug("Ensimmäinen PDF tallennettu palvelimelle")
     
     # Muunna PDF tekstiksi ilman tallennusta
-    teksti = muuta_pdf_tekstiksi(io.BytesIO(file_data))  # Luo muistissa oleva tiedosto-objekti
+    teksti = muuta_pdf_tekstiksi(io.BytesIO(file_data))
+    logging.debug("PDF muunnettu LiteralString")
     
-    # 🔹 Tunnista toimittaja
+    # Tunnista toimittaja
+    logging.debug("Tunnistetaan toimittaja...")
     toimittaja = tunnista_toimittaja(teksti)
-    
-    # 🔹 Tallennetaan tekstidata tiedostoksi
+    logging.info(f"Tunnistettu toimittaja: {toimittaja}")
+
+    # Tallennetaan tekstidata tiedostoksi
     txt_filename = f"{unique_id}.txt"
     txt_filepath = UPLOAD_FOLDER_DATA / txt_filename
     kirjoita_txt_tiedosto(teksti, txt_filepath)
-    print(f"🔹 Tallennetaan tekstidata tiedostoksi 97")
-    print(f"🔹 Tunnista toimittaja: {toimittaja}")
-    db = SessionLocal()
-    try:
-        uusi_toimitussisalto = Toimitussisalto(
-            kayttaja_id=1,
-            toimittaja_id=hae_toimittajan_id_nimella(toimittaja),
-            uuid=unique_id,
-            pdf_url=str(pdf_filepath),
-            txt_sisalto=str(txt_filepath),
-            toimittaja=toimittaja,
-            aktiivinen=True
-        )
-        db.add(uusi_toimitussisalto)
-        db.flush()  # 🌟 Varmistaa, että ID generoituu ennen commitointia
-        db.commit()
-        db.refresh(uusi_toimitussisalto)  # 🌟 Päivittää objektin tietokannasta
-        print("✅ Uusi toimitussisalto lisätty ID:", uusi_toimitussisalto.id)
-    except Exception as e:
-        db.rollback()  # 🌟 Jos virhe, kumoa kaikki muutokset
-        print(f"❌ Virhe lisättäessä tietoa: {e}")
-    finally:
-        db.close()  # Sulje istunto aina
-    #return hae_toimittaja_uuidlla(unique_id)    
+    logging.info(f"Teksti tallennettu: {txt_filepath}")
+
+    #Tallennetaan ensimmäinen toimitussisältö tietokantaan
+    tallenna_toimitussisalto_tietokantaan(toimittaja=toimittaja, pdf_filepath=pdf_filepath, txt_filepath=txt_filepath, unique_id=unique_id)
+    logging.info({str(unique_id)})
     return unique_id
+
+
+#==================================== kirjoita_toinen_toimitussisalto()
+# def kirjoita_toinen_toimitussisalto(file) -> str:
+#     print("toinen_toimitussisalto")
+#     #file = request.files["toinen_toimitussisalto"]            
+#     # 🔹 Luo UUID-tunniste ja tallenna PDF palvelimelle
+
+#     # Muodostetaan yksilöllinen ID
+#     unique_id = str(uuid.uuid4())    
+#     pdf_filepath = anna_polku(unique_id)
+    
+#     # 🔹 Lue tiedosto muistiin ennen tallennusta
+#     file_data = file.read()  # Lue sisältö talteen
+    
+#     # 🔹 Varmista, että kansio on olemassa
+#     if not UPLOAD_FOLDER_DATA.exists():
+#         print("❌ Kansio puuttuu, luodaan...")
+#         UPLOAD_FOLDER_DATA.mkdir(parents=True, exist_ok=True)
+
+#     #pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename  # tämä on Path-objekti
+    
+#     # 🔹 Tallenna tiedosto palvelimelle
+#     with open(pdf_filepath, "wb") as f:
+#         f.write(file_data)  # Kirjoitetaan alkuperäinen tiedosto levylle
+    
+#     # Muunna PDF tekstiksi ilman tallennusta
+#     teksti = muuta_pdf_tekstiksi(io.BytesIO(file_data))  # Luo muistissa oleva tiedosto-objekti
+    
+#     # 🔹 Tunnista toimittaja
+#     toimittaja = tunnista_toimittaja(teksti)
+    
+#     # 🔹 Tallennetaan tekstidata tiedostoksi
+#     txt_filename = f"{unique_id}.txt"
+#     txt_filepath = UPLOAD_FOLDER_DATA / txt_filename
+#     kirjoita_txt_tiedosto(teksti, txt_filepath)
+#     print(f"🔹 Tallennetaan tekstidata tiedostoksi 97")
+#     print(f"🔹 Tunnista toimittaja: {toimittaja}")
+#     db = SessionLocal()
+#     try:
+#         uusi_toimitussisalto = Toimitussisalto(
+#             kayttaja_id=1,
+#             toimittaja_id=hae_toimittajan_id_nimella(toimittaja),
+#             uuid=unique_id,
+#             pdf_url=str(pdf_filepath),
+#             txt_sisalto=str(txt_filepath),
+#             toimittaja=toimittaja,
+#             aktiivinen=True
+#         )
+#         db.add(uusi_toimitussisalto)
+#         db.flush()  # 🌟 Varmistaa, että ID generoituu ennen commitointia
+#         db.commit()
+#         db.refresh(uusi_toimitussisalto)  # 🌟 Päivittää objektin tietokannasta
+#         print("✅ Uusi toimitussisalto lisätty ID:", uusi_toimitussisalto.id)
+#     except Exception as e:
+#         db.rollback()  # 🌟 Jos virhe, kumoa kaikki muutokset
+#         print(f"❌ Virhe lisättäessä tietoa: {e}")
+#     finally:
+#         db.close()  # Sulje istunto aina
+#     #return hae_toimittaja_uuidlla(unique_id)    
+#     return unique_id
 
 
 
