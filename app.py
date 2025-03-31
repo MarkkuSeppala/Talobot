@@ -36,19 +36,11 @@ from SQL_kyselyt import hae_toimittaja_uuidlla, hae_toimitussisalto_txt_polku_uu
 
 import google.generativeai as genai 
 
+
+
 # Loggerin alustus
 logging.basicConfig(level=logging.INFO)
 logging.info("🔹 Sovellus käynnistyy")
-
-print("Juhon uusi tulostus3!")
-
-print("Haetaan ympäristömuuttujat")
-print(f"- DATABASE_URL löytyy: {'Kyllä' if os.environ.get('DATABASE_URL') else 'Ei'}")
-print(f"- GEMINI_API_KEY löytyy: {'Kyllä' if os.environ.get('GEMINI_API_KEY') else 'Ei'}")
-env = os.getenv('ENV')
-print(f"Ympäristö: {env}")
-
-
 
 # Tietokantayhteyden testaus
 try:
@@ -58,12 +50,10 @@ try:
 except Exception as e:
     logging.warning(f"❌ Tietokantayhteys epäonnistui: {str(e)}")
 
-print(f"aika nyt {datetime.now}")
-
-#==================================== app = Flask(__name__)
 app = Flask(__name__)
 os.makedirs(UPLOAD_FOLDER_DATA, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER_DATA
+
 @app.route("/suodata_tiedot", methods=["GET", "POST"])
 
 
@@ -78,11 +68,13 @@ def suodata_tiedot():
             if "ensimmainen_toimitussisalto" in request.files:
                 file = request.files["ensimmainen_toimitussisalto"]            
                 unique_id_ensimmainen_toimitussisalto = kirjoita_ensimmainen_toimitussisalto(file)
+
                 
             #Luetaan toinen toimitussisalto ja tallennetaan se pdf ja tekstitiedostona palvelimelle uuid -tunnuksella
             if "toinen_toimitussisalto" in request.files:
                 file = request.files["toinen_toimitussisalto"]            
                 unique_id_toinen_toimitussisalto = kirjoita_toinen_toimitussisalto(file)
+                logging.info("Toinen toimitussisältö lisätty, toimittaja: {unique_id_toinen_toimitussisalto}")
                 
         #Oliko toimitussisalto sievitalon?
         if hae_toimittaja_uuidlla(unique_id_ensimmainen_toimitussisalto) == "Sievitalo":
