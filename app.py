@@ -55,6 +55,8 @@ os.makedirs(UPLOAD_FOLDER_DATA, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER_DATA
 
 @app.route("/suodata_tiedot", methods=["GET", "POST"])
+
+
 def suodata_tiedot():
     try:
         # Jos kyseessä on POST-pyyntö, käsittele PDF-tiedostot
@@ -62,33 +64,31 @@ def suodata_tiedot():
             tulokset = {}
         
             
-            #Ensimmainen toimitussisalto. Tallentaa pdf ja tekstitiedoston palvelimelle uuid -tunnuksella
+            #Luetaan ensimmainen toimitussisalto ja tallennetaan se pdf ja tekstitiedostona palvelimelle uuid -tunnuksella
             if "ensimmainen_toimitussisalto" in request.files:
                 file = request.files["ensimmainen_toimitussisalto"]            
                 unique_id_ensimmainen_toimitussisalto = kirjoita_ensimmainen_toimitussisalto(file)
-                logging.info("Ensimmäinen toimitussisältö lisätty, toimittaja: {unique_id_ensimmainen_toimitussisalto}")
-            #Toinen toimitussisalto. Tallentaa pdf ja tekstitiedoston palvelimelle uuid -tunnuksella
+
+                
+            #Luetaan toinen toimitussisalto ja tallennetaan se pdf ja tekstitiedostona palvelimelle uuid -tunnuksella
             if "toinen_toimitussisalto" in request.files:
                 file = request.files["toinen_toimitussisalto"]            
                 unique_id_toinen_toimitussisalto = kirjoita_toinen_toimitussisalto(file)
                 logging.info("Toinen toimitussisältö lisätty, toimittaja: {unique_id_toinen_toimitussisalto}")
-
-
-   
-        
+                
+        #Oliko toimitussisalto sievitalon?
         if hae_toimittaja_uuidlla(unique_id_ensimmainen_toimitussisalto) == "Sievitalo":
-            #----------- run_sievitalo()
+            #Sievitalon toimitussisalto puhdistetaan turhista merkeistä ja suodatetaan ikkunat, ulko-ovet, valiovet ja tallennetaaan ne kantaan
             run_sievitalo(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id_ensimmainen_toimitussisalto)), hae_toimitussisalto_id_uuidlla(unique_id_ensimmainen_toimitussisalto))
-                      
-          
+
+        #Oliko toimitussisalto kastellin?
         if hae_toimittaja_uuidlla(unique_id_toinen_toimitussisalto) == "Kastelli":
-            #----------- run_kastelli()
+            #Kastellin toimitussisalto puhdistetaan turhista merkeistä ja suodatetaan ikkunat, ulko-ovet, valiovet ja tallennetaaan ne kantaan
             run_kastelli(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id_toinen_toimitussisalto)), hae_toimitussisalto_id_uuidlla(unique_id_toinen_toimitussisalto))
         
-            #----------- run_designtalo()
+        #Oliko toimitussisalto .....
         else:
-                    print("app.py 228")
-                    tulokset["sievitalo"] = {"error": "Väärä toimittaja"}
+            tulokset["sievitalo"] = {"error": "Väärä toimittaja"}
         '''
        
 
