@@ -143,6 +143,17 @@ def clean_text2(text):
 
 
 
+# ------- Tunnistaa toimittajan nimen toimitussisällöstä -------
+
+def tunnista_toimittaja(teksti):
+    """Etsii toimittajan nimen toimitussisällöstä"""
+    #toimittajat = ["Sievitalo", "Kastelli"]
+    toimittajat = ["Sievitalo", "Kastelli", "Designtalo"]
+    for nimi in toimittajat:
+        if nimi in teksti:
+            return nimi
+    return None
+
 
 
 

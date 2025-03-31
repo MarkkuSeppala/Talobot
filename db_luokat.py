@@ -128,3 +128,40 @@ class Toimitussisalto_materiaali_ja_palvelu(Base):
     hinta = Column(DECIMAL(10,2))
     luotu = Column(DateTime, default=datetime.utcnow)
 
+
+def hae_toimitussisalto(toimitussisalto_id: int) -> None:
+    """
+    Hakee ja tulostaa toimitussisällön tiedot ID:n perusteella.
+    
+    Args:
+        toimitussisalto_id: Haettavan toimitussisällön ID
+    """
+    try:
+        with SessionLocal() as db:
+            toimitussisalto = db.query(Toimitussisalto).filter(Toimitussisalto.id == toimitussisalto_id).first()
+            
+            if not toimitussisalto:
+                print(f"Toimitussisältöä ID:llä {toimitussisalto_id} ei löytynyt.")
+                return
+            
+            print(f"Toimitussisällön tiedot (ID: {toimitussisalto_id}):")
+            print("-" * 50)
+            print(f"Käyttäjä ID: {toimitussisalto.kayttaja_id}")
+            print(f"Toimittaja ID: {toimitussisalto.toimittaja_id}")
+            print(f"Alkuperäinen tiedosto: {toimitussisalto.alkuperainen_tiedosto_url}")
+            print(f"Luotu: {toimitussisalto.created_at}")
+            print(f"Aktiivinen: {toimitussisalto.aktiivinen}")
+            print(f"Järjestysnumero: {toimitussisalto.jarjestysnro}")
+            print(f"UUID: {toimitussisalto.uuid}")
+            print(f"PDF URL: {toimitussisalto.pdf_url}")
+            print(f"Tekstisisältö: {toimitussisalto.txt_sisalto}")
+            print(f"Toimittaja: {toimitussisalto.toimittaja}")
+            
+            # Tulostetaan myös liittyvät ikkunat
+            print("\nLiittyvät ikkunat:")
+            for ikkuna in toimitussisalto.ikkunat:
+                print(f"- Ikkuna ID: {ikkuna.id}")
+                
+    except Exception as e:
+        print(f"❌ Virhe toimitussisällön haussa: {str(e)}")
+

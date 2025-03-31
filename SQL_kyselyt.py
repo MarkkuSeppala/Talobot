@@ -1,3 +1,12 @@
+from config_data import UPLOAD_FOLDER_DATA
+from utils.file_handler import muuta_pdf_tekstiksi, kirjoita_txt_tiedosto, lue_txt_tiedosto
+from utils.tietosissallon_kasittely import tunnista_toimittaja
+#from utils.file_handler import generate_uuid
+import uuid
+#from utils.file_handler import kirjoita_txt_tiedosto
+
+
+
 from luokat_ikkuna_ulkoovi_valiovi import UlkoOvi
 from db_luokat import SessionLocal, Toimitussisalto, Kayttaja, Toimittaja, Ikkuna
 from sqlalchemy import text  # Lisää tämä rivi
@@ -8,6 +17,133 @@ from datetime import datetime
 import hashlib
 #from sqlalchemy import create_engine
 import json
+import io
+
+
+#==================================== generate_uuid()
+
+def generate_uuid():
+    return str(uuid.uuid4())
+
+
+#==================================== kirjoita_ensimmainen_toimitussisalto()
+def kirjoita_ensimmainen_toimitussisalto(file):
+    print("Aloitetaan ensimmainen_toimitussisalto")
+    #file = request.files["ensimmainen_toimitussisalto"]            
+    # 🔹 Luo UUID-tunniste ja tallenna PDF palvelimelle
+    unique_id = generate_uuid()
+    pdf_filename = f"{unique_id}.pdf"
+    pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename
+    
+    # 🔹 Lue tiedosto muistiin ennen tallennusta
+    file_data = file.read()  # Lue sisältö talteen
+    
+    # 🔹 Varmista, että kansio on olemassa
+    if not UPLOAD_FOLDER_DATA.exists():
+        print("❌ Kansio puuttuu, luodaan...")
+        UPLOAD_FOLDER_DATA.mkdir(parents=True, exist_ok=True)
+
+    pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename  # tämä on Path-objekti
+    
+    # 🔹 Tallenna tiedosto palvelimelle
+    with open(pdf_filepath, "wb") as f:
+        f.write(file_data)  # Kirjoitetaan alkuperäinen tiedosto levylle
+    
+    # Muunna PDF tekstiksi ilman tallennusta
+    teksti = muuta_pdf_tekstiksi(io.BytesIO(file_data))  # Luo muistissa oleva tiedosto-objekti
+    
+    # 🔹 Tunnista toimittaja
+    toimittaja = tunnista_toimittaja(teksti)
+    
+    # 🔹 Tallennetaan tekstidata tiedostoksi
+    txt_filename = f"{unique_id}.txt"
+    txt_filepath = UPLOAD_FOLDER_DATA / txt_filename
+    kirjoita_txt_tiedosto(teksti, txt_filepath)
+    print(f"🔹 Tallennetaan tekstidata tiedostoksi 97")
+
+    db = SessionLocal()
+    try:
+        uusi_toimitussisalto = Toimitussisalto(
+            kayttaja_id=1,
+            uuid=unique_id,
+            pdf_url=str(pdf_filepath),
+            txt_sisalto=str(txt_filepath),
+            toimittaja=toimittaja,
+            aktiivinen=True,
+        )
+        db.add(uusi_toimitussisalto)
+        db.flush()  # 🌟 Varmistaa, että ID generoituu ennen commitointia
+        db.commit()
+        db.refresh(uusi_toimitussisalto)  # 🌟 Päivittää objektin tietokannasta
+        print("✅ Uusi toimitussisalto lisätty ID:", uusi_toimitussisalto.id)
+    except Exception as e:
+        db.rollback()  # 🌟 Jos virhe, kumoa kaikki muutokset
+        print(f"❌ Virhe lisättäessä tietoa: {e}")
+    finally:
+        db.close()  # Sulje istunto aina
+    #return hae_toimittaja_uuidlla(unique_id)
+    print(f"🔹 Uusi toimitussisalto lisätty ID: {unique_id}")
+    return unique_id
+
+
+
+#==================================== kirjoita_toinen_toimitussisalto()
+def kirjoita_toinen_toimitussisalto(file):
+    print("toinen_toimitussisalto")
+    #file = request.files["toinen_toimitussisalto"]            
+    # 🔹 Luo UUID-tunniste ja tallenna PDF palvelimelle
+    unique_id = generate_uuid()    
+    pdf_filename = f"{unique_id}.pdf"
+    pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename
+    
+    # 🔹 Lue tiedosto muistiin ennen tallennusta
+    file_data = file.read()  # Lue sisältö talteen
+    
+    # 🔹 Varmista, että kansio on olemassa
+    if not UPLOAD_FOLDER_DATA.exists():
+        print("❌ Kansio puuttuu, luodaan...")
+        UPLOAD_FOLDER_DATA.mkdir(parents=True, exist_ok=True)
+
+    pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename  # tämä on Path-objekti
+    
+    # 🔹 Tallenna tiedosto palvelimelle
+    with open(pdf_filepath, "wb") as f:
+        f.write(file_data)  # Kirjoitetaan alkuperäinen tiedosto levylle
+    
+    # Muunna PDF tekstiksi ilman tallennusta
+    teksti = muuta_pdf_tekstiksi(io.BytesIO(file_data))  # Luo muistissa oleva tiedosto-objekti
+    
+    # 🔹 Tunnista toimittaja
+    toimittaja = tunnista_toimittaja(teksti)
+    
+    # 🔹 Tallennetaan tekstidata tiedostoksi
+    txt_filename = f"{unique_id}.txt"
+    txt_filepath = UPLOAD_FOLDER_DATA / txt_filename
+    kirjoita_txt_tiedosto(teksti, txt_filepath)
+    print(f"🔹 Tallennetaan tekstidata tiedostoksi 97")
+    print(f"🔹 Tunnista toimittaja: {toimittaja}")
+    db = SessionLocal()
+    try:
+        uusi_toimitussisalto = Toimitussisalto(
+            kayttaja_id=1,
+            uuid=unique_id,
+            pdf_url=str(pdf_filepath),
+            txt_sisalto=str(txt_filepath),
+            toimittaja=toimittaja,
+            aktiivinen=True
+        )
+        db.add(uusi_toimitussisalto)
+        db.flush()  # 🌟 Varmistaa, että ID generoituu ennen commitointia
+        db.commit()
+        db.refresh(uusi_toimitussisalto)  # 🌟 Päivittää objektin tietokannasta
+        print("✅ Uusi toimitussisalto lisätty ID:", uusi_toimitussisalto.id)
+    except Exception as e:
+        db.rollback()  # 🌟 Jos virhe, kumoa kaikki muutokset
+        print(f"❌ Virhe lisättäessä tietoa: {e}")
+    finally:
+        db.close()  # Sulje istunto aina
+    #return hae_toimittaja_uuidlla(unique_id)    
+    return unique_id
 
 
 
@@ -766,3 +902,129 @@ def lisaa_ulko_ovet_kantaan(ovet: list[UlkoOvi], toimitussisalto_id: int):
     except Exception as e:
         print(f"❌ Virhe ovien lisäämisessä: {str(e)}")
         db.rollback()
+
+
+#==================================== hae_toimitussiallon ikkunat(toimittaja_id, toimitussisalto_id)
+
+def hae_toimitussisallon_ikkunat(toimittaja_id: int, toimitussisalto_id: int):
+    """
+    Hakee ja tulostaa toimittajan tietyn toimitussisällön ikkunat käyttäen SQLAlchemy ORM:ää.
+
+    Args:
+        toimittaja_id (int): Toimittajan ID
+        toimitussisalto_id (int): Toimitussisällön ID
+    """
+    try:
+        with SessionLocal() as db:
+            # Haetaan ikkunat käyttäen SQLAlchemy ORM:ää
+            ikkunat = (
+                db.query(Ikkuna)
+                .join(Toimitussisalto)
+                .filter(
+                    Toimitussisalto.toimittaja_id == toimittaja_id,
+                    Toimitussisalto.id == toimitussisalto_id
+                )
+                .order_by(Ikkuna.id)
+                .all()
+            )
+            
+            if not ikkunat:
+                print(f"❌ Ei löytynyt ikkunoita toimittajalle ID:{toimittaja_id} ja toimitussisällölle ID:{toimitussisalto_id}")
+                return
+            
+            print(f"\n🔹 Löydetty {len(ikkunat)} ikkunaa:")
+            print("=" * 80)
+            
+            for ikkuna in ikkunat:
+                print(f"Ikkuna ID: {ikkuna.id}")
+                print(f"Koko: {ikkuna.leveys}x{ikkuna.korkeus} mm")
+                print(f"Turvalasi: {'Kyllä' if ikkuna.turvalasi else 'Ei'}")
+                print(f"Välikarmi: {'Kyllä' if ikkuna.valikarmi else 'Ei'}")
+                print(f"Sälekaihtimet: {'Kyllä' if ikkuna.salekaihtimet else 'Ei'}")
+                print(f"Luotu: {ikkuna.created_at.strftime('%d.%m.%Y %H:%M:%S') if ikkuna.created_at else 'Ei tiedossa'}")
+                print(f"Toimittaja: {ikkuna.toimitussisalto.toimittaja}")
+                print("-" * 80)
+
+    except Exception as e:
+        print(f"❌ Virhe ikkunoiden haussa: {str(e)}")
+
+def hae_toimittajan_sisallot(toimittaja_id: int):
+    """
+    Hakee ja tulostaa kaikki toimittajan toimitussisällöt.
+
+    Args:
+        toimittaja_id (int): Toimittajan ID
+
+    Returns:
+        list[Toimitussisalto]: Lista toimitussisältö-olioista
+    """
+    try:
+        with SessionLocal() as db:
+            # Haetaan toimittajan kaikki toimitussisällöt
+            toimitussisallot = (
+                db.query(Toimitussisalto)
+                .filter(Toimitussisalto.toimittaja_id == toimittaja_id)
+                .order_by(Toimitussisalto.created_at)
+                .all()
+            )
+
+            if not toimitussisallot:
+                print(f"❌ Ei löytynyt toimitussisältöjä toimittajalle ID:{toimittaja_id}")
+                return []
+
+            print(f"\n🔹 Löydetty {len(toimitussisallot)} toimitussisältöä:")
+            print("=" * 80)
+
+            for sisalto in toimitussisallot:
+                print(f"Toimitussisältö ID: {sisalto.id}")
+                print(f"UUID: {sisalto.uuid}")
+                print(f"Toimittaja: {sisalto.toimittaja}")
+                print(f"Luotu: {sisalto.created_at.strftime('%d.%m.%Y %H:%M:%S')}")
+                print(f"Aktiivinen: {'Kyllä' if sisalto.aktiivinen else 'Ei'}")
+                print(f"Ikkunoita: {len(sisalto.ikkunat)}")
+                print("-" * 80)
+
+            return toimitussisallot
+
+    except Exception as e:
+        print(f"❌ Virhe toimitussisältöjen haussa: {str(e)}")
+        return []
+
+#==================================== hae_toimitussisalto(toimitussisalto_id)
+
+
+def hae_toimitussisalto(toimitussisalto_id: int) -> None:
+    """
+    Hakee ja tulostaa toimitussisällön tiedot ID:n perusteella.
+    
+    Args:
+        toimitussisalto_id: Haettavan toimitussisällön ID
+    """
+    try:
+        with SessionLocal() as db:
+            toimitussisalto = db.query(Toimitussisalto).filter(Toimitussisalto.id == toimitussisalto_id).first()
+            
+            if not toimitussisalto:
+                print(f"Toimitussisältöä ID:llä {toimitussisalto_id} ei löytynyt.")
+                return
+            
+            print(f"Toimitussisällön tiedot (ID: {toimitussisalto_id}):")
+            print("-" * 50)
+            print(f"Käyttäjä ID: {toimitussisalto.kayttaja_id}")
+            print(f"Toimittaja ID: {toimitussisalto.toimittaja_id}")
+            print(f"Alkuperäinen tiedosto: {toimitussisalto.alkuperainen_tiedosto_url}")
+            print(f"Luotu: {toimitussisalto.created_at}")
+            print(f"Aktiivinen: {toimitussisalto.aktiivinen}")
+            print(f"Järjestysnumero: {toimitussisalto.jarjestysnro}")
+            print(f"UUID: {toimitussisalto.uuid}")
+            print(f"PDF URL: {toimitussisalto.pdf_url}")
+            print(f"Tekstisisältö: {toimitussisalto.txt_sisalto}")
+            print(f"Toimittaja: {toimitussisalto.toimittaja}")
+            
+            # Tulostetaan myös liittyvät ikkunat
+            print("\nLiittyvät ikkunat:")
+            for ikkuna in toimitussisalto.ikkunat:
+                print(f"- Ikkuna ID: {ikkuna.id}")
+                
+    except Exception as e:
+        print(f"❌ Virhe toimitussisällön haussa: {str(e)}")
