@@ -1,61 +1,59 @@
 from config_data import UPLOAD_FOLDER_DATA
 from utils.file_handler import muuta_pdf_tekstiksi, kirjoita_txt_tiedosto, lue_txt_tiedosto
 from utils.tietosissallon_kasittely import tunnista_toimittaja
-#from utils.file_handler import generate_uuid
 import uuid
-#from utils.file_handler import kirjoita_txt_tiedosto
 
-
-
-#from luokat_ikkuna_ulkoovi_valiovi import UlkoOvi
 from db_luokat import SessionLocal, Toimitussisalto, Kayttaja, Toimittaja, Ikkuna, Ulko_ovi, Valiovi
 from sqlalchemy import text  # Lisää tämä rivi
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import ProgrammingError
-#from db_config import Base, engine, SessionLocal
 from datetime import datetime
 import hashlib
-#from sqlalchemy import create_engine
 import json
 import io
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 
-#==================================== generate_uuid()
 
-def generate_uuid():
-    return str(uuid.uuid4())
+def anna_polku(unique_id: str):
+    """Ottaa yksilöllisen ID:n ja palauttaa sen mukaisen tiedostopolkuolion"""
+    logging.info("Tehdään tiedostopolku...")
+    pdf_filename = f"{unique_id}.pdf"
+    logging.info(f"...tiedostopolku: {str(UPLOAD_FOLDER_DATA / pdf_filename)}")
+    return UPLOAD_FOLDER_DATA / pdf_filename
 
 
 #==================================== kirjoita_ensimmainen_toimitussisalto()
-def kirjoita_ensimmainen_toimitussisalto(file):
-    print("Aloitetaan ensimmainen_toimitussisalto")
-    #file = request.files["ensimmainen_toimitussisalto"]            
-    # 🔹 Luo UUID-tunniste ja tallenna PDF palvelimelle
-    unique_id = generate_uuid()
-    pdf_filename = f"{unique_id}.pdf"
-    pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename
-    
-    # 🔹 Lue tiedosto muistiin ennen tallennusta
+def kirjoita_ensimmainen_toimitussisalto(file) -> str:
+    logging.info("Kirjoitetaan ensimmäistä toimitussisältöä")
+
+    # Muodostetaan yksilöllinen ID
+    unique_id = str(uuid.uuid4())
+
+    # Lue tiedosto muistiin ennen tallennusta
     file_data = file.read()  # Lue sisältö talteen
     
-    # 🔹 Varmista, että kansio on olemassa
+    # Varmista, että kansio on olemassa
     if not UPLOAD_FOLDER_DATA.exists():
-        print("❌ Kansio puuttuu, luodaan...")
+        logging.warning("❌ Kansio puuttuu, luodaan...")
         UPLOAD_FOLDER_DATA.mkdir(parents=True, exist_ok=True)
 
-    pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename  # tämä on Path-objekti
+    #pdf_filename = luo_uuid_ja_anna_polku()
+    pdf_filepath = anna_polku(unique_id)
     
-    # 🔹 Tallenna tiedosto palvelimelle
+    # Tallenna tiedosto palvelimelle
     with open(pdf_filepath, "wb") as f:
         f.write(file_data)  # Kirjoitetaan alkuperäinen tiedosto levylle
     
     # Muunna PDF tekstiksi ilman tallennusta
     teksti = muuta_pdf_tekstiksi(io.BytesIO(file_data))  # Luo muistissa oleva tiedosto-objekti
     
-    # 🔹 Tunnista toimittaja
+    # Tunnista toimittaja
     toimittaja = tunnista_toimittaja(teksti)
     print("toimittaja", toimittaja)
-    # 🔹 Tallennetaan tekstidata tiedostoksi
+    # Tallennetaan tekstidata tiedostoksi
     txt_filename = f"{unique_id}.txt"
     txt_filepath = UPLOAD_FOLDER_DATA / txt_filename
     kirjoita_txt_tiedosto(teksti, txt_filepath)
@@ -89,13 +87,14 @@ def kirjoita_ensimmainen_toimitussisalto(file):
 
 
 #==================================== kirjoita_toinen_toimitussisalto()
-def kirjoita_toinen_toimitussisalto(file):
+def kirjoita_toinen_toimitussisalto(file) -> str:
     print("toinen_toimitussisalto")
     #file = request.files["toinen_toimitussisalto"]            
     # 🔹 Luo UUID-tunniste ja tallenna PDF palvelimelle
-    unique_id = generate_uuid()    
-    pdf_filename = f"{unique_id}.pdf"
-    pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename
+
+    # Muodostetaan yksilöllinen ID
+    unique_id = str(uuid.uuid4())    
+    pdf_filepath = anna_polku(unique_id)
     
     # 🔹 Lue tiedosto muistiin ennen tallennusta
     file_data = file.read()  # Lue sisältö talteen
@@ -105,7 +104,7 @@ def kirjoita_toinen_toimitussisalto(file):
         print("❌ Kansio puuttuu, luodaan...")
         UPLOAD_FOLDER_DATA.mkdir(parents=True, exist_ok=True)
 
-    pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename  # tämä on Path-objekti
+    #pdf_filepath = UPLOAD_FOLDER_DATA / pdf_filename  # tämä on Path-objekti
     
     # 🔹 Tallenna tiedosto palvelimelle
     with open(pdf_filepath, "wb") as f:
