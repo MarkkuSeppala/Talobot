@@ -58,7 +58,7 @@ def api_kysely(generation_config, system_instruction, input_text):
     api_key = os.environ.get('GEMINI_API_KEY')
     genai.configure(api_key=api_key)
     print("🔹 Gemini API konfiguroitu onnistuneesti!")
-    print(f"🔹 Gemini API-avain: {api_key}")
+    #print(f"🔹 Gemini API-avain: {api_key}")
 
     model = genai.GenerativeModel(
         model_name="gemini-1.5-flash",
@@ -78,13 +78,13 @@ def api_kysely(generation_config, system_instruction, input_text):
 
 
     
-#============== API-KYSELY, KIRJOITUS JSON ============#
+#============== API-KYSELY ============#
 #==================================================================================================#
 #==================================================================================================#
 #==================================================================================================#
 
 
-# **API-kysely. Poimii kaikki ikkunatiedot poistamatta mitään
+
 
 
 def api_kysely_kirjoitus_json(system_instruction, generation_config, input_text, output_text):
@@ -101,11 +101,14 @@ def api_kysely_kirjoitus_json(system_instruction, generation_config, input_text,
     kysymys = f"Tässä on teksti: \n{input_text}\n\nToimi ohjeen mukaan."
     response = model.generate_content(kysymys)
     print("response.text", response.text)
-    kirjoita_vastaus_jsoniin(response, output_text)
+    
     return response.text
    
 
 def api_kysely_ulko_ovet(generation_config, system_instruction, input_text):
+        '''funktion api-kysely palauttaa json-muotoisen vastauksen.
+        Vastaus parsitaan ulko_ovi-olioiksi, joka palautetaan'''
+
         model = genai.GenerativeModel(
             model_name="gemini-1.5-flash",
             generation_config=generation_config,
@@ -115,25 +118,39 @@ def api_kysely_ulko_ovet(generation_config, system_instruction, input_text):
         
         kysymys = f"Tässä on teksti: \n{input_text}\n\nToimi ohjeen mukaan."
         response = model.generate_content(kysymys)
-        print("response.text", response.text)
         if not response.text:
             print("❌ API-kutsu palautti tyhjän vastauksen")
             return []
+        
+        # Puhdista response.text ```json-merkinnöistä
+        json_text = response.text.replace("```json", "").replace("```", "").strip()
+        
 
         # Muunna vastaus UlkoOvi-olioiksi
-        ovet_data = json.loads(response.text)
-        ovet = []
-        for ovi_data in ovet_data:
-            ovi = UlkoOvi(
-                malli=ovi_data["malli"],
-                paloluokitus_EI_15=ovi_data["paloluokitus_EI_15"],
-                lukko=ovi_data["lukko"],
-                maara=ovi_data["maara"]
-            )
-            ovet.append(ovi)
-            
-        print(f"✅ Muunnettu {len(ovet)} ovea UlkoOvi-olioiksi")
-        return ovet
+        try:
+            # Käytä puhdistettua json_text:iä response.text:n sijaan
+            ovet_data = json.loads(json_text)
+            #print("Parsed JSON data:", ovet_data)  # Debug
+                
+            ovet = []
+            for ovi_data in ovet_data:
+                ovi = UlkoOvi(
+                    malli=ovi_data["malli"],
+                    paloluokitus_EI_15=ovi_data["paloluokitus_EI_15"],
+                    lukko=ovi_data["lukko"],
+                    maara=ovi_data["maara"]
+                )
+                ovet.append(ovi)
+                print("Added ovi:", vars(ovi))  # Tarkista luotu ovi-olio
+                
+            #print(f"✅ Muunnettu {len(ovet)} ovea UlkoOvi-olioiksi")
+            return ovet
+        except json.JSONDecodeError as e:
+            print(f"❌ JSON-parsinta epäonnistui: {str(e)}")
+            return []
+        except Exception as e:
+            print(f"❌ Muu virhe: {str(e)}")
+            return []
 
 
 

@@ -4,7 +4,7 @@ from utils.tietosissallon_kasittely import tunnista_toimittaja
 import uuid
 
 from db_luokat import SessionLocal, Toimitussisalto, Kayttaja, Toimittaja, Ikkuna, Ulko_ovi, Valiovi
-from sqlalchemy import text  # Lisää tämä rivi
+from sqlalchemy import text, MetaData, Table
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import ProgrammingError
 from datetime import datetime
@@ -12,6 +12,7 @@ import hashlib
 import json
 import io
 import logging
+from sqlalchemy.schema import Column
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -32,7 +33,7 @@ def tallenna_toimitussisalto_tietokantaan(toimittaja: str, pdf_filepath, txt_fil
             toimittaja_id=hae_toimittajan_id_nimella(toimittaja),
             uuid=unique_id,
             pdf_url=str(pdf_filepath),
-            txt_sisalto=str(txt_filepath),
+            txt_url=str(txt_filepath),
             toimittaja=toimittaja,
             aktiivinen=True,
         )
@@ -141,7 +142,7 @@ def vastaanota_toimitussisalto(file) -> str:
 #             toimittaja_id=hae_toimittajan_id_nimella(toimittaja),
 #             uuid=unique_id,
 #             pdf_url=str(pdf_filepath),
-#             txt_sisalto=str(txt_filepath),
+#             txt_url=str(txt_filepath),
 #             toimittaja=toimittaja,
 #             aktiivinen=True
 #         )
@@ -261,7 +262,7 @@ def get_all_table_structures():
 #     toimittaja_id = Column(Integer, ForeignKey("toimittajat.id", ondelete="SET NULL"), nullable=True)
 #     uuid = Column(String(36), unique=True, nullable=False)
 #     pdf_url = Column(Text, nullable=False)
-#     txt_sisalto = Column(Text, nullable=False)
+#     txt_url = Column(Text, nullable=False)
 #     toimittaja = Column(String(100), nullable=False)  # Uusi sarake toimittajalle
 #     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
 #     aktiivinen = Column(Boolean, default=True, nullable=False)
@@ -281,7 +282,7 @@ def update_table():
             alter_statements = [
                 "ALTER TABLE toimitussisallot ADD COLUMN IF NOT EXISTS uuid VARCHAR(36) UNIQUE NOT NULL",
                 "ALTER TABLE toimitussisallot ADD COLUMN IF NOT EXISTS pdf_url TEXT NOT NULL",
-                "ALTER TABLE toimitussisallot ADD COLUMN IF NOT EXISTS txt_sisalto TEXT NOT NULL",
+                "ALTER TABLE toimitussisallot ADD COLUMN IF NOT EXISTS txt_url TEXT NOT NULL",
                 "ALTER TABLE toimitussisallot ADD COLUMN IF NOT EXISTS toimittaja VARCHAR(100) NOT NULL"
             ]
 
@@ -327,7 +328,7 @@ def tulosta_toimitussisallot():
                 print(f"🔹 ID: {sisalto.id}")
                 print(f"🔹 UUID: {sisalto.uuid}")
                 print(f"🔹 PDF URL: {sisalto.pdf_url}")
-                print(f"🔹 TXT URL: {sisalto.txt_sisalto}")
+                print(f"🔹 TXT URL: {sisalto.txt_url}")
                 print(f"🔹 Toimittaja: {sisalto.toimittaja}")
                 print(f"🔹 Luotu: {sisalto.created_at}")
                 print("-" * 80)
@@ -528,11 +529,12 @@ def hae_toimittaja_uuidlla(uuid: str):
     except Exception as e:
         print(f"❌ Virhe kyselyssä: {str(e)}")
         return None
+    
 
-#==================================== hae_txt_sisalto_uuidlla(uuid)
-def hae_toimitussisalto_txt_polku_uuidlla(uuid: str) -> str | None:
+#==================================== hae_toimitussisalto_txt_url_uuidlla(uuid)
+def hae_toimitussisalto_txt_url_uuidlla(uuid: str) -> str | None:
     """
-    Hakee txt_sisalto-sarakkeen sisällön toimitussisallot-taulusta annetulla UUID:lla.
+    Hakee txt_url-sarakkeen sisällön toimitussisallot-taulusta annetulla UUID:lla.
 
     Args:
         uuid (str): UUID, jolla etsitään tietue
@@ -542,25 +544,55 @@ def hae_toimitussisalto_txt_polku_uuidlla(uuid: str) -> str | None:
     """
     try:
         with SessionLocal() as db:
-            kysely = text("""
-                SELECT txt_sisalto
-                FROM toimitussisallot
-                WHERE uuid = :uuid
-                LIMIT 1;
-            """)
-            tulos = db.execute(kysely, {"uuid": uuid}).fetchone()
+            toimitussisalto = db.query(Toimitussisalto).filter(
+                Toimitussisalto.uuid == uuid
+            ).first()
 
-            if not tulos:
+            if not toimitussisalto:
                 print(f"❌ Ei löytynyt toimitussisältöä UUID:lla {uuid}")
                 return None
 
-            txt_sisalto = tulos[0]
             print(f"✅ Tekstisisältö haettu UUID:lla {uuid}")
-            return txt_sisalto
+            return toimitussisalto.txt_url
 
     except Exception as e:
         print(f"❌ Virhe kyselyssä: {str(e)}")
         return None
+
+
+
+#==================================== hae_txt_url_uuidlla(uuid)
+# def hae_toimitussisalto_txt_url_uuidlla(uuid: str) -> str | None:
+#     """
+#     Hakee txt_url-sarakkeen sisällön toimitussisallot-taulusta annetulla UUID:lla.
+
+#     Args:
+#         uuid (str): UUID, jolla etsitään tietue
+
+#     Returns:
+#         str | None: Tekstitieto tietueesta tai None jos ei löydy
+#     """
+#     try:
+#         with SessionLocal() as db:
+#             kysely = text("""
+#                 SELECT txt_url
+#                 FROM toimitussisallot
+#                 WHERE uuid = :uuid
+#                 LIMIT 1;
+#             """)
+#             tulos = db.execute(kysely, {"uuid": uuid}).fetchone()
+
+#             if not tulos:
+#                 print(f"❌ Ei löytynyt toimitussisältöä UUID:lla {uuid}")
+#                 return None
+
+#             txt_url = tulos[0]
+#             print(f"✅ Tekstisisältö haettu UUID:lla {uuid}")
+#             return txt_url
+
+#     except Exception as e:
+#         print(f"❌ Virhe kyselyssä: {str(e)}")
+#         return None
 
 
 #==================================== lisaa_ikkunat_kantaan(ikkunat_json, toimitussisalto_id)
@@ -767,10 +799,8 @@ def hae_paivan_ikkunat(paivamaara: str):
 def hae_toimitussisalto_id_uuidlla(uuid: str) -> int | None:
     """
     Hakee toimitussisällön ID:n annetulla UUID:lla.
-
     Args:
         uuid (str): UUID, jolla etsitään tietue
-
     Returns:
         int | None: Toimitussisällön ID tai None jos ei löydy
     """
@@ -809,7 +839,7 @@ def update_toimitussisallot_table():
             alter_statements = [
                 "ALTER TABLE toimitussisallot ADD COLUMN IF NOT EXISTS uuid VARCHAR(36) UNIQUE NOT NULL",
                 "ALTER TABLE toimitussisallot ADD COLUMN IF NOT EXISTS pdf_url TEXT NOT NULL",
-                "ALTER TABLE toimitussisallot ADD COLUMN IF NOT EXISTS txt_sisalto TEXT NOT NULL",
+                "ALTER TABLE toimitussisallot ADD COLUMN IF NOT EXISTS txt_url TEXT NOT NULL",
                 "ALTER TABLE toimitussisallot ADD COLUMN IF NOT EXISTS toimittaja VARCHAR(100) NOT NULL"
             ]
 
@@ -885,36 +915,110 @@ def paivita_ulko_ovet_taulu():
         db.rollback()
 
 
-#==================================== lisaa_ulko_ovet_kantaan()
+#==================================== lisaa_ulko_ovet_kantaan(ovet: list[UlkoOvi], toimitussisalto_id: int)
 
 def lisaa_ulko_ovet_kantaan(ovet: list[Ulko_ovi], toimitussisalto_id: int):
     """
     Lisää UlkoOvi-oliot tietokantaan.
     
     Args:
-        ovet: Lista UlkoOvi-olioita
+        ovet: Lista UlkoOvi-olioita api_kysely_ulko_ovet-funktiolta
         toimitussisalto_id: Toimitussisällön ID
     """
     try:
         with SessionLocal() as db:
+            # Tarkista ensin että toimitussisalto on olemassa
+            toimitussisalto = db.query(Toimitussisalto).get(toimitussisalto_id)
+            if not toimitussisalto:
+                print(f"❌ Toimitussisältöä ID:llä {toimitussisalto_id} ei löydy")
+                return False
+
             lisatty = 0
             for ovi in ovet:
-                uusi_ovi = Ulko_ovi(
-                    malli=ovi.malli,
-                    paloluokitus_EI_15=ovi.paloluokitus_EI_15,
-                    lukko=ovi.lukko,
-                    maara=ovi.maara,
+                # Tulostetaan kaikki attribuutit erikseen debug-tarkistusta varten
+                # print("Käsitellään ovi:")
+                # print(f"  malli: {ovi.malli}")
+                # print(f"  lukko: {ovi.lukko}")
+                # print(f"  paloluokitus_EI_15: {ovi.paloluokitus_EI_15}")
+                # print(f"  maara: {ovi.maara}")
+                # print(f"  toimitussisalto_id: {toimitussisalto_id}")
+
+                try:
+                    uusi_ovi = Ulko_ovi(
+                        malli=ovi.malli,
+                        paloluokitus_EI_15=ovi.paloluokitus_EI_15,
+                        lukko=ovi.lukko,
+                        maara=ovi.maara,
+                        toimitussisalto_id=toimitussisalto_id
+                    )
+                    print("Ovi-olio luotu onnistuneesti")
+                    db.add(uusi_ovi)
+                    print("Ovi lisätty sessioon")
+                    lisatty += 1
+                except Exception as e:
+                    print(f"❌ Virhe oven luonnissa: {str(e)}")
+                    continue
+            
+            try:
+                db.flush()
+                print("Flush onnistui")
+                db.commit()
+                print(f"✅ Lisätty {lisatty} ovea tietokantaan")
+                return True
+            except Exception as commit_error:
+                print(f"❌ Virhe commitissa: {str(commit_error)}")
+                db.rollback()
+                return False
+            
+    except Exception as e:
+        print(f"❌ Virhe ovien lisäämisessä: {str(e)}")
+        return False
+
+#==================================== lisaa_valiovet_kantaan(ovimallit: list[str], toimitussisalto_id: int)
+def lisaa_valiovet_kantaan(ovimallit: list[str], toimitussisalto_id: int) -> bool:
+    """
+    Lisää väliovimallit tietokantaan.
+
+    Args:
+        ovimallit: Lista väliovien malleista
+        toimitussisalto_id: Toimitussisällön ID johon ovet liitetään
+
+    Returns:
+        bool: True jos lisäys onnistui, False jos epäonnistui
+    """
+    try:
+        with SessionLocal() as db:
+            # Tarkista että toimitussisalto on olemassa
+            toimitussisalto = db.query(Toimitussisalto).get(toimitussisalto_id)
+            if not toimitussisalto:
+                print(f"❌ Toimitussisältöä ID:llä {toimitussisalto_id} ei löydy")
+                return False
+
+            lisatty = 0
+            for malli in ovimallit:
+                print(f"Lisätään väliovi: {malli}")  # Debug-tuloste
+                
+                uusi_ovi = Valiovi(
+                    malli=malli,
                     toimitussisalto_id=toimitussisalto_id
                 )
                 db.add(uusi_ovi)
                 lisatty += 1
-            
-            db.commit()
-            print(f"✅ Lisätty {lisatty} ovea tietokantaan")
-            
+
+            try:
+                db.flush()  # Tarkista ensin että kaikki OK
+                print("Flush onnistui")  # Debug-tuloste
+                db.commit()
+                print(f"✅ Lisätty {lisatty} väliovea tietokantaan")
+                return True
+            except Exception as commit_error:
+                print(f"❌ Virhe commitissa: {str(commit_error)}")
+                db.rollback()
+                return False
+
     except Exception as e:
-        print(f"❌ Virhe ovien lisäämisessä: {str(e)}")
-        db.rollback()
+        print(f"❌ Virhe väliovien lisäämisessä: {str(e)}")
+        return False
 
 
 #==================================== hae_toimitussiallon ikkunat(toimittaja_id, toimitussisalto_id)
@@ -1031,7 +1135,7 @@ def hae_toimitussisalto(toimitussisalto_id: int) -> None:
             print(f"Järjestysnumero: {toimitussisalto.jarjestysnro}")
             print(f"UUID: {toimitussisalto.uuid}")
             print(f"PDF URL: {toimitussisalto.pdf_url}")
-            print(f"Tekstisisältö: {toimitussisalto.txt_sisalto}")
+            print(f"TXT URL: {toimitussisalto.txt_url}")
             print(f"Toimittaja: {toimitussisalto.toimittaja}")
             
             # Tulostetaan myös liittyvät ikkunat
@@ -1116,6 +1220,7 @@ def hae_paivan_toimitussisallot(paivamaara: str) -> list:
                 print(f"Toimittaja: {sisalto.toimittaja}")
                 print(f"Luotu: {sisalto.created_at.strftime('%d.%m.%Y %H:%M:%S')}")
                 print(f"PDF URL: {sisalto.pdf_url}")
+                print(f"TXT URL: {sisalto.txt_url}")
                 print(f"Aktiivinen: {'Kyllä' if sisalto.aktiivinen else 'Ei'}")
                 print("-" * 80)
 
@@ -1250,4 +1355,152 @@ def tulosta_kaikki_ulko_ovet(maara: int = 10) -> list:
 
     except Exception as e:
         print(f"❌ Virhe ulko-ovien haussa: {str(e)}")
+        return []
+
+#==================================== muuta_toimitussisallot_taulun_sarakkeen_nimi(vanha_nimi, uusi_nimi)
+
+def muuta_toimitussisallot_taulun_sarakkeen_nimi(vanha_nimi: str, uusi_nimi: str) -> bool:
+    """
+    Muuttaa toimitussisallot-taulun sarakkeen nimen käyttäen SQLAlchemya.
+
+    Args:
+        vanha_nimi: Sarakkeen nykyinen nimi
+        uusi_nimi: Sarakkeen uusi nimi
+        
+    Returns:
+        bool: True jos onnistui, False jos epäonnistui
+    """
+    try:
+        with SessionLocal() as db:
+            # Hae taulun metadata
+            metadata = MetaData()
+            metadata.reflect(bind=db.get_bind(), only=['toimitussisallot'])
+            
+            # Hae toimitussisallot-taulu
+            toimitussisallot = metadata.tables['toimitussisallot']
+            
+            # Tarkista että sarake on olemassa
+            if vanha_nimi not in toimitussisallot.columns:
+                print(f"❌ Saraketta '{vanha_nimi}' ei löydy toimitussisallot-taulusta")
+                return False
+            
+            # Suorita sarakkeen nimen muutos
+            db.execute(text(
+                f"ALTER TABLE toimitussisallot RENAME COLUMN {vanha_nimi} TO {uusi_nimi}"
+            ))
+            
+            db.commit()
+            print(f"✅ Sarake '{vanha_nimi}' muutettu nimeksi '{uusi_nimi}'")
+            return True
+
+    except Exception as e:
+        print(f"❌ Virhe sarakkeen nimen muutoksessa: {str(e)}")
+        return False
+    
+
+#==================================== poista_toimitussisallot_ennen(paivamaara)
+def poista_toimitussisallot_ennen(paivamaara: str) -> bool:
+    """
+    Poistaa toimitussisallot-taulusta kaikki rivit annetusta päivämäärästä taaksepäin.
+
+    Args:
+        paivamaara: Päivämäärä suomalaisessa muodossa (pp.mm.vvvv)
+        
+    Returns:
+        bool: True jos poisto onnistui, False jos epäonnistui
+    """
+    try:
+        # Muunna suomalainen päivämäärä datetime-objektiksi
+        paiva = datetime.strptime(paivamaara, "%d.%m.%Y")
+        
+        with SessionLocal() as db:
+            # Hae ensin poistettavien rivien määrä
+            maara_kysely = text("""
+                SELECT COUNT(*) 
+                FROM toimitussisallot 
+                WHERE DATE(created_at) <= :paiva
+            """)
+            
+            maara = db.execute(maara_kysely, {"paiva": paiva.date()}).scalar()
+            
+            if maara == 0:
+                print(f"❌ Ei löytynyt poistettavia rivejä ennen päivämäärää {paivamaara}")
+                return True
+
+            # Poista rivit
+            poisto_kysely = text("""
+                DELETE FROM toimitussisallot 
+                WHERE DATE(created_at) <= :paiva
+            """)
+            
+            db.execute(poisto_kysely, {"paiva": paiva.date()})
+            db.commit()
+            
+            print(f"✅ Poistettu {maara} riviä ennen päivämäärää {paivamaara}")
+            return True
+
+    except ValueError:
+        print(f"❌ Virheellinen päivämäärän muoto. Käytä muotoa pp.mm.vvvv")
+        return False
+    except Exception as e:
+        print(f"❌ Virhe rivien poistossa: {str(e)}")
+        return False
+
+def hae_paivan_valiovet(paivamaara: str) -> list:
+    """
+    Hakee tietyn päivän aikana luodut väliovet tietokannasta.
+
+    Args:
+        paivamaara: Päivämäärä suomalaisessa muodossa (pp.mm.vvvv)
+        
+    Returns:
+        list: Lista väliovista tai tyhjä lista jos ei löydy
+    """
+    try:
+        # Muunna suomalainen päivämäärä datetime-objektiksi
+        paiva = datetime.strptime(paivamaara, "%d.%m.%Y")
+        
+        with SessionLocal() as db:
+            # Hae päivän väliovet ja niihin liittyvät toimitussisällöt
+            ovet = (
+                db.query(Valiovi, Toimitussisalto)
+                .join(Toimitussisalto)
+                .filter(func.date(Valiovi.luotu) == paiva.date())
+                .order_by(Valiovi.luotu)
+                .all()
+            )
+
+            if not ovet:
+                print(f"❌ Ei väliovia päivämäärällä {paivamaara}")
+                return []
+
+            print(f"\n🔹 Löydetty {len(ovet)} väliovea päivämäärällä {paivamaara}:")
+            print("=" * 80)
+
+            tulokset = []
+            for ovi, toimitussisalto in ovet:
+                ovi_tiedot = {
+                    "id": ovi.id,
+                    "malli": ovi.malli,
+                    "luotu": ovi.luotu,
+                    "toimitussisalto_id": ovi.toimitussisalto_id,
+                    "toimittaja": toimitussisalto.toimittaja
+                }
+                tulokset.append(ovi_tiedot)
+                
+                # Tulostetaan oven tiedot
+                print(f"Väliovi ID: {ovi.id}")
+                print(f"Malli: {ovi.malli}")
+                print(f"Luotu: {ovi.luotu.strftime('%d.%m.%Y %H:%M:%S')}")
+                print(f"Toimitussisältö ID: {ovi.toimitussisalto_id}")
+                print(f"Toimittaja: {toimitussisalto.toimittaja}")
+                print("-" * 80)
+
+            return tulokset
+
+    except ValueError:
+        print(f"❌ Virheellinen päivämäärän muoto. Käytä muotoa pp.mm.vvvv")
+        return []
+    except Exception as e:
+        print(f"❌ Virhe väliovien haussa: {str(e)}")
         return []

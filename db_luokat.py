@@ -44,7 +44,7 @@ class Toimitussisalto(Base):
     jarjestysnro = Column(Integer, nullable=True)
     uuid = Column(String(36), nullable=False)
     pdf_url = Column(Text, nullable=False)
-    txt_sisalto = Column(Text, nullable=False)
+    txt_url = Column(Text, nullable=False)
     toimittaja = Column(String(100), nullable=False)
 
     ikkunat = relationship("Ikkuna", back_populates="toimitussisalto", cascade="all, delete-orphan")
@@ -154,7 +154,7 @@ def hae_toimitussisalto(toimitussisalto_id: int) -> None:
             print(f"Järjestysnumero: {toimitussisalto.jarjestysnro}")
             print(f"UUID: {toimitussisalto.uuid}")
             print(f"PDF URL: {toimitussisalto.pdf_url}")
-            print(f"Tekstisisältö: {toimitussisalto.txt_sisalto}")
+            print(f"TXT URL: {toimitussisalto.txt_url}")
             print(f"Toimittaja: {toimitussisalto.toimittaja}")
             
             # Tulostetaan myös liittyvät ikkunat

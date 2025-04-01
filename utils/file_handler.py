@@ -13,7 +13,7 @@ from pathlib import Path
 #==================================================================================================#
 
 
-def lue_txt_sisalto_uuidlla(uuid: str, polku: str) -> str | None:
+def lue_txt_url_uuidlla(uuid: str, polku: str) -> str | None:
     """
     Lukee UUID:n ja polun perusteella tekstitiedoston sisällön.
     

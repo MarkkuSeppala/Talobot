@@ -27,12 +27,12 @@ from generation_config import GENERATION_CONFIG
 
 from utils.file_handler import (tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto,
                                 kirjoita_txt_tiedosto, normalisoi_ulko_ovet, muuta_pdf_tekstiksi_ilman_tallennusta, 
-                                lue_txt_sisalto_uuidlla)
+                                lue_txt_url_uuidlla)
 
 from utils.tietosissallon_kasittely import sievitalo_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, clean_text2
 from run import run_sievitalo, run_kastelli
 from factory import get_sievitalo_ikkunat, get_sievitalo_ulko_ovet, get_sievitalo_valiovi_mallit, get_kastelli_ikkunat, get_kastelli_ulko_ovet, get_kastelli_valiovi_mallit
-from SQL_kyselyt import hae_toimittaja_uuidlla, hae_toimitussisalto_txt_polku_uuidlla, hae_toimitussisalto_id_uuidlla, vastaanota_toimitussisalto
+from SQL_kyselyt import hae_toimittaja_uuidlla, hae_toimitussisalto_txt_url_uuidlla, hae_toimitussisalto_id_uuidlla, vastaanota_toimitussisalto
 
 import google.generativeai as genai 
 
@@ -65,33 +65,37 @@ def suodata_tiedot():
             #Ensimmainen toimitussisalto. Tallentaa pdf ja tekstitiedoston palvelimelle uuid -tunnuksella
             if "ensimmainen_toimitussisalto" in request.files:
                 file = request.files["ensimmainen_toimitussisalto"]            
-                unique_id_ensimmainen_toimitussisalto = vastaanota_toimitussisalto(file)
+                unique_tiedostonimi_ensimmainen_toimitussisalto = vastaanota_toimitussisalto(file)
                     
             #Toinen toimitussisalto. Tallentaa pdf ja tekstitiedoston palvelimelle uuid -tunnuksella
             if "toinen_toimitussisalto" in request.files:
                 file = request.files["toinen_toimitussisalto"]            
                 unique_id_toinen_toimitussisalto = vastaanota_toimitussisalto(file)
-                logging.info("Toinen toimitussisältö lisätty, toimittaja: {unique_id__toimitussisalto}")
+                logging.info("Toinen toimitussisältö lisätty, toimittaja: {unique_id_toinen_toimitussisalto}")
 
                 
-        #Oliko toimitussisalto sievitalon?
-        logging.info(unique_id_ensimmainen_toimitussisalto)
-        if hae_toimitussisalto_id_uuidlla(unique_id_ensimmainen_toimitussisalto) == "Sievitalo":
-
+        #Oliko toimitussisalto Sievitalon?
+        logging.info(unique_tiedostonimi_ensimmainen_toimitussisalto)
+        if hae_toimittaja_uuidlla(unique_tiedostonimi_ensimmainen_toimitussisalto) == "Sievitalo":
+            
+            toimitussisalto_txt_url = hae_toimitussisalto_txt_url_uuidlla(unique_tiedostonimi_ensimmainen_toimitussisalto)
+            toimitussisalto_txt = lue_txt_tiedosto(toimitussisalto_txt_url)
+            toimitussisallon_id = hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_ensimmainen_toimitussisalto)
+            
             #Sievitalon toimitussisalto puhdistetaan turhista merkeistä ja suodatetaan ikkunat, ulko-ovet, valiovet ja tallennetaaan ne kantaan
-            run_sievitalo(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id_ensimmainen_toimitussisalto)), hae_toimitussisalto_id_uuidlla(unique_id_ensimmainen_toimitussisalto))
-
+            run_sievitalo(toimitussisalto_txt, toimitussisallon_id)
+        
         #Oliko toimitussisalto kastellin?
-        if hae_toimitussisalto_id_uuidlla(unique_id_toinen_toimitussisalto) == "Kastelli":
-
+        if hae_toimittaja_uuidlla(unique_id_toinen_toimitussisalto) == "Kastelli":
+            print("Kastelli run()")
             #Kastellin toimitussisalto puhdistetaan turhista merkeistä ja suodatetaan ikkunat, ulko-ovet, valiovet ja tallennetaaan ne kantaan
-            run_kastelli(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id_toinen_toimitussisalto)), hae_toimitussisalto_id_uuidlla(unique_id_toinen_toimitussisalto))
+            #run_kastelli(lue_txt_url_uuidlla(hae_toimitussisalto_txt_url_uuidlla(unique_id_toinen_toimitussisalto)), hae_toimitussisalto_id_uuidlla(unique_id_toinen_toimitussisalto))
         
         #Oliko toimitussisalto .....
         #if hae_toimittaja_uuidlla(unique_id_toinen_toimitussisalto) == "Designtalo":
         
             #Designtalon toimitussisalto puhdistetaan turhista merkeistä ja suodatetaan ikkunat, ulko-ovet, valiovet ja tallennetaaan ne kantaan
-            #run_designtalo(lue_txt_tiedosto(hae_toimitussisalto_txt_polku_uuidlla(unique_id_toinen_toimitussisalto)), hae_toimitussisalto_id_uuidlla(unique_id_toinen_toimitussisalto)) 
+            #run_designtalo(lue_txt_tiedosto(hae_toimitussisalto_txt_url_uuidlla(unique_id_toinen_toimitussisalto)), hae_toimitussisalto_id_uuidlla(unique_id_toinen_toimitussisalto)) 
     
 
         else:

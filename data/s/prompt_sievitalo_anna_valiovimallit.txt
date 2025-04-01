@@ -7,7 +7,7 @@ Jokaisen väliovimallin yhteydessä on ilmoitettu kappalemäärä (Kpl).
 Jokainen ovimalli saa esiintyä vastauksessa vain kerran.
 
 **Tulosta vain seuraavassa JSON-formaatissa oleva lista:**
-```json
+
 {
   "ovimallit": ["Bath", "Unique", "Lasiovi", "Sound", "Eclisse"]
 }

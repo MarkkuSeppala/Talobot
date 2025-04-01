@@ -2,7 +2,7 @@
 import os
 import sys
 #from muunna_ikkunat import muunna_raaka_ikkunat_yksittaisiksi, parsi_rivit_tiedoiksi, kastelli_parsi_rivit_tiedoiksi, muunna_raaka_ikkunat_yksittaisiksi_kastelli
-from SQL_kyselyt import lisaa_ikkunat_kantaan, lisaa_ulko_ovet_kantaan
+from SQL_kyselyt import lisaa_ikkunat_kantaan, lisaa_ulko_ovet_kantaan, lisaa_valiovet_kantaan
 
 
 sys.path.append(os.path.abspath("utils"))  # Lisää utils-kansion polku moduulihakemistoksi
@@ -50,9 +50,8 @@ from api_kyselyt import api_kysely, api_kysely_kirjoitus_json, api_kysely_ulko_o
 
 
 
-def run_sievitalo(toimitussisalto_txt_polku: str, toimitussisalto_id: str):
-       
-        puhdistettu_toimitussisalto = clean_text2(toimitussisalto_txt_polku)
+def run_sievitalo(toimitussisalto_txt, toimitussisalto_id):
+        puhdistettu_toimitussisalto = clean_text2(toimitussisalto_txt)
        
        
         
@@ -62,26 +61,44 @@ def run_sievitalo(toimitussisalto_txt_polku: str, toimitussisalto_id: str):
         ikkunatiedot_kokonaisuudessa = api_kysely(GENERATION_CONFIG, PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, puhdistettu_toimitussisalto)
         ikkunat_json = api_kysely(GENERATION_CONFIG_JSON, PROMPT_SIEVITALO_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, ikkunatiedot_kokonaisuudessa)
         lisaa_ikkunat_kantaan(ikkunat_json, toimitussisalto_id)
+        
       
 
 
         #---------------------------------------     Sievitalo ulko-ovet kantaan      ----------------------------------------
         ulko_ovet = api_kysely(GENERATION_CONFIG, PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT, puhdistettu_toimitussisalto)  
-        ulko_ovet_json = api_kysely_ulko_ovet(GENERATION_CONFIG, PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_LUOKKAMUOTOON, ulko_ovet)
-        # for ovi in ulko_ovet_json:
-        #  print(f"Ovi: {ovi.malli}, Lukko: {ovi.lukko}, Määrä: {ovi.maara}") 
+        ulko_ovet = api_kysely_ulko_ovet(GENERATION_CONFIG, PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_LUOKKAMUOTOON, ulko_ovet)
         lisaa_ulko_ovet_kantaan(ulko_ovet, toimitussisalto_id)
-        #api_kysely_kirjoitus_json(PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_JSON_MUOTOON, GENERATION_CONFIG, ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT, ULKO_OVI_TIEDOT_2_JSON)
+          
+        
+        
+       #---------------------------------------     Sievitalo valio-ovet kantaan      ----------------------------------------
+        #print("run.py 76. puhdistettu_toimitussisalto", puhdistettu_toimitussisalto)
+        valio_ovet = api_kysely(GENERATION_CONFIG, PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT, puhdistettu_toimitussisalto)
+        print("run.py 77. valio_ovet", valio_ovet)
+        valio_ovet = api_kysely(GENERATION_CONFIG, PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT, valio_ovet)
+        print("valio_ovet", valio_ovet)
        
+        try:
+                # Puhdista JSON-merkkijono ```-merkinnöistä
+                json_text = valio_ovet.replace("```json", "").replace("```", "").strip()
+                
+                # Parsi JSON-data
+                try:
+                        data = json.loads(json_text)
+                        valio_ovet = data.get("ovimallit", [])
+                except json.JSONDecodeError as e:
+                        print(f"❌ Virheellinen JSON-muoto: {str(e)}")
+                
+        except Exception as e:
+                print(f"❌ Virhe väliovien lisäämisessä: {str(e)}")
         
         
-        
-        #++++++++++++++++++++++++++++++++++++++       ROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT     ++++++++++++++++++++++++++++++++++++++++++++++
-        # api_kysely(PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT, GENERATION_CONFIG, PUHDISTETTU_TOIMITUSSISALTO_TXT, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT)
-        # api_kysely_kirjoitus_json(PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT, GENERATION_CONFIG, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT, VALIOVITYYPIT_SIEVITALO_JSON)
-        #api_kysely_kirjoitus_json(PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT, GENERATION_CONFIG, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT, VALIOVITYYPIT_KASTELLI_JSON)
-        #++++++++++++++++++++++++++++++++++++++++                                                 ++++++++++++++++++++++++++++++++++++++++++++++++
-    
+        print("run.py 81. valio_ovet", valio_ovet)
+        lisaa_valiovet_kantaan(valio_ovet, toimitussisalto_id)
+        # valiovityypit = api_kysely_kirjoitus_json(GENERATION_CONFIG_JSON, PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT, valio_ovet)
+        # print("run.py 82. valio_ovet", valiovityypit)
+       
 
 
 
