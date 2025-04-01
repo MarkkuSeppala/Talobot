@@ -11,11 +11,13 @@ from datetime import datetime
 import hashlib
 import json
 import io
+from logger_config import configure_logging
 import logging
 from sqlalchemy.schema import Column
 
-logging.basicConfig(level=logging.DEBUG)
-
+# Loggerin alustus
+configure_logging()
+logger = logging.getLogger(__name__)
 
 
 def anna_polku(unique_id: str):
@@ -41,17 +43,16 @@ def tallenna_toimitussisalto_tietokantaan(toimittaja: str, pdf_filepath, txt_fil
         db.flush()  # 🌟 Varmistaa, että ID generoituu ennen commitointia
         db.commit()
         db.refresh(uusi_toimitussisalto)  # 🌟 Päivittää objektin tietokannasta
-        print("✅ Uusi toimitussisalto lisätty ID:", uusi_toimitussisalto.id)
+        logging.info("✅ Uusi toimitussisalto lisätty ID:", uusi_toimitussisalto.id)
     except Exception as e:
         db.rollback()  # 🌟 Jos virhe, kumoa kaikki muutokset
-        print(f"❌ Virhe lisättäessä tietoa: {e}")
+        logging.warning(f"❌ Virhe lisättäessä tietoa: {e}")
     finally:
         db.close()
 
 
 def vastaanota_toimitussisalto(file) -> str:
-    """KORVAA funktiot kirjoita_ensimmäinen_toimitussisalto(file) ja kirjoita_toinen_toimitussisältö(file)
-        Vastaanottaa käyttäjän lähettämän toimitussisällön
+    """Vastaanottaa käyttäjän lähettämän toimitussisällön
         1. Muodostaa yksilöllisen ID:n
         2. Tallentaa PDF:n palvelimelle
         3. Tallentaa viitteen toimitussisällöstä tietokantaan (toimittaja, PDF:n tiedostopolku, TXT:n tiedostopolku, yksilöllinen ID)
@@ -506,7 +507,7 @@ from pathlib import Path
 
 #==================================== hae_toimittaja_uuidlla(uuid)
 
-def hae_toimittaja_uuidlla(uuid: str):
+def hae_toimittaja_uuidlla(uuid: str) -> str:
     """Hakee toimitussisällön toimittajan annetulla UUID:lla."""
     try:
         with SessionLocal() as db:
@@ -549,14 +550,14 @@ def hae_toimitussisalto_txt_url_uuidlla(uuid: str) -> str | None:
             ).first()
 
             if not toimitussisalto:
-                print(f"❌ Ei löytynyt toimitussisältöä UUID:lla {uuid}")
+                logger.warning(f"❌ Ei löytynyt toimitussisältöä UUID:lla {uuid}")
                 return None
 
-            print(f"✅ Tekstisisältö haettu UUID:lla {uuid}")
+            logger.info(f"✅ Tekstisisältö haettu UUID:lla {uuid}")
             return toimitussisalto.txt_url
 
     except Exception as e:
-        print(f"❌ Virhe kyselyssä: {str(e)}")
+        logger.warning(f"❌ Virhe kyselyssä: {str(e)}")
         return None
 
 
@@ -608,7 +609,7 @@ def lisaa_ikkunat_kantaan(ikkunat_json_str, toimitussisalto_id: int):
     try:
         # Muunna JSON-merkkijono Python-listaksi
         ikkunat_lista = json.loads(ikkunat_json_str)
-        print(f"✅ JSON muunnettu Python-listaksi: {len(ikkunat_lista)} ikkunaa")
+        logger.info(f"JSON muunnettu Python-listaksi: {len(ikkunat_lista)} ikkunaa")
         
         with SessionLocal() as db:
             lisatty = 0
@@ -635,17 +636,17 @@ def lisaa_ikkunat_kantaan(ikkunat_json_str, toimitussisalto_id: int):
                     lisatty += 1
             
             db.commit()
-            print(f"✅ Lisätty {lisatty} ikkunaa kantaan")
+            logger.info(f"✅ Lisätty {lisatty} ikkunaa kantaan")
             
     except json.JSONDecodeError as e:
-        print(f"❌ Virheellinen JSON-muoto: {str(e)}")
-        print(f"JSON (ensimmäiset 100 merkkiä): {ikkunat_json_str[:100]}...")
+        logger.warning(f"❌ Virheellinen JSON-muoto: {str(e)}")
+        logger.warning(f"JSON (ensimmäiset 100 merkkiä): {ikkunat_json_str[:100]}...")
     except KeyError as e:
-        print(f"❌ Puuttuva kenttä JSON:issa: {str(e)}")
+        logger.warning(f"❌ Puuttuva kenttä JSON:issa: {str(e)}")
         db.rollback()
     except Exception as e:
-        print(f"❌ Virhe ikkunoiden lisäämisessä: {str(e)}")
-        print(f"Ensimmäiset 100 merkkiä: {ikkunat_json_str[:100]}...")
+        logger.warning(f"❌ Virhe ikkunoiden lisäämisessä: {str(e)}")
+        logger.warning(f"Ensimmäiset 100 merkkiä: {ikkunat_json_str[:100]}...")
         db.rollback()
 
 #==================================== hae_kaikki_ikkunat()
@@ -815,15 +816,15 @@ def hae_toimitussisalto_id_uuidlla(uuid: str) -> int | None:
             tulos = db.execute(kysely, {"uuid": uuid}).fetchone()
 
             if not tulos:
-                print(f"❌ Ei löytynyt toimitussisältöä UUID:lla {uuid}")
+                logging.warning(f"❌ Ei löytynyt toimitussisältöä UUID:lla {uuid}")
                 return None
 
             toimitussisalto_id = tulos[0]
-            print(f"✅ Toimitussisällön ID haettu: {toimitussisalto_id}")
+            logging.info(f"✅ Toimitussisällön ID haettu: {toimitussisalto_id}")
             return toimitussisalto_id
 
     except Exception as e:
-        print(f"❌ Virhe kyselyssä: {str(e)}")
+        logging.warning(f"❌ Virhe kyselyssä: {str(e)}")
         return None
 
 

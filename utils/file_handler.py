@@ -3,6 +3,8 @@ import json
 from werkzeug.utils import secure_filename
 import fitz
 from pathlib import Path
+from logger_config import configure_logging
+import logging
 
 
 
@@ -11,6 +13,10 @@ from pathlib import Path
 #==================================================================================================#
 #==================================================================================================#
 #==================================================================================================#
+
+# Loggerin alustus
+configure_logging()
+logger = logging.getLogger(__name__)
 
 
 def lue_txt_url_uuidlla(uuid: str, polku: str) -> str | None:
@@ -47,11 +53,11 @@ def lue_txt_tiedosto(tiedostopolku: str) -> str:
         with open(tiedostopolku, "r", encoding="utf-8") as tiedosto:
             return tiedosto.read()
     except FileNotFoundError:
-        print(f"Virhe: Tiedostoa '{tiedostopolku}' ei löytynyt.")
+        logging.warning(f"Virhe: Tiedostoa '{tiedostopolku}' ei löytynyt.")
       
         return ""
     except Exception as e:
-        print(f"Virhe tiedostoa luettaessa: {e}")
+        logging.warning(f"Virhe tiedostoa luettaessa: {e}")
 
         return ""
     
