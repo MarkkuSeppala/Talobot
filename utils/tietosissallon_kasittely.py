@@ -1,12 +1,13 @@
 import os
 import re
-#import sys
 import fitz  # PyMuPDF
 import google.generativeai as genais
-#from file_handler import lue_txt_tiedosto, kirjoita_txt_tiedosto
 from datetime import datetime
 from utils.file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet, kirjoita_json_tiedostoon
 import json
+from logger_config import configure_logging
+import logging
+
 #sys.path.append(os.path.abspath(".."))
 #sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 #sys.path.append("C:/Talobot")
@@ -16,12 +17,13 @@ import json
 
 #from config_data import TOIMITUSSISALTO_TXT
 
-
-
-
 #==================================================================================================#
 #==================================================================================================#
 #==================================================================================================#
+
+# Logger alustus
+configure_logging()
+logger = logging.getLogger(__name__)
 
 
 def muuta_tekstiksi(pdf_file, tiedostopolku):
@@ -87,12 +89,11 @@ def puhdista_ja_kirjoita_tiedosto(input_tiedostopolku, output_tiedostopolku):
 
 
 
-#clean_text2 poistaa turhat erikoismerkit, korjaa numeromuodot ja selkeyttää tekstiä.
-#Saa tekstin ja palauttaa sen
-def clean_text2(text):
-    print("Siistitään teksti [clean_text2]")
+def puhdista_teksti(text) -> str:
+    """Poistaa turhat erikoismerkit, korjaa numeromuodot ja selkeyttää tekstiä."""
+
     if not isinstance(text, str):
-        print(f"Varoitus: Teksti ei ole string-muodossa vaan {type(text)}")
+        logging.warning(f"Varoitus: Teksti ei ole string-muodossa vaan {type(text)}")
         text = str(text) if text is not None else ""
    
     # Säilytetään kaikki kirjaimet (mukaan lukien skandit), numerot ja tietyt erikoismerkit
@@ -107,12 +108,7 @@ def clean_text2(text):
     # Korvataan listapallot viivoilla
     text = text.replace("•", "-")
 
-    # Tarkistetaan että skandit säilyivät
-    if any(merkki in text for merkki in 'åäöÅÄÖ'):
-        print("Skandinaaviset merkit säilytetty")
-    else:
-        print("Varoitus: Tekstissä ei ole skandinaavisia merkkejä")
-
+    logger.info("Teksti puhdistettu")
     return text
 
 

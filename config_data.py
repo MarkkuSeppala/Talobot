@@ -8,9 +8,6 @@ from pathlib import Path
 #Lisää juurikansio Pythonin moduulihakemistoon
 sys.path.append(os.path.abspath("."))
 
-print(" jos seuraava true, sitten väärin")
-print(os.path.exists("/persistent_data"))
-
 # Määritä peruskansio, jossa data sijaitsee
 #BASE_DIR = Path(__file__).parent  # Tämä varmistaa, että polut ovat suhteellisia skriptiin
 #BASE_DIR = Path("C:/Users/Public/testibot/Talobot")
@@ -41,10 +38,6 @@ D_DIR = DATA_DIR / "d"
 TOIMITUSSISALTO_TXT = DATA_DIR / "toimitussisalto.txt"
 UPLOAD_FOLDER_DATA = DATA_DIR / "ladatut_toimitussisallot"
 
-print("📌 BASE_DIR:", BASE_DIR.resolve())
-#print("📌 PERSISTENT_DISK:", PERSISTENT_DISK.resolve())
-print("📌 DATA_DIR:", DATA_DIR.resolve())
-print("📌 UPLOAD_FOLDER_DATA:", UPLOAD_FOLDER_DATA.resolve())
 
 
 #===============  SIEVITALO  polut ================#

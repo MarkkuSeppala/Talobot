@@ -33,10 +33,16 @@ import json
 from werkzeug.utils import secure_filename
 from generation_config import GENERATION_CONFIG, GENERATION_CONFIG_JSON
 from utils.file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet
-from utils.tietosissallon_kasittely import (sievitalo_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, clean_text2, 
+from utils.tietosissallon_kasittely import (sievitalo_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, puhdista_teksti, 
                                             kastelli_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, designtalo_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi)
                                 
 from api_kyselyt import api_kysely, api_kysely_kirjoitus_json, api_kysely_ulko_ovet
+from logger_config import configure_logging
+import logging
+
+# Loggerin alustus
+configure_logging()
+logger = logging.getLogger(__name__)
 
 
 
@@ -51,15 +57,21 @@ from api_kyselyt import api_kysely, api_kysely_kirjoitus_json, api_kysely_ulko_o
 
 
 def run_sievitalo(toimitussisalto_txt, toimitussisalto_id):
-        puhdistettu_toimitussisalto = clean_text2(toimitussisalto_txt)
+
+        # Ensimmäisenä siivotaan toimitussisältö. Tehdään se mahdollisimman helppolukuiseksi LLM-APILLE
+        puhdistettu_toimitussisalto = puhdista_teksti(toimitussisalto_txt)
        
        
         
         #---------------------------------------     Sievitalo ikkunat kantaan      ----------------------------------------
         
-        
+        # Palauttaa tekstimuodossa listan toimitussisällön ikkunoista
         ikkunatiedot_kokonaisuudessa = api_kysely(GENERATION_CONFIG, PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, puhdistettu_toimitussisalto)
+
+        # Palauttaa ikkunat JSON-muodossa
         ikkunat_json = api_kysely(GENERATION_CONFIG_JSON, PROMPT_SIEVITALO_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, ikkunatiedot_kokonaisuudessa)
+
+        # Lisätään ikkunat tietokantaan
         lisaa_ikkunat_kantaan(ikkunat_json, toimitussisalto_id)
         
       
@@ -72,12 +84,10 @@ def run_sievitalo(toimitussisalto_txt, toimitussisalto_id):
           
         
         
-       #---------------------------------------     Sievitalo valio-ovet kantaan      ----------------------------------------
+       #---------------------------------------     Sievitalo vali-ovet kantaan      ----------------------------------------
         #print("run.py 76. puhdistettu_toimitussisalto", puhdistettu_toimitussisalto)
         valio_ovet = api_kysely(GENERATION_CONFIG, PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT, puhdistettu_toimitussisalto)
-        print("run.py 77. valio_ovet", valio_ovet)
         valio_ovet = api_kysely(GENERATION_CONFIG, PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT, valio_ovet)
-        print("valio_ovet", valio_ovet)
        
         try:
                 # Puhdista JSON-merkkijono ```-merkinnöistä
@@ -93,8 +103,6 @@ def run_sievitalo(toimitussisalto_txt, toimitussisalto_id):
         except Exception as e:
                 print(f"❌ Virhe väliovien lisäämisessä: {str(e)}")
         
-        
-        print("run.py 81. valio_ovet", valio_ovet)
         lisaa_valiovet_kantaan(valio_ovet, toimitussisalto_id)
         # valiovityypit = api_kysely_kirjoitus_json(GENERATION_CONFIG_JSON, PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT, valio_ovet)
         # print("run.py 82. valio_ovet", valiovityypit)
@@ -155,7 +163,7 @@ def run_kastelli(toimitussisalto_txt_polku: str, toimitussisalto_id: str):
 def run_designtalo():
         
         #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     clean_text2       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        clean_text2(lue_txt_tiedosto(TOIMITUSSISALTO_DESIGNTALO_TXT), PUHDISTETTU_TOIMITUSSISALTO_DESIGNTALO_TXT)
+        puhdista_teksti(lue_txt_tiedosto(TOIMITUSSISALTO_DESIGNTALO_TXT), PUHDISTETTU_TOIMITUSSISALTO_DESIGNTALO_TXT)
         #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
