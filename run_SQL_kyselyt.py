@@ -8,7 +8,7 @@ from SQL_kyselyt import *
 #hae_toimittaja_uuidlla("18845722-122c-4d87-81aa-a8b696b69faf")
 #hae_toimitussisalto_txt_url_uuidlla(uuid: str) 
 #hae_kaikki_ikkunat()
-#hae_paivan_ikkunat("01.04.2025")
+hae_paivan_ikkunat("01.04.2025")
 #hae_toimitussisallon_ikkunat(4, 545)
 #hae_toimittajan_sisallot(2)
 #hae_toimitussisalto(501)

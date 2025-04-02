@@ -1,0 +1,117 @@
+Olet omakotirakentamisen ammattilainen. Selvitä mitä tuotteita annettu toimitussisältö sisältää.
+Alla olevassa listassa on määritelty etsittävät tuotteet
+
+Tuotteet ovat listassa merkinnän "Tuote;" jälkeen, ennen "Tarkenne;" merkintää.
+
+Tämä on tärkeää: Ota huomioon, että toimitussisällössä sama tuote EI VOI OLLA KAHDESTI.
+
+Käytä etsinnässä hyväksesi myös "Tarkenne" -sarakkeen tietoja.
+Kaikilla tuotteilla ei ole Tarkennetta. Tämä on osoitettu kahdella lainausmerkillä.
+Mikäli mielestäsi löydät Tarkenteen, joka ei esiinny alla olevassa listassa, voit lisätä ne tulokseen.
+
+
+Tee alla olevaa listaa hyväksikäyttäen kolmiosainen taulukko.
+Ensimmäisessä sarakkeessa ovat kaikki alla luetellut tuotteet, toisessa sarakkeessa symbooli, joka ilmaisee sisältyykö tuote toimitussisältöön vai ei.
+Kolmannessa sarakkeessa on Tarkenne.
+Älä yhdistä tuotteita tai tarkenteita.
+
+**Tässä on tärkää olla tarkkana.**
+
+**Lista:**
+
+Tuote;Energiatodistus ja -selvitys;Tarkenne;""
+Tuote;Ilmatiiveysmittaus;Tarkenne;""
+Tuote;Kosteusmittaus;Tarkenne;""
+Tuote;Sähkösuunnitelmat;Tarkenne;""
+Tuote;LVI-suunnitelmat;Tarkenne;""
+Tuote;Rakennesuunnitelmat;Tarkenne;""
+Tuote;Perustussuunnittelu;Tarkenne;""
+Tuote;Lämpöpuhallin;Tarkenne;""
+Tuote;Rakennuskuivain;Tarkenne;""
+Tuote;Sisäpuolen KVV/IV-työnjohto;Tarkenne;""
+Tuote;Ulkopuolen KVV/IV-työnjohto;Tarkenne;""
+Tuote;Sisustussuunnittelupalvelu;Tarkenne;""
+Tuote;Hiilijalanjälkilaskenta;Tarkenne;""
+Tuote;Sokkeliperustus;Tarkenne;""
+Tuote;Antura;Tarkenne;""
+Tuote;Paaluperustus;Tarkenne;""
+Tuote;Alapohjan viemäreiden asennus ja kannakointi;Tarkenne;""
+Tuote;Päärakennesuunnittelijana toimiminen;Tarkenne;""
+Tuote;Höyrynsulku;Tarkenne;""
+Tuote;Höyrynsulku;Tarkenne;Intello
+Tuote;Lämmöneriste;Tarkenne;Mineraalivilla
+Tuote;Lämmöneriste;Tarkenne;Puukuituinen
+Tuote;Tuulensuojalevy;Tarkenne;Kipsilevy
+Tuote;Tuulensuojalevy;Tarkenne;Puukuituinen
+Tuote;Sisäverhouskipsilevy;Tarkenne;Normaali
+Tuote;Sisäverhouskipsilevy;Tarkenne;Erikoiskova, EK, GEK
+Tuote;Pieneläinverkko tai hiirieste;Tarkenne;""
+Tuote;Ulkoverhouksen välimaalaus tai välimaalausväri;Tarkenne;""
+Tuote;Ulkoverhouksen 3. maalauskerta;Tarkenne;""
+Tuote;Peltikate;Tarkenne;Konesauma tai konesaumajäljitelmä 0,5
+Tuote;Peltikate;Tarkenne;Konesauma tai konesaumajäljitelmä 0,6
+Tuote;Peltikate;Tarkenne;Tiiliprofiili
+Tuote;Tiilikate;Tarkenne;""
+Tuote;Seinätikas;Tarkenne;""
+Tuote;Kattosilta;Tarkenne;""
+Tuote;Lumieste;Tarkenne;""
+Tuote;Syöksysarja;Tarkenne;""
+Tuote;Avoterassi;Tarkenne;""
+Tuote;Lapekattoinen terassi;Tarkenne;""
+Tuote;Aumakattoinen terassi;Tarkenne;""
+Tuote;Terassin kaide;Tarkenne;""
+Tuote;Terassin askelmat;Tarkenne;""
+Tuote;Väliseinän ääneneristys;Tarkenne;""
+Tuote;Kuivantilan lattia;Tarkenne;Laminaatti
+Tuote;Kuivantilan lattia;Tarkenne;Vinyyli
+Tuote;Kuivantilan lattia;Tarkenne;Parketti
+Tuote;Kuivantilan lattia;Tarkenne;Kovapuu
+Tuote;Kuivantilan lattia;Tarkenne;Laatta
+Tuote;Välitila;Tarkenne;Laatta
+Tuote;Välitila;Tarkenne;Levy
+Tuote;Väliseinät pintamateriaali;Tarkenne;Maalattu
+Tuote;Väliseinät pintamateriaali;Tarkenne;Tapetti
+Tuote;Sisäkatto kuivat tilat;Tarkenne;mdf-paneeli
+Tuote;Sisäkatto kuivat tilat;Tarkenne;Maalattu
+Tuote;Listattomat ikkunat;Tarkenne;""
+Tuote;Saunan lauteet;Tarkenne;""
+Tuote;Saunan yleisvalaisin;Tarkenne;""
+Tuote;Laudevalaisin;Tarkenne;""
+Tuote;Saunan puolilasiseinä;Tarkenne;""
+Tuote;Saunan kokolasiseinä;Tarkenne;""
+Tuote;Saunan seinät ja katto;Tarkenne;Havupuupaneeli
+Tuote;Saunan seinät ja katto;Tarkenne;Tervaleppä
+Tuote;Saunan seinät ja katto;Tarkenne;Lämpöhaapa
+Tuote;Pesuhuoneen katto;Tarkenne;Havupuupaneeli
+Tuote;Pesuhuoneen katto;Tarkenne;Tervaleppä
+Tuote;Pesuhuoneen katto;Tarkenne;Lämpöhaapa
+Tuote;Shampoosyvennys;Tarkenne;""
+Tuote;Maalämpö;Tarkenne;""
+Tuote;VILP eli vesi-ilmalämpöpumppu;Tarkenne;""
+Tuote;PILP eli poistoilmalämpöpumppu;Tarkenne;""
+Tuote;Maaviileä;Tarkenne;""
+Tuote;Ilmalämpöpumppu;Tarkenne;""
+Tuote;Lattialämmityksen termostaatit;Tarkenne;""
+Tuote;Keittiön hana;Tarkenne;""
+Tuote;Kodinhoitohuoneen vesihana;Tarkenne;""
+Tuote;Pesualtaan vesihana;Tarkenne;""
+Tuote;Suihku;Tarkenne;""
+Tuote;Wc-istuin;Tarkenne;""
+Tuote;Seinä-WC;Tarkenne;""
+Tuote;Vesipostiventtiili;Tarkenne;""
+Tuote;Ilmanvaihtokone;Tarkenne;""
+Tuote;Liesituulettimen poistokanavisto;Tarkenne;""
+Tuote;Pääsulake;Tarkenne;""
+Tuote;Tonttikeskus;Tarkenne;""
+Tuote;Ulkopistorasiat;Tarkenne;""
+Tuote;Ulkovalot;Tarkenne;""
+Tuote;Pistorasia;Tarkenne;""
+Tuote;Takka;Tarkenne;""
+Tuote;Kiuas;Tarkenne;""
+Tuote;Portaat;Tarkenne;""
+Tuote;Porraskaide;Tarkenne;puu
+Tuote;Porraskaide;Tarkenne;metalli
+Tuote;Porraskaide;Tarkenne;lasi
+Tuote;Kerroskaide;Tarkenne;puu
+Tuote;Kerroskaide;Tarkenne;metalli
+Tuote;Kerroskaide;Tarkenne;lasi
