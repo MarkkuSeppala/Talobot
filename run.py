@@ -2,7 +2,7 @@
 import os
 import sys
 #from muunna_ikkunat import muunna_raaka_ikkunat_yksittaisiksi, parsi_rivit_tiedoiksi, kastelli_parsi_rivit_tiedoiksi, muunna_raaka_ikkunat_yksittaisiksi_kastelli
-from SQL_kyselyt import lisaa_ikkunat_kantaan, lisaa_ulko_ovet_kantaan, lisaa_valiovet_kantaan
+from SQL_kyselyt import lisaa_ikkunat_kantaan, lisaa_ulko_ovet_kantaan, lisaa_valiovet_kantaan, lisaa_toimitussisalto_tuotteet, hae_toimitussisallon_tuotteet
 
 
 sys.path.append(os.path.abspath("utils"))  # Lisää utils-kansion polku moduulihakemistoksi
@@ -13,7 +13,7 @@ from config_data import (VALIOVITYYPIT_SIEVITALO_JSON, ULKO_OVI_TIEDOT_KOKONAISU
                         PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, PROMPT_SIEVITALO_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, 
                         PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT,
                         PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT, PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT,TOIMITUSSISALTO_TXT, TOIMITUSSISALTO_SIEVITALO_TXT,
-                        PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_LUOKKAMUOTOON)
+                        PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_LUOKKAMUOTOON, PROMPT_SIEVITALO_POIMI_TUOTTEET_TXT)
 
 from config_data import (PROMPT_KASTELLI_POIMI_IKKUNATIEDOT_TXT, PROMPT_KASTELLI_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, IKKUNATIEDOT_KASTELLI_KOKONAISUUDESSA_TXT, 
                          IKKUNA_KASTELLI_JSON, IKKUNA2_KASTELLI_JSON, PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT,
@@ -35,8 +35,9 @@ from generation_config import GENERATION_CONFIG, GENERATION_CONFIG_JSON
 from utils.file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet
 from utils.tietosissallon_kasittely import (sievitalo_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, puhdista_teksti, 
                                             kastelli_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, designtalo_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi)
+from SQL_kyselyt_tuotteet_tauluun import hae_tuotteet_prompt1_str
                                 
-from api_kyselyt import api_kysely, api_kysely_kirjoitus_json, api_kysely_ulko_ovet
+from api_kyselyt import api_kysely, api_kysely_kirjoitus_json, api_kysely_ulko_ovet, api_kysely_nelja_parametria
 from logger_config import configure_logging
 import logging
 
@@ -106,6 +107,15 @@ def run_sievitalo(toimitussisalto_txt, toimitussisalto_id):
         lisaa_valiovet_kantaan(valio_ovet, toimitussisalto_id)
         # valiovityypit = api_kysely_kirjoitus_json(GENERATION_CONFIG_JSON, PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT, valio_ovet)
         # print("run.py 82. valio_ovet", valiovityypit)
+
+
+        #---------------------------------------     Sievitalo tuotteet kantaan      ----------------------------------------
+        tuotteet = hae_tuotteet_prompt1_str()
+        #print("run.py 114. tuotteet", tuotteet)
+        toimitussisalto_tuotteet = api_kysely_nelja_parametria(GENERATION_CONFIG, PROMPT_SIEVITALO_POIMI_TUOTTEET_TXT, puhdistettu_toimitussisalto, tuotteet)
+        #print("run.py 116. toimitussisalto_tuotteet", toimitussisalto_tuotteet)
+        lisaa_toimitussisalto_tuotteet(toimitussisalto_tuotteet, toimitussisalto_id)
+        hae_toimitussisallon_tuotteet(toimitussisalto_id)
        
 
 

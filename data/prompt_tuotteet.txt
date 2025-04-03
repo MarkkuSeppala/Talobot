@@ -1,8 +1,7 @@
 Analysoi toimitussisällön teksti ja tunnista siinä esiintyvät tuotteet hyödyntäen antamaani tuotelistausta.
 
-Tuotelistaus löytyy CSV-tiedostosta "tuotteet.csv", ja siinä on tuoteiden nimet ja yksilöivät ID-tunnisteet.
+Tuotelistaus löytyy tämän ohjeen kohdasta "TUOTELISTAUS". Siinä on tuoteiden nimet ja yksilöivät ID-tunnisteet.
 
-Toimitussisältö löytyy PDF-tiedostosta "Sievitalo Ritari.pdf".
 
 Ohjeet:
 
@@ -14,18 +13,14 @@ Palauta tulokset siten, että jokainen löydetty tuote yhdistyy suoraan CSV-tied
 
 Palauta vastaus JSON-muodossa seuraavalla rakenteella:
 
-{
-    "tunnistukset": [
-        {
-            "tuote_id": "123",
-            "tuote_nimi": "Esimerkki tuote",
-            "toimitussisallossa": "Esimerkki kuvaus"
-        }
-    ]
-}
 
-Huomaa:
-- "tunnistukset" on lista objekteja
-- Jokaisen objektin pitää sisältää kaikki kolme kenttää
-- tuote_id on merkkijono, ei numero
-- Käytä kaksoislainausmerkkejä (") JSON-standardin mukaisesti
+{
+  "tunnistukset": [
+    {
+      "tuote_id": "<tuotteen ID>",
+      "tuote_nimi": "<tuotteen nimi>",
+      "toimitussisallossa": "<löydetty teksti>"
+    },
+    ...
+  ]
+}

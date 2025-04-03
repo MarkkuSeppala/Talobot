@@ -26,6 +26,8 @@ from sqlalchemy import inspect
 from sqlalchemy import text, Table, Column, Integer, Boolean, String, DECIMAL, ForeignKey
 from sqlalchemy import select
 from tabulate import tabulate  # Asentaa: pip install tabulate
+from db_luokat import Toimitussisalto_tuotteet
+from sqlalchemy import desc
 
 # Loggerin alustus
 configure_logging()
@@ -1612,4 +1614,222 @@ def luo_toimitussisalto_tuotteet_taulu():
         print(f"Virhe taulun luonnissa: {str(e)}")
         return False
 
+#==================================== lisaa_toimitussisalto_tuotteet(json_data, toimitussisalto_id)
+def lisaa_toimitussisalto_tuotteet(json_data, toimitussisalto_id):
+    """
+    Lisää JSON-muotoiset tuotetiedot Toimitussisalto_tuotteet-tauluun.
+    
+    Args:
+        json_data (str/dict): JSON-muotoinen data tai dictionary
+        toimitussisalto_id (int): Toimitussisällön ID
+    
+    Returns:
+        bool: True jos lisäys onnistui, False jos virhe
+    """
+    try:
+        # Puhdistetaan JSON-data ylimääräisistä merkeistä
+        if isinstance(json_data, str):
+            # Poistetaan mahdolliset ```json ja ``` -merkinnät
+            json_data = json_data.replace('```json', '').replace('```', '').strip()
+            try:
+                data = json.loads(json_data)
+            except json.JSONDecodeError as e:
+                print(f"Virheellinen JSON-muoto: {str(e)}")
+                print("Puhdistettu JSON-data:", json_data[:100] + "...")  # Näytetään alku
+                return False
+        else:
+            data = json_data
+            
+        # Tarkista onko data oikeassa muodossa
+        if isinstance(data, list):
+            tunnistukset = data
+        else:
+            tunnistukset = data.get("tunnistukset", [])
+            
+        if not tunnistukset:
+            print("Ei tuotteita lisättäväksi!")
+            return False
+            
+        session = SessionLocal()
+        lisatyt = 0
+        
+        try:
+            # Käydään läpi kaikki tuotteet
+            for tuote in tunnistukset:
+                try:
+                    uusi_toimitussisalto_tuote = Toimitussisalto_tuotteet(
+                        toimitussisalto_id=toimitussisalto_id,
+                        tuote_id=int(tuote["tuote_id"]),
+                        tuote_nimi_toimitussisallossa=tuote["toimitussisallossa"],
+                        maara=Decimal("1.00")
+                    )
+                    session.add(uusi_toimitussisalto_tuote)
+                    lisatyt += 1
+                except KeyError as e:
+                    print(f"Virheellinen tuotetieto, puuttuu kenttä: {str(e)}")
+                    print("Tuotedata:", tuote)
+                    continue
+            
+            if lisatyt > 0:
+                session.commit()
+                print(f"Lisätty {lisatyt} tuotetta toimitussisältöön {toimitussisalto_id}")
+                return True
+            else:
+                print("Ei yhtään tuotetta lisätty.")
+                return False
+            
+        except Exception as e:
+            session.rollback()
+            print(f"Virhe tietojen tallennuksessa: {str(e)}")
+            return False
+            
+    except Exception as e:
+        print(f"Virhe JSON-käsittelyssä: {str(e)}")
+        return False
+        
+    finally:
+        session.close()
+#==================================== nayta_toimitussisalto_tuotteet()
+def nayta_toimitussisalto_tuotteet():
+    """
+    Tulostaa toimitussisalto_tuotteet-taulun sisällön järjestettynä luontipäivämäärän mukaan.
+    """
+    try:
+        session = SessionLocal()
+        
+        # Hae kaikki rivit järjestettynä luontipäivämäärän mukaan (uusimmat ensin)
+        rivit = session.query(Toimitussisalto_tuotteet)\
+            .order_by(desc(Toimitussisalto_tuotteet.luotu))\
+            .all()
+        
+        if not rivit:
+            print("Toimitussisalto_tuotteet-taulu on tyhjä!")
+            return
+        
+        # Muodosta data taulukkoa varten
+        headers = ['ID', 'Toimitussisältö ID', 'Tuote ID', 'Tuote nimi', 'Määrä', 'Luotu']
+        data = []
+        
+        for rivi in rivit:
+            # Muotoile päivämäärä suomalaiseen muotoon
+            luotu = rivi.luotu.strftime("%d.%m.%Y %H:%M:%S") if rivi.luotu else "-"
+            
+            # Muotoile määrä kahden desimaalin tarkkuudella
+            maara = f"{float(rivi.maara):.2f}" if rivi.maara is not None else "-"
+            
+            data.append([
+                rivi.id,
+                rivi.toimitussisalto_id,
+                rivi.tuote_id,
+                rivi.tuote_nimi_toimitussisallossa[:30],  # Rajoita nimen pituutta
+                maara,
+                luotu
+            ])
+        
+        # Tulosta taulukko
+        print("\nToimitussisältö tuotteet:")
+        print(tabulate(
+            data,
+            headers=headers,
+            tablefmt='grid',
+            numalign='right',
+            stralign='left'
+        ))
+        
+        # Tulosta yhteenveto
+        print(f"\nYhteensä {len(rivit)} riviä")
+        
+    except Exception as e:
+        print(f"Virhe tietojen haussa: {str(e)}")
+    
+    finally:
+        session.close()
 
+# Käyttö:
+if __name__ == "__main__":
+    nayta_toimitussisalto_tuotteet()
+
+
+#==================================== hae_toimitussisallon_tuotteet(toimitussisalto_id)
+def hae_toimitussisallon_tuotteet(toimitussisalto_id):
+    """
+    Hakee toimitussisällön tuotteet ja niiden hinnat.
+    
+    Args:
+        toimitussisalto_id (int): Toimitussisällön ID
+    """
+    try:
+        session = SessionLocal()
+        
+        # Hae tiedot molemmista tauluista JOIN-operaatiolla
+        tulokset = session.query(
+            Toimitussisalto_tuotteet,
+            Tuote.hinta
+        ).join(
+            Tuote,
+            Toimitussisalto_tuotteet.tuote_id == Tuote.id
+        ).filter(
+            Toimitussisalto_tuotteet.toimitussisalto_id == toimitussisalto_id
+        ).all()
+        
+        if not tulokset:
+            print(f"Toimitussisällölle {toimitussisalto_id} ei löytynyt tuotteita!")
+            return
+        
+        # Muodosta data taulukkoa varten
+        headers = [
+            'ID', 
+            'Toimitussisältö ID', 
+            'Tuote ID', 
+            'Tuote nimi', 
+            'Määrä', 
+            'Tuotteen hinta',
+            'Yhteensä',
+            'Luotu'
+        ]
+        data = []
+        
+        kokonaissumma = 0
+        
+        for rivi, hinta in tulokset:
+            # Muotoile päivämäärä
+            luotu = rivi.luotu.strftime("%d.%m.%Y %H:%M") if rivi.luotu else "-"
+            
+            # Muotoile hinnat ja määrät
+            maara = float(rivi.maara) if rivi.maara else 0
+            tuote_hinta = float(hinta) if hinta else 0
+            yhteensa = maara * tuote_hinta
+            
+            # Lisää kokonaissummaan
+            kokonaissumma += yhteensa
+            
+            data.append([
+                rivi.id,
+                rivi.toimitussisalto_id,
+                rivi.tuote_id,
+                rivi.tuote_nimi_toimitussisallossa[:30],
+                f"{maara:.2f}",
+                f"{tuote_hinta:.2f} €" if tuote_hinta else "-",
+                f"{yhteensa:.2f} €" if yhteensa else "-",
+                luotu
+            ])
+        
+        # Tulosta taulukko
+        print(f"\nToimitussisällön {toimitussisalto_id} tuotteet:")
+        print(tabulate(
+            data,
+            headers=headers,
+            tablefmt='grid',
+            numalign='right',
+            stralign='left'
+        ))
+        
+        # Tulosta yhteenveto
+        print(f"\nYhteensä {len(tulokset)} tuotetta")
+        print(f"Kokonaissumma: {kokonaissumma:.2f} €")
+        
+    except Exception as e:
+        print(f"Virhe tietojen haussa: {str(e)}")
+    
+    finally:
+        session.close()

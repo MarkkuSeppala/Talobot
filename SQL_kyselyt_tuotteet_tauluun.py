@@ -595,47 +595,60 @@ def hae_tuotteet_prompt1_str():
     """
     Hakee tuotteista ID:n ja nimen sellaisista riveistä, joissa prompt_1 on True.
     Palauttaa tiedot str-muotoisena CSV-formaatissa.
-    
-    Returns:
-        str: CSV-muotoinen merkkijono tuotteista tai None jos virhe
     """
     try:
         session = SessionLocal()
         
-        # Korjattu kysely käyttämään is_true()
-        tuotteet = session.query(Tuote.id, Tuote.tuote)\
-                         .filter(Tuote.prompt_1.is_true())\
-                         .order_by(Tuote.id)\
-                         .all()
+        # Debug: tulostetaan ensin koko kysely
+        kysely = session.query(Tuote.id, Tuote.tuote).filter(Tuote.prompt_1.is_(True))
+        print(f"Debug - SQL kysely: {kysely}")
         
-        if not tuotteet:
-            print("Ei löytynyt tuotteita joissa prompt_1 on True!")
-            return None
+        # Suoritetaan kysely
+        tuotteet = kysely.order_by(Tuote.id).all()
         
-        # Lisätään debug-tulostus
-        print(f"Debug: SQL kysely: {str(session.query(Tuote.id, Tuote.tuote).filter(Tuote.prompt_1.is_true()))}")
+        # Debug: tulostetaan jokaisen rivin prompt_1 arvo
+        for t in tuotteet:
+            rivi = session.query(Tuote).get(t[0])
+            #print(f"ID: {t[0]}, prompt_1: {rivi.prompt_1}")
         
         output = StringIO()
         writer = csv.writer(output, delimiter=';', lineterminator='\n')
-        
         writer.writerow(['ID', 'Tuote'])
         
         for t in tuotteet:
-            writer.writerow([
-                t[0],  # id
-                t[1]   # tuote
-            ])
+            writer.writerow([t[0], t[1]])
         
         csv_str = output.getvalue()
         output.close()
         
-        print(f"Yhteensä {len(tuotteet)} tuotetta haettu")
         return csv_str
         
     except Exception as e:
         print(f"Virhe tuotteiden haussa: {str(e)}")
         return None
     
+    finally:
+        session.close()
+
+
+def tarkista_prompt1_arvot():
+    """
+    Tarkistaa prompt_1 sarakkeen arvot tietokannasta
+    """
+    try:
+        session = SessionLocal()
+        
+        # Haetaan kaikki rivit ja tulostetaan prompt_1 arvot
+        tuotteet = session.query(Tuote.id, Tuote.tuote, Tuote.prompt_1).all()
+        
+        # print("\nPrompt_1 arvojen tarkistus:")
+        # print("ID | Tuote | prompt_1 | Tyyppi")
+        # print("-" * 50)
+        for t in tuotteet:
+            print(f"{t.id} | {t.tuote} | {t.prompt_1} | {type(t.prompt_1)}")
+            
+    except Exception as e:
+        print(f"Virhe tarkistuksessa: {str(e)}")
     finally:
         session.close()
 

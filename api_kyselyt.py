@@ -80,6 +80,35 @@ def api_kysely(generation_config, system_instruction, input_text) -> str:
         logger.error(f"Odottamaton virhe: {e}")
     return response.text
 
+#==================================== api_kysely_nelja_parametria()
+def api_kysely_nelja_parametria(generation_config, system_instruction, input_text_1, input_text_2) -> str:
+    """Geneerinen API-kysely aihio, joka saa parametreina asetukset, system instructions ja syöte tekstin.
+        Palauttaa API-kysely vastauksen string-muodossa."""
+    
+    system_instruction = lue_txt_tiedosto(system_instruction)
+    system_instruction_2 = system_instruction + input_text_2
+
+    api_key = os.environ.get('GEMINI_API_KEY')
+    genai.configure(api_key=api_key)
+    model = genai.GenerativeModel(
+        model_name="gemini-1.5-flash",
+        generation_config=generation_config,
+        system_instruction=system_instruction_2
+    )
+
+    logger.info("Gemini API konfiguroitu onnistuneesti!")
+
+    kysymys = f"Tässä on teksti: \n{input_text_1}\n\nToimi ohjeen mukaan."
+    try:
+        response = model.generate_content(kysymys)
+        if response is not None:
+            logger.info("API-vastaus saatu")
+        else:
+            logger.warning("API-vastaus puuttuu")
+    except Exception as e:
+        logger.error(f"Odottamaton virhe: {e}")
+    return response.text
+
 
     
 #============== API-KYSELY ============#

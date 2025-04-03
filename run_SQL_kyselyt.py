@@ -21,6 +21,8 @@ from SQL_kyselyt_tuotteet_tauluun import *
 #tulosta_kaikki_ulko_ovet(10) #parametri -> montako viimeisintä ulko-ovetta tulostetaan. Tyhjä -> tulostetaan kaikki ulko-ovet.
 #hae_paivan_valiovet("01.04.2025")
 #hae_tuotteet()
+#nayta_toimitussisalto_tuotteet()
+#hae_toimitussisallon_tuotteet("696")
 
 
 #------------kantaan muutoksia tekevät kyselyt------------
@@ -52,4 +54,5 @@ from SQL_kyselyt_tuotteet_tauluun import *
 #tallenna_tuotteet_tiedostoon("C:\Talobot")
 #tallenna_tuotteet_ID_ja_nimi_tiedostoon("C:\Talobot")
 #print(hae_tuotteet_prompt1_str())
+#tarkista_prompt1_arvot()
 
