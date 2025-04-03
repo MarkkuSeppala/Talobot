@@ -86,7 +86,6 @@ def run_sievitalo(toimitussisalto_txt, toimitussisalto_id):
         
         
        #---------------------------------------     Sievitalo vali-ovet kantaan      ----------------------------------------
-        #print("run.py 76. puhdistettu_toimitussisalto", puhdistettu_toimitussisalto)
         valio_ovet = api_kysely(GENERATION_CONFIG, PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT, puhdistettu_toimitussisalto)
         valio_ovet = api_kysely(GENERATION_CONFIG, PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT, valio_ovet)
        
@@ -99,10 +98,10 @@ def run_sievitalo(toimitussisalto_txt, toimitussisalto_id):
                         data = json.loads(json_text)
                         valio_ovet = data.get("ovimallit", [])
                 except json.JSONDecodeError as e:
-                        print(f"❌ Virheellinen JSON-muoto: {str(e)}")
+                        logging.warning(f"❌ Virheellinen JSON-muoto: {str(e)}")
                 
         except Exception as e:
-                print(f"❌ Virhe väliovien lisäämisessä: {str(e)}")
+                logging.error(f"❌ Virhe väliovien lisäämisessä: {str(e)}")
         
         lisaa_valiovet_kantaan(valio_ovet, toimitussisalto_id)
         # valiovityypit = api_kysely_kirjoitus_json(GENERATION_CONFIG_JSON, PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT, valio_ovet)
