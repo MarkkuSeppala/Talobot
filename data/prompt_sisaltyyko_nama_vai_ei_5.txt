@@ -3,12 +3,12 @@ Olet omakotirakentamisen ammattilainen. Annan sinulle talotarjoukseen liittyvän
 Alla on lista tuotteista. Selvitä onko toimitussisällössä annettu niihin määrätarkennuksia.
 
 
-Anna vastaus kaksiosaisena taulukkona, jossa ensimmäisessä sarakkeessa on antamani tuotteet ja toisessa sinun löytämäsi tiedot.
+Anna vastaus kaksiosaisena taulukkona, jossa ensimmäisessä sarakkeessa on antamani tuotteet ja toisessa sinun löytämäsi määrätiedot.
 Käsittele ainoastaan alla antamiani tuoteita.
 
 Toimi tarkalleen ohjeen mukaan. Ole tarkkana.
 
 **Lista tuotteista:**
 
-Antura, Höyrysulku, Lämmöneriste, Tuulensuojalevy, Sisäverhouskipisilevy, Peltikate, Lumieste, Kuivantilan lattia, Sisäkatto kuivat tilat.
+Antura, Lumieste,Kattosilta, Syöksysarja. Listattomat ikkunat, Shampoosyvennys, Lattialämmityksen termostaatit, Suihku, Wc-istuin, Vesipostiventtiili, Ulkopistorasiat, Ulkovalot, Kerroskaide.
 

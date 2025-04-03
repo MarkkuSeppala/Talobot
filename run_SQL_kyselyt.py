@@ -32,11 +32,14 @@ from SQL_kyselyt_tuotteet_tauluun import *
 #paivita_ulko_ovet_taulu()
 #muuta_toimitussisallot_taulun_sarakkeen_nimi("txt_sisalto", "txt_url") #muuttaa sarakkeen nimen txt_sisalto -> txt_url
 #poista_toimitussisallot_ennen("01.04.2025")
+#poista_toimitussisalto_materiaalit_ja_palvelut_taulu()
+#poista_toimitussisalto_tuotteet_taulu()
+#luo_toimitussisalto_tuotteet_taulu()
 
 
 #-------------tuotteet-tauluun liittyvät kyselyt------------
 #tuo_tuotteet_sheetista("https://docs.google.com/spreadsheets/d/e/2PACX-1vRUnUDHjtkbxzT_J--kq8H0VN9q-0I4P2wf-7jV_uofZHyVZT5CyqTv-u1V4jXvG4TKieo4Tv76gM5N/pub?gid=0&single=true&output=csv")
-#tyhjenna_tuotteet_taulu(kysy_varmistus=True)
+#tyhjenna_tuotteet_taulu()
 #muuta_tuotteet_taulun_hinta_sarake_nullable()
 #muuta_tuotteet_taulun_sarakkeen_nimi() #muuttaa sarakkeen nimen tuote -> tuote_tarkennus
 #lisaa_tuotteet_taulun_viite_tuote_id_sarake()
@@ -45,4 +48,8 @@ from SQL_kyselyt_tuotteet_tauluun import *
 #luo_tuotteet_taulu_uudelleen(), get_all_table_structures()
 #korjaa_tuotteet_taulu()
 #nayta_tuotteet()
-#nayta_tuote(150)
+#nayta_tuote(121)TYH
+#tallenna_tuotteet_tiedostoon("C:\Talobot")
+#tallenna_tuotteet_ID_ja_nimi_tiedostoon("C:\Talobot")
+#print(hae_tuotteet_prompt1_str())
+

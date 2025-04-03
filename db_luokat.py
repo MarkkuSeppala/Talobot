@@ -134,14 +134,13 @@ class Tuote(Base):
     viite_tuote = relationship("Tuote", remote_side=[id], backref="suhteelliset_hinnat")
 
 
-class Toimitussisalto_materiaali_ja_palvelu(Base):
-    __tablename__ = "toimitussisalto_materiaalit_ja_palvelut"
+class Toimitussisalto_tuotteet(Base):
+    __tablename__ = "toimitussisalto_tuotteet"
     id = Column(Integer, primary_key=True)
     toimitussisalto_id = Column(Integer, ForeignKey("toimitussisallot.id", ondelete="CASCADE"))
-    materiaali_id = Column(Integer, ForeignKey("materiaalit_ja_palvelut.id", ondelete="CASCADE"))
+    tuote_id = Column(Integer, ForeignKey("tuotteet.id", ondelete="CASCADE"))
+    tuote_nimi_toimitussisallossa = Column(String(50), nullable=False)
     maara = Column(DECIMAL(10,2), nullable=False)
-    hinta_yksikko = Column(DECIMAL(10,2))
-    hinta = Column(DECIMAL(10,2))
     luotu = Column(DateTime, default=datetime.utcnow)
 
 

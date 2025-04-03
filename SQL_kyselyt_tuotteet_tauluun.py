@@ -1,12 +1,18 @@
 from config_data import UPLOAD_FOLDER_DATA
 from sqlalchemy import create_engine, text, inspect, Table, Column, Integer, Boolean, String, DECIMAL, ForeignKey, text
 from sqlalchemy.orm import Session
-from db_luokat import Base, Tuote, engine
-from db_luokat import SessionLocal, Toimitussisalto, Kayttaja, Toimittaja, Ikkuna, Ulko_ovi, Valiovi, Base, Tuote
+from db_luokat import Base, Tuote, engine, SessionLocal, Toimitussisalto, Kayttaja, Toimittaja, Ikkuna, Ulko_ovi, Valiovi
+
 from decimal import Decimal
 from tabulate import tabulate  # Asentaa: pip install tabulate
 import os
 import pandas as pd
+from io import StringIO 
+import csv
+
+from datetime import datetime
+
+
 # Hae tietokantayhteys
 DATABASE_URL = os.getenv("DATABASE_URL")
 
@@ -100,56 +106,52 @@ def tuo_tuotteet_sheetista(csv_url):
 
 
 
-#==================================== tyhjenna_tuotteet_taulu(kysy_varmistus=True)
-def tyhjenna_tuotteet_taulu(kysy_varmistus=True):
+#==================================== tyhjenna_tuotteet_taulu()
+def tyhjenna_tuotteet_taulu():
     """
-    Tyhjentää tuotteet-taulun tietokannasta.
-    
-    Args:
-        kysy_varmistus (bool): Jos True, kysyy varmistuksen ennen poistoa
-    
-    Returns:
-        bool: True jos tyhjennys onnistui, False jos epäonnistui
+    Tyhjentää tuotteet-taulun kaikista riveistä.
+    Kysyy varmistuksen ennen toimenpidettä.
     """
     try:
-        # Näytä ensin montako tuotetta ollaan poistamassa
         session = SessionLocal()
-        tuotteiden_maara = session.query(Tuote).count()
-        session.close()
         
-        if tuotteiden_maara == 0:
-            print("Taulu on jo tyhjä!")
+        # Tarkista ensin rivien määrä
+        rivien_maara = session.query(Tuote).count()
+        
+        if rivien_maara == 0:
+            print("Tuotteet-taulu on jo tyhjä!")
             return True
-        
-        # Kysy varmistus jos tarpeen
-        if kysy_varmistus:
-            print(f"\nOlet poistamassa {tuotteiden_maara} tuotetta taulusta.")
-            print("HUOMIO: Tätä toimintoa ei voi peruuttaa!")
-            vastaus = input("Haluatko varmasti tyhjentää taulun? (kirjoita 'KYLLÄ' jatkaaksesi): ")
             
-            if vastaus != "KYLLÄ":
-                print("Toiminto peruttu.")
-                return False
+        # Kysy varmistus
+        print(f"\nOlet tyhjentämässä tuotteet-taulun.")
+        print(f"Taulussa on {rivien_maara} riviä.")
+        print("HUOMIO: Tätä toimintoa ei voi peruuttaa!")
+        vastaus = input("Haluatko varmasti tyhjentää taulun? (kirjoita 'TYHJENNÄ' jatkaaksesi): ")
         
-        # Tyhjennä taulu
-        session = SessionLocal()
+        if vastaus != "TYHJENNÄ":
+            print("Toiminto peruttu.")
+            return False
+            
         try:
+            # Tyhjennä taulu
             session.query(Tuote).delete()
             session.commit()
-            print(f"Taulu tyhjennetty onnistuneesti! {tuotteiden_maara} tuotetta poistettu.")
+            
+            print(f"Tuotteet-taulu tyhjennetty onnistuneesti!")
+            print(f"Poistettu {rivien_maara} riviä.")
             return True
             
-        except SQLAlchemyError as e:
+        except Exception as e:
             session.rollback()
             print(f"Virhe taulun tyhjennyksessä: {str(e)}")
             return False
             
-        finally:
-            session.close()
-            
     except Exception as e:
-        print(f"Odottamaton virhe: {str(e)}")
+        print(f"Virhe: {str(e)}")
         return False
+        
+    finally:
+        session.close()
 
 
 #==================================== muuta_tuotteet_taulun_hinta_sarake_nullable()
@@ -435,6 +437,9 @@ def nayta_tuotteet():
     finally:
         session.close()
 
+
+
+#==================================== nayta_tuote(tuote_id)
 def nayta_tuote(tuote_id):
     """
     Näyttää yhden tuotteen kaikki tiedot.
@@ -467,4 +472,171 @@ def nayta_tuote(tuote_id):
     
     finally:
         session.close()
+
+
+#==================================== tallenna_tuotteet_tiedostoon(tiedostopolku)
+def tallenna_tuotteet_tiedostoon(tiedostopolku):
+    """
+    Hakee kaikki tuotteet ja tallentaa ne CSV-tiedostoon.
+    
+    Args:
+        tiedostopolku (str): Polku, johon CSV-tiedosto tallennetaan
+    """
+    try:
+        session = SessionLocal()
+        
+        # Hae kaikki tuotteet
+        tuotteet = session.query(Tuote).order_by(Tuote.id).all()
+        
+        if not tuotteet:
+            print("Tuotteet-taulu on tyhjä!")
+            return False
+        
+        # Lisää aikaleima tiedostonimeen
+        aikaleima = datetime.now().strftime("%Y%m%d_%H%M%S")
+        tiedostonimi = f"tuotteet_{aikaleima}.csv"
+        
+        if tiedostopolku:
+            koko_polku = f"{tiedostopolku}/{tiedostonimi}"
+        else:
+            koko_polku = tiedostonimi
+        
+        # Määritä sarakkeet
+        headers = ['ID', 'Tuote', 'Tarkenne', 'Yksikkö', 'Hinta', 'Absoluuttinen hinta', 
+                  'Prompt 1', 'Prompt 2', 'Viite tuote ID']
+        
+        # Kirjoita CSV-tiedosto
+        with open(koko_polku, 'w', newline='', encoding='utf-8') as csvfile:
+            writer = csv.writer(csvfile, delimiter=';')  # Käytä puolipistettä erottimena
+            
+            # Kirjoita otsikkorivi
+            writer.writerow(headers)
+            
+            # Kirjoita tuotteet
+            for t in tuotteet:
+                # Muotoile hinta siististi
+                hinta = f"{float(t.hinta):.2f}" if t.hinta is not None else ""
+                
+                writer.writerow([
+                    t.id,
+                    t.tuote,
+                    t.tuote_tarkennus if t.tuote_tarkennus else "",
+                    t.yksikko if t.yksikko else "",
+                    hinta,
+                    "Kyllä" if t.onko_hinta_absoluuttinen else "Ei",
+                    "Kyllä" if t.prompt_1 else "Ei",
+                    "Kyllä" if t.prompt_2 else "Ei",
+                    t.viite_tuote_id if t.viite_tuote_id else ""
+                ])
+        
+        print(f"\nTuotteet tallennettu tiedostoon: {koko_polku}")
+        print(f"Yhteensä {len(tuotteet)} tuotetta tallennettu")
+        return True
+        
+    except Exception as e:
+        print(f"Virhe tuotteiden tallennuksessa: {str(e)}")
+        return False
+    
+    finally:
+        session.close()
+
+#==================================== tallenna_tuotteet_ID_ja_nimi_tiedostoon(tiedostopolku)
+def tallenna_tuotteet_ID_ja_nimi_tiedostoon(tiedostopolku):
+    """
+    Hakee tuotteista vain ID:n ja nimen sellaisista riveistä, joissa prompt_1 on True.
+    Tallentaa tulokset CSV-tiedostoon.
+    """
+    try:
+        session = SessionLocal()
+        
+        # Korjattu kysely ilman ylimääräisiä rivinvaihtoja
+        tuotteet = session.query(Tuote.id, Tuote.tuote).filter(Tuote.prompt_1.is_(True)).order_by(Tuote.id).all()
+        
+        if not tuotteet:
+            print("Ei löytynyt tuotteita joissa prompt_1 on True!")
+            return False
+        
+        # Lisää aikaleima tiedostonimeen
+        aikaleima = datetime.now().strftime("%Y%m%d_%H%M%S")
+        tiedostonimi = f"tuotteet_prompt1_true_{aikaleima}.csv"
+        
+        if tiedostopolku:
+            koko_polku = f"{tiedostopolku}/{tiedostonimi}"
+        else:
+            koko_polku = tiedostonimi
+        
+        # Määritä sarakkeet
+        headers = ['ID', 'Tuote']
+        
+        # Kirjoita CSV-tiedosto
+        with open(koko_polku, 'w', newline='', encoding='utf-8') as csvfile:
+            writer = csv.writer(csvfile, delimiter=';')
+            writer.writerow(headers)
+            
+            for t in tuotteet:
+                writer.writerow([
+                    t[0],  # id
+                    t[1]   # tuote
+                ])
+        
+        print(f"\nPrompt 1 = True tuotteet tallennettu tiedostoon: {koko_polku}")
+        print(f"Yhteensä {len(tuotteet)} tuotetta tallennettu")
+        return True
+        
+    except Exception as e:
+        print(f"Virhe tuotteiden tallennuksessa: {str(e)}")
+        return False
+    
+    finally:
+        session.close()
+
+#==================================== hae_tuotteet_prompt1_str()
+def hae_tuotteet_prompt1_str():
+    """
+    Hakee tuotteista ID:n ja nimen sellaisista riveistä, joissa prompt_1 on True.
+    Palauttaa tiedot str-muotoisena CSV-formaatissa.
+    
+    Returns:
+        str: CSV-muotoinen merkkijono tuotteista tai None jos virhe
+    """
+    try:
+        session = SessionLocal()
+        
+        # Korjattu kysely käyttämään is_true()
+        tuotteet = session.query(Tuote.id, Tuote.tuote)\
+                         .filter(Tuote.prompt_1.is_true())\
+                         .order_by(Tuote.id)\
+                         .all()
+        
+        if not tuotteet:
+            print("Ei löytynyt tuotteita joissa prompt_1 on True!")
+            return None
+        
+        # Lisätään debug-tulostus
+        print(f"Debug: SQL kysely: {str(session.query(Tuote.id, Tuote.tuote).filter(Tuote.prompt_1.is_true()))}")
+        
+        output = StringIO()
+        writer = csv.writer(output, delimiter=';', lineterminator='\n')
+        
+        writer.writerow(['ID', 'Tuote'])
+        
+        for t in tuotteet:
+            writer.writerow([
+                t[0],  # id
+                t[1]   # tuote
+            ])
+        
+        csv_str = output.getvalue()
+        output.close()
+        
+        print(f"Yhteensä {len(tuotteet)} tuotetta haettu")
+        return csv_str
+        
+    except Exception as e:
+        print(f"Virhe tuotteiden haussa: {str(e)}")
+        return None
+    
+    finally:
+        session.close()
+
 
