@@ -33,7 +33,7 @@ from utils.file_handler import (tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_
 from utils.tietosissallon_kasittely import sievitalo_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, puhdista_teksti
 from run import run_sievitalo, run_kastelli
 from factory import get_sievitalo_ikkunat, get_sievitalo_ulko_ovet, get_sievitalo_valiovi_mallit, get_kastelli_ikkunat, get_kastelli_ulko_ovet, get_kastelli_valiovi_mallit
-from SQL_kyselyt import hae_toimittaja_uuidlla, hae_toimitussisalto_txt_url_uuidlla, hae_toimitussisalto_id_uuidlla, vastaanota_toimitussisalto
+from SQL_kyselyt import hae_toimittaja_uuidlla, hae_toimitussisalto_txt_url_uuidlla, hae_toimitussisalto_id_uuidlla, vastaanota_toimitussisalto, hae_paivan_toimitussisallot, hae_paivan_ulko_ovet, hae_paivan_valiovet
 
 import google.generativeai as genai 
 
@@ -164,6 +164,35 @@ def suodata_tiedot():
 def index():
     # Näytä index.html-sivu
     return render_template("index.html")
+
+@app.route('/sql_hallinta')
+def sql_hallinta():
+    return render_template('sql_hallinta.html')
+
+@app.route('/hae_toimitussisallot', methods=['POST'])
+def hae_toimitussisallot():
+    pvm = request.form.get('pvm')
+    # Muunna HTML date-input suomalaiseen muotoon
+    pvm_obj = datetime.strptime(pvm, '%Y-%m-%d')
+    pvm_suomi = pvm_obj.strftime('%d.%m.%Y')
+    tulokset = hae_paivan_toimitussisallot(pvm_suomi)
+    return render_template('sql_hallinta.html', tulokset=tulokset)
+
+@app.route('/hae_ulko_ovet', methods=['POST'])
+def hae_ulko_ovet():
+    pvm = request.form.get('pvm')
+    pvm_obj = datetime.strptime(pvm, '%Y-%m-%d')
+    pvm_suomi = pvm_obj.strftime('%d.%m.%Y')
+    tulokset = hae_paivan_ulko_ovet(pvm_suomi)
+    return render_template('sql_hallinta.html', tulokset=tulokset)
+
+@app.route('/hae_valiovet', methods=['POST'])
+def hae_valiovet():
+    pvm = request.form.get('pvm')
+    pvm_obj = datetime.strptime(pvm, '%Y-%m-%d')
+    pvm_suomi = pvm_obj.strftime('%d.%m.%Y')
+    tulokset = hae_paivan_valiovet(pvm_suomi)
+    return render_template('sql_hallinta.html', tulokset=tulokset)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))

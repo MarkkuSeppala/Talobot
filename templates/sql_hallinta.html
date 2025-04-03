@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Hallinta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="date"], input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>SQL Hallinta</h1>
+    
+    <div class="section">
+        <h2>Toimitussisällöt</h2>
+        <form action="{{ url_for('hae_toimitussisallot') }}" method="post">
+            <div class="form-group">
+                <label for="pvm">Valitse päivämäärä:</label>
+                <input type="date" id="pvm" name="pvm" required>
+            </div>
+            <button type="submit" class="button">Hae toimitussisällöt</button>
+        </form>
+    </div>
+
+    <div class="section">
+        <h2>Ulko-ovet</h2>
+        <form action="{{ url_for('hae_ulko_ovet') }}" method="post">
+            <div class="form-group">
+                <label for="ulko_ovi_pvm">Valitse päivämäärä:</label>
+                <input type="date" id="ulko_ovi_pvm" name="pvm" required>
+            </div>
+            <button type="submit" class="button">Hae ulko-ovet</button>
+        </form>
+    </div>
+
+    <div class="section">
+        <h2>Väliovet</h2>
+        <form action="{{ url_for('hae_valiovet') }}" method="post">
+            <div class="form-group">
+                <label for="valiovi_pvm">Valitse päivämäärä:</label>
+                <input type="date" id="valiovi_pvm" name="pvm" required>
+            </div>
+            <button type="submit" class="button">Hae väliovet</button>
+        </form>
+    </div>
+
+    {% if tulokset %}
+    <div class="section">
+        <h2>Tulokset</h2>
+        <pre>{{ tulokset | safe }}</pre>
+    </div>
+    {% endif %}
+
+    <div>
+        <a href="{{ url_for('index') }}" class="button">Takaisin etusivulle</a>
+    </div>
+</body>
+</html> 

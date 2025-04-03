@@ -1,4 +1,5 @@
 from SQL_kyselyt import *
+from SQL_kyselyt_tuotteet_tauluun import *
 
 #get_all_tables()
 #get_all_table_structures()
@@ -8,7 +9,7 @@ from SQL_kyselyt import *
 #hae_toimittaja_uuidlla("18845722-122c-4d87-81aa-a8b696b69faf")
 #hae_toimitussisalto_txt_url_uuidlla(uuid: str) 
 #hae_kaikki_ikkunat()
-hae_paivan_ikkunat("01.04.2025")
+#hae_paivan_ikkunat("01.04.2025")k
 #hae_toimitussisallon_ikkunat(4, 545)
 #hae_toimittajan_sisallot(2)
 #hae_toimitussisalto(501)
@@ -19,6 +20,7 @@ hae_paivan_ikkunat("01.04.2025")
 #hae_paivan_ulko_ovet("01.04.2025")
 #tulosta_kaikki_ulko_ovet(10) #parametri -> montako viimeisintä ulko-ovetta tulostetaan. Tyhjä -> tulostetaan kaikki ulko-ovet.
 #hae_paivan_valiovet("01.04.2025")
+#hae_tuotteet()
 
 
 #------------kantaan muutoksia tekevät kyselyt------------
@@ -30,3 +32,17 @@ hae_paivan_ikkunat("01.04.2025")
 #paivita_ulko_ovet_taulu()
 #muuta_toimitussisallot_taulun_sarakkeen_nimi("txt_sisalto", "txt_url") #muuttaa sarakkeen nimen txt_sisalto -> txt_url
 #poista_toimitussisallot_ennen("01.04.2025")
+
+
+#-------------tuotteet-tauluun liittyvät kyselyt------------
+#tuo_tuotteet_sheetista("https://docs.google.com/spreadsheets/d/e/2PACX-1vRUnUDHjtkbxzT_J--kq8H0VN9q-0I4P2wf-7jV_uofZHyVZT5CyqTv-u1V4jXvG4TKieo4Tv76gM5N/pub?gid=0&single=true&output=csv")
+#tyhjenna_tuotteet_taulu(kysy_varmistus=True)
+#muuta_tuotteet_taulun_hinta_sarake_nullable()
+#muuta_tuotteet_taulun_sarakkeen_nimi() #muuttaa sarakkeen nimen tuote -> tuote_tarkennus
+#lisaa_tuotteet_taulun_viite_tuote_id_sarake()
+#korjaa_tuotteet_taulun_null_arvot()
+#poista_tuotteet_taulu()
+#luo_tuotteet_taulu_uudelleen(), get_all_table_structures()
+#korjaa_tuotteet_taulu()
+#nayta_tuotteet()
+#nayta_tuote(150)

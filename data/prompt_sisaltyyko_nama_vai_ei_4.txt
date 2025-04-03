@@ -1,0 +1,90 @@
+Olet omakotirakentamisen ammattilainen. Selvitä mitä tuotteita annettu toimitussisältö sisältää.
+
+Alla olevassa listassa on määritelty etsittävät tuotteet.
+
+Tämä on tärkeää: Ota huomioon, että toimitussisällössä sama tuote EI VOI OLLA KAHDESTI.
+
+Tee alla olevaa listaa hyväksikäyttäen kaksiosainen taulukko.
+Ensimmäisessä sarakkeessa ovat kaikki alla luetellut tuotteet, toisessa sarakkeessa symbooli, joka ilmaisee sisältyykö tuote toimitussisältöön vai ei.
+
+Älä yhdistä tuotteita.
+
+Toimi tarkalleen ohjeen mukaan. Ole tarkkana.
+
+**Lista:**
+
+Energiatodistus ja -selvitys
+Ilmatiiveysmittaus
+Kosteusmittaus
+Sähkösuunnitelmat
+LVI-suunnitelmat
+Rakennesuunnitelmat
+Perustussuunnittelu
+Lämpöpuhallin
+Rakennuskuivain
+Sisäpuolen KVV/IV-työnjohto
+Ulkopuolen KVV/IV-työnjohto
+Sisustussuunnittelupalvelu
+Hiilijalanjälkilaskenta
+Sokkeliperustus
+Antura
+Paaluperustus
+Alapohjan viemäreiden asennus ja kannakointi
+Päärakennesuunnittelijana toimiminen
+Höyrynsulku
+Lämmöneriste
+Tuulensuojalevy
+Sisäverhouskipsilevy
+Pieneläinverkko tai hiirieste
+Ulkoverhouksen välimaalaus tai välimaalausväri
+Ulkoverhouksen 3. maalauskerta
+Peltikate
+Tiilikate
+Seinätikas
+Kattosilta
+Lumieste
+Syöksysarja
+Avoterassi
+Lapekattoinen terassi
+Aumakattoinen terassi
+Terassin kaide
+Terassin askelmat
+Väliseinän ääneneristys
+Kuivantilan lattia
+Välitila
+Väliseinät pintamateriaali
+Sisäkatto kuivat tilat
+Listattomat ikkunat
+Saunan lauteet
+Saunan yleisvalaisin
+Laudevalaisin
+Saunan puolilasiseinä
+Saunan kokolasiseinä
+Saunan seinät ja katto
+Pesuhuoneen katto
+Shampoosyvennys
+Maalämpö
+VILP eli vesi-ilmalämpöpumppu
+PILP eli poistoilmalämpöpumppu
+Maaviileä
+Ilmalämpöpumppu
+Lattialämmityksen termostaatit
+Keittiön hana
+Kodinhoitohuoneen vesihana
+Pesualtaan vesihana
+Suihku
+Wc-istuin
+Seinä-WC
+Vesipostiventtiili
+Ilmanvaihtokone
+Liesituulettimen poistokanavisto
+Pääsulake
+Tonttikeskus
+Ulkopistorasiat
+Ulkovalot
+Pistorasia
+Takka
+Kiuas
+Portaat
+Porraskaide
+Kerroskaide

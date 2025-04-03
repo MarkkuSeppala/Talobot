@@ -118,6 +118,22 @@ class Materiaali_ja_palvelu(Base):
     hinta = Column(DECIMAL(10,2))
 
 
+class Tuote(Base):
+    __tablename__ = "tuotteet"
+    id = Column(Integer, primary_key=True)
+    prompt_1 = Column(Boolean, nullable=False)
+    prompt_2 = Column(Boolean, nullable=False)
+    tuote = Column(String(100), nullable=False)
+    tuote_tarkennus = Column(String(100), nullable=True)
+    yksikko = Column(String(50), nullable=True)
+    hinta = Column(DECIMAL(10, 2), nullable=True)
+    onko_hinta_absoluuttinen = Column(Boolean, nullable=False, default=False)
+    viite_tuote_id = Column(Integer, ForeignKey("tuotteet.id"), nullable=True)
+
+    # Suhde: viittaa toiseen tuotteeseen, jos hinta ei ole absoluuttinen
+    viite_tuote = relationship("Tuote", remote_side=[id], backref="suhteelliset_hinnat")
+
+
 class Toimitussisalto_materiaali_ja_palvelu(Base):
     __tablename__ = "toimitussisalto_materiaalit_ja_palvelut"
     id = Column(Integer, primary_key=True)
