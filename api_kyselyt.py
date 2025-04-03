@@ -134,7 +134,6 @@ def api_kysely_ulko_ovet(generation_config, system_instruction, input_text):
         try:
             # Käytä puhdistettua json_text:iä response.text:n sijaan
             ovet_data = json.loads(json_text)
-            #print("Parsed JSON data:", ovet_data)  # Debug
                 
             ovet = []
             for ovi_data in ovet_data:
@@ -145,15 +144,14 @@ def api_kysely_ulko_ovet(generation_config, system_instruction, input_text):
                     maara=ovi_data["maara"]
                 )
                 ovet.append(ovi)
-                print("Added ovi:", vars(ovi))  # Tarkista luotu ovi-olio
+                logging.info(f"Added ovi: {vars(ovi)}")  # Tarkista luotu ovi-olio
                 
-            #print(f"✅ Muunnettu {len(ovet)} ovea UlkoOvi-olioiksi")
             return ovet
         except json.JSONDecodeError as e:
-            print(f"❌ JSON-parsinta epäonnistui: {str(e)}")
+            logging.error(f"❌ JSON-parsinta epäonnistui: {str(e)}")
             return []
         except Exception as e:
-            print(f"❌ Muu virhe: {str(e)}")
+            logging.error(f"❌ Muu virhe: {str(e)}")
             return []
 
 

@@ -64,7 +64,7 @@ def tallenna_toimitussisalto_tietokantaan(toimittaja: str, pdf_filepath, txt_fil
         db.flush()  # 🌟 Varmistaa, että ID generoituu ennen commitointia
         db.commit()
         db.refresh(uusi_toimitussisalto)  # 🌟 Päivittää objektin tietokannasta
-        logging.info("✅ Uusi toimitussisalto lisätty ID:", uusi_toimitussisalto.id)
+        logging.info(f"✅ Uusi toimitussisalto lisätty ID: {uusi_toimitussisalto.id}")
     except Exception as e:
         db.rollback()  # 🌟 Jos virhe, kumoa kaikki muutokset
         logging.warning(f"❌ Virhe lisättäessä tietoa: {e}")
@@ -529,24 +529,23 @@ def hae_toimittaja_uuidlla(uuid: str) -> str:
     """Hakee toimitussisällön toimittajan annetulla UUID:lla."""
     try:
         with SessionLocal() as db:
-            kysely = text("""
-                SELECT toimittaja
-                FROM toimitussisallot
-                WHERE uuid = :uuid
-                LIMIT 1;
-            """)
-            tulos = db.execute(kysely, {"uuid": uuid}).fetchone()
-
+            tulos = (
+                db.query(Toimitussisalto.toimittaja)
+                .filter(Toimitussisalto.uuid == uuid)
+                .limit(1)
+                .first()
+            )
+           
             if not tulos:
-                print(f"❌ Ei löytynyt toimitussisältöä UUID:lla {uuid}")
+                logging.warning(f"❌ Ei löytynyt toimitussisältöä UUID:lla {uuid}")
                 return None
 
             toimittaja = tulos[0]
-            print(f"✅ Toimittaja UUID:lla {uuid} on: {toimittaja}")
+            logging.info(f"✅ Toimittaja UUID:lla {uuid} on: {toimittaja}")
             return toimittaja
 
     except Exception as e:
-        print(f"❌ Virhe kyselyssä: {str(e)}")
+        logging.error(f"❌ Virhe kyselyssä: {str(e)}")
         return None
     
 
@@ -949,7 +948,7 @@ def lisaa_ulko_ovet_kantaan(ovet: list[Ulko_ovi], toimitussisalto_id: int):
             # Tarkista ensin että toimitussisalto on olemassa
             toimitussisalto = db.query(Toimitussisalto).get(toimitussisalto_id)
             if not toimitussisalto:
-                print(f"❌ Toimitussisältöä ID:llä {toimitussisalto_id} ei löydy")
+                logging.warning(f"❌ Toimitussisältöä ID:llä {toimitussisalto_id} ei löydy")
                 return False
 
             lisatty = 0
@@ -970,27 +969,27 @@ def lisaa_ulko_ovet_kantaan(ovet: list[Ulko_ovi], toimitussisalto_id: int):
                         maara=ovi.maara,
                         toimitussisalto_id=toimitussisalto_id
                     )
-                    print("Ovi-olio luotu onnistuneesti")
+                    logging.debug("Ovi-olio luotu onnistuneesti")
                     db.add(uusi_ovi)
-                    print("Ovi lisätty sessioon")
+                    logging.debug("Ovi lisätty sessioon")
                     lisatty += 1
                 except Exception as e:
-                    print(f"❌ Virhe oven luonnissa: {str(e)}")
+                    logging.error(f"❌ Virhe oven luonnissa: {str(e)}")
                     continue
             
             try:
                 db.flush()
-                print("Flush onnistui")
+                logging.debug("Flush onnistui")
                 db.commit()
-                print(f"✅ Lisätty {lisatty} ovea tietokantaan")
+                logging.info(f"✅ Lisätty {lisatty} ovea tietokantaan")
                 return True
             except Exception as commit_error:
-                print(f"❌ Virhe commitissa: {str(commit_error)}")
+                logging.error(f"❌ Virhe commitissa: {str(commit_error)}")
                 db.rollback()
                 return False
             
     except Exception as e:
-        print(f"❌ Virhe ovien lisäämisessä: {str(e)}")
+        logging.error(f"❌ Virhe ovien lisäämisessä: {str(e)}")
         return False
 
 #==================================== lisaa_valiovet_kantaan(ovimallit: list[str], toimitussisalto_id: int)
@@ -1010,12 +1009,12 @@ def lisaa_valiovet_kantaan(ovimallit: list[str], toimitussisalto_id: int) -> boo
             # Tarkista että toimitussisalto on olemassa
             toimitussisalto = db.query(Toimitussisalto).get(toimitussisalto_id)
             if not toimitussisalto:
-                print(f"❌ Toimitussisältöä ID:llä {toimitussisalto_id} ei löydy")
+                logging.warning(f"❌ Toimitussisältöä ID:llä {toimitussisalto_id} ei löydy")
                 return False
 
             lisatty = 0
             for malli in ovimallit:
-                print(f"Lisätään väliovi: {malli}")  # Debug-tuloste
+                logging.debug(f"Lisätään väliovi: {malli}")
                 
                 uusi_ovi = Valiovi(
                     malli=malli,
@@ -1026,23 +1025,23 @@ def lisaa_valiovet_kantaan(ovimallit: list[str], toimitussisalto_id: int) -> boo
 
             try:
                 db.flush()  # Tarkista ensin että kaikki OK
-                print("Flush onnistui")  # Debug-tuloste
+                logging.debug("Flush onnistui")
                 db.commit()
-                print(f"✅ Lisätty {lisatty} väliovea tietokantaan")
+                logging.info(f"✅ Lisätty {lisatty} väliovea tietokantaan")
                 return True
             except Exception as commit_error:
-                print(f"❌ Virhe commitissa: {str(commit_error)}")
+                logging.warning(f"❌ Virhe commitissa: {str(commit_error)}")
                 db.rollback()
                 return False
 
     except Exception as e:
-        print(f"❌ Virhe väliovien lisäämisessä: {str(e)}")
+        logging.error(f"❌ Virhe väliovien lisäämisessä: {str(e)}")
         return False
 
 
 #==================================== hae_toimitussiallon ikkunat(toimittaja_id, toimitussisalto_id)
 
-def hae_toimitussisallon_ikkunat(toimittaja_id: int, toimitussisalto_id: int):
+def hae_toimitussisallon_ikkunat_kantaan(toimittaja_id: int, toimitussisalto_id: int):
     """
     Hakee ja tulostaa toimittajan tietyn toimitussisällön ikkunat käyttäen SQLAlchemy ORM:ää.
 
@@ -1058,33 +1057,35 @@ def hae_toimitussisallon_ikkunat(toimittaja_id: int, toimitussisalto_id: int):
                 .join(Toimitussisalto)
                 .filter(
                     Toimitussisalto.toimittaja_id == toimittaja_id,
-                    Toimitussisalto.id == toimitussisalto_id
+                    Toimitussisalto.id == toimitussisalto_id # Eikö pelkkä toimitussisältö ID riitä?
                 )
                 .order_by(Ikkuna.id)
                 .all()
             )
             
             if not ikkunat:
-                print(f"❌ Ei löytynyt ikkunoita toimittajalle ID:{toimittaja_id} ja toimitussisällölle ID:{toimitussisalto_id}")
+                logging.warning(f"❌ Ei löytynyt ikkunoita toimittajalle ID:{toimittaja_id} ja toimitussisällölle ID:{toimitussisalto_id}")
                 return
             
-            print(f"\n🔹 Löydetty {len(ikkunat)} ikkunaa:")
+            logging.info(f"\n🔹 Löydetty {len(ikkunat)} ikkunaa:")
             print("=" * 80)
             
             for ikkuna in ikkunat:
-                print(f"Ikkuna ID: {ikkuna.id}")
-                print(f"Koko: {ikkuna.leveys}x{ikkuna.korkeus} mm")
-                print(f"Turvalasi: {'Kyllä' if ikkuna.turvalasi else 'Ei'}")
-                print(f"Välikarmi: {'Kyllä' if ikkuna.valikarmi else 'Ei'}")
-                print(f"Sälekaihtimet: {'Kyllä' if ikkuna.salekaihtimet else 'Ei'}")
-                print(f"Luotu: {ikkuna.created_at.strftime('%d.%m.%Y %H:%M:%S') if ikkuna.created_at else 'Ei tiedossa'}")
-                print(f"Toimittaja: {ikkuna.toimitussisalto.toimittaja}")
-                print("-" * 80)
+                logging.info(
+                    f"Ikkuna ID: {ikkuna.id}\n"
+                    f"Koko: {ikkuna.leveys}x{ikkuna.korkeus} mm\n"
+                    f"Turvalasi: {'Kyllä' if ikkuna.turvalasi else 'Ei'}\n"
+                    f"Välikarmi: {'Kyllä' if ikkuna.valikarmi else 'Ei'}\n"
+                    f"Sälekaihtimet: {'Kyllä' if ikkuna.salekaihtimet else 'Ei'}\n"
+                    f"Luotu: {ikkuna.created_at.strftime('%d.%m.%Y %H:%M:%S') if ikkuna.created_at else 'Ei tiedossa'}\n"
+                    f"Toimittaja: {ikkuna.toimitussisalto.toimittaja}\n"
+                    + "-" * 80
+                )
 
     except Exception as e:
-        print(f"❌ Virhe ikkunoiden haussa: {str(e)}")
+        logging.error(f"❌ Virhe ikkunoiden haussa: {str(e)}")
 
-def hae_toimittajan_sisallot(toimittaja_id: int):
+def hae_toimittajan_sisallot_kannasta(toimittaja_id: int):
     """
     Hakee ja tulostaa kaikki toimittajan toimitussisällöt.
 
@@ -1105,25 +1106,27 @@ def hae_toimittajan_sisallot(toimittaja_id: int):
             )
 
             if not toimitussisallot:
-                print(f"❌ Ei löytynyt toimitussisältöjä toimittajalle ID:{toimittaja_id}")
+                logging.warning(f"❌ Ei löytynyt toimitussisältöjä toimittajalle ID:{toimittaja_id}")
                 return []
 
-            print(f"\n🔹 Löydetty {len(toimitussisallot)} toimitussisältöä:")
+            logging.info(f"\n🔹 Löydetty {len(toimitussisallot)} toimitussisältöä:")
             print("=" * 80)
 
             for sisalto in toimitussisallot:
-                print(f"Toimitussisältö ID: {sisalto.id}")
-                print(f"UUID: {sisalto.uuid}")
-                print(f"Toimittaja: {sisalto.toimittaja}")
-                print(f"Luotu: {sisalto.created_at.strftime('%d.%m.%Y %H:%M:%S')}")
-                print(f"Aktiivinen: {'Kyllä' if sisalto.aktiivinen else 'Ei'}")
-                print(f"Ikkunoita: {len(sisalto.ikkunat)}")
-                print("-" * 80)
+                logging.info(
+                    f"Toimitussisältö ID: {sisalto.id}\n"
+                    f"UUID: {sisalto.uuid}\n"
+                    f"Toimittaja: {sisalto.toimittaja}\n"
+                    f"Luotu: {sisalto.created_at.strftime('%d.%m.%Y %H:%M:%S')}\n"
+                    f"Aktiivinen: {'Kyllä' if sisalto.aktiivinen else 'Ei'}\n"
+                    f"Ikkunoita: {len(sisalto.ikkunat)}\n"
+                    + "-" * 80
+                )
 
             return toimitussisallot
 
     except Exception as e:
-        print(f"❌ Virhe toimitussisältöjen haussa: {str(e)}")
+        logging.error(f"❌ Virhe toimitussisältöjen haussa: {str(e)}")
         return []
 
 #==================================== hae_toimitussisalto(toimitussisalto_id)
@@ -1180,24 +1183,23 @@ def hae_toimittajan_id_nimella(toimittaja: str) -> int | None:
     """
     try:
         with SessionLocal() as db:
-            kysely = text("""
-                SELECT id
-                FROM toimittajat
-                WHERE nimi = :toimittaja
-                LIMIT 1;
-            """)
-            tulos = db.execute(kysely, {"toimittaja": toimittaja}).fetchone()
+            tulos = (
+                db.query(Toimittaja.id)
+                .filter(Toimittaja.nimi == toimittaja)
+                .limit(1)
+                .first()
+            )
 
             if not tulos:
-                print(f"❌ Ei löytynyt toimittajaa nimellä {toimittaja}")
+                logging.warning(f"❌ Ei löytynyt toimittajaa nimellä {toimittaja}")
                 return None
 
             toimittaja_id = tulos[0]
-            print(f"✅ Toimittajan {toimittaja} ID on: {toimittaja_id}")
+            logging.info(f"✅ Toimittajan {toimittaja} ID on: {toimittaja_id}")
             return toimittaja_id
 
     except Exception as e:
-        print(f"❌ Virhe kyselyssä: {str(e)}")
+        logging.error(f"❌ Virhe kyselyssä: {str(e)}")
         return None
 
 #==================================== hae_paivan_toimitussisallot(paivamaara)
