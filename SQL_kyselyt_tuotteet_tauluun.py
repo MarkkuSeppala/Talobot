@@ -11,6 +11,12 @@ from io import StringIO
 import csv
 
 from datetime import datetime
+from logger_config import configure_logging
+import logging
+
+# Loggerin alustus
+configure_logging()
+logger = logging.getLogger(__name__)
 
 
 # Hae tietokantayhteys
@@ -601,7 +607,7 @@ def hae_tuotteet_prompt1_str():
         
         # Debug: tulostetaan ensin koko kysely
         kysely = session.query(Tuote.id, Tuote.tuote).filter(Tuote.prompt_1.is_(True))
-        print(f"Debug - SQL kysely: {kysely}")
+        logging.debug(f"SQL kysely: {kysely}")
         
         # Suoritetaan kysely
         tuotteet = kysely.order_by(Tuote.id).all()
@@ -609,7 +615,7 @@ def hae_tuotteet_prompt1_str():
         # Debug: tulostetaan jokaisen rivin prompt_1 arvo
         for t in tuotteet:
             rivi = session.query(Tuote).get(t[0])
-            #print(f"ID: {t[0]}, prompt_1: {rivi.prompt_1}")
+            logging.debug(f"ID: {t[0]}, prompt_1: {rivi.prompt_1}")
         
         output = StringIO()
         writer = csv.writer(output, delimiter=';', lineterminator='\n')
@@ -624,7 +630,7 @@ def hae_tuotteet_prompt1_str():
         return csv_str
         
     except Exception as e:
-        print(f"Virhe tuotteiden haussa: {str(e)}")
+        logging.error(f"Virhe tuotteiden haussa: {str(e)}")
         return None
     
     finally:

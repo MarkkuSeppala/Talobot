@@ -1617,7 +1617,7 @@ def luo_toimitussisalto_tuotteet_taulu():
         return False
 
 #==================================== lisaa_toimitussisalto_tuotteet(json_data, toimitussisalto_id)
-def lisaa_toimitussisalto_tuotteet(json_data, toimitussisalto_id):
+def lisaa_toimitussisalto_tuotteet_kantaan(json_data: str, toimitussisalto_id: int) -> bool:
     """
     Lisää JSON-muotoiset tuotetiedot Toimitussisalto_tuotteet-tauluun.
     
@@ -1636,8 +1636,8 @@ def lisaa_toimitussisalto_tuotteet(json_data, toimitussisalto_id):
             try:
                 data = json.loads(json_data)
             except json.JSONDecodeError as e:
-                print(f"Virheellinen JSON-muoto: {str(e)}")
-                print("Puhdistettu JSON-data:", json_data[:100] + "...")  # Näytetään alku
+                logging.error(f"Virheellinen JSON-muoto: {str(e)}")
+                logging.info("Puhdistettu JSON-data:", json_data[:100] + "...")  # Näytetään alku
                 return False
         else:
             data = json_data
@@ -1649,7 +1649,7 @@ def lisaa_toimitussisalto_tuotteet(json_data, toimitussisalto_id):
             tunnistukset = data.get("tunnistukset", [])
             
         if not tunnistukset:
-            print("Ei tuotteita lisättäväksi!")
+            logging.warning("Ei tuotteita lisättäväksi!")
             return False
             
         session = SessionLocal()
@@ -1668,31 +1668,31 @@ def lisaa_toimitussisalto_tuotteet(json_data, toimitussisalto_id):
                     session.add(uusi_toimitussisalto_tuote)
                     lisatyt += 1
                 except KeyError as e:
-                    print(f"Virheellinen tuotetieto, puuttuu kenttä: {str(e)}")
-                    print("Tuotedata:", tuote)
+                    logging.error(f"Virheellinen tuotetieto, puuttuu kenttä: {str(e)}")
+                    logging.info("Tuotedata:", tuote)
                     continue
             
             if lisatyt > 0:
                 session.commit()
-                print(f"Lisätty {lisatyt} tuotetta toimitussisältöön {toimitussisalto_id}")
+                logging.info(f"Lisätty {lisatyt} tuotetta toimitussisältöön {toimitussisalto_id}")
                 return True
             else:
-                print("Ei yhtään tuotetta lisätty.")
+                logging.warning("Ei yhtään tuotetta lisätty.")
                 return False
             
         except Exception as e:
             session.rollback()
-            print(f"Virhe tietojen tallennuksessa: {str(e)}")
+            logging.error(f"Virhe tietojen tallennuksessa: {str(e)}")
             return False
             
     except Exception as e:
-        print(f"Virhe JSON-käsittelyssä: {str(e)}")
+        logging.error(f"Virhe JSON-käsittelyssä: {str(e)}")
         return False
         
     finally:
         session.close()
 #==================================== nayta_toimitussisalto_tuotteet()
-def nayta_toimitussisalto_tuotteet():
+def nayta_toimitussisalto_tuotteet() -> None:
     """
     Tulostaa toimitussisalto_tuotteet-taulun sisällön järjestettynä luontipäivämäärän mukaan.
     """
@@ -1775,7 +1775,7 @@ def hae_toimitussisallon_tuotteet(toimitussisalto_id):
         ).all()
         
         if not tulokset:
-            print(f"Toimitussisällölle {toimitussisalto_id} ei löytynyt tuotteita!")
+            logging.warning(f"Toimitussisällölle {toimitussisalto_id} ei löytynyt tuotteita!")
             return
         
         # Muodosta data taulukkoa varten
