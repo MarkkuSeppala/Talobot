@@ -22,8 +22,8 @@ from SQL_kyselyt_tuotteet_tauluun import *
 #hae_paivan_valiovet("01.04.2025")
 #hae_tuotteet()
 #nayta_toimitussisalto_tuotteet()
-#hae_toimitussisallon_tuotteet("696")
-
+#hae_toimitussisallon_tuotteet("700")
+#hae_toimitussisallon_tuotteet_2("700")
 
 #------------kantaan muutoksia tekevät kyselyt------------
 #update_table()

@@ -2,7 +2,7 @@
 import os
 import sys
 #from muunna_ikkunat import muunna_raaka_ikkunat_yksittaisiksi, parsi_rivit_tiedoiksi, kastelli_parsi_rivit_tiedoiksi, muunna_raaka_ikkunat_yksittaisiksi_kastelli
-from SQL_kyselyt import lisaa_ikkunat_kantaan, lisaa_ulko_ovet_kantaan, lisaa_valiovet_kantaan, lisaa_toimitussisalto_tuotteet, hae_toimitussisallon_tuotteet
+from SQL_kyselyt import lisaa_ikkunat_kantaan, lisaa_ulko_ovet_kantaan, lisaa_valiovet_kantaan, lisaa_toimitussisalto_tuotteet, hae_toimitussisallon_tuotteet,  hae_toimitussisallon_tuotteet_2
 
 
 sys.path.append(os.path.abspath("utils"))  # Lisää utils-kansion polku moduulihakemistoksi
@@ -114,7 +114,7 @@ def run_sievitalo(toimitussisalto_txt, toimitussisalto_id):
         toimitussisalto_tuotteet = api_kysely_nelja_parametria(GENERATION_CONFIG, PROMPT_SIEVITALO_POIMI_TUOTTEET_TXT, puhdistettu_toimitussisalto, tuotteet)
         #print("run.py 116. toimitussisalto_tuotteet", toimitussisalto_tuotteet)
         lisaa_toimitussisalto_tuotteet(toimitussisalto_tuotteet, toimitussisalto_id)
-        hae_toimitussisallon_tuotteet(toimitussisalto_id)
+        hae_toimitussisallon_tuotteet_2(toimitussisalto_id)
        
 
 
@@ -129,7 +129,7 @@ def run_sievitalo(toimitussisalto_txt, toimitussisalto_id):
 def run_kastelli(toimitussisalto_txt_polku: str, toimitussisalto_id: str):
         
         #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     clean_text2       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        #puhdistettu_toimitussisalto = clean_text2(toimitussisalto_txt_polku)
+        #puhdistettu_toimitussisalto = puhdista_teksti(toimitussisalto_txt_polku)
         #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -139,21 +139,21 @@ def run_kastelli(toimitussisalto_txt_polku: str, toimitussisalto_id: str):
         # #print("ikkunatiedot_kokonaisuudessa", ikkunatiedot_kokonaisuudessa)
         # print(kastelli_parsi_rivit_tiedoiksi(ikkunatiedot_kokonaisuudessa))
         # ikkunat_json = muunna_raaka_ikkunat_yksittaisiksi_kastelli(kastelli_parsi_rivit_tiedoiksi(ikkunatiedot_kokonaisuudessa))
-        # print("run_kastelli 110", toimitussisalto_id)
-        # print("ikkunat_json:", ikkunat_json)
+        # #print("run_kastelli 110", toimitussisalto_id)
+        # #print("ikkunat_json:", ikkunat_json)
         # lisaa_ikkunat_kantaan(ikkunat_json, toimitussisalto_id)
         #-------------------------------------------------------------------------------------------------------------------------------
 
         #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx     PROMPT_KASTELLI_POIMI_ULKO_OVI_TIEDOT_TXT    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        #api_kysely(PROMPT_KASTELLI_POIMI_ULKO_OVI_TIEDOT_TXT, GENERATION_CONFIG, PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT, ULKO_OVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT)
-        #api_kysely_kirjoitus_json(PROMPT_KASTELLI_ULKO_OVI_TIEDOT_JSON_MUOTOON, GENERATION_CONFIG, ULKO_OVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT, ULKO_OVI_TIEDOT_KASTELLI_2_JSON)
+        # api_kysely(PROMPT_KASTELLI_POIMI_ULKO_OVI_TIEDOT_TXT, GENERATION_CONFIG, PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT, ULKO_OVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT)
+        # api_kysely_kirjoitus_json(PROMPT_KASTELLI_ULKO_OVI_TIEDOT_JSON_MUOTOON, GENERATION_CONFIG, ULKO_OVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT, ULKO_OVI_TIEDOT_KASTELLI_2_JSON)
         #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         
         
         
         # #++++++++++++++++++++++++++++++++++++++       PROMPT_KASTELLI_POIMI_VALIOVITIEDOT_TXT     ++++++++++++++++++++++++++++++++++++++++++++++
-        #api_kysely(PROMPT_KASTELLI_POIMI_VALIOVITIEDOT_TXT, GENERATION_CONFIG, PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT, VALIOVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT)
-        #api_kysely_kirjoitus_json(PROMPT_KASTELLI_ANNA_VALIOVIMALLIT_TXT, GENERATION_CONFIG, VALIOVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT, VALIOVITYYPIT_KASTELLI_JSON)
+        # api_kysely(PROMPT_KASTELLI_POIMI_VALIOVITIEDOT_TXT, GENERATION_CONFIG, PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT, VALIOVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT)
+        # api_kysely_kirjoitus_json(PROMPT_KASTELLI_ANNA_VALIOVIMALLIT_TXT, GENERATION_CONFIG, VALIOVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT, VALIOVITYYPIT_KASTELLI_JSON)
         # #++++++++++++++++++++++++++++++++++++++++++++++                                      ++++++++++++++++++++++++++++++++++++++++++++++++++++
 
         print("run_kastelli 179")

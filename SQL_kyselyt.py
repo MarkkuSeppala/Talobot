@@ -1295,18 +1295,19 @@ def hae_paivan_ulko_ovet(paivamaara: str) -> list:
             for ovi, toimitussisalto in ovet:
                 ovi_tiedot = {
                     "id": ovi.id,
+                    "toimitussisalto_id": ovi.toimitussisalto_id,
                     "malli": ovi.malli,
                     "paloluokitus_EI_15": ovi.paloluokitus_EI_15,
                     "lukko": ovi.lukko,
                     "maara": ovi.maara,
                     "luotu": ovi.luotu,
-                    "toimitussisalto_id": ovi.toimitussisalto_id,
                     "toimittaja": toimitussisalto.toimittaja
                 }
                 tulokset.append(ovi_tiedot)
                 
                 # Tulostetaan oven tiedot
                 print(f"Ovi ID: {ovi.id}")
+                print(f"Toimitussisältö ID: {ovi.toimitussisalto_id}")
                 print(f"Malli: {ovi.malli}")
                 print(f"Paloluokitus EI 15: {'Kyllä' if ovi.paloluokitus_EI_15 else 'Ei'}")
                 print(f"Lukko: {ovi.lukko}")
@@ -1747,12 +1748,10 @@ def nayta_toimitussisalto_tuotteet():
     finally:
         session.close()
 
-# Käyttö:
-if __name__ == "__main__":
-    nayta_toimitussisalto_tuotteet()
 
 
 #==================================== hae_toimitussisallon_tuotteet(toimitussisalto_id)
+#|ID | Toimitussisältö ID |Tuote ID | Tuote nimi  |Määrä |Tuotteen hinta | Yhteensä| Luotu |
 def hae_toimitussisallon_tuotteet(toimitussisalto_id):
     """
     Hakee toimitussisällön tuotteet ja niiden hinnat.
@@ -1829,6 +1828,86 @@ def hae_toimitussisallon_tuotteet(toimitussisalto_id):
         # Tulosta yhteenveto
         print(f"\nYhteensä {len(tulokset)} tuotetta")
         print(f"Kokonaissumma: {kokonaissumma:.2f} €")
+        
+    except Exception as e:
+        print(f"Virhe tietojen haussa: {str(e)}")
+    
+    finally:
+        session.close()
+
+#==================================== hae_toimitussisallon_tuotteet_2(toimitussisalto_id)
+# ID |Toimitussisältö ID |Tuote ID | Tuote nimi toimitussisallossa | Tuote nimi   |   Määrä | Tuotteen hinta   | Luotu|   
+ 
+def hae_toimitussisallon_tuotteet_2(toimitussisalto_id):
+    """
+    Hakee toimitussisällön tuotteet ja niiden hinnat.
+    
+    Args:
+        toimitussisalto_id (int): Toimitussisällön ID
+    """
+    try:
+        session = SessionLocal()
+        
+        # Hae tiedot molemmista tauluista JOIN-operaatiolla
+        tulokset = session.query(
+            Toimitussisalto_tuotteet,
+            Tuote.hinta,
+            Tuote.tuote
+        ).join(
+            Tuote,
+            Toimitussisalto_tuotteet.tuote_id == Tuote.id
+        ).filter(
+            Toimitussisalto_tuotteet.toimitussisalto_id == toimitussisalto_id
+        ).all()
+        
+        if not tulokset:
+            print(f"Toimitussisällölle {toimitussisalto_id} ei löytynyt tuotteita!")
+            return
+        #print("tulokset", tulokset)
+        # Muodosta data taulukkoa varten
+        headers = [
+            'ID', 
+            'Toimitussisältö ID', 
+            'Tuote ID', 
+            'Tuote nimi toimitussisallossa',
+            'Tuote nimi ', 
+            'Määrä', 
+            'Tuotteen hinta',
+            'Luotu'
+        ]
+        data = []
+        
+        
+        
+        for rivi in tulokset:
+            # Muotoile päivämäärä
+            #luotu = rivi.luotu.strftime("%d.%m.%Y %H:%M") if rivi.luotu else "-"
+            
+            data.append([
+                rivi[0].id,
+                rivi[0].toimitussisalto_id,
+                rivi[0].tuote_id,
+                rivi[2],  # tuote
+                rivi[0].tuote_nimi_toimitussisallossa,
+                f"{float(rivi[0].maara):.2f}",
+                f"{float(rivi[1]):.2f} €" if rivi[1] else "-",
+                rivi[0].luotu.strftime("%d.%m.%Y %H:%M") if rivi[0].luotu else "-"  # Korjattu tämä rivi
+                   
+                ])
+        
+        # Tulosta taulukko
+        print(f"\nToimitussisällön {toimitussisalto_id} tuotteet:")
+        print(tabulate(
+            data,
+            headers=headers,
+            tablefmt='grid',
+            numalign='right',
+            stralign='left'
+        ))
+        
+        # Tulosta yhteenveto
+        print(f"\nYhteensä {len(tulokset)} tuotetta")
+        
         
     except Exception as e:
         print(f"Virhe tietojen haussa: {str(e)}")

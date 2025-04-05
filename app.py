@@ -89,9 +89,13 @@ def suodata_tiedot():
         
         #Oliko toimitussisalto kastellin?
         if hae_toimittaja_uuidlla(unique_tiedostonimi_toinen_toimitussisalto) == "Kastelli":
-            print("Kastelli run()")
+            toimitussisalto_txt_url = hae_toimitussisalto_txt_url_uuidlla(unique_tiedostonimi_toinen_toimitussisalto)
+            toimitussisalto_txt = lue_txt_tiedosto(toimitussisalto_txt_url)
+            toimitussisallon_id = hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_toinen_toimitussisalto)
+            #print("Kastelli run()")
             #Kastellin toimitussisalto puhdistetaan turhista merkeistä ja suodatetaan ikkunat, ulko-ovet, valiovet ja tallennetaaan ne kantaan
-            #run_kastelli(lue_txt_url_uuidlla(hae_toimitussisalto_txt_url_uuidlla(unique_id_toinen_toimitussisalto)), hae_toimitussisalto_id_uuidlla(unique_id_toinen_toimitussisalto))
+            run_kastelli(toimitussisalto_txt, toimitussisallon_id)         
+           
         
         #Oliko toimitussisalto .....
         #if hae_toimittaja_uuidlla(unique_id_toinen_toimitussisalto) == "Designtalo":
