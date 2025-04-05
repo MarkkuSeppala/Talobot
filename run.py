@@ -2,7 +2,7 @@
 import os
 import sys
 #from muunna_ikkunat import muunna_raaka_ikkunat_yksittaisiksi, parsi_rivit_tiedoiksi, kastelli_parsi_rivit_tiedoiksi, muunna_raaka_ikkunat_yksittaisiksi_kastelli
-from SQL_kyselyt import lisaa_ikkunat_kantaan, lisaa_ulko_ovet_kantaan, lisaa_valiovet_kantaan, lisaa_toimitussisalto_tuotteet, hae_toimitussisallon_tuotteet,  hae_toimitussisallon_tuotteet_2
+from SQL_kyselyt import lisaa_ikkunat_kantaan, lisaa_ulko_ovet_kantaan, lisaa_valiovet_kantaan, lisaa_toimitussisalto_tuotteet_kantaan, hae_toimitussisallon_tuotteet, hae_toimitussisallon_tuotteet_2
 
 
 sys.path.append(os.path.abspath("utils"))  # Lisää utils-kansion polku moduulihakemistoksi
@@ -110,10 +110,9 @@ def run_sievitalo(toimitussisalto_txt, toimitussisalto_id):
 
         #---------------------------------------     Sievitalo tuotteet kantaan      ----------------------------------------
         tuotteet = hae_tuotteet_prompt1_str()
-        #print("run.py 114. tuotteet", tuotteet)
         toimitussisalto_tuotteet = api_kysely_nelja_parametria(GENERATION_CONFIG, PROMPT_SIEVITALO_POIMI_TUOTTEET_TXT, puhdistettu_toimitussisalto, tuotteet)
         #print("run.py 116. toimitussisalto_tuotteet", toimitussisalto_tuotteet)
-        lisaa_toimitussisalto_tuotteet(toimitussisalto_tuotteet, toimitussisalto_id)
+        lisaa_toimitussisalto_tuotteet_kantaan(toimitussisalto_tuotteet, toimitussisalto_id)
         hae_toimitussisallon_tuotteet_2(toimitussisalto_id)
        
 
