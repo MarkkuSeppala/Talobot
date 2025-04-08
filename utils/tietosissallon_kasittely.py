@@ -357,3 +357,39 @@ def  designtalo_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi(ikkuna_js
     # Tallennetaan JSON-tiedostoon
     #with open("data/s/ikkuna_json_2.txt", "w", encoding="utf-8") as tiedosto:
     #    json.dump(output_json, tiedosto, ensure_ascii=False, indent=4)
+
+#--------- lisaa_toimitussisalto_merkinta()
+def lisaa_toimitussisalto_merkinta(text: str) -> str:
+    """
+    Lisää toimitussisältö-merkinnät puhdistetun tekstin ympärille.
+    
+    Args:
+        text (str): Puhdistettu teksti puhdista_teksti-funktiosta
+        
+    Returns:
+        str: Teksti merkintöjen kanssa
+    """
+   
+    return f"**TOIMITUSSISÄLTÖ START**\n{puhdistettu}\n**TOIMITUSSISÄLTÖ END**"
+
+
+
+#------------------ poista_json_merkinta()
+def poista_json_merkinta(text: str) -> str:
+    """
+    Poistaa tekstistä ```json merkinnän alusta ja ``` merkinnän lopusta.
+    
+    Args:
+        text (str): Teksti, josta merkinnät poistetaan
+        
+    Returns:
+        str: Teksti ilman json-merkintöjä
+    """
+    # Poistetaan ```json alusta
+    if text.startswith("```json"):
+        text = text[7:]  # 7 merkkiä: ```json
+        
+    # Poistetaan ``` lopusta - käytetään replace() metodia
+    text = text.replace("```", "")
+        
+    return text.strip()  # Poistetaan myös mahdolliset ylimääräiset välilyönnit

@@ -1,16 +1,20 @@
+Olet talonrakentamisen ammattilainen ja opastat tulkitsemaan talotoimittajan tarjousta.
+
 Analysoi toimitussisällön teksti ja tunnista siinä esiintyvät tuotteet hyödyntäen antamaani tuotelistausta.
 
-Tuotelistaus löytyy CSV-tiedostosta "tuotteet.csv", ja siinä on tuoteiden nimet ja yksilöivät ID-tunnisteet.
+Tuotelistaus on muotoa: ID;Tuote.
 
-Toimitussisältö löytyy PDF-tiedostosta "Sievitalo Ritari.pdf".
+Toimitussisältö alkaa tekstillä: **TOIMITUSSISÄLTÖ START** ja päättyy tekstiin **TOIMITUSSISÄLTÖ END**.
 
 Ohjeet:
 
-Tunnista toimitussisällöstä vain ne tuotteet, jotka voidaan varmuudella yhdistää antamaani tuotelistaukseen. Älä lisää tulokseen mitään omia oletuksia tai arvioita.
+Huomioi, että toimitussisällössä tuotteet voivat esiintyä hieman eri muodossa tai synonyymeinä kuin tuotelistaustassa. Käytä luonnollisen kielen prosessointia mahdollisten vastaavuuksien löytämiseksi.
 
-Huomioi, että toimitussisällössä tuotteet voivat esiintyä hieman eri muodossa tai synonyymeinä kuin CSV-tiedostossa. Käytä luonnollisen kielen prosessointia mahdollisten vastaavuuksien löytämiseksi.
+Kirjoita tarkasti tuotelistauksen kaikki tuotteet JSON -listaus "tuote_id" ja "tuote_nimi" -kentiin.
+Mikäli tuotelistauksen jotain tuotetta ei löydy, kirjoita JSON -listauksen "toimitussisallossa" -kentään "ei mainintaa".
 
-Palauta tulokset siten, että jokainen löydetty tuote yhdistyy suoraan CSV-tiedoston ID-tunnisteeseen.
+Tämä on tärkeää: Palauta tulokset siten, että JOKAINEN LÖYDETTY tuote yhdistyy tuotelistan ID-tunnisteeseen.
+
 
 Palauta vastaus JSON-muodossa seuraavalla rakenteella:
 
@@ -25,7 +29,9 @@ Palauta vastaus JSON-muodossa seuraavalla rakenteella:
 }
 
 Huomaa:
-- "tunnistukset" on lista objekteja
+- "tunnistukset" ovat lista objekteja
 - Jokaisen objektin pitää sisältää kaikki kolme kenttää
 - tuote_id on merkkijono, ei numero
 - Käytä kaksoislainausmerkkejä (") JSON-standardin mukaisesti
+
+

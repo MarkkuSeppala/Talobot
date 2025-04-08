@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Boolean, Text, DECIMAL
 from sqlalchemy.orm import relationship
 from datetime import datetime, timezone
+from sqlalchemy.sql import func
 
 
 import psycopg2
@@ -180,3 +181,14 @@ def hae_toimitussisalto(toimitussisalto_id: int) -> None:
     except Exception as e:
         print(f"❌ Virhe toimitussisällön haussa: {str(e)}")
 
+
+class Vertailut(Base):
+    __tablename__ = 'vertailut'
+
+    id = Column(Integer, primary_key=True)
+    toimitussisalto_1_id = Column(Integer, ForeignKey('toimitussisallot.id', ondelete='CASCADE'), nullable=False)
+    toimitussisalto_2_id = Column(Integer, ForeignKey('toimitussisallot.id', ondelete='CASCADE'), nullable=False)
+    created_at = Column(DateTime, default=func.now(), nullable=False)
+
+    def __repr__(self):
+        return f"<Vertailu(id={self.id}, toimitussisalto_1_id={self.toimitussisalto_1_id}, toimitussisalto_2_id={self.toimitussisalto_2_id})>"

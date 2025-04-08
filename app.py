@@ -33,7 +33,8 @@ from utils.file_handler import (tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_
 from utils.tietosissallon_kasittely import sievitalo_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, puhdista_teksti
 from run import run_sievitalo, run_kastelli
 from factory import get_sievitalo_ikkunat, get_sievitalo_ulko_ovet, get_sievitalo_valiovi_mallit, get_kastelli_ikkunat, get_kastelli_ulko_ovet, get_kastelli_valiovi_mallit
-from SQL_kyselyt import hae_toimittaja_uuidlla, hae_toimitussisalto_txt_url_uuidlla, hae_toimitussisalto_id_uuidlla, vastaanota_toimitussisalto, hae_paivan_toimitussisallot, hae_paivan_ulko_ovet, hae_paivan_valiovet
+from SQL_kyselyt import (hae_toimittaja_uuidlla, hae_toimitussisalto_txt_url_uuidlla, hae_toimitussisalto_id_uuidlla, 
+                         vastaanota_toimitussisalto, hae_paivan_toimitussisallot, hae_paivan_ulko_ovet, hae_paivan_valiovet, lisaa_vertailu)
 
 import google.generativeai as genai 
 
@@ -69,7 +70,8 @@ def suodata_tiedot():
                 file = request.files["ensimmainen_toimitussisalto"]            
                 unique_tiedostonimi_ensimmainen_toimitussisalto = vastaanota_toimitussisalto(file)
                 logging.info("Ensimmäinen toimitussisältö lisätty kantaan, toimittaja: {unique_tiedostonimi_ensimmainen_toimitussisalto}")
-                    
+
+                
             #Toinen toimitussisalto. Tallentaa pdf ja tekstitiedoston palvelimelle uuid -tunnuksella
             if "toinen_toimitussisalto" in request.files:
                 file = request.files["toinen_toimitussisalto"]            
@@ -77,6 +79,8 @@ def suodata_tiedot():
                 logging.info("Toinen toimitussisältö lisätty kantaan, toimittaja: {unique_tiedostonimi_toinen_toimitussisalto}")
 
                 
+                lisaa_vertailu(hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_ensimmainen_toimitussisalto), hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_toinen_toimitussisalto))  
+        
         #Oliko toimitussisalto Sievitalon?
         if hae_toimittaja_uuidlla(unique_tiedostonimi_ensimmainen_toimitussisalto) == "Sievitalo":
             
@@ -94,7 +98,7 @@ def suodata_tiedot():
             toimitussisallon_id = hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_toinen_toimitussisalto)
             #print("Kastelli run()")
             #Kastellin toimitussisalto puhdistetaan turhista merkeistä ja suodatetaan ikkunat, ulko-ovet, valiovet ja tallennetaaan ne kantaan
-            run_kastelli(toimitussisalto_txt, toimitussisallon_id)         
+            #run_kastelli(toimitussisalto_txt, toimitussisallon_id)         
            
         
         #Oliko toimitussisalto .....

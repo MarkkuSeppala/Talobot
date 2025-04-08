@@ -87,10 +87,10 @@ VALIOVITYYPIT_KASTELLI_JSON = K_DIR / "valiovityypit_kastelli.json"
 PROMPT_KASTELLI_POIMI_IKKUNATIEDOT_TXT = K_DIR / "prompt_kastelli_poimi_ikkunatiedot.txt"
 PROMPT_KASTELLI_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON = K_DIR / "prompt_kastelli_ryhmittele_valitut_ikkunatiedot_json_muotoon.txt"
 PROMPT_KASTELLI_POIMI_ULKO_OVI_TIEDOT_TXT = K_DIR / "prompt_kastelli_poimi_ulko_ovi_tiedot.txt"
-PROMPT_KASTELLI_ULKO_OVI_TIEDOT_JSON_MUOTOON = K_DIR / "prompt_kastelli_ulko_ovi_tiedot_json_muotoon.txt"
+PROMPT_KASTELLI_ULKO_OVI_TIEDOT_LUOKKAMUOTOON = K_DIR / "prompt_kastelli_ulko_ovi_tiedot_luokkamuotoon.txt"
 PROMPT_KASTELLI_POIMI_VALIOVITIEDOT_TXT = K_DIR / "prompt_kastelli_poimi_valiovitiedot.txt"
 PROMPT_KASTELLI_ANNA_VALIOVIMALLIT_TXT = K_DIR / "prompt_kastelli_anna_valiovimallit.txt"
-
+PROMPT_KASTELLI_POIMI_TUOTTEET_TXT = K_DIR / "prompt_kastelli_poimi_tuotteet.txt"
 
 
 
