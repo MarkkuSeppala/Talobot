@@ -37,6 +37,14 @@ D_DIR = DATA_DIR / "d"
 
 TOIMITUSSISALTO_TXT = DATA_DIR / "toimitussisalto.txt"
 UPLOAD_FOLDER_DATA = DATA_DIR / "ladatut_toimitussisallot"
+TESTI_FOLDER = BASE_DIR / "testi"
+TESTI_1_TXT = TESTI_FOLDER / "testi_1.txt"
+TESTI_2_TXT = TESTI_FOLDER / "testi_2.txt"
+TESTI_3_TXT = TESTI_FOLDER / "testi_3.txt"
+TESTI_4_TXT = TESTI_FOLDER / "testi_4.txt"
+TESTI_5_TXT = TESTI_FOLDER / "testi_5.txt"
+TESTI_6_TXT = TESTI_FOLDER / "testi_6.txt"
+
 
 
 

@@ -102,7 +102,7 @@ def run_sievitalo(toimitussisalto_txt, toimitussisalto_id):
         #---------------------------------------     Sievitalo tuotteet kantaan      ----------------------------------------
         tuotteet = hae_tuotteet_prompt1_str()
         toimitussisalto_tuotteet = api_kysely_nelja_parametria(GENERATION_CONFIG, PROMPT_SIEVITALO_POIMI_TUOTTEET_TXT, puhdistettu_toimitussisalto, tuotteet)
-        #print("run.py 116. toimitussisalto_tuotteet", toimitussisalto_tuotteet)
+        #print("run.py 105", lue_txt_tiedosto(PROMPT_SIEVITALO_POIMI_TUOTTEET_TXT))
         lisaa_toimitussisalto_tuotteet_kantaan(toimitussisalto_tuotteet, toimitussisalto_id)
         hae_toimitussisallon_tuotteet_2(toimitussisalto_id)
        
@@ -125,7 +125,6 @@ def run_kastelli(toimitussisalto_txt_polku: str, toimitussisalto_id: str):
         
         
         #---------------------------------------     Kastelli ulko-ovet kantaan      ----------------------------------------
-        api_kysely(PROMPT_KASTELLI_POIMI_ULKO_OVI_TIEDOT_TXT, GENERATION_CONFIG, PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT, ULKO_OVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT)
         ulko_ovet = api_kysely(GENERATION_CONFIG, PROMPT_KASTELLI_POIMI_ULKO_OVI_TIEDOT_TXT, puhdistettu_toimitussisalto)
         ulko_ovet = api_kysely_ulko_ovet(GENERATION_CONFIG, PROMPT_KASTELLI_ULKO_OVI_TIEDOT_LUOKKAMUOTOON, ulko_ovet)
         lisaa_ulko_ovet_kantaan(ulko_ovet, toimitussisalto_id)
@@ -157,7 +156,7 @@ def run_kastelli(toimitussisalto_txt_polku: str, toimitussisalto_id: str):
         tuotteet = hae_tuotteet_prompt1_str()
         toimitussisalto_tuotteet = api_kysely_nelja_parametria(GENERATION_CONFIG, PROMPT_KASTELLI_POIMI_TUOTTEET_TXT, puhdistettu_toimitussisalto, tuotteet)
         toimitussisalto_tuotteet = poista_json_merkinta(toimitussisalto_tuotteet)
-        print("run.py 158. toimitussisalto_tuotteet", toimitussisalto_tuotteet)
+        #print("run.py 158. toimitussisalto_tuotteet", toimitussisalto_tuotteet)
         kirjoita_txt_tiedosto(toimitussisalto_tuotteet, IKKUNATIEDOT_KASTELLI_KOKONAISUUDESSA_TXT)
         lisaa_toimitussisalto_tuotteet_kantaan(toimitussisalto_tuotteet, toimitussisalto_id)
         print("run.py 160. toimitussisalto_id", toimitussisalto_id)

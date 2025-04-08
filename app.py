@@ -89,7 +89,7 @@ def suodata_tiedot():
             toimitussisallon_id = hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_ensimmainen_toimitussisalto)
             
             #Sievitalon toimitussisalto puhdistetaan turhista merkeistä ja suodatetaan ikkunat, ulko-ovet, valiovet ja tallennetaaan ne kantaan
-            run_sievitalo(toimitussisalto_txt, toimitussisallon_id)
+            #run_sievitalo(toimitussisalto_txt, toimitussisallon_id)
         
         #Oliko toimitussisalto kastellin?
         if hae_toimittaja_uuidlla(unique_tiedostonimi_toinen_toimitussisalto) == "Kastelli":
@@ -98,7 +98,7 @@ def suodata_tiedot():
             toimitussisallon_id = hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_toinen_toimitussisalto)
             #print("Kastelli run()")
             #Kastellin toimitussisalto puhdistetaan turhista merkeistä ja suodatetaan ikkunat, ulko-ovet, valiovet ja tallennetaaan ne kantaan
-            #run_kastelli(toimitussisalto_txt, toimitussisallon_id)         
+            run_kastelli(toimitussisalto_txt, toimitussisallon_id)         
            
         
         #Oliko toimitussisalto .....

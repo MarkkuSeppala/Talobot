@@ -1,6 +1,8 @@
 from SQL_kyselyt import *
 from SQL_kyselyt_tuotteet_tauluun import *
-from HTML_template import *
+from config_data import *
+from utils.file_handler import *
+
 #get_all_tables()
 #get_all_table_structures()
 #tulosta_toimitussisallot()
@@ -11,7 +13,7 @@ from HTML_template import *
 
 #hae_kaikki_ikkunat()
 #hae_paivan_ikkunat("07.04.2025")
-hae_toimitussisallon_ikkunat(840)
+#hae_toimitussisallon_ikkunat(840)
 
 #hae_toimittajan_sisallot(2)
 #hae_toimitussisalto(501)
@@ -22,18 +24,27 @@ hae_toimitussisallon_ikkunat(840)
 #hae_paivan_ulko_ovet("30.03.2025")
 #hae_paivan_ulko_ovet("07.04.2025")
 #tulosta_kaikki_ulko_ovet(10) #parametri -> montako viimeisintä ulko-ovetta tulostetaan. Tyhjä -> tulostetaan kaikki ulko-ovet.
-hae_toimitussisallon_ulko_ovet(840) 
+#hae_toimitussisallon_ulko_ovet(840) 
 
 #hae_paivan_valiovet("07.04.2025")
-hae_toimitussisallon_valiovet(840)
+#hae_toimitussisallon_valiovet(840)
 
 
-#hae_tuotteet()
+
 #nayta_toimitussisalto_tuotteet()
 #hae_toimitussisallon_tuotteet(842)
-#hae_toimitussisallon_tuotteet_2("737")
+#hae_toimitussisallon_tuotteet_2(840)
 #hae_kaikki_vertailut()
 #hae_vertailun_toimitussisalto_1_tiedot(3)
+
+#kirjoita_json_tiedostoon(hae_toimitussisallon_ikkunat(839), TESTI_1_TXT)
+#kirjoita_json_tiedostoon(hae_toimitussisallon_tuotteet(840), TESTI_1_TXT)
+
+
+# tallenna_toimitussisalto_json(tuotteet: list = None, ikkunat: list = None, ulko_ovet: list = None, valiovet: list = None, toimitussisalto_id: int = None, tiedosto: str = None) -> bool:
+#tallenna_toimitussisalto_json(hae_toimitussisallon_tuotteet_2(840), hae_toimitussisallon_ikkunat(840), hae_toimitussisallon_ulko_ovet(840), hae_toimitussisallon_valiovet(840), 840, TESTI_1_TXT)
+toimitussisalto_id = 865
+tulosta_toimitussisalto_taulukkona(hae_toimitussisallon_tuotteet_2(toimitussisalto_id), hae_toimitussisallon_ikkunat(toimitussisalto_id), hae_toimitussisallon_ulko_ovet(toimitussisalto_id), hae_toimitussisallon_valiovet(toimitussisalto_id), TESTI_1_TXT, toimitussisalto_id)   
 
 
 
@@ -71,5 +82,6 @@ hae_toimitussisallon_valiovet(840)
 #tallenna_tuotteet_ID_ja_nimi_tiedostoon("C:\Talobot")
 #print(hae_tuotteet_prompt1_str())
 #tarkista_prompt1_arvot()
+
 
 
