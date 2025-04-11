@@ -68,8 +68,8 @@ PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT = S_DIR / "prompt_sievitalo_poimi_ulk
 PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT = S_DIR / "prompt_sievitalo_anna_valiovimallit.txt"
 PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT = S_DIR / "prompt_sievitalo_poimi_valiovtiedot.txt"
 PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_LUOKKAMUOTOON = S_DIR / "prompt_sievitalo_ulko_ovi_tiedot_luokkamuotoon.txt"
-PROMPT_SIEVITALO_POIMI_TUOTTEET_TXT = S_DIR / "prompt_sievitalo_poimi_tuotteet.txt"
-
+PROMPT_SIEVITALO_POIMI_TUOTTEET_1_TXT = S_DIR / "prompt_sievitalo_poimi_tuotteet_1.txt"
+PROMPT_SIEVITALO_POIMI_TUOTTEET_2_TXT = S_DIR / "prompt_sievitalo_poimi_tuotteet_2.txt"
 
 
 

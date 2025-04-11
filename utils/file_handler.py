@@ -97,14 +97,9 @@ def kirjoita_txt_tiedosto(sisalto: str, tiedostopolku: str):
 
 def kirjoita_vastaus_jsoniin(response, tiedostopolku):
     try:
-        import json
-        if not response.text:
-            raise ValueError("Response-objekti ei sisällä tekstiä.")
-        # Poistetaan mahdollinen ```json merkintä vastauksesta
-        teksti = response.text.replace("```json", "").replace("```", "").strip()
-        vastaus_json = json.loads(teksti)
+        # Oletetaan, että response on jo sanakirja
         with open(tiedostopolku, "w", encoding="utf-8") as tiedosto:
-            json.dump(vastaus_json, tiedosto, ensure_ascii=False, indent=4)
+            json.dump(response, tiedosto, ensure_ascii=False, indent=4)
         print(f"Vastaus tallennettu JSON-tiedostoon: {tiedostopolku}")
     except Exception as e:
         print(f"Virhe JSON-tiedostoa kirjoittaessa: {e}")

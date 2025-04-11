@@ -8,7 +8,7 @@ Palauta tiedot JSON-muodossa, jossa jokainen ovi on seuraavassa muodossa:
         {
             "malli": "oven malli/tyyppi (string)",
             "paloluokitus_EI_15": true/false (boolean),
-            "lukko": "lukon tyyppi (string)",
+             "lukko": "lukon tyyppi (string) tai 'ei mainintaa', jos lukosta ei ole tietoa",
             "maara": lukumäärä (integer)
         }
         Palauta lista ovista muodossa: [{"malli": ..., "paloluokitus_EI_15": ..., ...}, {...}]

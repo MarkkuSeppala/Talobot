@@ -1,30 +1,63 @@
 import os
+import sys
 import re
 import fitz  # PyMuPDF
 import google.generativeai as genais
 from datetime import datetime
-from utils.file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet, kirjoita_json_tiedostoon
+#from utils.file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet, kirjoita_json_tiedostoon
 import json
 from logger_config import configure_logging
 import logging
+from docling.document_converter import DocumentConverter
 
-#sys.path.append(os.path.abspath(".."))
-#sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-#sys.path.append("C:/Talobot")
-#sys.path.append(os.path.abspath("utils"))  # Lisää utils-kansion polku moduulihakemistoksi
-#sys.path.append(os.path.abspath("data"))  # Lisää utils-kansion polku moduulihakemistoksi
+
+
+
+sys.path.append(os.path.abspath(".."))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+sys.path.append("C:/Talobot")
+sys.path.append(os.path.abspath("utils"))  # Lisää utils-kansion polku moduulihakemistoksi
+sys.path.append(os.path.abspath("data"))  # Lisää utils-kansion polku moduulihakemistoksi
 
 
 #from config_data import TOIMITUSSISALTO_TXT
 
-#==================================================================================================#
-#==================================================================================================#
-#==================================================================================================#
 
 # Logger alustus
 configure_logging()
 logger = logging.getLogger(__name__)
 
+
+def muuta_pdf_ja_puhdista_teksti_docling(pdf_file):
+    print("tietosissallon_kasittely.py 30")
+    source = pdf_file  # document per local path or URL
+    converter = DocumentConverter()
+    result = converter.convert(source)
+    text = result.document.export_to_markdown()
+    print("tietosissallon_kasittely.py 35")
+    text = str(text)
+    print("tietosissallon_kasittely.py 37", text)
+    return text
+
+# Puhdistaa tekoälyn palauttaman tekstin (poistaa markdown ```json -merkinnät)
+def puhdista_tekoalyn_palauttama_json_response_json(response_text: str):
+    """
+    Puhdistaa tekoälyn palauttaman tekstin (poistaa markdown ```json -merkinnät)
+    ja muuntaa sen Python-objektiksi.
+
+    :param response_text: Tekoälyn vastaus merkkijonona.
+    :return: Python-objekti (esim. dict tai list), joka vastaa JSON-rakennetta.
+    :raises json.JSONDecodeError: Jos sisältö ei ole kelvollista JSON:ia.
+    """
+    # Poistetaan kaikki mahdolliset markdown-merkinnät ja tyhjät rivit
+    cleaned = re.sub(r"```(?:json)?\s*|\s*```", "", response_text).strip()
+
+    # Tulostetaan puhdistettu JSON-testi (debuggausta varten)
+    print("Puhdistettu JSON-teksti:\n", cleaned)
+
+    # Muunnetaan JSONiksi
+    return json.loads(cleaned)
 
 def muuta_tekstiksi(pdf_file, tiedostopolku):
     """
@@ -48,13 +81,7 @@ def muuta_tekstiksi(pdf_file, tiedostopolku):
 
     return tiedostopolku  # Palauttaa polun onnistuneen tallennuksen jälkeen
 
-
-
 #==================================================================================================#
-#==================================================================================================#
-#==================================================================================================#
-
-
 
 #clean_text poistaa turhat erikoismerkit, korjaa numeromuodot ja selkeyttää tekstiä. Lukee tiedoston ja kirjoittaa sen uudelleen.
 
@@ -84,10 +111,6 @@ def puhdista_ja_kirjoita_tiedosto(input_tiedostopolku, output_tiedostopolku):
     return output_tiedostopolku  # Palauttaa polun onnistuneen tallennuksen jälkeen
 
 #==================================================================================================#
-#==================================================================================================#
-#==================================================================================================#
-
-
 
 def puhdista_teksti(text) -> str:
     """Poistaa turhat erikoismerkit, korjaa numeromuodot ja selkeyttää tekstiä."""
@@ -111,12 +134,7 @@ def puhdista_teksti(text) -> str:
     logger.info("Teksti puhdistettu")
     return text
 
-
 #==================================================================================================#
-#==================================================================================================#
-#==================================================================================================#
-
-
 
 #clean_text poistaa turhat erikoismerkit, korjaa numeromuodot ja selkeyttää tekstiä.
 #Saa tekstin, kirjoittaa annettuun polkuun
@@ -153,10 +171,7 @@ def tunnista_toimittaja(teksti):
 
 
 
-#================= S I E V I T A L O ============#
-#==================================================================================================#
-#==================================================================================================#
-#==================================================================================================#
+
 # **Poista sanat tekstistä**
 def poista_sanat_tekstista(toimitussisältö_kokonaisuudessa_tekstina):
     #tiedostopolku = "data/s/toimitussisältö_kokonaisuudessa_tekstina.txt"
@@ -177,11 +192,6 @@ def poista_sanat_tekstista(toimitussisältö_kokonaisuudessa_tekstina):
 
     return puhdistettu_sisalto
 
-#==================================================================================================#
-#==================================================================================================#
-#==================================================================================================#
-
-
 
 def poista_sanat_tekstista2(teksti, poistettavat_sanat):
     for sana in poistettavat_sanat:
@@ -190,11 +200,6 @@ def poista_sanat_tekstista2(teksti, poistettavat_sanat):
     teksti = re.sub(r'^\d{1,2}$', '', teksti, flags=re.MULTILINE)
     return teksti
 
-
-
-#==================================================================================================#
-#==================================================================================================#
-#==================================================================================================#
 
 
 # Avaa ikkuna_json.txt -tiedostoon., asettaa jokaisen ikkunan omalle riville ja muuttaa ikkunamitat millimetreiksi.
@@ -359,18 +364,18 @@ def  designtalo_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi(ikkuna_js
     #    json.dump(output_json, tiedosto, ensure_ascii=False, indent=4)
 
 #--------- lisaa_toimitussisalto_merkinta()
-def lisaa_toimitussisalto_merkinta(text: str) -> str:
-    """
-    Lisää toimitussisältö-merkinnät puhdistetun tekstin ympärille.
+# def lisaa_toimitussisalto_merkinta(text: str) -> str:
+#     """
+#     Lisää toimitussisältö-merkinnät puhdistetun tekstin ympärille.
     
-    Args:
-        text (str): Puhdistettu teksti puhdista_teksti-funktiosta
+#     Args:
+#         text (str): Puhdistettu teksti puhdista_teksti-funktiosta
         
-    Returns:
-        str: Teksti merkintöjen kanssa
-    """
+#     Returns:
+#         str: Teksti merkintöjen kanssa
+#     """
    
-    return f"**TOIMITUSSISÄLTÖ START**\n{puhdistettu}\n**TOIMITUSSISÄLTÖ END**"
+#     return f"**TOIMITUSSISÄLTÖ START**\n{text}\n**TOIMITUSSISÄLTÖ END**"
 
 
 

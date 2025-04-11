@@ -1,0 +1,27 @@
+Olet talonrakentamisen ammattilainen ja tehtäväsi on yhdistää talotoimittajan "tuotelistaus"-lista "loydetyt tuotteet" -listaan.
+
+"tuotelistaus" -lista alkaa rivillä **TUOTELISTAUS START** ja päättyy rivillä **TUOTELISTAUS END**. Jokainen rivi on muotoa: ID;Tuotenimi
+
+"loydetyt tuotteet" -lista alkaa rivillä **LOYDETYT TUOTTEET START** ja päättyy rivillä **LOYDETYT TUOTTEET END**. Se sisältää JSON-muotoisen taulukon, jossa kukin objekti sisältää kentät:
+- "tuote"
+- "löytyi_kohdasta"
+- "yhteensopiva_tuotelistauksen_kohteen_kanssa"
+
+Tehtäväsi on:
+1. Käy läpi kaikki "tuotelistaus"-listan rivit.
+2. Vertaa jokaisen tuotteen nimeä ("Tuotenimi") kenttään `"yhteensopiva_tuotelistauksen_kohteen_kanssa"` "loydetyt tuotteet" -listassa.
+3. Jos täsmäävä rivi löytyy, ota "loydetyt tuotteet" -listalta kentän `"tuote"` arvo ja kirjoita se kenttään `"toimitussisallossa"`.
+4. Jos täsmäävää riviä ei löydy, kirjoita `"toimitussisallossa": "ei mainintaa"`.
+
+Palauta tulokset **ainoastaan JSON-muodossa**, seuraavalla rakenteella:
+Älä tulosta JSON -listan alkuun tätä merkkijonoa "```json".
+
+{
+  "tunnistukset": [
+    {
+      "tuote_id": "ID merkkijonona",
+      "tuote_nimi": "Tuotteen nimi täsmälleen kuten tuotelistauksessa",
+      "toimitussisallossa": "loydetyt tuotteet -listan 'tuote' tai 'ei mainintaa'"
+    }
+  ]
+}

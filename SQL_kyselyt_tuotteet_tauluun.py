@@ -637,6 +637,49 @@ def hae_tuotteet_prompt1_str():
         session.close()
 
 
+#==================================== hae_tuotteet_ja_tarkennus_prompt1_str()
+def hae_tuotteet_ja_tarkennus_prompt1_str():
+    """
+    Hakee tuotteista nimen ja tuote_tarkennus sellaisista riveistä, joissa prompt_1 on True.
+    Palauttaa tiedot str-muotoisena CSV-formaatissa.
+    """
+    try:
+        session = SessionLocal()
+        
+        # Debug: tulostetaan ensin koko kysely
+        kysely = session.query(Tuote.id, Tuote.tuote, Tuote.tuote_tarkennus).filter(Tuote.prompt_1.is_(True))
+        logging.debug(f"SQL kysely: {kysely}")
+        
+        # Suoritetaan kysely
+        tuotteet = kysely.order_by(Tuote.id).all()
+        
+        # Debug: tulostetaan jokaisen rivin prompt_1 arvo
+        for t in tuotteet:
+            rivi = session.query(Tuote).get(t[0])
+            logging.debug(f"Tuote: {t[0]}, prompt_1: {rivi.prompt_1}")
+        
+        output = StringIO()
+        writer = csv.writer(output, delimiter=';', lineterminator='\n')
+        writer.writerow(['Tuote', 'Tuote Tarkennus'])
+        print(f"Tuotteet: {tuotteet}")
+        
+        for t in tuotteet:
+            writer.writerow([t[0], t[1]])
+        
+        csv_str = output.getvalue()
+        output.close()
+        
+        return csv_str
+        
+    except Exception as e:
+        logging.error(f"Virhe tuotteiden haussa: {str(e)}")
+        return None
+    
+    finally:
+        session.close()
+
+
+#==================================== tarkista_prompt1_arvot()
 def tarkista_prompt1_arvot():
     """
     Tarkistaa prompt_1 sarakkeen arvot tietokannasta

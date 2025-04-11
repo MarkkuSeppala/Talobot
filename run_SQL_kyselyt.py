@@ -2,6 +2,9 @@ from SQL_kyselyt import *
 from SQL_kyselyt_tuotteet_tauluun import *
 from config_data import *
 from utils.file_handler import *
+from utils.tietosissallon_kasittely import *
+
+
 
 #get_all_tables()
 #get_all_table_structures()
@@ -16,7 +19,7 @@ from utils.file_handler import *
 #hae_toimitussisallon_ikkunat(840)
 
 #hae_toimittajan_sisallot(2)
-#hae_toimitussisalto(501)
+#hae_toimitussisalto(912)
 #print("toimittaja_uuid", hae_toimittajan_id_nimella("Sievitalo"))
 #hae_paivan_toimitussisallot("01.04.2025")
 #hae_paivan_toimitussisallot("30.03.2025")
@@ -28,12 +31,12 @@ from utils.file_handler import *
 
 #hae_paivan_valiovet("07.04.2025")
 #hae_toimitussisallon_valiovet(840)
-
-
+#print(hae_uuid_toimitussisalto_idlla(914))
+#print(hae_pdf_url_uuidlla(uuid=hae_uuid_toimitussisalto_idlla(914)))
 
 #nayta_toimitussisalto_tuotteet()
 #hae_toimitussisallon_tuotteet(842)
-#hae_toimitussisallon_tuotteet_2(840)
+#hae_toimitussisallon_tuotteet_2(958)
 #hae_kaikki_vertailut()
 #hae_vertailun_toimitussisalto_1_tiedot(3)
 
@@ -43,8 +46,9 @@ from utils.file_handler import *
 
 # tallenna_toimitussisalto_json(tuotteet: list = None, ikkunat: list = None, ulko_ovet: list = None, valiovet: list = None, toimitussisalto_id: int = None, tiedosto: str = None) -> bool:
 #tallenna_toimitussisalto_json(hae_toimitussisallon_tuotteet_2(840), hae_toimitussisallon_ikkunat(840), hae_toimitussisallon_ulko_ovet(840), hae_toimitussisallon_valiovet(840), 840, TESTI_1_TXT)
-toimitussisalto_id = 865
-tulosta_toimitussisalto_taulukkona(hae_toimitussisallon_tuotteet_2(toimitussisalto_id), hae_toimitussisallon_ikkunat(toimitussisalto_id), hae_toimitussisallon_ulko_ovet(toimitussisalto_id), hae_toimitussisallon_valiovet(toimitussisalto_id), TESTI_1_TXT, toimitussisalto_id)   
+#toimitussisalto_id = 960
+#tulosta_toimitussisalto_taulukkona(hae_toimitussisallon_tuotteet_2(toimitussisalto_id), hae_toimitussisallon_ikkunat(toimitussisalto_id), 
+#                                  hae_toimitussisallon_ulko_ovet(toimitussisalto_id), hae_toimitussisallon_valiovet(toimitussisalto_id), TESTI_1_TXT, toimitussisalto_id)   
 
 
 
@@ -80,8 +84,11 @@ tulosta_toimitussisalto_taulukkona(hae_toimitussisallon_tuotteet_2(toimitussisal
 #nayta_tuote(121)
 #tallenna_tuotteet_tiedostoon("C:\Talobot")
 #tallenna_tuotteet_ID_ja_nimi_tiedostoon("C:\Talobot")
-#print(hae_tuotteet_prompt1_str())
+#print(hae_tuotteet_prompt1_str_id_ja_nimi())
 #tarkista_prompt1_arvot()
+#print(hae_tuotteet_ja_tarkennus_prompt1_str())
+#print(hae_tuotteet_prompt1_str())
+
 
 
 

@@ -13,7 +13,7 @@ from config_data import (VALIOVITYYPIT_SIEVITALO_JSON, ULKO_OVI_TIEDOT_KOKONAISU
                         PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, PROMPT_SIEVITALO_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, 
                         PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT,
                         PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT, PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT,TOIMITUSSISALTO_TXT, TOIMITUSSISALTO_SIEVITALO_TXT,
-                        PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_LUOKKAMUOTOON, PROMPT_SIEVITALO_POIMI_TUOTTEET_TXT)
+                        PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_LUOKKAMUOTOON, PROMPT_SIEVITALO_POIMI_TUOTTEET_1_TXT, PROMPT_SIEVITALO_POIMI_TUOTTEET_2_TXT)
 
 from config_data import (PROMPT_KASTELLI_POIMI_IKKUNATIEDOT_TXT, PROMPT_KASTELLI_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, IKKUNATIEDOT_KASTELLI_KOKONAISUUDESSA_TXT, 
                          IKKUNA_KASTELLI_JSON, IKKUNA2_KASTELLI_JSON, PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT,
@@ -32,11 +32,9 @@ from datetime import datetime
 import json
 from werkzeug.utils import secure_filename
 from generation_config import GENERATION_CONFIG, GENERATION_CONFIG_JSON
-from utils.file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet
-from utils.tietosissallon_kasittely import (sievitalo_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, puhdista_teksti, 
-                                            kastelli_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, designtalo_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, poista_json_merkinta)
-from SQL_kyselyt_tuotteet_tauluun import hae_tuotteet_prompt1_str
-                                
+from utils.file_handler import *
+from utils.tietosissallon_kasittely import * 
+from SQL_kyselyt_tuotteet_tauluun import hae_tuotteet_prompt1_str                                
 from api_kyselyt import api_kysely, api_kysely_kirjoitus_json, api_kysely_ulko_ovet, api_kysely_nelja_parametria
 from logger_config import configure_logging
 import logging
@@ -51,11 +49,15 @@ logger = logging.getLogger(__name__)
 
 
 #============== S I E V I T A L O ============#
-def run_sievitalo(toimitussisalto_txt, toimitussisalto_id):
+def run_sievitalo(toimitussisalto_pdf, toimitussisalto_id):
 
         # Ensimmäisenä siivotaan toimitussisältö. Tehdään se mahdollisimman helppolukuiseksi LLM-APILLE
-        puhdistettu_toimitussisalto = puhdista_teksti(toimitussisalto_txt)
-       
+      
+        puhdistettu_toimitussisalto = muuta_pdf_ja_puhdista_teksti_docling(toimitussisalto_pdf)
+        #puhdistettu_toimitussisalto = puhdista_teksti(toimitussisalto_txt)
+        # Lisätään toimitussisältön alku- ja loppuviittaukset
+        puhdistettu_toimitussisalto = f"**TOIMITUSSISÄLTÖ START**\n{puhdistettu_toimitussisalto}\n**TOIMITUSSISÄLTÖ END**"
+        
        
         
         #---------------------------------------     Sievitalo ikkunat kantaan      ----------------------------------------
@@ -101,10 +103,28 @@ def run_sievitalo(toimitussisalto_txt, toimitussisalto_id):
         
         #---------------------------------------     Sievitalo tuotteet kantaan      ----------------------------------------
         tuotteet = hae_tuotteet_prompt1_str()
-        toimitussisalto_tuotteet = api_kysely_nelja_parametria(GENERATION_CONFIG, PROMPT_SIEVITALO_POIMI_TUOTTEET_TXT, puhdistettu_toimitussisalto, tuotteet)
-        #print("run.py 105", lue_txt_tiedosto(PROMPT_SIEVITALO_POIMI_TUOTTEET_TXT))
+        # Lisätään tuotteet alku- ja loppuviittaukset
+        tuotteet = f"**TUOTELISTAUS START**\n{tuotteet}\n**TUOTELISTAUS END**"
+
+        
+        #---------------------eka api-kysely tuotteista
+        toimitussisalto_tuotteet = api_kysely_nelja_parametria(GENERATION_CONFIG, PROMPT_SIEVITALO_POIMI_TUOTTEET_1_TXT, puhdistettu_toimitussisalto, tuotteet)
+        
+        tuotteet = hae_tuotteet_prompt1_str()
+        # Lisätään tuotteet alku- ja loppuviittaukset
+        tuotteet = f"**TUOTELISTAUS START**\n{tuotteet}\n**TUOTELISTAUS END**"
+        
+        
+        toimitussisalto_tuotteet = f"**LOYDETYT TUOTTEET START**\n{toimitussisalto_tuotteet}\n**LOYDETYT TUOTTEET END**"
+        print("run.py 119", toimitussisalto_tuotteet)
+
+        #---------------------toka api-kysely tuotteista. Asetetaan löydetyt tuotteet tuote_id:n mukaisesti json-muodossa
+        toimitussisalto_tuotteet = api_kysely_nelja_parametria(GENERATION_CONFIG, PROMPT_SIEVITALO_POIMI_TUOTTEET_2_TXT, puhdistettu_toimitussisalto, tuotteet)
+        toimitussisalto_tuotteet = puhdista_tekoalyn_palauttama_json_response_json(toimitussisalto_tuotteet)
         lisaa_toimitussisalto_tuotteet_kantaan(toimitussisalto_tuotteet, toimitussisalto_id)
-        hae_toimitussisallon_tuotteet_2(toimitussisalto_id)
+        print("run.py 126",toimitussisalto_id )
+        kirjoita_vastaus_jsoniin(toimitussisalto_tuotteet, "C:/talobot_env/data/testi/testi_1.json")
+      
        
 
 

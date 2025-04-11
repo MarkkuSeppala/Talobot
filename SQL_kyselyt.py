@@ -2,7 +2,7 @@ from config_data import UPLOAD_FOLDER_DATA
 from utils.file_handler import muuta_pdf_tekstiksi, kirjoita_txt_tiedosto, lue_txt_tiedosto
 from utils.tietosissallon_kasittely import tunnista_toimittaja
 import uuid
-
+from sqlalchemy.orm import Session
 
 from db_luokat import (
     SessionLocal, 
@@ -52,6 +52,8 @@ logger = logging.getLogger(__name__)
 
 # Hae tietokantayhteys
 DATABASE_URL = os.getenv("DATABASE_URL")
+
+from utils.tietosissallon_kasittely import *
 
 if not DATABASE_URL:
     raise ValueError("❌ DATABASE_URL ei ole asetettu! Tarkista .env-tiedosto.")
@@ -596,7 +598,24 @@ def hae_toimitussisalto_txt_url_uuidlla(uuid: str) -> str | None:
         logger.warning(f"❌ Virhe kyselyssä: {str(e)}")
         return None
 
+#==================================== hae_pdf_url_uuidlla(session, uuid)
+def hae_pdf_url_uuidlla(uuid: str) -> str:
+    """
+    Hakee pdf_url arvon annetun uuid:n perusteella.
 
+    Args:
+        uuid (str): UUID, jonka perusteella pdf_url haetaan.
+
+    Returns:
+        str: pdf_url, jos se löytyy, muuten None.
+    """
+    try:
+        with SessionLocal() as db:
+            toimitussisalto = db.query(Toimitussisalto).filter_by(uuid=uuid).first()
+            return toimitussisalto.pdf_url if toimitussisalto else None
+    except Exception as e:
+        print(f"Virhe tietokantakyselyssä: {e}")
+        return None
 
 #==================================== hae_txt_url_uuidlla(uuid)
 # def hae_toimitussisalto_txt_url_uuidlla(uuid: str) -> str | None:
@@ -630,6 +649,25 @@ def hae_toimitussisalto_txt_url_uuidlla(uuid: str) -> str | None:
 #     except Exception as e:
 #         print(f"❌ Virhe kyselyssä: {str(e)}")
 #         return None
+
+#==================================== hae_uuid_toimitussisalto_idlla(session, toimitussisalto_id)
+def hae_uuid_toimitussisalto_idlla(toimitussisalto_id: int) -> str:
+    """
+    Hakee uuid-arvon annetun toimitussisällön id:n perusteella.
+
+    Args:
+        toimitussisalto_id (int): Toimitussisällön ID, jonka perusteella uuid haetaan.
+
+    Returns:
+        str: uuid, jos se löytyy, muuten None.
+    """
+    try:
+        with SessionLocal() as db:
+            toimitussisalto = db.query(Toimitussisalto).filter_by(id=toimitussisalto_id).first()
+            return toimitussisalto.uuid if toimitussisalto else None
+    except Exception as e:
+        print(f"Virhe tietokantakyselyssä: {e}")
+        return None
 
 #==================================== lisaa_ikkunat_kantaan(ikkunat_json_str, toimitussisalto_id)
 def lisaa_ikkunat_kantaan(ikkunat_json_str, toimitussisalto_id: int):
