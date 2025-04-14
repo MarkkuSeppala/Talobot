@@ -122,13 +122,25 @@ class Materiaali_ja_palvelu(Base):
 class Tuote(Base):
     __tablename__ = "tuotteet"
     id = Column(Integer, primary_key=True)
+    version_number = Column(Integer, nullable=True)
+    valid_from = Column(DateTime, nullable=True)
+    valid_to = Column(DateTime, nullable=True)
     prompt_1 = Column(Boolean, nullable=False)
     prompt_2 = Column(Boolean, nullable=False)
+    prompt_3 = Column(Boolean, nullable=False)
     tuote = Column(String(100), nullable=False)
-    tuote_tarkennus = Column(String(100), nullable=True)
     yksikko = Column(String(50), nullable=True)
     hinta = Column(DECIMAL(10, 2), nullable=True)
-    onko_hinta_absoluuttinen = Column(Boolean, nullable=False, default=False)
+    absoluuttinen_hinta = Column(Boolean, nullable=False, default=False)
+    tarkenne_yleinen = Column(String(100), nullable=True)
+    tarkenne_sievitalo = Column(String(100), nullable=True)
+    tarkenne_kastelli = Column(String(100), nullable=True)
+    tarkenne_designtalo = Column(String(100), nullable=True)
+    tarkenne_jopera = Column(String(100), nullable=True)
+    tarkenne_kannustalo = Column(String(100), nullable=True)
+    tarkenne_kylatimpurit = Column(String(100), nullable=True)
+    tarkenne_ainoakoti = Column(String(100), nullable=True)
+        
     viite_tuote_id = Column(Integer, ForeignKey("tuotteet.id"), nullable=True)
 
     # Suhde: viittaa toiseen tuotteeseen, jos hinta ei ole absoluuttinen

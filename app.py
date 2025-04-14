@@ -71,7 +71,6 @@ def suodata_tiedot():
                 pdf_file_1 = request.files["ensimmainen_toimitussisalto"]
                 # pdf_content = pdf_file_1.read()
                 # pdf_file_like = io.BytesIO(pdf_content)
-                # print("app 33", muuta_pdf_ja_puhdista_teksti_docling(pdf_file_like))           
                 unique_tiedostonimi_ensimmainen_toimitussisalto = vastaanota_toimitussisalto(pdf_file_1)
                 logging.info("Ensimmäinen toimitussisältö lisätty kantaan, toimittaja: {unique_tiedostonimi_ensimmainen_toimitussisalto}")
 

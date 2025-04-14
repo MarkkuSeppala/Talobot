@@ -4,7 +4,7 @@ import re
 import fitz  # PyMuPDF
 import google.generativeai as genais
 from datetime import datetime
-#from utils.file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet, kirjoita_json_tiedostoon
+#from utils.file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedostoon, normalisoi_ulko_ovet, kirjoita_json_tiedostoon
 import json
 from logger_config import configure_logging
 import logging
@@ -37,7 +37,7 @@ def muuta_pdf_ja_puhdista_teksti_docling(pdf_file):
     text = result.document.export_to_markdown()
     print("tietosissallon_kasittely.py 35")
     text = str(text)
-    print("tietosissallon_kasittely.py 37", text)
+    print("tietosissallon_kasittely.py 37")
     return text
 
 # Puhdistaa tekoälyn palauttaman tekstin (poistaa markdown ```json -merkinnät)
@@ -398,3 +398,53 @@ def poista_json_merkinta(text: str) -> str:
     text = text.replace("```", "")
         
     return text.strip()  # Poistetaan myös mahdolliset ylimääräiset välilyönnit
+
+#
+def parsi_tuote_json(input_json):
+    """
+    Suodattaa JSON-tiedostosta vain id, tuote, tarkenne_yleinen ja tarkenne_sievitalo -kentät.
+    """
+    try:
+        # Muunna JSON-merkkijono listaksi
+        data_list = json.loads(input_json)
+        
+        tulos = []
+        for item in data_list:
+            suodatettu_item = {
+                "id": item["id"],
+                "tuote": item["tuote"],
+                "tarkenne_yleinen": item["tarkenne_yleinen"],
+                "tarkenne_sievitalo": item["tarkenne_sievitalo"]
+            }
+            tulos.append(suodatettu_item)
+        
+        # Muunna suodatettu data takaisin JSON-muotoon
+        suodatettu_json = json.dumps(tulos, ensure_ascii=False, indent=4)
+        
+        return suodatettu_json
+
+    except Exception as e:
+        print(f"Virhe JSON-tiedoston käsittelyssä: {str(e)}")
+        return None
+
+#----------- minka_muotoinen_parametri()
+def minka_muotoinen_parametri(parametri):
+    if isinstance(parametri, dict):
+        print("Sain sanakirjan (dict).")
+    elif isinstance(parametri, str):
+        print("Sain merkkijonon (str).")
+    elif isinstance(parametri, list):
+        print("Sain listan.")
+    else:
+        print("Sain jotain muuta:", type(parametri))
+
+# """Puhdistaa tekstin tiedostokirjoitusta varten poistamalla tai korvaamalla virheelliset merkit."""
+def puhdista_teksti_tiedostokirjoitusta_varten(text):
+   
+    if not isinstance(text, str):
+        return str(text) if text is not None else ""
+    
+    # Poista mahdolliset control-merkit jotka voivat häiritä tiedostokirjoitusta
+    import re
+    text = re.sub(r'[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]', '', text)
+    return text
