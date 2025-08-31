@@ -1,3 +1,1 @@
-web: bash start.sh
-
-worker: python Testeri.py
+web: gunicorn app:app
