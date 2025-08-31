@@ -24,7 +24,7 @@ from config_data import (VALIOVITYYPIT_SIEVITALO_JSON, ULKO_OVI_TIEDOT_KOKONAISU
 
 
 from datetime import datetime 
-import json
+import json\
 from generation_config import GENERATION_CONFIG
 
 from utils.file_handler import (tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto,
@@ -210,7 +210,9 @@ def hae_valiovet():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
-    app.run(host="0.0.0.0", port=port, debug=True)
+    # Render.com:ssa debug=False tuotantoympäristössä
+    debug_mode = os.environ.get("FLASK_ENV") == "development"
+    app.run(host="0.0.0.0", port=port, debug=debug_mode)
 
 
 
