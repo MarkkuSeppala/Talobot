@@ -1,3 +1,3 @@
-web: gunicorn -c gunicorn.conf.py app:app
+web: bash start.sh
 
 worker: python Testeri.py

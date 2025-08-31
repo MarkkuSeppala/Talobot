@@ -1,0 +1,4 @@
+#!/bin/bash
+export PORT=${PORT:-8080}
+echo "Starting application on port $PORT"
+exec gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
