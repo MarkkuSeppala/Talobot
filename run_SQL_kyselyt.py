@@ -8,9 +8,9 @@ import pandas as pd
 
 
 #get_all_tables()
-#get_all_table_structures()
+get_all_table_structures()
 #tulosta_toimitussisallot()
-#tulosta_kayttajat()
+#tulosta_kayttajat()#
 #tulosta_toimittajat()
 #hae_toimittaja_uuidlla("18845722-122c-4d87-81aa-a8b696b69faf")
 #hae_toimitussisalto_txt_url_uuidlla(uuid: str)
@@ -31,7 +31,7 @@ import pandas as pd
 #hae_toimitussisallon_ulko_ovet(840) 
 
 #hae_paivan_valiovet("07.04.2025")
-#hae_toimitussisallon_valiovet(840)
+hae_toimitussisallon_valiovet(840)
 #print(hae_uuid_toimitussisalto_idlla(914))
 #print(hae_pdf_url_uuidlla(uuid=hae_uuid_toimitussisalto_idlla(914)))
 

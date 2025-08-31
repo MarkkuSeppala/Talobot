@@ -1,7 +1,7 @@
 from config_data import UPLOAD_FOLDER_DATA
 from sqlalchemy import create_engine, text, inspect, Table, Column, Integer, Boolean, String, DECIMAL, ForeignKey, text
 from sqlalchemy.orm import Session
-from db_luokat import Base, Tuote, engine, SessionLocal, Toimitussisalto, Kayttaja, Toimittaja, Ikkuna, Ulko_ovi, Valiovi
+from db_luokat import Base, Tuote, engine, SessionLocal, Toimitussisalto, Kayttaja, Toimittaja, Ikkuna, Ulko_ovi, Valiovi, create_robust_engine
 
 from decimal import Decimal
 from tabulate import tabulate  # Asentaa: pip install tabulate
@@ -27,7 +27,7 @@ if not DATABASE_URL:
     raise ValueError("❌ DATABASE_URL ei ole asetettu! Tarkista .env-tiedosto.")
 
 # Luo SQLAlchemy-moottori
-engine = create_engine(DATABASE_URL)
+engine = create_robust_engine(DATABASE_URL)
 
 
 
@@ -505,5 +505,75 @@ def hae_tuotteet_suodatettu_json():
     except Exception as e:
         print(f"Virhe kyselyssä: {str(e)}")
         return None
+
+def tallenna_ai_hakutulokset_kantaan(json_data):
+    """
+    Tallentaa AI:n hakutulokset kantaan yhdistäen tuotenimen tuote-id:hen
+    
+    Args:
+        json_data: AI:n palauttama JSON-data tuotteiden tunnistuksista
+    
+    Returns:
+        bool: True jos tallennus onnistui, False jos virhe
+    """
+    try:
+        # Jos JSON on merkkijono, muuta se Python-objektiksi
+        if isinstance(json_data, str):
+            data = json.loads(json_data)
+        else:
+            data = json_data
+            
+        # Tarkista onko data oikeassa muodossa
+        if not isinstance(data, dict) or "tunnistukset" not in data:
+            print("Virheellinen JSON-muoto: 'tunnistukset' puuttuu")
+            return False
+            
+        tunnistukset = data["tunnistukset"]
+        session = SessionLocal()
+        
+        onnistuneet = 0
+        epäonnistuneet = 0
+        
+        for tunnistus in tunnistukset:
+            tuote_nimi = tunnistus.get("tuote")
+            
+            # Hae tuote-id tuotenimen perusteella
+            try:
+                tuote = session.query(Tuote).filter(Tuote.tuote == tuote_nimi).first()
+                
+                if tuote:
+                    # Tässä voit tallentaa haluamasi tiedot kantaan
+                    # Esimerkki: päivitä tuotteen tietoja
+                    tunnistus["yhteensopiva_tuotelistauksen_kohteen_kanssa"] = tunnistus.get("yhteensopiva_tuotelistauksen_kohteen_kanssa")
+                    
+                    # Jos haluat tallentaa tiedot Toimitussisalto_tuotteet-tauluun:
+                    # uusi_toimitussisalto_tuote = Toimitussisalto_tuotteet(
+                    #     toimitussisalto_id=toimitussisalto_id,  # Tämä pitäisi antaa parametrina
+                    #     tuote_id=tuote.id,
+                    #     tuote_nimi_toimitussisallossa=tunnistus.get("toimitussisallossa", tuote_nimi),
+                    #     maara=Decimal("1.00")  # Oletuksena 1, voit muuttaa tarpeen mukaan
+                    # )
+                    # session.add(uusi_toimitussisalto_tuote)
+                    
+                    onnistuneet += 1
+                else:
+                    print(f"Tuotetta nimellä '{tuote_nimi}' ei löytynyt kannasta")
+                    epäonnistuneet += 1
+                    
+            except Exception as e:
+                print(f"Virhe tuotteen '{tuote_nimi}' käsittelyssä: {str(e)}")
+                epäonnistuneet += 1
+                
+        session.commit()
+        print(f"Tallennus valmis: {onnistuneet} onnistunutta, {epäonnistuneet} epäonnistunutta")
+        return True
+        
+    except Exception as e:
+        print(f"Virhe tallennuksessa: {str(e)}")
+        session.rollback()
+        return False
+        
+    finally:
+        session.close()
 
 

@@ -113,6 +113,7 @@ def run_sievitalo(toimitussisalto_pdf, toimitussisalto_id):
         toimitussisalto_tuotteet = api_kysely_nelja_parametria(GENERATION_CONFIG, PROMPT_POIMI_TUOTTEET_1_TXT, puhdistettu_toimitussisalto, tuotteet)
         kirjoita_vastaus_jsoniin(toimitussisalto_tuotteet, "C:/talobot_env/data/testi/testi_1.json")
         #lisaa_toimitussisalto_tuotteet_kantaan(toimitussisalto_tuotteet, toimitussisalto_id)
+        tallenna_ai_hakutulokset_kantaan(toimitussisalto_tuotteet)
 
 
 

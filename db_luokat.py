@@ -23,14 +23,38 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
     raise ValueError("❌ DATABASE_URL ei ole asetettu! Tarkista .env-tiedosto.")
 
+def create_robust_engine(url):
+    """
+    Luo vakaan tietokantayhteyden, joka kestää yhteysongelmia.
+    
+    Args:
+        url (str): Tietokantayhteyden URL
+        
+    Returns:
+        Engine: SQLAlchemy engine-objekti
+    """
+    return create_engine(
+        url,
+        pool_pre_ping=True,
+        pool_recycle=300,
+        connect_args={
+            "keepalives": 1,
+            "keepalives_idle": 30,
+            "keepalives_interval": 10,
+            "keepalives_count": 5
+        }
+    )
+
 # 🔹 Luo SQLAlchemy-moottori
-engine = create_engine(DATABASE_URL)
+engine = create_robust_engine(DATABASE_URL)
 
 # 🔹 Luo istunto (Session)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # 🔹 ORM-perusta malleille
 Base = declarative_base()
+
+
 
 
 

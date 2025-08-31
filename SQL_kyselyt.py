@@ -40,7 +40,7 @@ from sqlalchemy import inspect
 from sqlalchemy import text, Table, Column, Integer, Boolean, String, DECIMAL, ForeignKey
 from sqlalchemy import select
 from tabulate import tabulate  # Asentaa: pip install tabulate
-from db_luokat import Toimitussisalto_tuotteet
+from db_luokat import Toimitussisalto_tuotteet, create_robust_engine
 from sqlalchemy import desc
 import sys
 sys.set_int_max_str_digits(0)  # Poistaa numeroiden merkkijonopituuden rajoituksen
@@ -59,7 +59,7 @@ if not DATABASE_URL:
     raise ValueError("❌ DATABASE_URL ei ole asetettu! Tarkista .env-tiedosto.")
 
 # Luo SQLAlchemy-moottori
-engine = create_engine(DATABASE_URL)
+engine = create_robust_engine(DATABASE_URL)
 
 
 def anna_polku(unique_id: str):

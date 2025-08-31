@@ -7,3 +7,4 @@ tabulate
 sqlalchemy
 python-dotenv
 psycopg2
+docling
