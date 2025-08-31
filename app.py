@@ -43,8 +43,8 @@ import google.generativeai as genai
 configure_logging()
 logger = logging.getLogger(__name__)
 
-
 logging.info("Sovellus käynnistyy")
+logging.info("Test")
 
 # Tietokantayhteyden testaus
 try:
