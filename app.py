@@ -24,7 +24,7 @@ from config_data import (VALIOVITYYPIT_SIEVITALO_JSON, ULKO_OVI_TIEDOT_KOKONAISU
 
 
 from datetime import datetime 
-import json\
+import json
 from generation_config import GENERATION_CONFIG
 
 from utils.file_handler import (tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto,
