@@ -1,3 +1,3 @@
-web: gunicorn -w 4 -b 0.0.0.0:$PORT Testeri:app
+web: gunicorn -w 2 --timeout 120 app:app --bind 0.0.0.0:$PORT
 
 worker: python Testeri.py
