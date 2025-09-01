@@ -301,18 +301,18 @@
                 }
                 
                 // Tyhjennä aiemmat tulokset
-                document.getElementById('ensimmainen_toimittaja-results').innerHTML = '';
-                document.getElementById('toinen_toimittaja-results').innerHTML = '';
+                document.getElementById('sievitalo-results').innerHTML = '';
+                document.getElementById('kastelli-results').innerHTML = '';
                 
                 // Näytä tulososio
                 resultsSection.style.display = 'block';
                 
                 // Renderöi tulokset
-                if (data.ensimmainen_toimittaja) {
-                    renderToimittajaData(data.ensimmainen_toimittaja, 'ensimmainen_toimittaja-results');
+                if (data.sievitalo) {
+                    renderToimittajaData(data.sievitalo, 'sievitalo-results');
                 }
                 if (data.kastelli) {
-                    renderToimittajaData(data.toinen_toimittaja, 'toinen_toimittaja-results');
+                    renderToimittajaData(data.kastelli, 'kastelli-results');
                 }
             })
             .catch(error => {
