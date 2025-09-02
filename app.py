@@ -9,6 +9,7 @@ from sqlalchemy import create_engine, text
 from logger_config import configure_logging
 import logging
 from SQL_kyselyt import*
+print("app.py 12")
 
 sys.path.append(os.path.abspath("utils"))  # Lisää utils-kansion polku moduulihakemistoksi
 sys.path.append(os.path.abspath("api_kyselyt"))
@@ -35,7 +36,8 @@ from utils.tietosissallon_kasittely import *
 from run import run_sievitalo, run_kastelli
 from factory import get_sievitalo_ikkunat, get_sievitalo_ulko_ovet, get_sievitalo_valiovi_mallit, get_kastelli_ikkunat, get_kastelli_ulko_ovet, get_kastelli_valiovi_mallit
 from SQL_kyselyt import (hae_toimittaja_uuidlla, hae_toimitussisalto_txt_url_uuidlla, hae_toimitussisalto_id_uuidlla, 
-                         vastaanota_toimitussisalto, hae_paivan_toimitussisallot, hae_paivan_ulko_ovet, hae_paivan_valiovet, lisaa_vertailu)
+                         vastaanota_toimitussisalto, hae_paivan_toimitussisallot, hae_paivan_ulko_ovet, hae_paivan_valiovet, lisaa_vertailu,
+                         hae_pdf_url_uuidlla, hae_uuid_toimitussisalto_idlla)
 
 import google.generativeai as genai 
 
@@ -82,10 +84,12 @@ def suodata_tiedot():
                 logging.info("Toinen toimitussisältö lisätty kantaan, toimittaja: {unique_tiedostonimi_toinen_toimitussisalto}")
 
                 
-                lisaa_vertailu(hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_ensimmainen_toimitussisalto), hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_toinen_toimitussisalto))  
+                # Lisää vertailu vain jos molemmat tiedostot on käsitelty
+                if "unique_tiedostonimi_ensimmainen_toimitussisalto" in locals() and "unique_tiedostonimi_toinen_toimitussisalto" in locals():
+                    lisaa_vertailu(hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_ensimmainen_toimitussisalto), hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_toinen_toimitussisalto))  
         
         #Oliko toimitussisalto Sievitalon?
-        if hae_toimittaja_uuidlla(unique_tiedostonimi_ensimmainen_toimitussisalto) == "Sievitalo":
+        if "unique_tiedostonimi_ensimmainen_toimitussisalto" in locals() and hae_toimittaja_uuidlla(unique_tiedostonimi_ensimmainen_toimitussisalto) == "Sievitalo":
             
             #toimitussisalto_txt_url = hae_toimitussisalto_txt_url_uuidlla(unique_tiedostonimi_ensimmainen_toimitussisalto)
             # toimitussisalto_txt = lue_txt_tiedosto(toimitussisalto_txt_url)
@@ -98,7 +102,7 @@ def suodata_tiedot():
             run_sievitalo(pdf_url, toimitussisallon_id)
         
         #Oliko toimitussisalto kastellin?
-        if hae_toimittaja_uuidlla(unique_tiedostonimi_toinen_toimitussisalto) == "Kastelli":
+        if "unique_tiedostonimi_toinen_toimitussisalto" in locals() and hae_toimittaja_uuidlla(unique_tiedostonimi_toinen_toimitussisalto) == "Kastelli":
             # toimitussisalto_txt_url = hae_toimitussisalto_txt_url_uuidlla(unique_tiedostonimi_toinen_toimitussisalto)
             # toimitussisalto_txt = lue_txt_tiedosto(toimitussisalto_txt_url)
             # toimitussisallon_id = hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_toinen_toimitussisalto)
@@ -107,15 +111,15 @@ def suodata_tiedot():
             #run_kastelli(pdf_file_2, toimitussisallon_id)         
             print("app 96")
         
-        #Oliko toimitussisalto .....
+        #Oliko toimitussisalto ..... 
         #if hae_toimittaja_uuidlla(unique_id_toinen_toimitussisalto) == "Designtalo":
         
             #Designtalon toimitussisalto puhdistetaan turhista merkeistä ja suodatetaan ikkunat, ulko-ovet, valiovet ja tallennetaaan ne kantaan
             #run_designtalo(lue_txt_tiedosto(hae_toimitussisalto_txt_url_uuidlla(unique_id_toinen_toimitussisalto)), hae_toimitussisalto_id_uuidlla(unique_id_toinen_toimitussisalto)) 
     
-
-        else:
-            tulokset["sievitalo"] = {"error": "Tuntematon toimittaja"}
+        # Jos ei löytynyt tunnistettua toimittajaa
+        if "unique_tiedostonimi_ensimmainen_toimitussisalto" in locals() and hae_toimittaja_uuidlla(unique_tiedostonimi_ensimmainen_toimitussisalto) not in ["Sievitalo", "Kastelli", "Designtalo"]:
+            tulokset["toimittaja"] = {"error": "Tuntematon toimittaja"}
 
 
 
