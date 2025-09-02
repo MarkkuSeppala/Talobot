@@ -12,6 +12,11 @@ import json
 try:
     from db_luokat import SessionLocal, Toimitussisalto
     from sqlalchemy import text
+    from SQL_kyselyt import (hae_toimittaja_uuidlla, hae_toimitussisalto_id_uuidlla, 
+                             vastaanota_toimitussisalto, lisaa_vertailu,
+                             hae_pdf_url_uuidlla, hae_uuid_toimitussisalto_idlla, 
+                             hae_toimitussisallon_ikkunat, hae_toimitussisallon_ulko_ovet, hae_toimitussisallon_valiovet)
+    from run import run_sievitalo, run_kastelli
     DB_AVAILABLE = True
     logging.info("✅ Tietokantamoduulit ladattu onnistuneesti")
 except ImportError as e:
@@ -107,38 +112,75 @@ def suodata_tiedot():
             if not ensimmainen_file.filename.lower().endswith('.pdf') or not toinen_file.filename.lower().endswith('.pdf'):
                 return jsonify({"error": "Vain PDF-tiedostot sallitaan"}), 400
             
-            # Tässä vaiheessa palautetaan testidataa
-            # Myöhemmin lisätään oikea tiedostojen käsittely
-            tulokset = {
-                "sievitalo": {
-                    "ikkunat": [
-                        {"tyyppi": "2-ikkunainen", "koko": "1200x1200", "materiaali": "PVC"},
-                        {"tyyppi": "3-ikkunainen", "koko": "1800x1200", "materiaali": "PVC"}
-                    ],
-                    "ulko_ovet": [
-                        {"tyyppi": "Yksilehtinen", "koko": "900x2100", "materiaali": "Puuta"},
-                        {"tyyppi": "Kaksilehtinen", "koko": "1800x2100", "materiaali": "Puuta"}
-                    ],
-                    "valiovi_mallit": {
-                        "ovimallit": ["Ovimalli A", "Ovimalli B", "Ovimalli C"]
-                    }
-                },
-                "kastelli": {
-                    "ikkunat": [
-                        {"tyyppi": "1-ikkunainen", "koko": "600x1200", "materiaali": "Alumiini"},
-                        {"tyyppi": "2-ikkunainen", "koko": "1200x1200", "materiaali": "Alumiini"}
-                    ],
-                    "ulko_ovet": [
-                        {"tyyppi": "Yksilehtinen", "koko": "800x2000", "materiaali": "Terästä"},
-                        {"tyyppi": "Kaksilehtinen", "koko": "1600x2000", "materiaali": "Terästä"}
-                    ],
-                    "valiovi_mallit": {
-                        "ovimallit": ["Kastelli-malli X", "Kastelli-malli Y"]
-                    }
-                },
-                "message": "Tiedostot vastaanotettu onnistuneesti",
-                "status": "success"
-            }
+            # Oikea tiedostojen käsittely
+            logging.info("Aloitetaan tiedostojen käsittely")
+            
+            # Ensimmainen toimitussisalto
+            if "ensimmainen_toimitussisalto" in request.files:
+                pdf_file_1 = request.files["ensimmainen_toimitussisalto"]
+                unique_tiedostonimi_ensimmainen_toimitussisalto = vastaanota_toimitussisalto(pdf_file_1)
+                logging.info(f"Ensimmäinen toimitussisältö lisätty kantaan: {unique_tiedostonimi_ensimmainen_toimitussisalto}")
+            
+            # Toinen toimitussisalto
+            if "toinen_toimitussisalto" in request.files:
+                pdf_file_2 = request.files["toinen_toimitussisalto"]            
+                unique_tiedostonimi_toinen_toimitussisalto = vastaanota_toimitussisalto(pdf_file_2)
+                logging.info(f"Toinen toimitussisältö lisätty kantaan: {unique_tiedostonimi_toinen_toimitussisalto}")
+                
+                # Lisää vertailu
+                lisaa_vertailu(hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_ensimmainen_toimitussisalto), hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_toinen_toimitussisalto))
+            
+            # Sievitalo-käsittely
+            if hae_toimittaja_uuidlla(unique_tiedostonimi_ensimmainen_toimitussisalto) == "Sievitalo":
+                logging.info("Tunnistettu Sievitalo toimitussisalto")
+                
+                toimitussisallon_id = hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_ensimmainen_toimitussisalto)
+                pdf_url = hae_pdf_url_uuidlla(uuid=hae_uuid_toimitussisalto_idlla(toimitussisallon_id))
+                
+                logging.info("Aloitetaan run_sievitalo")
+                run_sievitalo(pdf_url, toimitussisallon_id)
+                logging.info("run_sievitalo valmis")
+                
+                # Haetaan käsitellyt tiedot tietokannasta
+                ikkunat = hae_toimitussisallon_ikkunat(toimitussisallon_id)
+                ulko_ovet = hae_toimitussisallon_ulko_ovet(toimitussisallon_id)
+                valiovi_mallit = hae_toimitussisallon_valiovet(toimitussisallon_id)
+                
+                logging.info(f"Haettu ikkunoita: {len(ikkunat) if ikkunat else 0}")
+                
+                tulokset["sievitalo"] = {
+                    "ikkunat": ikkunat,
+                    "ulko_ovet": ulko_ovet,
+                    "valiovi_mallit": valiovi_mallit
+                }
+            
+            # Kastelli-käsittely
+            if hae_toimittaja_uuidlla(unique_tiedostonimi_toinen_toimitussisalto) == "Kastelli":
+                logging.info("Tunnistettu Kastelli toimitussisalto")
+                
+                toimitussisallon_id = hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_toinen_toimitussisalto)
+                pdf_url = hae_pdf_url_uuidlla(uuid=hae_uuid_toimitussisalto_idlla(toimitussisallon_id))
+                
+                logging.info("Aloitetaan run_kastelli")
+                run_kastelli(pdf_url, toimitussisallon_id)
+                logging.info("run_kastelli valmis")
+                
+                # Haetaan käsitellyt tiedot tietokannasta
+                ikkunat = hae_toimitussisallon_ikkunat(toimitussisallon_id)
+                ulko_ovet = hae_toimitussisallon_ulko_ovet(toimitussisallon_id)
+                valiovi_mallit = hae_toimitussisallon_valiovet(toimitussisallon_id)
+                
+                logging.info(f"Haettu ikkunoita: {len(ikkunat) if ikkunat else 0}")
+                
+                tulokset["kastelli"] = {
+                    "ikkunat": ikkunat,
+                    "ulko_ovet": ulko_ovet,
+                    "valiovi_mallit": valiovi_mallit
+                }
+            
+            # Lisätään viesti
+            tulokset["message"] = "Tiedostot vastaanotettu onnistuneesti"
+            tulokset["status"] = "success"
             
             # Jos pyyntö on AJAX-pyyntö, palauta JSON-data
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
