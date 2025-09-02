@@ -90,37 +90,64 @@ def suodata_tiedot():
         
         #Oliko toimitussisalto Sievitalon?
         if hae_toimittaja_uuidlla(unique_tiedostonimi_ensimmainen_toimitussisalto) == "Sievitalo":
+            logging.info("Tunnistettu Sievitalo toimitussisalto")
             
-            #toimitussisalto_txt_url = hae_toimitussisalto_txt_url_uuidlla(unique_tiedostonimi_ensimmainen_toimitussisalto)
-            # toimitussisalto_txt = lue_txt_tiedosto(toimitussisalto_txt_url)
             toimitussisallon_id = hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_ensimmainen_toimitussisalto)
-            print("app 91", toimitussisallon_id)
+            logging.info(f"Toimitussisallon ID: {toimitussisallon_id}")
+            
             pdf_url = hae_pdf_url_uuidlla(uuid=hae_uuid_toimitussisalto_idlla(toimitussisallon_id))
-          
-            print("app 95", pdf_url)
+            logging.info(f"PDF URL: {pdf_url}")
+            
             #Sievitalon toimitussisalto puhdistetaan turhista merkeistä ja suodatetaan ikkunat, ulko-ovet, valiovet ja tallennetaaan ne kantaan
+            logging.info("Aloitetaan run_sievitalo")
             run_sievitalo(pdf_url, toimitussisallon_id)
+            logging.info("run_sievitalo valmis")
             
             # Haetaan käsitellyt tiedot tietokannasta
+            logging.info("Haetaan ikkunatiedot tietokannasta")
+            ikkunat = hae_toimitussisallon_ikkunat(toimitussisallon_id)
+            ulko_ovet = hae_toimitussisallon_ulko_ovet(toimitussisallon_id)
+            valiovi_mallit = hae_toimitussisallon_valiovet(toimitussisallon_id)
+            
+            logging.info(f"Haettu ikkunoita: {len(ikkunat) if ikkunat else 0}")
+            logging.info(f"Haettu ulko-ovia: {len(ulko_ovet) if ulko_ovet else 0}")
+            logging.info(f"Haettu väliovi-malleja: {len(valiovi_mallit) if valiovi_mallit else 0}")
+            
             tulokset["sievitalo"] = {
-                "ikkunat": hae_toimitussisallon_ikkunat(toimitussisallon_id),
-                "ulko_ovet": hae_toimitussisallon_ulko_ovet(toimitussisallon_id),
-                "valiovi_mallit": hae_toimitussisallon_valiovet(toimitussisallon_id)
+                "ikkunat": ikkunat,
+                "ulko_ovet": ulko_ovet,
+                "valiovi_mallit": valiovi_mallit
             }
         
         #Oliko toimitussisalto kastellin?
         if hae_toimittaja_uuidlla(unique_tiedostonimi_toinen_toimitussisalto) == "Kastelli":
+            logging.info("Tunnistettu Kastelli toimitussisalto")
+            
             toimitussisallon_id = hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_toinen_toimitussisalto)
+            logging.info(f"Toimitussisallon ID: {toimitussisallon_id}")
+            
             pdf_url = hae_pdf_url_uuidlla(uuid=hae_uuid_toimitussisalto_idlla(toimitussisallon_id))
+            logging.info(f"PDF URL: {pdf_url}")
             
             #Kastellin toimitussisalto puhdistetaan turhista merkeistä ja suodatetaan ikkunat, ulko-ovet, valiovet ja tallennetaaan ne kantaan
+            logging.info("Aloitetaan run_kastelli")
             run_kastelli(pdf_url, toimitussisallon_id)
+            logging.info("run_kastelli valmis")
             
             # Haetaan käsitellyt tiedot tietokannasta
+            logging.info("Haetaan ikkunatiedot tietokannasta")
+            ikkunat = hae_toimitussisallon_ikkunat(toimitussisallon_id)
+            ulko_ovet = hae_toimitussisallon_ulko_ovet(toimitussisallon_id)
+            valiovi_mallit = hae_toimitussisallon_valiovet(toimitussisallon_id)
+            
+            logging.info(f"Haettu ikkunoita: {len(ikkunat) if ikkunat else 0}")
+            logging.info(f"Haettu ulko-ovia: {len(ulko_ovet) if ulko_ovet else 0}")
+            logging.info(f"Haettu väliovi-malleja: {len(valiovi_mallit) if valiovi_mallit else 0}")
+            
             tulokset["kastelli"] = {
-                "ikkunat": hae_toimitussisallon_ikkunat(toimitussisallon_id),
-                "ulko_ovet": hae_toimitussisallon_ulko_ovet(toimitussisallon_id),
-                "valiovi_mallit": hae_toimitussisallon_valiovet(toimitussisallon_id)
+                "ikkunat": ikkunat,
+                "ulko_ovet": ulko_ovet,
+                "valiovi_mallit": valiovi_mallit
             }
         
         #Oliko toimitussisalto ..... 
@@ -166,19 +193,27 @@ def suodata_tiedot():
 
         # Jos pyyntö on AJAX-pyyntö, palauta JSON-data
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            logging.info(f"Palautetaan AJAX-vastaus: {len(str(tulokset))} tavua")
+            logging.info(f"Tulokset: {tulokset}")
             return Response(
                 json.dumps(tulokset),
                 mimetype='application/json'
             )
         
         # Jos ei ole AJAX-pyyntö, näytä template
+        logging.info(f"Palautetaan template-vastaus: {len(str(tulokset))} tavua")
         return render_template("index.html", tulokset=tulokset)
 
     except Exception as e:
         # Virheiden käsittely
+        logging.error(f"Virhe suodata_tiedot funktiossa: {str(e)}")
+        logging.error(f"Virhetyyppi: {type(e).__name__}")
+        import traceback
+        logging.error(f"Traceback: {traceback.format_exc()}")
+        
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             return Response(
-                json.dumps({'error': str(e)}),
+                json.dumps({'error': str(e), 'type': type(e).__name__}),
                 mimetype='application/json'
             )
         return render_template("virhe.html", virheviesti=f"Tietojen käsittelyssä tapahtui virhe: {e}")
