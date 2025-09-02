@@ -8,8 +8,7 @@ from db_luokat import SessionLocal, Toimitussisalto
 from sqlalchemy import create_engine, text
 from logger_config import configure_logging
 import logging
-from SQL_kyselyt import*
-print("app.py 12")
+from SQL_kyselyt import *
 
 sys.path.append(os.path.abspath("utils"))  # Lisää utils-kansion polku moduulihakemistoksi
 sys.path.append(os.path.abspath("api_kyselyt"))
@@ -36,8 +35,7 @@ from utils.tietosissallon_kasittely import *
 from run import run_sievitalo, run_kastelli
 from factory import get_sievitalo_ikkunat, get_sievitalo_ulko_ovet, get_sievitalo_valiovi_mallit, get_kastelli_ikkunat, get_kastelli_ulko_ovet, get_kastelli_valiovi_mallit
 from SQL_kyselyt import (hae_toimittaja_uuidlla, hae_toimitussisalto_txt_url_uuidlla, hae_toimitussisalto_id_uuidlla, 
-                         vastaanota_toimitussisalto, hae_paivan_toimitussisallot, hae_paivan_ulko_ovet, hae_paivan_valiovet, lisaa_vertailu,
-                         hae_pdf_url_uuidlla, hae_uuid_toimitussisalto_idlla)
+                         vastaanota_toimitussisalto, hae_paivan_toimitussisallot, hae_paivan_ulko_ovet, hae_paivan_valiovet, lisaa_vertailu)
 
 import google.generativeai as genai 
 
@@ -45,8 +43,8 @@ import google.generativeai as genai
 configure_logging()
 logger = logging.getLogger(__name__)
 
+
 logging.info("Sovellus käynnistyy")
-logging.info("Test")
 
 # Tietokantayhteyden testaus
 try:
@@ -84,7 +82,6 @@ def suodata_tiedot():
                 logging.info("Toinen toimitussisältö lisätty kantaan, toimittaja: {unique_tiedostonimi_toinen_toimitussisalto}")
 
                 
-                
                 lisaa_vertailu(hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_ensimmainen_toimitussisalto), hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_toinen_toimitussisalto))  
         
         #Oliko toimitussisalto Sievitalon?
@@ -110,12 +107,13 @@ def suodata_tiedot():
             #run_kastelli(pdf_file_2, toimitussisallon_id)         
             print("app 96")
         
-        #Oliko toimitussisalto ..... 
+        #Oliko toimitussisalto .....
         #if hae_toimittaja_uuidlla(unique_id_toinen_toimitussisalto) == "Designtalo":
         
             #Designtalon toimitussisalto puhdistetaan turhista merkeistä ja suodatetaan ikkunat, ulko-ovet, valiovet ja tallennetaaan ne kantaan
             #run_designtalo(lue_txt_tiedosto(hae_toimitussisalto_txt_url_uuidlla(unique_id_toinen_toimitussisalto)), hae_toimitussisalto_id_uuidlla(unique_id_toinen_toimitussisalto)) 
     
+
         else:
             tulokset["sievitalo"] = {"error": "Tuntematon toimittaja"}
 
