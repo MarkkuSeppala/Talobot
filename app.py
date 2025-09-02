@@ -8,7 +8,7 @@ from db_luokat import SessionLocal, Toimitussisalto
 from sqlalchemy import create_engine, text
 from logger_config import configure_logging
 import logging
-from SQL_kyselyt import *
+from SQL_kyselyt import*
 
 sys.path.append(os.path.abspath("utils"))  # Lisää utils-kansion polku moduulihakemistoksi
 sys.path.append(os.path.abspath("api_kyselyt"))
