@@ -37,7 +37,7 @@ from run import run_sievitalo, run_kastelli
 from factory import get_sievitalo_ikkunat, get_sievitalo_ulko_ovet, get_sievitalo_valiovi_mallit, get_kastelli_ikkunat, get_kastelli_ulko_ovet, get_kastelli_valiovi_mallit
 from SQL_kyselyt import (hae_toimittaja_uuidlla, hae_toimitussisalto_txt_url_uuidlla, hae_toimitussisalto_id_uuidlla, 
                          vastaanota_toimitussisalto, hae_paivan_toimitussisallot, hae_paivan_ulko_ovet, hae_paivan_valiovet, lisaa_vertailu,
-                         hae_pdf_url_uuidlla, hae_uuid_toimitussisalto_idlla)
+                         hae_pdf_url_uuidlla, hae_uuid_toimitussisalto_idlla, hae_toimitussisallon_ikkunat, hae_toimitussisallon_ulko_ovet, hae_toimitussisallon_valiovet)
 
 import google.generativeai as genai 
 
@@ -99,16 +99,28 @@ def suodata_tiedot():
             print("app 95", pdf_url)
             #Sievitalon toimitussisalto puhdistetaan turhista merkeistä ja suodatetaan ikkunat, ulko-ovet, valiovet ja tallennetaaan ne kantaan
             run_sievitalo(pdf_url, toimitussisallon_id)
+            
+            # Haetaan käsitellyt tiedot tietokannasta
+            tulokset["sievitalo"] = {
+                "ikkunat": hae_toimitussisallon_ikkunat(toimitussisallon_id),
+                "ulko_ovet": hae_toimitussisallon_ulko_ovet(toimitussisallon_id),
+                "valiovi_mallit": hae_toimitussisallon_valiovet(toimitussisallon_id)
+            }
         
         #Oliko toimitussisalto kastellin?
         if hae_toimittaja_uuidlla(unique_tiedostonimi_toinen_toimitussisalto) == "Kastelli":
-            # toimitussisalto_txt_url = hae_toimitussisalto_txt_url_uuidlla(unique_tiedostonimi_toinen_toimitussisalto)
-            # toimitussisalto_txt = lue_txt_tiedosto(toimitussisalto_txt_url)
-            # toimitussisallon_id = hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_toinen_toimitussisalto)
+            toimitussisallon_id = hae_toimitussisalto_id_uuidlla(unique_tiedostonimi_toinen_toimitussisalto)
+            pdf_url = hae_pdf_url_uuidlla(uuid=hae_uuid_toimitussisalto_idlla(toimitussisallon_id))
             
             #Kastellin toimitussisalto puhdistetaan turhista merkeistä ja suodatetaan ikkunat, ulko-ovet, valiovet ja tallennetaaan ne kantaan
-            #run_kastelli(pdf_file_2, toimitussisallon_id)         
-            print("app 96")
+            run_kastelli(pdf_url, toimitussisallon_id)
+            
+            # Haetaan käsitellyt tiedot tietokannasta
+            tulokset["kastelli"] = {
+                "ikkunat": hae_toimitussisallon_ikkunat(toimitussisallon_id),
+                "ulko_ovet": hae_toimitussisallon_ulko_ovet(toimitussisallon_id),
+                "valiovi_mallit": hae_toimitussisallon_valiovet(toimitussisallon_id)
+            }
         
         #Oliko toimitussisalto ..... 
         #if hae_toimittaja_uuidlla(unique_id_toinen_toimitussisalto) == "Designtalo":
