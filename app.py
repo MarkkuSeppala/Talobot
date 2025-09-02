@@ -47,6 +47,7 @@ logger = logging.getLogger(__name__)
 
 logging.info("Sovellus käynnistyy")
 logging.info("Test")
+logging.info("TESTIMUUTOS: Git-ikkuna testi")
 
 # Tietokantayhteyden testaus
 try:
