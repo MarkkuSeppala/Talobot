@@ -3,6 +3,7 @@ import os
 import sys
 #from muunna_ikkunat import muunna_raaka_ikkunat_yksittaisiksi, parsi_rivit_tiedoiksi, kastelli_parsi_rivit_tiedoiksi, muunna_raaka_ikkunat_yksittaisiksi_kastelli
 from SQL_kyselyt import lisaa_ikkunat_kantaan_ja_koko_x_100, lisaa_ikkunat_kantaan, lisaa_ulko_ovet_kantaan, lisaa_valiovet_kantaan, lisaa_toimitussisalto_tuotteet_kantaan, hae_toimitussisallon_tuotteet, hae_toimitussisallon_tuotteet_2
+from SQL_kyselyt_tuotteet_tauluun import hae_tuotteet_if_prompt_1_true
 
 
 sys.path.append(os.path.abspath("utils"))  # Lisää utils-kansion polku moduulihakemistoksi
@@ -103,7 +104,7 @@ def run_sievitalo(toimitussisalto_pdf, toimitussisalto_id):
         lisaa_valiovet_kantaan(valio_ovet, toimitussisalto_id)
         
         #---------------------------------------     Sievitalo tuotteet kantaan      ----------------------------------------
-        tuotteet = tulosta_tuotteet(hae_tuotteet_if_prompt_1_true())
+        tuotteet = hae_tuotteet_if_prompt_1_true()
         # Lisätään tuotteet alku- ja loppuviittaukset
         tuotteet = f"**TUOTELISTAUS START**\n{tuotteet}\n**TUOTELISTAUS END**"
         #print("run.py 108", tuotteet)
@@ -180,7 +181,7 @@ def run_kastelli(toimitussisalto_txt_polku: str, toimitussisalto_id: str):
        
 
 
-        tuotteet = hae_tuotteet_prompt1_str()
+        tuotteet = hae_tuotteet_if_prompt_1_true()
         toimitussisalto_tuotteet = api_kysely_nelja_parametria(GENERATION_CONFIG, PROMPT_KASTELLI_POIMI_TUOTTEET_TXT, puhdistettu_toimitussisalto, tuotteet)
         toimitussisalto_tuotteet = poista_json_merkinta(toimitussisalto_tuotteet)
         #print("run.py 158. toimitussisalto_tuotteet", toimitussisalto_tuotteet)

@@ -433,15 +433,16 @@ def hae_tuotteet_if_prompt_1_true():
                 Tuote.tarkenne_sievitalo
             ).filter(Tuote.prompt_1 == True).all()
             
-            # Tulosta tulokset
+            # Muodosta string-muotoinen lista tuotteista
+            tuotteet_str = ""
             for tulos in tulokset:
                 tarkenne_yleinen = tulos.tarkenne_yleinen if tulos.tarkenne_yleinen is not None else ' '
                 tarkenne_sievitalo = tulos.tarkenne_sievitalo if tulos.tarkenne_sievitalo is not None else ' '
                 
-                # print(f"id: {tulos.id}, tuote: {tulos.tuote}, "
-                #       f"tarkenne_yleinen: {tarkenne_yleinen}, tarkenne_sievitalo: {tarkenne_sievitalo}")
+                tuotteet_str += f"id: {tulos.id}, tuote: {tulos.tuote}, "
+                tuotteet_str += f"tarkenne_yleinen: {tarkenne_yleinen}, tarkenne_sievitalo: {tarkenne_sievitalo}\n"
             
-            return tulokset
+            return tuotteet_str
 
     except Exception as e:
         print(f"Virhe kyselyssä: {str(e)}")
@@ -516,19 +517,37 @@ def tallenna_ai_hakutulokset_kantaan(json_data):
     Returns:
         bool: True jos tallennus onnistui, False jos virhe
     """
+    session = None
     try:
+        # Tarkista onko json_data tyhjä tai None
+        if not json_data or json_data.strip() == "":
+            print("Virhe: Tyhjä JSON-data")
+            return False
+            
         # Jos JSON on merkkijono, muuta se Python-objektiksi
         if isinstance(json_data, str):
-            data = json.loads(json_data)
+            try:
+                data = json.loads(json_data)
+            except json.JSONDecodeError as e:
+                print(f"JSON-virhe: {str(e)}")
+                print(f"Vastaanotettu data: {json_data[:200]}...")  # Näytä vain ensimmäiset 200 merkkiä
+                return False
         else:
             data = json_data
             
         # Tarkista onko data oikeassa muodossa
         if not isinstance(data, dict) or "tunnistukset" not in data:
             print("Virheellinen JSON-muoto: 'tunnistukset' puuttuu")
+            print(f"Vastaanotettu data: {data}")
             return False
             
         tunnistukset = data["tunnistukset"]
+        
+        # Tarkista onko tunnistukset lista
+        if not isinstance(tunnistukset, list):
+            print("Virhe: 'tunnistukset' ei ole lista")
+            return False
+            
         session = SessionLocal()
         
         onnistuneet = 0
@@ -570,10 +589,12 @@ def tallenna_ai_hakutulokset_kantaan(json_data):
         
     except Exception as e:
         print(f"Virhe tallennuksessa: {str(e)}")
-        session.rollback()
+        if session:
+            session.rollback()
         return False
         
     finally:
-        session.close()
+        if session:
+            session.close()
 
 

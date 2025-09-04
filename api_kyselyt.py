@@ -39,7 +39,7 @@ logger = logging.getLogger(__name__)
 
 
 # model = genai.GenerativeModel(
-#     model_name="gemini-1.5-flash",
+#     model_name="gemini-2.0-flash-exp",
 #     generation_config={},
 #     system_instruction="Tämä on testi."
 # )
@@ -62,7 +62,7 @@ def api_kysely(generation_config, system_instruction, input_text) -> str:
     api_key = os.environ.get('GEMINI_API_KEY')
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel(
-        model_name="gemini-1.5-flash",
+        model_name="gemini-2.0-flash-exp",
         generation_config=generation_config,
         system_instruction=lue_txt_tiedosto(system_instruction)
     )
@@ -72,13 +72,15 @@ def api_kysely(generation_config, system_instruction, input_text) -> str:
     kysymys = f"Tässä on teksti: \n{input_text}\n\nToimi ohjeen mukaan."
     try:
         response = model.generate_content(kysymys)
-        if response is not None:
+        if response is not None and response.text:
             logger.info("API-vastaus saatu")
+            return response.text
         else:
-            logger.warning("API-vastaus puuttuu")
+            logger.warning("API-vastaus puuttuu tai on tyhjä")
+            return ""  # Palauta tyhjä string
     except Exception as e:
         logger.error(f"Odottamaton virhe: {e}")
-    return response.text
+        return ""  # Palauta tyhjä string
 
 #==================================== api_kysely_nelja_parametria()
 def api_kysely_nelja_parametria(generation_config, system_instruction, input_text_1, input_text_2) -> str:
@@ -91,7 +93,7 @@ def api_kysely_nelja_parametria(generation_config, system_instruction, input_tex
     api_key = os.environ.get('GEMINI_API_KEY')
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel(
-        model_name="gemini-1.5-flash",
+        model_name="gemini-2.0-flash-exp",
         generation_config=generation_config,
         system_instruction=system_instruction_2
     )
@@ -100,14 +102,29 @@ def api_kysely_nelja_parametria(generation_config, system_instruction, input_tex
 
     kysymys = f"Tässä on teksti: \n{input_text_1}\n\nToimi ohjeen mukaan."
     try:
+        import time
+        start_time = time.time()
+        logger.info(f"Lähetetään API-kysely...")
+        
         response = model.generate_content(kysymys)
-        if response is not None:
+        
+        elapsed_time = time.time() - start_time
+        logger.info(f"API-kysely valmis {elapsed_time:.2f} sekunnissa")
+        
+        if response is not None and response.text:
             logger.info("API-vastaus saatu")
+            return response.text
         else:
-            logger.warning("API-vastaus puuttuu")
+            logger.warning("API-vastaus puuttuu tai on tyhjä")
+            return '{"tunnistukset": []}'  # Palauta tyhjä mutta kelvollinen JSON
     except Exception as e:
         logger.error(f"Odottamaton virhe: {e}")
-    return response.text
+        # Tarkista onko kyse kvootti-virheestä
+        if "429" in str(e) or "quota" in str(e).lower():
+            logger.warning("API-kvootti ylitetty, odota hetki ennen uudelleenyritystä")
+            import time
+            time.sleep(5)  # Odota 5 sekuntia
+        return '{"tunnistukset": []}'  # Palauta tyhjä mutta kelvollinen JSON
 
 
     
@@ -125,7 +142,7 @@ def api_kysely_kirjoitus_json(system_instruction, generation_config, input_text,
     #tiedostopolku = "data/s/puhdistettu_toimitussisalto.txt"
 
     # model = genai.GenerativeModel(
-    #     model_name="gemini-1.5-flash",
+    #     model_name="gemini-2.0-flash-exp",
     #     generation_config=generation_config,
     #     system_instruction=lue_txt_tiedosto(system_instruction)
     # )
@@ -143,7 +160,7 @@ def api_kysely_ulko_ovet(generation_config, system_instruction, input_text):
         Vastaus parsitaan ulko_ovi-olioiksi, joka palautetaan listana."""
 
         model = genai.GenerativeModel(
-            model_name="gemini-1.5-flash",
+            model_name="gemini-2.0-flash-exp",
             generation_config=generation_config,
             system_instruction=lue_txt_tiedosto(system_instruction)
         )

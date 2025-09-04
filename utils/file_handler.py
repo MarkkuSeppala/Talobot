@@ -97,9 +97,35 @@ def kirjoita_txt_tiedosto(sisalto: str, tiedostopolku: str):
 
 def kirjoita_vastaus_jsoniin(response, tiedostopolku):
     try:
-        # Oletetaan, että response on jo sanakirja
+        # Jos response on string, muuta se ensin sanakirjaksi
+        if isinstance(response, str):
+            try:
+                # Poista markdown-koodilohkot jos ne ovat läsnä
+                cleaned_response = response.strip()
+                if cleaned_response.startswith('```json'):
+                    # Poista ```json alusta ja ``` lopusta
+                    cleaned_response = cleaned_response[7:]  # Poista ```json
+                    if cleaned_response.endswith('```'):
+                        cleaned_response = cleaned_response[:-3]  # Poista ```
+                    cleaned_response = cleaned_response.strip()
+                elif cleaned_response.startswith('```'):
+                    # Poista ``` alusta ja lopusta
+                    cleaned_response = cleaned_response[3:]
+                    if cleaned_response.endswith('```'):
+                        cleaned_response = cleaned_response[:-3]
+                    cleaned_response = cleaned_response.strip()
+                
+                data = json.loads(cleaned_response)
+            except json.JSONDecodeError as e:
+                print(f"JSON-virhe: {e}")
+                print(f"Vastaanotettu data: {response[:200]}...")
+                # Jos JSON-parsinta epäonnistuu, tallenna string suoraan
+                data = {"raw_response": response}
+        else:
+            data = response
+            
         with open(tiedostopolku, "w", encoding="utf-8") as tiedosto:
-            json.dump(response, tiedosto, ensure_ascii=False, indent=4)
+            json.dump(data, tiedosto, ensure_ascii=False, indent=4)
         print(f"Vastaus tallennettu JSON-tiedostoon: {tiedostopolku}")
     except Exception as e:
         print(f"Virhe JSON-tiedostoa kirjoittaessa: {e}")

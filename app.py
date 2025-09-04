@@ -195,8 +195,22 @@ def suodata_tiedot():
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             logging.info(f"Palautetaan AJAX-vastaus: {len(str(tulokset))} tavua")
             logging.info(f"Tulokset: {tulokset}")
+            
+            # Muunna tietokanta-objektit JSON-serialisoitaviksi
+            def convert_to_serializable(obj):
+                if hasattr(obj, '__dict__'):
+                    return {key: value for key, value in obj.__dict__.items() if not key.startswith('_')}
+                elif isinstance(obj, list):
+                    return [convert_to_serializable(item) for item in obj]
+                elif isinstance(obj, dict):
+                    return {key: convert_to_serializable(value) for key, value in obj.items()}
+                else:
+                    return obj
+            
+            serializable_tulokset = convert_to_serializable(tulokset)
+            
             return Response(
-                json.dumps(tulokset),
+                json.dumps(serializable_tulokset),
                 mimetype='application/json'
             )
         

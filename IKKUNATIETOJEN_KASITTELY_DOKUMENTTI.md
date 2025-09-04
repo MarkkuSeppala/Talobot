@@ -68,7 +68,7 @@ def run_sievitalo(toimitussisalto_pdf, toimitussisalto_id):
     lisaa_valiovet_kantaan(valio_ovet, toimitussisalto_id)
     
     # 5. Tuotteet
-    tuotteet = tulosta_tuotteet(hae_tuotteet_if_prompt_1_true())
+    tuotteet = hae_tuotteet_if_prompt_1_true()
     toimitussisalto_tuotteet = api_kysely_nelja_parametria(GENERATION_CONFIG, PROMPT_POIMI_TUOTTEET_1_TXT, puhdistettu_toimitussisalto, tuotteet)
     tallenna_ai_hakutulokset_kantaan(toimitussisalto_tuotteet)
 ```
