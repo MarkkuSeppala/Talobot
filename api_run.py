@@ -26,7 +26,7 @@ from werkzeug.utils import secure_filename
 from generation_config import GENERATION_CONFIG
 from utils.file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet
 from utils.tietosissallon_kasittely import jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, puhdista_teksti, kastelli_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi
-from api_kyselyt import api_kysely, api_kysely_kirjoitus_json
+from api_kyselyt import api_kysely, api_kysely_kirjoitus_json, groq_api_kysely
 
 
 
@@ -42,8 +42,10 @@ from api_kyselyt import api_kysely, api_kysely_kirjoitus_json
 def run_sievitalo():
 
         #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        api_kysely(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, GENERATION_CONFIG, PUHDISTETTU_TOIMITUSSISALTO_TXT, IKKUNATIEDOT_KOKONAISUUDESSA_TXT)
-        api_kysely_kirjoitus_json(PROMPT_SIEVITALO_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, GENERATION_CONFIG, IKKUNATIEDOT_KOKONAISUUDESSA_TXT, IKKUNA_JSON)
+        ikkunatiedot_sievitalo = groq_api_kysely(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, PUHDISTETTU_TOIMITUSSISALTO_TXT)
+        kirjoita_txt_tiedosto(ikkunatiedot_sievitalo, IKKUNATIEDOT_KOKONAISUUDESSA_TXT)
+        ikkunat_json_sievitalo = groq_api_kysely(PROMPT_SIEVITALO_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, ikkunatiedot_sievitalo)
+        kirjoita_txt_tiedosto(ikkunat_json_sievitalo, IKKUNA_JSON)
         #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                                               %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -56,15 +58,18 @@ def run_sievitalo():
         
         
         #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx     PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        api_kysely(PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT, GENERATION_CONFIG, PUHDISTETTU_TOIMITUSSISALTO_TXT, ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT)
+        ulko_ovi_tiedot_sievitalo = groq_api_kysely(PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT, PUHDISTETTU_TOIMITUSSISALTO_TXT)
+        kirjoita_txt_tiedosto(ulko_ovi_tiedot_sievitalo, ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT)
         #api_kysely_kirjoitus_json(PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_JSON_MUOTOON, GENERATION_CONFIG, ULKO_OVI_TIEDOT_KOKONAISUUDESSA_TXT, ULKO_OVI_TIEDOT_2_JSON)
         #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                          xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         
         
         
         #++++++++++++++++++++++++++++++++++++++       ROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT     ++++++++++++++++++++++++++++++++++++++++++++++
-        api_kysely(PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT, GENERATION_CONFIG, PUHDISTETTU_TOIMITUSSISALTO_TXT, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT)
-        api_kysely_kirjoitus_json(PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT, GENERATION_CONFIG, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT, VALIOVITYYPIT_SIEVITALO_JSON)
+        valiovi_tiedot_sievitalo = groq_api_kysely(PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT, PUHDISTETTU_TOIMITUSSISALTO_TXT)
+        kirjoita_txt_tiedosto(valiovi_tiedot_sievitalo, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT)
+        valiovi_json_sievitalo = groq_api_kysely(PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT, valiovi_tiedot_sievitalo)
+        kirjoita_txt_tiedosto(valiovi_json_sievitalo, VALIOVITYYPIT_SIEVITALO_JSON)
         #api_kysely_kirjoitus_json(PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT, GENERATION_CONFIG, VALIOVI_TIEDOT_KOKONAISUUDESSA_TXT, VALIOVITYYPIT_KASTELLI_JSON)
         #++++++++++++++++++++++++++++++++++++++++                                                 ++++++++++++++++++++++++++++++++++++++++++++++++
     
@@ -87,8 +92,10 @@ def run_sievitalo():
 def api_run_kastelli():
 
         #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     PROMPT_KASTELLI_POIMI_IKKUNATIEDOT_TXT      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        api_kysely(PROMPT_KASTELLI_POIMI_IKKUNATIEDOT_TXT, GENERATION_CONFIG, PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT, IKKUNATIEDOT_KASTELLI_KOKONAISUUDESSA_TXT)
-        api_kysely_kirjoitus_json(PROMPT_KASTELLI_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, GENERATION_CONFIG, IKKUNATIEDOT_KASTELLI_KOKONAISUUDESSA_TXT, IKKUNA_KASTELLI_JSON)
+        ikkunatiedot_kastelli = groq_api_kysely(PROMPT_KASTELLI_POIMI_IKKUNATIEDOT_TXT, PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT)
+        kirjoita_txt_tiedosto(ikkunatiedot_kastelli, IKKUNATIEDOT_KASTELLI_KOKONAISUUDESSA_TXT)
+        ikkunat_json_kastelli = groq_api_kysely(PROMPT_KASTELLI_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, ikkunatiedot_kastelli)
+        kirjoita_txt_tiedosto(ikkunat_json_kastelli, IKKUNA_KASTELLI_JSON)
         #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                                               %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -101,15 +108,18 @@ def api_run_kastelli():
         
         
         #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx     PROMPT_KASTELLI_POIMI_ULKO_OVI_TIEDOT_TXT    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        api_kysely(PROMPT_KASTELLI_POIMI_ULKO_OVI_TIEDOT_TXT, GENERATION_CONFIG, PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT, ULKO_OVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT)
+        ulko_ovi_tiedot_kastelli = groq_api_kysely(PROMPT_KASTELLI_POIMI_ULKO_OVI_TIEDOT_TXT, PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT)
+        kirjoita_txt_tiedosto(ulko_ovi_tiedot_kastelli, ULKO_OVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT)
         api_kysely_kirjoitus_json(PROMPT_KASTELLI_ULKO_OVI_TIEDOT_JSON_MUOTOON, GENERATION_CONFIG, ULKO_OVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT, ULKO_OVI_TIEDOT_KASTELLI_2_JSON)
         #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
         
         
         
         # #++++++++++++++++++++++++++++++++++++++       PROMPT_KASTELLI_POIMI_VALIOVITIEDOT_TXT     ++++++++++++++++++++++++++++++++++++++++++++++
-        api_kysely(PROMPT_KASTELLI_POIMI_VALIOVITIEDOT_TXT, GENERATION_CONFIG, PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT, VALIOVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT)
-        api_kysely_kirjoitus_json(PROMPT_KASTELLI_ANNA_VALIOVIMALLIT_TXT, GENERATION_CONFIG, VALIOVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT, VALIOVITYYPIT_KASTELLI_JSON)
+        valiovi_tiedot_kastelli = groq_api_kysely(PROMPT_KASTELLI_POIMI_VALIOVITIEDOT_TXT, PUHDISTETTU_TOIMITUSSISALTO_KASTELLI_TXT)
+        kirjoita_txt_tiedosto(valiovi_tiedot_kastelli, VALIOVI_TIEDOT_KASTELLI_KOKONAISUUDESSA_TXT)
+        valiovi_json_kastelli = groq_api_kysely(PROMPT_KASTELLI_ANNA_VALIOVIMALLIT_TXT, valiovi_tiedot_kastelli)
+        kirjoita_txt_tiedosto(valiovi_json_kastelli, VALIOVITYYPIT_KASTELLI_JSON)
         # #++++++++++++++++++++++++++++++++++++++++++++++                                      ++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 

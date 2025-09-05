@@ -33,6 +33,11 @@ D_DIR = DATA_DIR / "d"
 # Ladataan ympäristömuuttujat .env-tiedostosta
 #GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
+# Groq API Configuration
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
+GROQ_MODEL = "meta-llama/llama-4-scout-17b-16e-instruct"
+
 
 
 TOIMITUSSISALTO_TXT = DATA_DIR / "toimitussisalto.txt"

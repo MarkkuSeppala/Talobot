@@ -199,7 +199,15 @@ def suodata_tiedot():
             # Muunna tietokanta-objektit JSON-serialisoitaviksi
             def convert_to_serializable(obj):
                 if hasattr(obj, '__dict__'):
-                    return {key: value for key, value in obj.__dict__.items() if not key.startswith('_')}
+                    # Käsittele datetime-objektit erityisesti
+                    result = {}
+                    for key, value in obj.__dict__.items():
+                        if not key.startswith('_'):
+                            if hasattr(value, 'strftime'):  # datetime-objekti
+                                result[key] = value.strftime('%Y-%m-%d %H:%M:%S')
+                            else:
+                                result[key] = value
+                    return result
                 elif isinstance(obj, list):
                     return [convert_to_serializable(item) for item in obj]
                 elif isinstance(obj, dict):
@@ -274,7 +282,7 @@ def hae_valiovet():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8080))
-    app.run(host="0.0.0.0", port=port, debug=True)
+    app.run(host="0.0.0.0", port=port, debug=False)
 
 
 

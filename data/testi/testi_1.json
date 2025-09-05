@@ -1,3 +1,114 @@
-{
-    "tunnistukset": []
-}
+[
+    {
+        "tuote": "Omakotitalon rakennusaikainen vakuutus",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Omakotitalon rakennusaikainen vakuutus, kattaa Sievitalon kautta tulevat tarvikkeet ja työt"
+    },
+    {
+        "tuote": "Lämpöpuhallin",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Lämpöpuhallin + rakennuskuivain (rakentamisen aikainen)"
+    },
+    {
+        "tuote": "Rakennuskuivain",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Lämpöpuhallin + rakennuskuivain (rakentamisen aikainen)"
+    },
+    {
+        "tuote": "KVV/IV-työnjohto",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "KVV/IV-työnjohto (rakennuksien sisäpuoliset LVI-työt)"
+    },
+    {
+        "tuote": "Sisustussuunnittelupalvelu",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Sisustussuunnittelupalvelu (3h)"
+    },
+    {
+        "tuote": "Hiilijalanjälkilaskenta",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Hiilijalanjälkilaskenta"
+    },
+    {
+        "tuote": "Perustussuunnittelu",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Perustussuunnittelu"
+    },
+    {
+        "tuote": "Paaluperustus",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Paaluperustus liitteenä olevan erillisen sopimuksen mukaisesti"
+    },
+    {
+        "tuote": "Lämmöneriste",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Mineraalivilla 200mm"
+    },
+    {
+        "tuote": "Höyrynsulku",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Höyrynsulku"
+    },
+    {
+        "tuote": "Tuulensuojalevy",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Tuulensuojakipsilevy 9mm"
+    },
+    {
+        "tuote": "Sisäverhouskipsilevy",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Sisäverhouskipsilevy; KN"
+    },
+    {
+        "tuote": "Ulkoverhous vaakapaneeli",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Vaakapaneeli; UYM23x145 HS"
+    },
+    {
+        "tuote": "Pienteläinverkko tai hiirieste",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Pieneläinverkko alimman ulkoverhouspaneelin taakse tehtaalla asennettuna"
+    },
+    {
+        "tuote": "Sadevesijärjestelmä",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Vesikouru P13 Ulkopuolinen kannake Värivaihtoehdot RR20, RR23, RR32 tai RR33"
+    },
+    {
+        "tuote": "Lumieste",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Lumieste Värivaihtoehdot RR23, RR29, RR32, RR33 tai RR750"
+    },
+    {
+        "tuote": "Syöksysarja",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Syöksysarja P10 Vesikouru"
+    },
+    {
+        "tuote": "Terassilauta",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Puutavara48x148 painekyll. Asennettuna"
+    },
+    {
+        "tuote": "Portaat",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Portaat"
+    },
+    {
+        "tuote": "Kiuas",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Harvia Cilindro PC70XE6,8kW, RST, digitaalinen ohjauspaneeli Harvia Cilindro upotuskaulus, rst (HPC1)"
+    },
+    {
+        "tuote": "Maalämpö",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Sisältää Thermia Legend6kW (tai vastaava) maalämpöpumpun, porakaivon, nesteet yms. asennustarvikkeet käyttöönotettuna"
+    },
+    {
+        "tuote": "Ilmalämpöpumppu",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Bosch Climate Class6101i"
+    },
+    {
+        "tuote": "Lattialämmitys",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Vesikiertoinen lattialämmitys"
+    },
+    {
+        "tuote": "Keittiön hana",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Oras Vega1839FG"
+    },
+    {
+        "tuote": "Kodinhoitohuoneen vesihana",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Oras Vega1825FG"
+    },
+    {
+        "tuote": "Pesualtaan vesihana",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Oras Vega1812FG pesuallashana +bide"
+    },
+    {
+        "tuote": "Suihku",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Oras Optima7140"
+    },
+    {
+        "tuote": "Wc-istuin",
+        "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Wc-istuin Ido Seven D38310 (vakio kansi)"
+    }
+]

@@ -1735,6 +1735,7 @@ def lisaa_toimitussisalto_tuotteet_kantaan(json_data: str, toimitussisalto_id: i
     Returns:
         bool: True jos lisäys onnistui, False jos virhe
     """
+    session = None
     try:
         # Puhdistetaan JSON-data ylimääräisistä merkeistä
         if isinstance(json_data, str):
@@ -1797,7 +1798,8 @@ def lisaa_toimitussisalto_tuotteet_kantaan(json_data: str, toimitussisalto_id: i
         return False
         
     finally:
-        session.close()
+        if session:
+            session.close()
 
 
         

@@ -4,6 +4,7 @@ import sys
 from pathlib import Path
 #from config_data import GEMINI_API_KEY
 from utils.file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet, kirjoita_vastaus_jsoniin
+from config_data import GROQ_API_KEY, GROQ_API_URL, GROQ_MODEL
 from luokat_ikkuna_ulkoovi_valiovi import UlkoOvi
 import json
 from logger_config import configure_logging
@@ -19,6 +20,7 @@ sys.path.append(os.getcwd())
 
 import google.generativeai as genai
 from datetime import datetime
+import requests
 
 
 # Loggerin alustus
@@ -199,6 +201,290 @@ def api_kysely_ulko_ovet(generation_config, system_instruction, input_text):
         except Exception as e:
             logging.error(f"❌ Muu virhe: {str(e)}")
             return []
+
+
+#============== GROQ API-KYSELY ============#
+#==================================================================================================#
+#==================================================================================================#
+#==================================================================================================#
+
+def groq_api_kysely(system_instruction, input_text, model_name=None) -> str:
+    """Groq API-kysely funktio, joka lähettää kyselyn Groq-palveluun.
+    
+    Args:
+        system_instruction: System instruction teksti
+        input_text: Syöte teksti
+        model_name: Käytettävä malli (valinnainen, käyttää oletusmallia jos ei määritelty)
+    
+    Returns:
+        str: API-vastaus tekstinä
+    """
+    # Käytä ympäristömuuttujasta tulevaa API-avainta
+    api_key = GROQ_API_KEY
+    if not api_key:
+        logger.error("api_key ei ole määritelty ympäristömuuttujissa")
+        return ""
+    
+    if model_name is None:
+        model_name = GROQ_MODEL
+    
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}"
+    }
+    
+    # Lue system instruction tiedostosta jos se on polku
+    if isinstance(system_instruction, (str, Path)) and str(system_instruction).endswith('.txt'):
+        system_instruction = lue_txt_tiedosto(system_instruction)
+    
+    data = {
+        "model": model_name,
+        "messages": [
+            {
+                "role": "system",
+                "content": system_instruction
+            },
+            {
+                "role": "user", 
+                "content": f"Tässä on teksti: \n{input_text}\n\nToimi ohjeen mukaan."
+            }
+        ],
+        "temperature": 0.1,
+        "max_tokens": 4000
+    }
+    
+    try:
+        import time
+        start_time = time.time()
+        logger.info(f"Lähetetään Groq API-kysely mallilla {model_name}...")
+        
+        response = requests.post(GROQ_API_URL, headers=headers, json=data, timeout=30)
+        
+        elapsed_time = time.time() - start_time
+        logger.info(f"Groq API-kysely valmis {elapsed_time:.2f} sekunnissa")
+        
+        if response.status_code == 200:
+            result = response.json()
+            if 'choices' in result and len(result['choices']) > 0:
+                content = result['choices'][0]['message']['content']
+                logger.info("Groq API-vastaus saatu")
+                return content
+            else:
+                logger.warning("Groq API-vastaus ei sisällä choices-kenttää")
+                return ""
+        else:
+            logger.error(f"Groq API-virhe: {response.status_code} - {response.text}")
+            return ""
+            
+    except requests.exceptions.Timeout:
+        logger.error("Groq API-kysely aikakatkaistu")
+        return ""
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Groq API-kysely epäonnistui: {e}")
+        return ""
+    except Exception as e:
+        logger.error(f"Odottamaton virhe Groq API-kyselyssä: {e}")
+        return ""
+
+
+def groq_api_kysely_nelja_parametria(system_instruction, input_text_1, input_text_2, model_name=None) -> str:
+    """Groq API-kysely funktio neljällä parametrilla.
+    
+    Args:
+        system_instruction: System instruction teksti
+        input_text_1: Ensimmäinen syöte teksti
+        input_text_2: Toinen syöte teksti (lisätään system instructioniin)
+        model_name: Käytettävä malli (valinnainen)
+    
+    Returns:
+        str: API-vastaus tekstinä
+    """
+    # Käytä ympäristömuuttujasta tulevaa API-avainta
+    api_key = GROQ_API_KEY
+    if not api_key:
+        logger.error("api_key ei ole määritelty ympäristömuuttujissa")
+        return '{"tunnistukset": []}'
+    
+    if model_name is None:
+        model_name = GROQ_MODEL
+    
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}"
+    }
+    
+    # Lue system instruction tiedostosta jos se on polku
+    if isinstance(system_instruction, (str, Path)) and str(system_instruction).endswith('.txt'):
+        system_instruction = lue_txt_tiedosto(system_instruction)
+    
+    # Yhdistä system instruction ja input_text_2
+    system_instruction_2 = system_instruction + input_text_2
+    
+    data = {
+        "model": model_name,
+        "messages": [
+            {
+                "role": "system",
+                "content": system_instruction_2
+            },
+            {
+                "role": "user",
+                "content": f"Tässä on teksti: \n{input_text_1}\n\nToimi ohjeen mukaan."
+            }
+        ],
+        "temperature": 0.1,
+        "max_tokens": 4000
+    }
+    
+    try:
+        import time
+        start_time = time.time()
+        logger.info(f"Lähetetään Groq API-kysely (4 param) mallilla {model_name}...")
+        
+        response = requests.post(GROQ_API_URL, headers=headers, json=data, timeout=30)
+        
+        elapsed_time = time.time() - start_time
+        logger.info(f"Groq API-kysely (4 param) valmis {elapsed_time:.2f} sekunnissa")
+        
+        if response.status_code == 200:
+            result = response.json()
+            if 'choices' in result and len(result['choices']) > 0:
+                content = result['choices'][0]['message']['content']
+                logger.info("Groq API-vastaus saatu")
+                return content
+            else:
+                logger.warning("Groq API-vastaus ei sisällä choices-kenttää")
+                return '{"tunnistukset": []}'
+        else:
+            logger.error(f"Groq API-virhe: {response.status_code} - {response.text}")
+            return '{"tunnistukset": []}'
+            
+    except requests.exceptions.Timeout:
+        logger.error("Groq API-kysely aikakatkaistu")
+        return '{"tunnistukset": []}'
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Groq API-kysely epäonnistui: {e}")
+        return '{"tunnistukset": []}'
+    except Exception as e:
+        logger.error(f"Odottamaton virhe Groq API-kyselyssä: {e}")
+        return '{"tunnistukset": []}'
+
+
+def groq_api_kysely_ulko_ovet(system_instruction, input_text, model_name=None):
+    """Groq API-kysely ulko-oville, palauttaa UlkoOvi-olioita listana.
+    
+    Args:
+        system_instruction: System instruction teksti
+        input_text: Syöte teksti
+        model_name: Käytettävä malli (valinnainen)
+    
+    Returns:
+        list: UlkoOvi-olioita listana
+    """
+    # Käytä ympäristömuuttujasta tulevaa API-avainta
+    api_key = GROQ_API_KEY
+    if not api_key:
+        logger.error("api_key ei ole määritelty ympäristömuuttujissa")
+        return []
+    
+    if model_name is None:
+        model_name = GROQ_MODEL
+    
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}"
+    }
+    
+    # Lue system instruction tiedostosta jos se on polku
+    if isinstance(system_instruction, (str, Path)) and str(system_instruction).endswith('.txt'):
+        system_instruction = lue_txt_tiedosto(system_instruction)
+    
+    data = {
+        "model": model_name,
+        "messages": [
+            {
+                "role": "system",
+                "content": system_instruction
+            },
+            {
+                "role": "user",
+                "content": f"Tässä on teksti: \n{input_text}\n\nToimi ohjeen mukaan."
+            }
+        ],
+        "temperature": 0.1,
+        "max_tokens": 4000
+    }
+    
+    try:
+        import time
+        start_time = time.time()
+        logger.info(f"Lähetetään Groq API-kysely ulko-oville mallilla {model_name}...")
+        
+        response = requests.post(GROQ_API_URL, headers=headers, json=data, timeout=30)
+        
+        elapsed_time = time.time() - start_time
+        logger.info(f"Groq API-kysely ulko-oville valmis {elapsed_time:.2f} sekunnissa")
+        
+        if response.status_code == 200:
+            result = response.json()
+            if 'choices' in result and len(result['choices']) > 0:
+                content = result['choices'][0]['message']['content']
+                
+                if not content:
+                    logger.warning("❌ Groq API-kutsu palautti tyhjän vastauksen")
+                    return []
+                
+                # Puhdista content ```json-merkinnöistä
+                json_text = content.replace("```json", "").replace("```", "").strip()
+                
+                # Debug: tulosta vastaus
+                logger.info(f"🔍 Groq API vastaus ulko-oville: {content[:200]}...")
+                
+                # Muunna vastaus UlkoOvi-olioiksi
+                try:
+                    ovet_data = json.loads(json_text)
+                    
+                    # Tarkista että ovet_data on lista
+                    if not isinstance(ovet_data, list):
+                        logger.warning("❌ API-vastaus ei ole lista")
+                        return []
+                    
+                    ovet = []
+                    for ovi_data in ovet_data:
+                        ovi = UlkoOvi(
+                            malli=ovi_data["malli"],
+                            paloluokitus_EI_15=ovi_data["paloluokitus_EI_15"],
+                            lukko=ovi_data["lukko"],
+                            maara=ovi_data["maara"]
+                        )
+                        ovet.append(ovi)
+                        logging.info(f"✅ Luotu ulko-ovi: {vars(ovi)}")
+                        
+                    logger.info(f"✅ Yhteensä {len(ovet)} ulko-ovea luotu")
+                    return ovet
+                except json.JSONDecodeError as e:
+                    logging.error(f"❌ JSON-parsinta epäonnistui: {str(e)}")
+                    logging.error(f"❌ Raw vastaus: {content[:500]}...")
+                    return []
+                except Exception as e:
+                    logging.error(f"❌ Muu virhe: {str(e)}")
+                    return []
+            else:
+                logger.warning("Groq API-vastaus ei sisällä choices-kenttää")
+                return []
+        else:
+            logger.error(f"Groq API-virhe: {response.status_code} - {response.text}")
+            return []
+            
+    except requests.exceptions.Timeout:
+        logger.error("Groq API-kysely aikakatkaistu")
+        return []
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Groq API-kysely epäonnistui: {e}")
+        return []
+    except Exception as e:
+        logger.error(f"Odottamaton virhe Groq API-kyselyssä: {e}")
+        return []
 
 
 
