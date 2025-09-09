@@ -65,11 +65,17 @@ def run_sievitalo(toimitussisalto_pdf, toimitussisalto_id):
         
         #---------------------------------------     Sievitalo ikkunat kantaan      ----------------------------------------
         
+        print(f"\n🔍 SIEVITALO API-KYSELY: Ikkunatiedot")
         # Palauttaa tekstimuodossa listan toimitussisällön ikkunoista
         ikkunatiedot_kokonaisuudessa = groq_api_kysely(PROMPT_SIEVITALO_POIMI_IKKUNATIEDOT_TXT, puhdistettu_toimitussisalto)
+        kirjoita_txt_tiedosto(ikkunatiedot_kokonaisuudessa, f"terminaalitulosteet/sievitalo_ikkunatiedot_raaka_{toimitussisalto_id}.txt")
+        print(f"📋 Ikkunatiedot tallennettu: terminaalitulosteet/sievitalo_ikkunatiedot_raaka_{toimitussisalto_id}.txt")
 
+        print(f"\n🔍 SIEVITALO API-KYSELY: Ikkunat JSON-muotoon")
         # Palauttaa ikkunat JSON-muodossa
         ikkunat_json = groq_api_kysely(PROMPT_SIEVITALO_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, ikkunatiedot_kokonaisuudessa)
+        kirjoita_txt_tiedosto(ikkunat_json, f"terminaalitulosteet/sievitalo_ikkunat_json_{toimitussisalto_id}.txt")
+        print(f"📋 Ikkunat JSON tallennettu: terminaalitulosteet/sievitalo_ikkunat_json_{toimitussisalto_id}.txt")
 
         # Lisätään ikkunat tietokantaan
         lisaa_ikkunat_kantaan_ja_koko_x_100(ikkunat_json, toimitussisalto_id)
@@ -82,7 +88,10 @@ def run_sievitalo(toimitussisalto_pdf, toimitussisalto_id):
         logging.info("⏳ Odotetaan 30 sekuntia ennen Sievitalo ulko-ovien käsittelyä...")
         time.sleep(30)
         
+        print(f"\n🔍 SIEVITALO API-KYSELY: Ulko-ovet")
         ulko_ovet_teksti = groq_api_kysely(PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT, puhdistettu_toimitussisalto)
+        kirjoita_txt_tiedosto(ulko_ovet_teksti, f"terminaalitulosteet/sievitalo_ulko_ovet_raaka_{toimitussisalto_id}.txt")
+        print(f"📋 Ulko-ovet tallennettu: terminaalitulosteet/sievitalo_ulko_ovet_raaka_{toimitussisalto_id}.txt")
         
         # Tarkista että API-kutsu onnistui
         if not ulko_ovet_teksti or ulko_ovet_teksti.strip() == "":
@@ -93,7 +102,10 @@ def run_sievitalo(toimitussisalto_pdf, toimitussisalto_id):
             logging.info("⏳ Odotetaan 30 sekuntia ennen Sievitalo ulko-ovien JSON-muunnosta...")
             time.sleep(30)
             
+            print(f"\n🔍 SIEVITALO API-KYSELY: Ulko-ovet JSON-muotoon")
             ulko_ovet = groq_api_kysely_ulko_ovet(PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_LUOKKAMUOTOON, ulko_ovet_teksti)
+            kirjoita_txt_tiedosto(str(ulko_ovet), f"terminaalitulosteet/sievitalo_ulko_ovet_json_{toimitussisalto_id}.txt")
+            print(f"📋 Ulko-ovet JSON tallennettu: terminaalitulosteet/sievitalo_ulko_ovet_json_{toimitussisalto_id}.txt")
             
             # Tarkista että toinen API-kutsu onnistui
             if not ulko_ovet:
@@ -111,7 +123,10 @@ def run_sievitalo(toimitussisalto_pdf, toimitussisalto_id):
         logging.info("⏳ Odotetaan 30 sekuntia ennen väliovien käsittelyä...")
         time.sleep(30)
         
+        print(f"\n🔍 SIEVITALO API-KYSELY: Väliovet")
         valio_ovet = groq_api_kysely(PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT, puhdistettu_toimitussisalto)
+        kirjoita_txt_tiedosto(valio_ovet, f"terminaalitulosteet/sievitalo_valiovet_raaka_{toimitussisalto_id}.txt")
+        print(f"📋 Väliovet tallennettu: terminaalitulosteet/sievitalo_valiovet_raaka_{toimitussisalto_id}.txt")
         
         # Tarkista että API-kutsu onnistui
         if not valio_ovet or valio_ovet.strip() == "":
@@ -121,7 +136,11 @@ def run_sievitalo(toimitussisalto_pdf, toimitussisalto_id):
             # Lisätään pidempi viive ennen toista API-kutsua
             logging.info("⏳ Odotetaan 30 sekuntia ennen väliovien mallien käsittelyä...")
             time.sleep(30)
+            
+            print(f"\n🔍 SIEVITALO API-KYSELY: Väliovet mallit")
             valio_ovet = groq_api_kysely(PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT, valio_ovet)
+            kirjoita_txt_tiedosto(valio_ovet, f"terminaalitulosteet/sievitalo_valiovet_mallit_{toimitussisalto_id}.txt")
+            print(f"📋 Väliovet mallit tallennettu: terminaalitulosteet/sievitalo_valiovet_mallit_{toimitussisalto_id}.txt")
             
             # Tarkista että toinen API-kutsu onnistui
             if not valio_ovet or valio_ovet.strip() == "":
@@ -160,7 +179,15 @@ def run_sievitalo(toimitussisalto_pdf, toimitussisalto_id):
         #print("run.py 109", puhdistettu_toimitussisalto)
         
         #---------------------eka api-kysely tuotteista
+        print(f"\n🔍 SIEVITALO API-KYSELY: Tuotteet")
+        kirjoita_txt_tiedosto(tuotteet, f"terminaalitulosteet/sievitalo_tuotelista_raaka_{toimitussisalto_id}.txt")
+        print(f"📋 Tuotelista tallennettu: terminaalitulosteet/sievitalo_tuotelista_raaka_{toimitussisalto_id}.txt")
+        
+        print(f"\n🔍 SIEVITALO API-KYSELY: Tuotteet analyysi")
         toimitussisalto_tuotteet = groq_api_kysely_nelja_parametria(PROMPT_POIMI_TUOTTEET_1_TXT, puhdistettu_toimitussisalto, tuotteet)
+        kirjoita_txt_tiedosto(toimitussisalto_tuotteet, f"terminaalitulosteet/sievitalo_tuotteet_analyysi_raaka_{toimitussisalto_id}.txt")
+        print(f"📋 Tuotteet analyysi tallennettu: terminaalitulosteet/sievitalo_tuotteet_analyysi_raaka_{toimitussisalto_id}.txt")
+        
         kirjoita_vastaus_jsoniin(toimitussisalto_tuotteet, "C:/talobot_env/data/testi/testi_1.json")
         #lisaa_toimitussisalto_tuotteet_kantaan(toimitussisalto_tuotteet, toimitussisalto_id)
         tallenna_ai_hakutulokset_kantaan(toimitussisalto_tuotteet)
@@ -196,8 +223,16 @@ def run_kastelli(toimitussisalto_txt_polku: str, toimitussisalto_id: str):
        
 
        #---------------------------------------     Kastelli ikkunat kantaan      ----------------------------------------
+        print(f"\n🔍 KASTELLI API-KYSELY: Ikkunatiedot")
         ikkunatiedot_kokonaisuudessa = groq_api_kysely(PROMPT_KASTELLI_POIMI_IKKUNATIEDOT_TXT, puhdistettu_toimitussisalto)
+        kirjoita_txt_tiedosto(ikkunatiedot_kokonaisuudessa, f"terminaalitulosteet/kastelli_ikkunatiedot_raaka_{toimitussisalto_id}.txt")
+        print(f"📋 Ikkunatiedot tallennettu: terminaalitulosteet/kastelli_ikkunatiedot_raaka_{toimitussisalto_id}.txt")
+        
+        print(f"\n🔍 KASTELLI API-KYSELY: Ikkunat JSON-muotoon")
         ikkunat_json = groq_api_kysely(PROMPT_KASTELLI_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, ikkunatiedot_kokonaisuudessa)
+        kirjoita_txt_tiedosto(ikkunat_json, f"terminaalitulosteet/kastelli_ikkunat_json_{toimitussisalto_id}.txt")
+        print(f"📋 Ikkunat JSON tallennettu: terminaalitulosteet/kastelli_ikkunat_json_{toimitussisalto_id}.txt")
+        
         lisaa_ikkunat_kantaan(ikkunat_json, toimitussisalto_id)
         
         
@@ -206,7 +241,10 @@ def run_kastelli(toimitussisalto_txt_polku: str, toimitussisalto_id: str):
         logging.info("⏳ Odotetaan 30 sekuntia ennen Kastelli ulko-ovien käsittelyä...")
         time.sleep(30)
         
+        print(f"\n🔍 KASTELLI API-KYSELY: Ulko-ovet")
         ulko_ovet_teksti = groq_api_kysely(PROMPT_KASTELLI_POIMI_ULKO_OVI_TIEDOT_TXT, puhdistettu_toimitussisalto)
+        kirjoita_txt_tiedosto(ulko_ovet_teksti, f"terminaalitulosteet/kastelli_ulko_ovet_raaka_{toimitussisalto_id}.txt")
+        print(f"📋 Ulko-ovet tallennettu: terminaalitulosteet/kastelli_ulko_ovet_raaka_{toimitussisalto_id}.txt")
         
         # Tarkista että API-kutsu onnistui
         if not ulko_ovet_teksti or ulko_ovet_teksti.strip() == "":
@@ -217,7 +255,10 @@ def run_kastelli(toimitussisalto_txt_polku: str, toimitussisalto_id: str):
             logging.info("⏳ Odotetaan 30 sekuntia ennen Kastelli ulko-ovien JSON-muunnosta...")
             time.sleep(30)
             
+            print(f"\n🔍 KASTELLI API-KYSELY: Ulko-ovet JSON-muotoon")
             ulko_ovet = groq_api_kysely_ulko_ovet(PROMPT_KASTELLI_ULKO_OVI_TIEDOT_LUOKKAMUOTOON, ulko_ovet_teksti)
+            kirjoita_txt_tiedosto(str(ulko_ovet), f"terminaalitulosteet/kastelli_ulko_ovet_json_{toimitussisalto_id}.txt")
+            print(f"📋 Ulko-ovet JSON tallennettu: terminaalitulosteet/kastelli_ulko_ovet_json_{toimitussisalto_id}.txt")
             
             # Tarkista että toinen API-kutsu onnistui
             if not ulko_ovet:
@@ -235,7 +276,10 @@ def run_kastelli(toimitussisalto_txt_polku: str, toimitussisalto_id: str):
         logging.info("⏳ Odotetaan 30 sekuntia ennen Kastelli väliovien käsittelyä...")
         time.sleep(30)
         
+        print(f"\n🔍 KASTELLI API-KYSELY: Väliovet")
         valio_ovet = groq_api_kysely(PROMPT_KASTELLI_POIMI_VALIOVITIEDOT_TXT, puhdistettu_toimitussisalto)
+        kirjoita_txt_tiedosto(valio_ovet, f"terminaalitulosteet/kastelli_valiovet_raaka_{toimitussisalto_id}.txt")
+        print(f"📋 Väliovet tallennettu: terminaalitulosteet/kastelli_valiovet_raaka_{toimitussisalto_id}.txt")
         
         # Tarkista että API-kutsu onnistui
         if not valio_ovet or valio_ovet.strip() == "":
@@ -245,7 +289,11 @@ def run_kastelli(toimitussisalto_txt_polku: str, toimitussisalto_id: str):
             # Lisätään pidempi viive ennen toista API-kutsua
             logging.info("⏳ Odotetaan 30 sekuntia ennen Kastelli väliovien mallien käsittelyä...")
             time.sleep(30)
+            
+            print(f"\n🔍 KASTELLI API-KYSELY: Väliovet mallit")
             valio_ovet = groq_api_kysely(PROMPT_KASTELLI_ANNA_VALIOVIMALLIT_TXT, valio_ovet)
+            kirjoita_txt_tiedosto(valio_ovet, f"terminaalitulosteet/kastelli_valiovet_mallit_{toimitussisalto_id}.txt")
+            print(f"📋 Väliovet mallit tallennettu: terminaalitulosteet/kastelli_valiovet_mallit_{toimitussisalto_id}.txt")
             
             # Tarkista että toinen API-kutsu onnistui
             if not valio_ovet or valio_ovet.strip() == "":
@@ -279,8 +327,19 @@ def run_kastelli(toimitussisalto_txt_polku: str, toimitussisalto_id: str):
         time.sleep(30)
         
         tuotteet = hae_tuotteet_if_prompt_1_true()
+        
+        print(f"\n🔍 KASTELLI API-KYSELY: Tuotteet")
+        kirjoita_txt_tiedosto(tuotteet, f"terminaalitulosteet/kastelli_tuotelista_raaka_{toimitussisalto_id}.txt")
+        print(f"📋 Tuotelista tallennettu: terminaalitulosteet/kastelli_tuotelista_raaka_{toimitussisalto_id}.txt")
+        
+        print(f"\n🔍 KASTELLI API-KYSELY: Tuotteet analyysi")
         toimitussisalto_tuotteet = groq_api_kysely_nelja_parametria(PROMPT_KASTELLI_POIMI_TUOTTEET_TXT, puhdistettu_toimitussisalto, tuotteet)
+        kirjoita_txt_tiedosto(toimitussisalto_tuotteet, f"terminaalitulosteet/kastelli_tuotteet_analyysi_raaka_{toimitussisalto_id}.txt")
+        print(f"📋 Tuotteet analyysi tallennettu: terminaalitulosteet/kastelli_tuotteet_analyysi_raaka_{toimitussisalto_id}.txt")
+        
         toimitussisalto_tuotteet = poista_json_merkinta(toimitussisalto_tuotteet)
+        kirjoita_txt_tiedosto(toimitussisalto_tuotteet, f"terminaalitulosteet/kastelli_tuotteet_analyysi_puhdistettu_{toimitussisalto_id}.txt")
+        print(f"📋 Tuotteet analyysi (puhdistettu) tallennettu: terminaalitulosteet/kastelli_tuotteet_analyysi_puhdistettu_{toimitussisalto_id}.txt")
         #print("run.py 158. toimitussisalto_tuotteet", toimitussisalto_tuotteet)
         kirjoita_txt_tiedosto(toimitussisalto_tuotteet, IKKUNATIEDOT_KASTELLI_KOKONAISUUDESSA_TXT)
         lisaa_toimitussisalto_tuotteet_kantaan(toimitussisalto_tuotteet, toimitussisalto_id)

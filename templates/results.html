@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talobot - Analyysitulokset</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏠 Talobot</h1>
+            <p>Analyysitulokset</p>
+        </header>
+
+        <main>
+            <div class="results-section">
+                <h2>📊 Analyysitulokset</h2>
+                
+                <div class="results-grid">
+                    <!-- Analyysi 1 -->
+                    <div class="analysis-card">
+                        <h3>{{ tulokset.analyysi_1.toimittaja }}</h3>
+                        <p class="analysis-id">Analyysi ID: {{ tulokset.analyysi_1.id }}</p>
+                        
+                        <!-- Ikkunat -->
+                        <div class="section">
+                            <h4>🪟 Ikkunat</h4>
+                            {% if tulokset.analyysi_1.ikkunat %}
+                                <div class="table-container">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Koko</th>
+                                                <th>Turvalasi</th>
+                                                <th>Välikarmi</th>
+                                                <th>Sälekaihtimet</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for ikkuna in tulokset.analyysi_1.ikkunat %}
+                                            <tr>
+                                                <td>{{ ikkuna.leveys }}x{{ ikkuna.korkeus }}</td>
+                                                <td>{{ '✅' if ikkuna.turvalasi else '❌' }}</td>
+                                                <td>{{ '✅' if ikkuna.valikarmi else '❌' }}</td>
+                                                <td>{{ '✅' if ikkuna.salekaihtimet else '❌' }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% else %}
+                                <p class="no-data">Ikkunoita ei löytynyt</p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Ulko-ovet -->
+                        <div class="section">
+                            <h4>🚪 Ulko-ovet</h4>
+                            {% if tulokset.analyysi_1.ulko_ovet %}
+                                <div class="table-container">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Malli</th>
+                                                <th>Koko</th>
+                                                <th>Materiaali</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for ovi in tulokset.analyysi_1.ulko_ovet %}
+                                            <tr>
+                                                <td>{{ ovi.ovimalli or 'N/A' }}</td>
+                                                <td>{{ ovi.leveys }}x{{ ovi.korkeus if ovi.leveys and ovi.korkeus else 'N/A' }}</td>
+                                                <td>{{ ovi.materiaali or 'N/A' }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% else %}
+                                <p class="no-data">Ulko-ovia ei löytynyt</p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Väliovet -->
+                        <div class="section">
+                            <h4>🚪 Väliovet</h4>
+                            {% if tulokset.analyysi_1.valiovet %}
+                                <div class="table-container">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Ovimalli</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for valiovi in tulokset.analyysi_1.valiovet %}
+                                            <tr>
+                                                <td>{{ valiovi.ovimalli or 'N/A' }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% else %}
+                                <p class="no-data">Väliovia ei löytynyt</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Analyysi 2 -->
+                    <div class="analysis-card">
+                        <h3>{{ tulokset.analyysi_2.toimittaja }}</h3>
+                        <p class="analysis-id">Analyysi ID: {{ tulokset.analyysi_2.id }}</p>
+                        
+                        <!-- Ikkunat -->
+                        <div class="section">
+                            <h4>🪟 Ikkunat</h4>
+                            {% if tulokset.analyysi_2.ikkunat %}
+                                <div class="table-container">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Koko</th>
+                                                <th>Turvalasi</th>
+                                                <th>Välikarmi</th>
+                                                <th>Sälekaihtimet</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for ikkuna in tulokset.analyysi_2.ikkunat %}
+                                            <tr>
+                                                <td>{{ ikkuna.leveys }}x{{ ikkuna.korkeus }}</td>
+                                                <td>{{ '✅' if ikkuna.turvalasi else '❌' }}</td>
+                                                <td>{{ '✅' if ikkuna.valikarmi else '❌' }}</td>
+                                                <td>{{ '✅' if ikkuna.salekaihtimet else '❌' }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% else %}
+                                <p class="no-data">Ikkunoita ei löytynyt</p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Ulko-ovet -->
+                        <div class="section">
+                            <h4>🚪 Ulko-ovet</h4>
+                            {% if tulokset.analyysi_2.ulko_ovet %}
+                                <div class="table-container">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Malli</th>
+                                                <th>Koko</th>
+                                                <th>Materiaali</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for ovi in tulokset.analyysi_2.ulko_ovet %}
+                                            <tr>
+                                                <td>{{ ovi.ovimalli or 'N/A' }}</td>
+                                                <td>{{ ovi.leveys }}x{{ ovi.korkeus if ovi.leveys and ovi.korkeus else 'N/A' }}</td>
+                                                <td>{{ ovi.materiaali or 'N/A' }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% else %}
+                                <p class="no-data">Ulko-ovia ei löytynyt</p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Väliovet -->
+                        <div class="section">
+                            <h4>🚪 Väliovet</h4>
+                            {% if tulokset.analyysi_2.valiovet %}
+                                <div class="table-container">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Ovimalli</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for valiovi in tulokset.analyysi_2.valiovet %}
+                                            <tr>
+                                                <td>{{ valiovi.ovimalli or 'N/A' }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            {% else %}
+                                <p class="no-data">Väliovia ei löytynyt</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <a href="/" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Analysoi uudet toimitussisällöt
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Talobot v1.0 - Modulaarinen arkkitehtuuri</p>
+        </footer>
+    </div>
+</body>
+</html>

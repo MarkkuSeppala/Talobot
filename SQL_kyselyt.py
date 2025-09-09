@@ -1997,14 +1997,14 @@ def hae_toimitussisallon_tuotteet_2(toimitussisalto_id):
                 rivi[0].luotu.strftime("%d.%m.%Y %H:%M") if rivi[0].luotu else "-"
             ])
         
-        print(f"\nToimitussisällön {toimitussisalto_id} tuotteet:")
-        print(tabulate(data, headers=headers, tablefmt='grid', numalign='right', stralign='left'))
+        # Logataan tuotteiden määrä
+        logging.info(f"Haettu {len(tulokset)} tuotetta toimitussisällölle {toimitussisalto_id}")
         
         # Tärkeä muutos: palautetaan tulokset
         return tulokset
         
     except Exception as e:
-        print(f"Virhe tietojen haussa: {str(e)}")
+        logging.error(f"Virhe tietojen haussa: {str(e)}")
         return None
     
     finally:
@@ -2231,17 +2231,8 @@ def hae_toimitussisallon_ikkunat(toimitussisalto_id: int) -> list:
             logging.info(f"Toimitussisällöllä {toimitussisalto_id} ei ole ikkunoita")
             return []
             
-        #Tulostetaan ikkunat
-        print(f"\nToimitussisällön {toimitussisalto_id} ikkunat:")
-        print("-" * 100)
-        print(f"{'ID':<5} {'Leveys':<10} {'Korkeus':<10} {'Turvalasi':<12} {'Välikarmi':<12} {'Sälekaihtimet':<15} {'Luotu':<20}")
-        print("-" * 100)
-        
-        for ikkuna in ikkunat:
-            print(f"{ikkuna.id:<5} {ikkuna.leveys:<10} {ikkuna.korkeus:<10} "
-                  f"{str(ikkuna.turvalasi):<12} {str(ikkuna.valikarmi):<12} "
-                  f"{str(ikkuna.salekaihtimet):<15} "
-                  f"{ikkuna.created_at.strftime('%Y-%m-%d %H:%M') if ikkuna.created_at else '':<20}")
+        # Logataan ikkunoiden määrä
+        logging.info(f"Haettu {len(ikkunat)} ikkunaa toimitussisällölle {toimitussisalto_id}")
         
         return ikkunat
         
@@ -2275,16 +2266,8 @@ def hae_toimitussisallon_ulko_ovet(toimitussisalto_id: int) -> list:
             logging.info(f"Toimitussisällöllä {toimitussisalto_id} ei ole ulko-ovia")
             return []
             
-        # Tulostetaan ulko-ovet
-        print(f"\nToimitussisällön {toimitussisalto_id} ulko-ovet:")
-        print("-" * 100)
-        print(f"{'ID':<5} {'Malli':<30} {'Lukko':<20} {'Paloluokka':<12} {'Määrä':<8} {'Luotu':<20}")
-        print("-" * 100)
-        
-        for ovi in ulko_ovet:
-            print(f"{ovi.id:<5} {ovi.malli[:30]:<30} {ovi.lukko[:20]:<20} "
-                  f"{str(ovi.paloluokitus_EI_15):<12} {str(ovi.maara):<8} "
-                  f"{ovi.luotu.strftime('%Y-%m-%d %H:%M') if ovi.luotu else '':<20}")
+        # Logataan ulko-ovien määrä
+        logging.info(f"Haettu {len(ulko_ovet)} ulko-ovea toimitussisällölle {toimitussisalto_id}")
         
         return ulko_ovet
         
@@ -2319,15 +2302,8 @@ def hae_toimitussisallon_valiovet(toimitussisalto_id: int) -> list:
             logging.info(f"Toimitussisällöllä {toimitussisalto_id} ei ole väliovia")
             return []
             
-        # Tulostetaan väliovet
-        print(f"\nToimitussisällön {toimitussisalto_id} väliovet:")
-        print("-" * 80)
-        print(f"{'ID':<5} {'Malli':<50} {'Luotu':<20}")
-        print("-" * 80)
-        
-        for ovi in valiovet:
-            print(f"{ovi.id:<5} {ovi.malli[:50]:<50} "
-                  f"{ovi.luotu.strftime('%Y-%m-%d %H:%M') if ovi.luotu else '':<20}")
+        # Logataan väliovien määrä
+        logging.info(f"Haettu {len(valiovet)} väliovea toimitussisällölle {toimitussisalto_id}")
         
         return valiovet
         
