@@ -171,3 +171,6 @@ talobot_env/
 **Päivitetty**: 2024-12-19  
 **Tila**: ✅ Valmis ja toimii  
 **Seuraava**: Testaa analyze-komento PDF-tiedostoilla
+
+
+

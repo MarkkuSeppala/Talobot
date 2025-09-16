@@ -18,9 +18,8 @@ sys.path.append('C:/Users/Public/testibot/Talobot')
 # Tapa 3: Nykyinen hakemisto
 sys.path.append(os.getcwd())
 
-import google.generativeai as genai
-from datetime import datetime
 import requests
+from datetime import datetime
 
 
 # Loggerin alustus
@@ -61,61 +60,110 @@ def api_kysely(generation_config, system_instruction, input_text) -> str:
     """Geneerinen API-kysely aihio, joka saa parametreina asetukset, system instructions ja syöte tekstin.
         Palauttaa API-kysely vastauksen string-muodossa."""
 
-    api_key = os.environ.get('GEMINI_API_KEY')
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel(
-        model_name="gemini-2.0-flash-exp",
-        generation_config=generation_config,
-        system_instruction=lue_txt_tiedosto(system_instruction)
-    )
+    api_key = os.environ.get('GROQ_API_KEY')
+    if not api_key:
+        logger.error("GROQ_API_KEY ei ole asetettu!")
+        return ""
 
-    logger.info("Gemini API konfiguroitu onnistuneesti!")
+    # Groq API URL
+    url = "https://api.groq.com/openai/v1/chat/completions"
+    
+    # Headers
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}"
+    }
+    
+    # Request body
+    data = {
+        "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+        "messages": [
+            {
+                "role": "system",
+                "content": lue_txt_tiedosto(system_instruction)
+            },
+            {
+                "role": "user",
+                "content": f"Tässä on teksti: \n{input_text}\n\nToimi ohjeen mukaan."
+            }
+        ],
+        "max_tokens": 1000,
+        "temperature": 0.7
+    }
 
-    kysymys = f"Tässä on teksti: \n{input_text}\n\nToimi ohjeen mukaan."
+    logger.info("Groq API konfiguroitu onnistuneesti!")
+
     try:
-        response = model.generate_content(kysymys)
-        if response is not None and response.text:
+        response = requests.post(url, headers=headers, json=data)
+        response.raise_for_status()
+        
+        result = response.json()
+        if result and "choices" in result and len(result["choices"]) > 0:
             logger.info("API-vastaus saatu")
-            return response.text
+            return result["choices"][0]["message"]["content"]
         else:
             logger.warning("API-vastaus puuttuu tai on tyhjä")
-            return ""  # Palauta tyhjä string
+            return ""
     except Exception as e:
         logger.error(f"Odottamaton virhe: {e}")
-        return ""  # Palauta tyhjä string
+        return ""
 
 #==================================== api_kysely_nelja_parametria()
 def api_kysely_nelja_parametria(generation_config, system_instruction, input_text_1, input_text_2) -> str:
     """Geneerinen API-kysely aihio, joka saa parametreina asetukset, system instructions ja syöte tekstin.
         Palauttaa API-kysely vastauksen string-muodossa."""
     
+    api_key = os.environ.get('GROQ_API_KEY')
+    if not api_key:
+        logger.error("GROQ_API_KEY ei ole asetettu!")
+        return '{"tunnistukset": []}'
+
     system_instruction = lue_txt_tiedosto(system_instruction)
     system_instruction_2 = system_instruction + input_text_2
 
-    api_key = os.environ.get('GEMINI_API_KEY')
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel(
-        model_name="gemini-2.0-flash-exp",
-        generation_config=generation_config,
-        system_instruction=system_instruction_2
-    )
+    # Groq API URL
+    url = "https://api.groq.com/openai/v1/chat/completions"
+    
+    # Headers
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}"
+    }
+    
+    # Request body
+    data = {
+        "model": "meta-llama/llama-4-scout-17b-16e-instruct",
+        "messages": [
+            {
+                "role": "system",
+                "content": system_instruction_2
+            },
+            {
+                "role": "user",
+                "content": f"Tässä on teksti: \n{input_text_1}\n\nToimi ohjeen mukaan."
+            }
+        ],
+        "max_tokens": 1000,
+        "temperature": 0.7
+    }
 
-    logger.info("Gemini API konfiguroitu onnistuneesti!")
+    logger.info("Groq API konfiguroitu onnistuneesti!")
 
-    kysymys = f"Tässä on teksti: \n{input_text_1}\n\nToimi ohjeen mukaan."
     try:
         import time
         start_time = time.time()
         logger.info(f"Lähetetään API-kysely...")
         
-        response = model.generate_content(kysymys)
+        response = requests.post(url, headers=headers, json=data)
+        response.raise_for_status()
         
         elapsed_time = time.time() - start_time
         logger.info(f"API-kysely valmis {elapsed_time:.2f} sekunnissa")
         
-        if response is not None and response.text:
+        result = response.json()
+        if result and "choices" in result and len(result["choices"]) > 0:
             logger.info("API-vastaus saatu")
-            return response.text
+            return result["choices"][0]["message"]["content"]
         else:
             logger.warning("API-vastaus puuttuu tai on tyhjä")
             return '{"tunnistukset": []}'  # Palauta tyhjä mutta kelvollinen JSON

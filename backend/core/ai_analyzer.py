@@ -228,3 +228,6 @@ class AIAnalyzer:
             return self.analyze_kastelli(cleaned_text)
         else:
             raise ValueError(f"Tuntematon toimittaja: {supplier}")
+
+
+

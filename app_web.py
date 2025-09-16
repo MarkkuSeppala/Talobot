@@ -191,4 +191,6 @@ def health():
 
 if __name__ == '__main__':
     logger.info("Käynnistetään Talobot web-käyttöliittymä...")
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    # Debug-moodi pois päältä tuotantokäyttöön
+    app.run(host='0.0.0.0', port=5000, debug=False)
+

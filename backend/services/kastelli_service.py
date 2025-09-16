@@ -90,3 +90,6 @@ class KastelliService:
         except Exception as e:
             self.logger.error(f"Virhe Kastelli-dokumentin käsittelyssä: {e}")
             raise
+
+
+

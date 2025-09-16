@@ -101,3 +101,6 @@ class DocumentProcessor:
         except Exception as e:
             self.logger.error(f"Virhe PDF-tarkistuksessa: {e}")
             return False
+
+
+

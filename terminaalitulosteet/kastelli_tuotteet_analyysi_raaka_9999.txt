@@ -1,0 +1,447 @@
+{
+ "tunnistukset": [
+ {
+ "tuote_id": "1195",
+ "tuote_nimi": "Radontuuletuksen pystypútki",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1196",
+ "tuote_nimi": "Hule- ja pintavesisuunnitelma",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1197",
+ "tuote_nimi": "Huonekorkeus",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1199",
+ "tuote_nimi": "Omakotitalon rakennusaikainen vakuutus",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1203",
+ "tuote_nimi": "Perinnetalo",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1210",
+ "tuote_nimi": "Perustussuunnittelu",
+ "toimitussisallossa": "Perustussuunnittelu, mikäli perustus kuuluu Kastellin toimitukseen"
+ },
+ {
+ "tuote_id": "1211",
+ "tuote_nimi": "Loppusiivous",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1212",
+ "tuote_nimi": "Tavaran vastaanotto",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1213",
+ "tuote_nimi": "Työmaaikainen siivous",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1215",
+ "tuote_nimi": "Lämpöpuhallin",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1216",
+ "tuote_nimi": "Rakennuskuivain",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1217",
+ "tuote_nimi": "KVV/IV-työnjohto",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1218",
+ "tuote_nimi": "Ulkopuolen KVV/IV-työnjohto",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1219",
+ "tuote_nimi": "Sisustussuunnittelupalvelu",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1220",
+ "tuote_nimi": "Hiilijalanjälkilaskenta",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1221",
+ "tuote_nimi": "Perustus",
+ "toimitussisallossa": "Perustus, Maanvarainen, Maanvarainen alapohja. Lämpöeristettysokkelipalkki SP300-900."
+ },
+ {
+ "tuote_id": "1222",
+ "tuote_nimi": "Perustus",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1223",
+ "tuote_nimi": "Antura",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1224",
+ "tuote_nimi": "Paaluperustus",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1225",
+ "tuote_nimi": "Alapohjan viemäreiden kannakointi",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1226",
+ "tuote_nimi": "Päärakennesuunnittelijana toimiminen",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1231",
+ "tuote_nimi": "Höyrynsulku",
+ "toimitussisallossa": "Höyrynsulkumuovi"
+ },
+ {
+ "tuote_id": "1232",
+ "tuote_nimi": "Höyrynsulku",
+ "toimitussisallossa": "Höyrynsulkumuovi"
+ },
+ {
+ "tuote_id": "1233",
+ "tuote_nimi": "Lämmöneriste",
+ "toimitussisallossa": "Mineraalivilla 200 mm"
+ },
+ {
+ "tuote_id": "1234",
+ "tuote_nimi": "Lämmöneriste",
+ "toimitussisallossa": "Mineraalivilla 100 mm + puhallusvilla 400 mm"
+ },
+ {
+ "tuote_id": "1235",
+ "tuote_nimi": "Lämmöneriste",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1236",
+ "tuote_nimi": "Tuulensuojalevy",
+ "toimitussisallossa": "Tuulensuojakipsilevy 9 mm"
+ },
+ {
+ "tuote_id": "1237",
+ "tuote_nimi": "Tuulensuojalevy",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1238",
+ "tuote_nimi": "Puukuitutuulensuojalevy",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1240",
+ "tuote_nimi": "Sisäverhouskipsilevy",
+ "toimitussisallossa": "Sisäverhouskipsilevy 13 mm GEK"
+ },
+ {
+ "tuote_id": "1241",
+ "tuote_nimi": "Sisäverhouskipsilevy",
+ "toimitussisallossa": "Sisäverhouskipsilevy 13 mm GEK"
+ },
+ {
+ "tuote_id": "1242",
+ "tuote_nimi": "Sisäverhouskipsilevy",
+ "toimitussisallossa": "Sisäverhouskipsilevy 13 mm"
+ },
+ {
+ "tuote_id": "1243",
+ "tuote_nimi": "Sisäverhouskipsilevy",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1244",
+ "tuote_nimi": "Sisäverhouskipsilevy",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1245",
+ "tuote_nimi": "Sisäverhouskipsilevy",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1246",
+ "tuote_nimi": "Ulkoverhous tehostepanelointi",
+ "toimitussisallossa": "Ulkoverhouslauta UYM23 x145, hienosahattu välimaalausväri tummanharmaa (NCS-S-7502-B)"
+ },
+ {
+ "tuote_id": "1247",
+ "tuote_nimi": "Ulkoverhous vaakapaneeli",
+ "toimitussisallossa": "Ulkoverhouslauta UYM23 x145, hienosahattu välimaalausväri tummanharmaa (NCS-S-7502-B)"
+ },
+ {
+ "tuote_id": "1248",
+ "tuote_nimi": "Ulkoverhous vaakapaneeli",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1249",
+ "tuote_nimi": "Ulkoverhous vaakapaneeli",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1250",
+ "tuote_nimi": "Pystypaneeli",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1251",
+ "tuote_nimi": "Pystypaneeli",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1252",
+ "tuote_nimi": "Pystypaneeli",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1253",
+ "tuote_nimi": "Pieneläinverkko tai hiirieste",
+ "toimitussisallossa": "Hiirieste"
+ },
+ {
+ "tuote_id": "1254",
+ "tuote_nimi": "Ulkoverhouksen välimaalaus tai välimaalausväri",
+ "toimitussisallossa": "Välimaalausväri tummanharmaa (NCS-S-7502-B)"
+ },
+ {
+ "tuote_id": "1255",
+ "tuote_nimi": "Ulkoverhouksen3. maalauskerta",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1256",
+ "tuote_nimi": "Sivuräystäs syvyys",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1257",
+ "tuote_nimi": "Päätyräystäs syvyys",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1258",
+ "tuote_nimi": "Peltikate Tiiliprofiili",
+ "toimitussisallossa": "Peltikate RUUKKI Classic C, Ruukki 50 plus"
+ },
+ {
+ "tuote_id": "1259",
+ "tuote_nimi": "Peltikate",
+ "toimitussisallossa": "Peltikate, Konesauma 0,5"
+ },
+ {
+ "tuote_id": "1260",
+ "tuote_nimi": "Peltikate",
+ "toimitussisallossa": "Peltikate, Konesauma 0,6"
+ },
+ {
+ "tuote_id": "1261",
+ "tuote_nimi": "Tiilikate",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1264",
+ "tuote_nimi": "Käyttöullakko",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1265",
+ "tuote_nimi": "Käyttöullakko tikkaat",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1266",
+ "tuote_nimi": "Seinätikas",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1267",
+ "tuote_nimi": "Kattosilta",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1268",
+ "tuote_nimi": "Lumieste",
+ "toimitussisallossa": "Lumiesteet 30 jm"
+ },
+ {
+ "tuote_id": "1270",
+ "tuote_nimi": "Syöksysarja",
+ "toimitussisallossa": "Sadevesikourut ja syöksyt kiinnikkeineen, muovipinnoitettua teräspeltiä väri Valkoinen RR20"
+ },
+ {
+ "tuote_id": "1277",
+ "tuote_nimi": "Kuivantilan lattia",
+ "toimitussisallossa": "Lattian pintamateriaali OH, MH:t, VH sekä muut oleskelutilat Kastellin Collection Graniitti -vaihtoehdoista"
+ },
+ {
+ "tuote_id": "1278",
+ "tuote_nimi": "Kuivantilan lattia",
+ "toimitussisallossa": "Lattian pintamateriaali Keittiö Kastellin Collection Graniitti -vaihtoehdoista"
+ },
+ {
+ "tuote_id": "1279",
+ "tuote_nimi": "Kuivantilan lattia",
+ "toimitussisallossa": "Lattian pintamateriaali SA, PH, KHH ja WC Kastellin Collection Graniitti -vaihtoehdoista"
+ },
+ {
+ "tuote_id": "1280",
+ "tuote_nimi": "Kuivantilan lattia",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1281",
+ "tuote_nimi": "Kuivantilan lattia",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1283",
+ "tuote_nimi": "Kura-allas",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1284",
+ "tuote_nimi": "Kura-altaan vesipiste",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1300",
+ "tuote_nimi": "Sisäkatto kuivat tilat",
+ "toimitussisallossa": "Sisäkatto kuivat tilat, jäykistävä kipsilevy 13 mm"
+ },
+ {
+ "tuote_id": "1301",
+ "tuote_nimi": "Sisäkatto kuivat tilat",
+ "toimitussisallossa": "Sisäkatto kuivat tilat, mdf-paneeli"
+ },
+ {
+ "tuote_id": "1302",
+ "tuote_nimi": "Sisäkatto kuivat tilat",
+ "toimitussisallossa": "Sisäkatto kuivat tilat, Maalattu"
+ },
+ {
+ "tuote_id": "1303",
+ "tuote_nimi": "Listattomat ikkunat",
+ "toimitussisallossa": "Tiivi -ikkunat"
+ },
+ {
+ "tuote_id": "1304",
+ "tuote_nimi": "Saunan lauteet",
+ "toimitussisallossa": "Saunan lauteet Kastellin Collection Graniitti -vaihtoehdoista"
+ },
+ {
+ "tuote_id": "1305",
+ "tuote_nimi": "Saunan yleisvalaisin",
+ "toimitussisallossa": "Sauna valaisin"
+ },
+ {
+ "tuote_id": "1306",
+ "tuote_nimi": "Laudevalaisin",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1307",
+ "tuote_nimi": "Saunan puolilasiseinä",
+ "toimitussisallossa": "Saunan seinät ja katto, Havupuupaneeli"
+ },
+ {
+ "tuote_id": "1308",
+ "tuote_nimi": "Saunan kokolasiseinä",
+ "toimitussisallossa": "Saunan seinät ja katto, Tervaleppä tai lämpöhaapa"
+ },
+ {
+ "tuote_id": "1309",
+ "tuote_nimi": "Saunan seinät ja katto",
+ "toimitussisallossa": "Saunan seinät ja katto, Havupuupaneeli"
+ },
+ {
+ "tuote_id": "1310",
+ "tuote_nimi": "Saunan seinät ja katto",
+ "toimitussisallossa": "Saunan seinät ja katto, Tervaleppä tai lämpöhaapa"
+ },
+ {
+ "tuote_id": "1311",
+ "tuote_nimi": "Pesuhuoneen katto",
+ "toimitussisallossa": "Pesuhuoneen katto, Havupuupaneeli"
+ },
+ {
+ "tuote_id": "1312",
+ "tuote_nimi": "Pesuhuoneen katto",
+ "toimitussisallossa": "Pesuhuoneen katto, Tervaleppä tai lämpöhaapa"
+ },
+ {
+ "tuote_id": "1313",
+ "tuote_nimi": "Shampoosyvennys",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1314",
+ "tuote_nimi": "Maalämpö",
+ "toimitussisallossa": "Gebwell Aries6, Porakaivo 129 m"
+ },
+ {
+ "tuote_id": "1315",
+ "tuote_nimi": "VILP eli vesi-ilmalämpöpumppu",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1316",
+ "tuote_nimi": "PILP eli poistoilmalämpöpumppu",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1317",
+ "tuote_nimi": "Maaviileä",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1318",
+ "tuote_nimi": "Ilmalämpöpumppu",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1319",
+ "tuote_nimi": "Lattialämmityksen termostaatit",
+ "toimitussisallossa": "Huonetermostaatit"
+ },
+ {
+ "tuote_id": "1320",
+ "tuote_nimi": "Anteenirasia",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1321",
+ "tuote_nimi": "Tietoliikennerasia",
+ "toimitussisallossa": "ei mainintaa"
+ },
+ {
+ "tuote_id": "1322",
+ "tuote_nimi": "Pistorasia",
+ "toimitussisallossa": "Pistorasiat APK, MIKRO, JK ja PK"
+ },
+ {
+ "tuote_id": "1323",
+ "tuote_nimi": "Valokytkin",
+ "toimitussisallossa": "Kytkimet"
+ },
+ {
+ "tuote_id": "1324",
+ "tuote_nimi": "Valohimmennin",
+ "toimitussisallossa": "ei mainintaa"
+ },

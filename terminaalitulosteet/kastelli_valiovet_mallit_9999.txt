@@ -1,0 +1,10 @@
+{
+ "ovimallit": [
+  "Laakaovi Easy201-10x21, valkoinen",
+  "Laakaovi Easy20113/15x21 sym. valkoinen, pariovi",
+  "Laakaäänieristysovi Sound201 DB9x21 Rw30 dB, ääniluokka25 dB, tiivistetty ovilehti, karmi ja kynnys",
+  "Laakaäänieristysovi Sound201 DB8x21 Rw30 dB, ääniluokka25 dB, tiivistetty ovilehti, karmi ja kynnys",
+  "Bath SATIINI (7-9x21) valkoinen läpikuultava, kostean tilan lasiovi",
+  "Sauna83 HARMAA (7-9x19) saunan kokolasiovi"
+ ]
+}

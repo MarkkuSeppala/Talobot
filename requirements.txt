@@ -1,6 +1,6 @@
 Flask
 gunicorn
-google-generativeai
+requests
 pymupdf
 pandas
 tabulate

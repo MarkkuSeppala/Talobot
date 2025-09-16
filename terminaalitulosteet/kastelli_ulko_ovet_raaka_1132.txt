@@ -1,0 +1,39 @@
+## Ulko-ovien tiedot
+
+### Ulko-ovet
+
+- **Nro: 30**
+  - **Tyyppi:** Koli 10x21
+  - **Materiaali:** Kaskipuu
+  - **Kpl:** 1
+  - **Väri:** 2-värimaalaus, sisäpuoli valkoinen ja ulkopuoli värikartan mukaan
+  - **Karmi:** Karmi 170 mm
+  - **Koneistus:** Pintahelat Amsterdam HCR ja avainpesä
+  - **Huonetila:** ET
+
+- **Nro: 70**
+  - **Tyyppi:** PO4 Kokolasinen (POL) 10x21
+  - **Materiaali:** Kaskipuu
+  - **Kpl:** 1
+  - **Väri:** 2-värimaalaus, sisäpuoli valkoinen ja ulkopuoli värikartan mukaan
+  - **Karmi:** Karmi 170 mm
+  - **Koneistus:** Pintahelat Amsterdam HCR ja vääntönuppi/peitekilpi
+  - **Huonetila:** OH
+
+- **Nro: 80**
+  - **Tyyppi:** PO4 Kokolasinen (POL) 9x21
+  - **Materiaali:** Kaskipuu
+  - **Kpl:** 1
+  - **Väri:** 2-värimaalaus, sisäpuoli valkoinen ja ulkopuoli värikartan mukaan
+  - **Karmi:** Karmi 170 mm
+  - **Koneistus:** Pintahelat Amsterdam HCR ja vääntönuppi/peitekilpi
+  - **Huonetila:** PUKUH-SAUNAT
+
+- **Nro: 90**
+  - **Tyyppi:** UO7 (POV10W) 10x21
+  - **Materiaali:** Kaskipuu
+  - **Kpl:** 1
+  - **Väri:** 2-värimaalaus, sisäpuoli valkoinen ja ulkopuoli värikartan mukaan
+  - **Karmi:** Karmi 170 mm
+  - **Koneistus:** Pintahelat Amsterdam HCR ja avainpesä
+  - **Huonetila:** VARASTO

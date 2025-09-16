@@ -1,0 +1,160 @@
+## Ikkunaryhmät
+
+### Ikkunaryhmä 1
+Nro: 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110 
+Tyyppi: A / 14.4x25, A / 14.4x25, A / 14.4x25, A / 11.4x20, AT / 11.4x5.4, AT / 8.4x5.4, BA6 / 11.4x18, BA6 / 11.4x18, A / 11.4x25 
+Karmimitat: 1430x2490, 1430x2490, 1430x2490, 1130x1990, 1130x530, 830x530, 1130x1790, 1130x1790, 1130x2490 
+KARMITYYPPI: MEKL3-kertainen kiinteä, MEKL3-kertainen kiinteä, MEKL3-kertainen kiinteä, MSEL, MSEL, MSEL, MSEL, MSEL, MEKL3-kertainen kiinteä 
+SISÄPUITTEEN LASITUS: 3-kertainen eristyslasielementti, U=1,0, 3-kertainen eristyslasielementti, U=1,0, 3-kertainen eristyslasielementti, U=1,0, 2-kertainen eristyslasielementti, U=1,0, 2-kertainen eristyslasielementti, U=1,0, 2-kertainen eristyslasielementti, U=1,0, 2-kertainen eristyslasielementti, U=1,0, 3-kertainen eristyslasielementti, U=1,0 
+ULKOPUITTEEN LASITUS: Karkaistu lasi, Karkaistu lasi, Karkaistu lasi, Karkaistu lasi, 1-kertainen tasolasi, 1-kertainen tasolasi, 1-kertainen tasolasi, 1-kertainen tasolasi, Karkaistu lasi 
+PUUOSIEN PINTAKÄSITTELY: valkoinen, valkoinen, valkoinen, valkoinen, valkoinen, väritön, valkoinen, valkoinen, valkoinen 
+ALUMIINIOSIEN VÄRI: tummanharmaa RAL7024 (/RR23), tummanharmaa RAL7024 (/RR23), tummanharmaa RAL7024 (/RR23), tummanharmaa RAL7024 (/RR23), tummanharmaa RAL7024 (/RR23), tummanharmaa RAL7024 (/RR23), tummanharmaa RAL7024 (/RR23), tummanharmaa RAL7024 (/RR23), tummanharmaa RAL7024 (/RR23) 
+KARMI-/PUITEMATER: karmin ulkopuoli alumiinia, karmin ulkopuoli alumiinia, karmin ulkopuoli alumiinia, ulkopuite ja karmin ulkopuoli alumiinia, ulkopuite ja karmin ulkopuoli alumiinia, ulkopuite ja karmin ulkopuoli alumiinia, ulkopuite ja karmin ulkopuoli alumiinia, ulkopuite ja karmin ulkopuoli alumiinia, karmin ulkopuoli alumiinia 
+HELOITUKSEN VÄRI: 
+
+### Ikkunaryhmä 2
+Nro: 120 
+Tyyppi: A / 14.4x20 
+Karmimitat: 530x1990 
+KARMITYYPPI: MEKL3-kertainen kiinteä 
+SISÄPUITTEEN LASITUS: 3-kertainen eristyslasielementti, U=1,0 
+ULKOPUITTEEN LASITUS: Karkaistu lasi 
+PUUOSIEN PINTAKÄSITTELY: valkoinen 
+ALUMIINIOSIEN VÄRI: tummanharmaa RAL7024 (/RR23) 
+KARMI-/PUITEMATER: karmin ulkopuoli alumiinia 
+
+### Ikkunaryhmä 3
+Nro: 130, 140 
+Tyyppi: A(T) / 14.4x5.4, A(T) / 11.4x5.4 
+Karmimitat: 1430x530, 1130x530 
+KARMITYYPPI: MSEL, MSEL 
+SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U=1,0, 2-kertainen eristyslasielementti, U=1,0 
+ULKOPUITTEEN LASITUS: 1-kertainen tasolasi, 1-kertainen tasolasi 
+PUUOSIEN PINTAKÄSITTELY: väritön, valkoinen 
+ALUMIINIOSIEN VÄRI: tummanharmaa RAL7024 (/RR23), tummanharmaa RAL7024 (/RR23) 
+KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia, ulkopuite ja karmin ulkopuoli alumiinia 
+
+## Ikkunaryhmien tiedot
+
+### Ikkunaryhmä 1
+
+Nro: 10, 20, 30 
+Tyyppi: A / 14.4x25 
+Karmimitat: 1430x2490 
+KARMITYYPPI: MEKL3-kertainen kiinteä 
+SISÄPUITTEEN LASITUS: 3-kertainen eristyslasielementti, U=1,0 
+ULKOPUITTEEN LASITUS: Karkaistu lasi 
+PUUOSIEN PINTAKÄSITTELY: valkoinen 
+ALUMIINIOSIEN VÄRI: tummanharmaa RAL7024 (/RR23) 
+KARMI-/PUITEMATER: karmin ulkopuoli alumiinia 
+HELOITUKSEN VÄRI: 
+
+
+Nro: 40 
+Tyyppi: A / 11.4x20 
+Karmimitat: 1130x1990 
+KARMITYYPPI: MSEL 
+SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U=1,0 
+ULKOPUITTEEN LASITUS: Karkaistu lasi 
+PUUOSIEN PINTAKÄSITTELY: valkoinen 
+ALUMIINIOSIEN VÄRI: tummanharmaa RAL7024 (/RR23) 
+KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia 
+HELOITUKSEN VÄRI: 
+
+
+Nro: 50 
+Tyyppi: AT / 11.4x5.4 
+Karmimitat: 1130x530 
+KARMITYYPPI: MSEL 
+SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U=1,0 
+ULKOPUITTEEN LASITUS: 1-kertainen tasolasi 
+PUUOSIEN PINTAKÄSITTELY: valkoinen 
+ALUMIINIOSIEN VÄRI: tummanharmaa RAL7024 (/RR23) 
+KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia 
+HELOITUKSEN VÄRI: 
+
+
+Nro: 60 
+Tyyppi: AT / 8.4x5.4 
+Karmimitat: 830x530 
+KARMITYYPPI: MSEL 
+SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U=1,0 
+ULKOPUITTEEN LASITUS: 1-kertainen tasolasi 
+PUUOSIEN PINTAKÄSITTELY: väritön 
+ALUMIINIOSIEN VÄRI: tummanharmaa RAL7024 (/RR23) 
+KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia 
+HELOITUKSEN VÄRI: 
+
+
+Nro: 70 
+Tyyppi: BA6 / 11.4x18 
+Karmimitat: 1130x1790 
+KARMITYYPPI: MSEL 
+SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U=1,0 
+ULKOPUITTEEN LASITUS: 1-kertainen tasolasi 
+PUUOSIEN PINTAKÄSITTELY: valkoinen 
+ALUMIINIOSIEN VÄRI: tummanharmaa RAL7024 (/RR23) 
+KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia 
+HELOITUKSEN VÄRI: 
+
+
+Nro: 80, 90 
+Tyyppi: BA6 / 11.4x18 
+Karmimitat: 1130x1790 
+KARMITYYPPI: MSEL 
+SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U=1,0 
+ULKOPUITTEEN LASITUS: 1-kertainen tasolasi 
+PUUOSIEN PINTAKÄSITTELY: valkoinen 
+ALUMIINIOSIEN VÄRI: tummanharmaa RAL7024 (/RR23) 
+KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia 
+HELOITUKSEN VÄRI: 
+
+
+Nro: 100, 110 
+Tyyppi: A / 11.4x25 
+Karmimitat: 1130x2490 
+KARMITYYPPI: MEKL3-kertainen kiinteä 
+SISÄPUITTEEN LASITUS: 3-kertainen eristyslasielementti, U=1,0 
+ULKOPUITTEEN LASITUS: Karkaistu lasi 
+PUUOSIEN PINTAKÄSITTELY: valkoinen 
+ALUMIINIOSIEN VÄRI: tummanharmaa RAL7024 (/RR23) 
+KARMI-/PUITEMATER: karmin ulkopuoli alumiinia 
+HELOITUKSEN VÄRI: 
+
+### Ikkunaryhmä 2
+
+Nro: 120 
+Tyyppi: A / 14.4x20 
+Karmimitat: 530x1990 
+KARMITYYPPI: MEKL3-kertainen kiinteä 
+SISÄPUITTEEN LASITUS: 3-kertainen eristyslasielementti, U=1,0 
+ULKOPUITTEEN LASITUS: Karkaistu lasi 
+PUUOSIEN PINTAKÄSITTELY: valkoinen 
+ALUMIINIOSIEN VÄRI: tummanharmaa RAL7024 (/RR23) 
+KARMI-/PUITEMATER: karmin ulkopuoli alumiinia 
+HELOITUKSEN VÄRI: 
+
+### Ikkunaryhmä 3
+
+Nro: 130 
+Tyyppi: A(T) / 14.4x5.4 
+Karmimitat: 1430x530 
+KARMITYYPPI: MSEL 
+SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U=1,0 
+ULKOPUITTEEN LASITUS: 1-kertainen tasolasi 
+PUUOSIEN PINTAKÄSITTELY: väritön 
+ALUMIINIOSIEN VÄRI: tummanharmaa RAL7024 (/RR23) 
+KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia 
+HELOITUKSEN VÄRI: 
+
+
+Nro: 140 
+Tyyppi: A(T) / 11.4x5.4 
+Karmimitat: 1130x530 
+KARMITYYPPI: MSEL 
+SISÄPUITTEEN LASITUS: 2-kertainen eristyslasielementti, U=1,0 
+ULKOPUITTEEN LASITUS: 1-kertainen tasolasi 
+PUUOSIEN PINTAKÄSITTELY: valkoinen 
+ALUMIINIOSIEN VÄRI: tummanharmaa RAL7024 (/RR23) 
+KARMI-/PUITEMATER: ulkopuite ja karmin ulkopuoli alumiinia 
+HELOITUKSEN VÄRI:

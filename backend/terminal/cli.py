@@ -274,3 +274,6 @@ def show_analysis(analysis_id: int):
         logger.error(f"Virhe analyysin näyttämisessä: {e}")
         print(f"❌ Virhe analyysin näyttämisessä: {e}")
         raise
+
+
+

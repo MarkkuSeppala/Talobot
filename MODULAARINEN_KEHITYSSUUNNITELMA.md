@@ -195,3 +195,6 @@ python main.py --mode api
 **Päivitetty**: 2024-12-19  
 **Tila**: Suunnittelu valmis, toteutus aloitettu  
 **Seuraava**: Modulaarisen rakenteen luominen
+
+
+

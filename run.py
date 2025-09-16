@@ -38,6 +38,7 @@ from utils.file_handler import *
 from utils.tietosissallon_kasittely import * 
 from SQL_kyselyt_tuotteet_tauluun import *                               
 from api_kyselyt import api_kysely, api_kysely_kirjoitus_json, api_kysely_ulko_ovet, api_kysely_nelja_parametria, groq_api_kysely, groq_api_kysely_nelja_parametria, groq_api_kysely_ulko_ovet
+from csv_export_functions import tallenna_puhdistettu_toimitussisalto_csv
 from logger_config import configure_logging
 import logging
 
@@ -51,7 +52,7 @@ logger = logging.getLogger(__name__)
 
 
 #============== S I E V I T A L O ============#
-def run_sievitalo(toimitussisalto_pdf, toimitussisalto_id):
+def run_sievitalo(toimitussisalto_pdf, toimitussisalto_id: int):
 
         # Ensimmäisenä siivotaan toimitussisältö. Tehdään se mahdollisimman helppolukuiseksi LLM-APILLE
         print("run.py 55")
@@ -61,6 +62,9 @@ def run_sievitalo(toimitussisalto_pdf, toimitussisalto_id):
         puhdistettu_toimitussisalto = f"**TOIMITUSSISÄLTÖ START**\n{puhdistettu_toimitussisalto}\n**TOIMITUSSISÄLTÖ END**"
   
         kirjoita_txt_tiedosto(puhdistettu_toimitussisalto, "C:/talobot_env/data/puhdistettu_toimitussisalto.txt")
+        
+        # Tallenna puhdistettu toimitussisältö CSV-muotoon testausta varten
+        tallenna_puhdistettu_toimitussisalto_csv(puhdistettu_toimitussisalto, "Sievitalo", toimitussisalto_id)
       
         
         #---------------------------------------     Sievitalo ikkunat kantaan      ----------------------------------------
@@ -215,12 +219,17 @@ def run_sievitalo(toimitussisalto_pdf, toimitussisalto_id):
 
 
 #============== K A S T E L L I ============#
-def run_kastelli(toimitussisalto_txt_polku: str, toimitussisalto_id: str):
+def run_kastelli(toimitussisalto_pdf, toimitussisalto_id: int):
         
-        
-        puhdistettu_toimitussisalto = puhdista_teksti(toimitussisalto_txt_polku)
+        # Ensimmäisenä siivotaan toimitussisältö. Tehdään se mahdollisimman helppolukuiseksi LLM-APILLE
+        print("run.py 222 - Kastelli PDF-käsittely")
+        puhdistettu_toimitussisalto = muuta_pdf_ja_puhdista_teksti_docling(toimitussisalto_pdf)
+      
+        # Lisätään toimitussisältön alku- ja loppuviittaukset
         puhdistettu_toimitussisalto = f"**TOIMITUSSISÄLTÖ START**\n{puhdistettu_toimitussisalto}\n**TOIMITUSSISÄLTÖ END**"
-       
+        
+        # Tallenna puhdistettu toimitussisältö CSV-muotoon testausta varten
+        tallenna_puhdistettu_toimitussisalto_csv(puhdistettu_toimitussisalto, "Kastelli", toimitussisalto_id)
 
        #---------------------------------------     Kastelli ikkunat kantaan      ----------------------------------------
         print(f"\n🔍 KASTELLI API-KYSELY: Ikkunatiedot")
@@ -362,13 +371,20 @@ def run_kastelli(toimitussisalto_txt_polku: str, toimitussisalto_id: str):
 def run_designtalo():
         
         #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%     clean_text2       %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        puhdista_teksti(lue_txt_tiedosto(TOIMITUSSISALTO_DESIGNTALO_TXT), PUHDISTETTU_TOIMITUSSISALTO_DESIGNTALO_TXT)
+        puhdistettu_toimitussisalto = puhdista_teksti(lue_txt_tiedosto(TOIMITUSSISALTO_DESIGNTALO_TXT))
+        kirjoita_txt_tiedosto(puhdistettu_toimitussisalto, PUHDISTETTU_TOIMITUSSISALTO_DESIGNTALO_TXT)
+        
+        # Lisää toimitussisältön alku- ja loppuviittaukset
+        puhdistettu_toimitussisalto = f"**TOIMITUSSISÄLTÖ START**\n{puhdistettu_toimitussisalto}\n**TOIMITUSSISÄLTÖ END**"
+        
+        # Tallenna puhdistettu toimitussisältö CSV-muotoon testausta varten
+        tallenna_puhdistettu_toimitussisalto_csv(puhdistettu_toimitussisalto, "Designtalo", 0)
         #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
         #---------------------------------------     PROMPT_DESIGNTALO_POIMI_IKKUNATIEDOT_TXT      ----------------------------------------
-        ikkunatiedot_designtalo = groq_api_kysely(PROMPT_DESIGNTALO_POIMI_IKKUNATIEDOT_TXT, PUHDISTETTU_TOIMITUSSISALTO_DESIGNTALO_TXT)
+        ikkunatiedot_designtalo = groq_api_kysely(PROMPT_DESIGNTALO_POIMI_IKKUNATIEDOT_TXT, puhdistettu_toimitussisalto)
         kirjoita_txt_tiedosto(ikkunatiedot_designtalo, IKKUNATIEDOT_DESIGNTALO_KOKONAISUUDESSA_TXT)
         ikkunat_json_designtalo = groq_api_kysely(PROMPT_DESIGNTALO_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON, ikkunatiedot_designtalo)
         kirjoita_txt_tiedosto(ikkunat_json_designtalo, IKKUNA_DESIGNTALO_JSON)
@@ -384,7 +400,7 @@ def run_designtalo():
         
         
         #xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx     PROMPT_DESIGNTALO_POIMI_ULKO_OVI_TIEDOT_TXT    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-        ulko_ovi_tiedot_designtalo = groq_api_kysely(PROMPT_DESIGNTALO_POIMI_ULKO_OVI_TIEDOT_TXT, PUHDISTETTU_TOIMITUSSISALTO_DESIGNTALO_TXT)
+        ulko_ovi_tiedot_designtalo = groq_api_kysely(PROMPT_DESIGNTALO_POIMI_ULKO_OVI_TIEDOT_TXT, puhdistettu_toimitussisalto)
         kirjoita_txt_tiedosto(ulko_ovi_tiedot_designtalo, ULKO_OVI_TIEDOT_DESIGNTALO_KOKONAISUUDESSA_TXT)
         ulko_ovi_json_designtalo = groq_api_kysely(PROMPT_DESIGNTALO_ULKO_OVI_TIEDOT_JSON_MUOTOON, ulko_ovi_tiedot_designtalo)
         kirjoita_txt_tiedosto(ulko_ovi_json_designtalo, ULKO_OVI_TIEDOT_DESIGNTALO_2_JSON)
@@ -393,7 +409,7 @@ def run_designtalo():
         
         
         # #++++++++++++++++++++++++++++++++++++++       PROMPT_DESIGNTALO_POIMI_VALIOVITIEDOT_TXT     ++++++++++++++++++++++++++++++++++++++++++++++
-        valiovi_tiedot_designtalo = groq_api_kysely(PROMPT_DESIGNTALO_POIMI_VALIOVITIEDOT_TXT, PUHDISTETTU_TOIMITUSSISALTO_DESIGNTALO_TXT)
+        valiovi_tiedot_designtalo = groq_api_kysely(PROMPT_DESIGNTALO_POIMI_VALIOVITIEDOT_TXT, puhdistettu_toimitussisalto)
         kirjoita_txt_tiedosto(valiovi_tiedot_designtalo, VALIOVI_TIEDOT_DESIGNTALO_KOKONAISUUDESSA_TXT)
         valiovi_json_designtalo = groq_api_kysely(PROMPT_DESIGNTALO_ANNA_VALIOVIMALLIT_TXT, valiovi_tiedot_designtalo)
         kirjoita_txt_tiedosto(valiovi_json_designtalo, VALIOVITYYPIT_DESIGNTALO_JSON)

@@ -31,7 +31,7 @@ D_DIR = DATA_DIR / "d"
 
 
 # Ladataan ympäristömuuttujat .env-tiedostosta
-#GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 # Groq API Configuration
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")

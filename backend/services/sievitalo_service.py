@@ -88,3 +88,6 @@ class SievitaloService:
         except Exception as e:
             self.logger.error(f"Virhe Sievitalo-dokumentin käsittelyssä: {e}")
             raise
+
+
+

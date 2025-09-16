@@ -1,5 +1,6 @@
 from config_data import UPLOAD_FOLDER_DATA
-from utils.file_handler import muuta_pdf_tekstiksi, kirjoita_txt_tiedosto, lue_txt_tiedosto
+from utils.file_handler import kirjoita_txt_tiedosto, lue_txt_tiedosto
+from utils.tietosissallon_kasittely import muuta_pdf_ja_puhdista_teksti_docling
 from utils.tietosissallon_kasittely import tunnista_toimittaja
 import uuid
 from sqlalchemy.orm import Session
@@ -121,9 +122,9 @@ def vastaanota_toimitussisalto(file) -> str:
         f.write(file_data)
     logging.debug("Ensimmäinen PDF tallennettu palvelimelle")
     
-    # Muunna PDF tekstiksi ilman tallennusta
-    teksti = muuta_pdf_tekstiksi(io.BytesIO(file_data))
-    logging.debug("PDF muunnettu LiteralString")
+    # Muunna PDF tekstiksi docling-menetelmällä
+    teksti = muuta_pdf_ja_puhdista_teksti_docling(pdf_filepath)
+    logging.debug("PDF muunnettu docling-menetelmällä")
     
     # Tunnista toimittaja
     logging.debug("Tunnistetaan toimittaja...")

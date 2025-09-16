@@ -1,0 +1,142 @@
+## Ikkunatiedot
+
+### Ikkunalohkot, joissa esiintyy 'Ikkuna' tai 'Paloikkuna'
+
+#### Ikkunat
+
+VH* Ikkuna5x16 
+1 kpl
+Asennettuna
+Ikkunan karmisyvyys170mm
+Asennettuna
+Asennettuna
+
+#### WC1*
+Ikkuna6x6 
+1 kpl
+Asennettuna
+Avattava ikkuna MSE
+Ikkunan karmisyvyys170mm
+Vesipelti
+Asennettuna
+Turvalasi sisä- ja ulkopuolella
+Sälekaihdin integroitu (valkoinen)
+Asennettuna
+Smyygilauta HS
+Asennettuna
+
+#### MH2, MH3*
+Ikkuna6x15 
+2 kpl
+Asennettuna
+Avattava ikkuna MSE
+Ikkunan karmisyvyys170mm
+Vesipelti
+Asennettuna
+Sälekaihdin integroitu (valkoinen)
+Asennettuna
+Smyygilauta HS
+Asennettuna
+
+#### S*
+Ikkuna12x5 
+1 kpl
+Asennettuna
+Avattava ikkuna MSE
+Ikkunan karmisyvyys170mm
+Vesipelti
+Asennettuna
+Sälekaihdin integroitu (valkoinen)
+Asennettuna
+Alasaranoidun tuuletusikkunan aukipitolaite
+Asennettuna
+Tuuletusmekanismi (tuuletusikkunan maksimileveys9 tai maksimikoko1,5m2)
+Asennettuna
+Smyygilauta HS
+Asennettuna
+
+#### MH1*
+Ikkuna20x6 
+1 kpl
+Asennettuna
+Avattava ikkuna MSE
+Ikkunan karmisyvyys170mm
+Vesipelti
+Asennettuna
+Sälekaihdin integroitu (valkoinen)
+Asennettuna
+Smyygilauta HS
+Asennettuna
+
+#### MH3, KIRJ*
+Ikkuna12x21 
+2 kpl
+Asennettuna
+Avattava ikkuna MSE
+Ikkunan karmisyvyys170mm
+Vesipelti
+Asennettuna
+Turvalasi sisä- ja ulkopuolella
+Sälekaihdin integroitu (valkoinen)
+Asennettuna
+Smyygilauta HS
+Asennettuna
+
+#### K, OH [Leveys muutetaan24. Kts vakiomuutokset]*
+Ikkuna23x21 
+2 kpl
+Asennettuna
+Avattava ikkuna MSE
+Ikkunan karmisyvyys170mm
+Vesipelti
+Asennettuna
+Turvalasi sisä- ja ulkopuolella
+Smyygilauta HS
+Asennettuna
+
+#### PH*
+Ikkuna12x6 
+1 kpl
+Asennettuna
+Avattava ikkuna MSE
+Karmisyvyydeksi vaihtuu210mm
+Vesipelti
+Asennettuna
+Sälekaihdin integroitu (valkoinen)
+Asennettuna
+Tuuletusmekanismi (tuuletusikkunan maksimileveys9 tai maksimikoko1,5m2)
+Asennettuna
+Alasaranoidun tuuletusikkunan aukipitolaite
+Asennettuna
+Smyygilauta HS
+Asennettuna
+
+#### MH2*
+Ikkuna12x15 
+1 kpl
+Asennettuna
+Avattava ikkuna MSE
+Ikkunan karmisyvyys170mm
+Vesipelti
+Asennettuna
+Sälekaihdin integroitu (valkoinen)
+Asennettuna
+Smyygilauta HS
+Asennettuna
+
+
+### 
+
+#### 
+
+Lohkojen väliin kolme tyhjää riviä
+
+
+#### 
+
+Lohkojen väliin kolme tyhjää riviä
+
+
+#### 
+
+Lohkojen väliin kolme tyhjää riviä
