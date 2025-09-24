@@ -34,7 +34,7 @@ talobot_env/
 │   ├── core/                  # Ydinlogiikka
 │   │   ├── __init__.py
 │   │   ├── document_processor.py    # PDF-käsittely
-│   │   ├── ai_analyzer.py          # AI-analyysi (Gemini/Groq)
+│   │   ├── ai_analyzer.py          # AI-analyysi (OpenAI)
 │   │   ├── data_extractor.py       # Tietojen poiminta
 │   │   └── supplier_detector.py    # Toimittajan tunnistus
 │   ├── models/                # Tietomallit
@@ -118,7 +118,7 @@ python main.py --compare 123 456
 
 **Funktiot**:
 - `document_processor.py`: PDF → teksti
-- `ai_analyzer.py`: AI-kutsut (Gemini/Groq)
+- `ai_analyzer.py`: AI-kutsut (OpenAI)
 - `data_extractor.py`: Tietojen poiminta
 - `supplier_detector.py`: Toimittajan tunnistus
 

@@ -47,8 +47,8 @@ class KastelliService:
         try:
             self.logger.info(f"Käsitellään Kastelli-dokumentti: {pdf_path}")
             
-            # Käsittele PDF
-            doc_result = self.document_processor.process_pdf(pdf_path)
+            # Käsittele PDF Kastelli-kohtaisesti
+            doc_result = self.document_processor.process_pdf(pdf_path, "Kastelli")
             
             # Analysoi AI:lla
             analysis_result = self.ai_analyzer.analyze_kastelli(doc_result['cleaned_text'])

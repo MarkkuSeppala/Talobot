@@ -1,3 +1,0 @@
-Valitettavasti, mutta annettu teksti ei sisällä mitään ovitietoja. Teksti koostuu vain kahdesta rivistä, jotka ilmoittavat toimitussisällön alusta ja lopusta, mutta eivät sisällä mitään tietoja väliovista.
-
-Jos haluat, että poimin väliovien tiedot jostain tekstistä, ole hyvä ja toimita teksti, josta haluat poimia tiedot.

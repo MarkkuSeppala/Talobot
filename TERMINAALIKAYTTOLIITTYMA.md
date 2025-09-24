@@ -149,7 +149,7 @@ talobot_env/
 ### Riippuvuudet
 - **tabulate** - Taulukkomuotoilu
 - **SQLAlchemy** - Tietokanta
-- **Groq API** - AI-analyysi
+- **OpenAI API** - AI-analyysi
 - **PyMuPDF** - PDF-käsittely
 
 ## 🎯 Seuraavat askeleet

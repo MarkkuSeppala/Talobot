@@ -1,0 +1,11 @@
+Ikkunatiedot:
+
+1. Ikkuna 5x16, 1 kpl, Asennettuna, Avattava ikkuna MSE, Ikkunan karmisyvyys 170mm, Vesipelti, Smyygilauta HS
+2. Ikkuna 6x6, 1 kpl, Asennettuna, Avattava ikkuna MSE, Ikkunan karmisyvyys 170mm, Vesipelti, Turvalasi sisä- ja ulkopuolella, Sälekaihdin integroitu (valkoinen), Smyygilauta HS
+3. Ikkuna 6x15, 2 kpl, Asennettuna, Avattava ikkuna MSE, Ikkunan karmisyvyys 170mm, Vesipelti, Sälekaihdin integroitu (valkoinen), Smyygilauta HS
+4. Ikkuna 12x5, 1 kpl, Asennettuna, Avattava ikkuna MSE, Ikkunan karmisyvyys 170mm, Vesipelti, Sälekaihdin integroitu (valkoinen), Alasaranoidun tuuletusikkunan aukipitolaite, Tuuletusmekanismi (tuuletusikkunan maksimileveys 9 tai maksimikoko 1,5m2), Smyygilauta HS
+5. Ikkuna 20x6, 1 kpl, Asennettuna, Avattava ikkuna MSE, Ikkunan karmisyvyys 170mm, Vesipelti, Sälekaihdin integroitu (valkoinen), Smyygilauta HS
+6. Ikkuna 12x21, 2 kpl, Asennettuna, Avattava ikkuna MSE, Ikkunan karmisyvyys 170mm, Vesipelti, Turvalasi sisä- ja ulkopuolella, Sälekaihdin integroitu (valkoinen), Smyygilauta HS
+7. Ikkuna 23x21, 2 kpl, Asennettuna, Avattava ikkuna MSE, Ikkunan karmisyvyys 170mm, Vesipelti, Turvalasi sisä- ja ulkopuolella, Smyygilauta HS
+8. Ikkuna 12x6, 1 kpl, Asennettuna, Avattava ikkuna MSE, Karmisyvyydeksi vaihtuu 210mm, Vesipelti, Sälekaihdin integroitu (valkoinen), Tuuletusmekanismi (tuuletusikkunan maksimileveys 9 tai maksimikoko 1,5m2), Alasaranoidun tuuletusikkunan aukipitolaite, Smyygilauta HS
+9. Ikkuna 12x15, 1 kpl, Asennettuna, Avattava ikkuna MSE, Ikkunan karmisyvyys 170mm, Vesipelti, Sälekaihdin integroitu (valkoinen), Smyygilauta HS

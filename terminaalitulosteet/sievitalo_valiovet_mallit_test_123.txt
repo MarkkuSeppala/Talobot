@@ -1,5 +1,0 @@
-Analyysin perusteella poimin seuraavat väliovimallit:
-
-{
- "ovimallit": ["Bath", "Lasiovi", "Unique", "Sound", "Eclisse"]
-}

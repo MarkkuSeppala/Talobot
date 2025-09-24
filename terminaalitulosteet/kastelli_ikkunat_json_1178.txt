@@ -1,0 +1,5 @@
+[
+  {"koko": "1330x1340", "kpl": 2, "turvalasi": false, "välikarmi": false, "sälekaihtimet": true},
+  {"koko": "1430x1890", "kpl": 2, "turvalasi": false, "välikarmi": false, "sälekaihtimet": true},
+  {"koko": "530x530", "kpl": 2, "turvalasi": false, "välikarmi": false, "sälekaihtimet": true}
+]

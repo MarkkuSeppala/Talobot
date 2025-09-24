@@ -37,7 +37,7 @@ from generation_config import GENERATION_CONFIG, GENERATION_CONFIG_JSON
 from utils.file_handler import *
 from utils.tietosissallon_kasittely import * 
 from SQL_kyselyt_tuotteet_tauluun import *                               
-from api_kyselyt import api_kysely, api_kysely_kirjoitus_json, api_kysely_ulko_ovet, api_kysely_nelja_parametria, groq_api_kysely, groq_api_kysely_nelja_parametria, groq_api_kysely_ulko_ovet
+from api_kyselyt import api_kysely, api_kysely_kirjoitus_json, api_kysely_ulko_ovet, api_kysely_nelja_parametria, groq_api_kysely, groq_api_kysely_nelja_parametria, groq_api_kysely_ulko_ovet, groq_api_kysely_pdf, groq_api_kysely_nelja_parametria_pdf
 from csv_export_functions import tallenna_puhdistettu_toimitussisalto_csv
 from logger_config import configure_logging
 import logging
@@ -221,19 +221,11 @@ def run_sievitalo(toimitussisalto_pdf, toimitussisalto_id: int):
 #============== K A S T E L L I ============#
 def run_kastelli(toimitussisalto_pdf, toimitussisalto_id: int):
         
-        # Ensimmäisenä siivotaan toimitussisältö. Tehdään se mahdollisimman helppolukuiseksi LLM-APILLE
-        print("run.py 222 - Kastelli PDF-käsittely")
-        puhdistettu_toimitussisalto = muuta_pdf_ja_puhdista_teksti_docling(toimitussisalto_pdf)
-      
-        # Lisätään toimitussisältön alku- ja loppuviittaukset
-        puhdistettu_toimitussisalto = f"**TOIMITUSSISÄLTÖ START**\n{puhdistettu_toimitussisalto}\n**TOIMITUSSISÄLTÖ END**"
-        
-        # Tallenna puhdistettu toimitussisältö CSV-muotoon testausta varten
-        tallenna_puhdistettu_toimitussisalto_csv(puhdistettu_toimitussisalto, "Kastelli", toimitussisalto_id)
+        print("run.py 222 - Kastelli PDF-käsittely suoraan API-kyselyyn")
 
        #---------------------------------------     Kastelli ikkunat kantaan      ----------------------------------------
         print(f"\n🔍 KASTELLI API-KYSELY: Ikkunatiedot")
-        ikkunatiedot_kokonaisuudessa = groq_api_kysely(PROMPT_KASTELLI_POIMI_IKKUNATIEDOT_TXT, puhdistettu_toimitussisalto)
+        ikkunatiedot_kokonaisuudessa = groq_api_kysely_pdf(PROMPT_KASTELLI_POIMI_IKKUNATIEDOT_TXT, toimitussisalto_pdf)
         kirjoita_txt_tiedosto(ikkunatiedot_kokonaisuudessa, f"terminaalitulosteet/kastelli_ikkunatiedot_raaka_{toimitussisalto_id}.txt")
         print(f"📋 Ikkunatiedot tallennettu: terminaalitulosteet/kastelli_ikkunatiedot_raaka_{toimitussisalto_id}.txt")
         
@@ -251,7 +243,7 @@ def run_kastelli(toimitussisalto_pdf, toimitussisalto_id: int):
         time.sleep(30)
         
         print(f"\n🔍 KASTELLI API-KYSELY: Ulko-ovet")
-        ulko_ovet_teksti = groq_api_kysely(PROMPT_KASTELLI_POIMI_ULKO_OVI_TIEDOT_TXT, puhdistettu_toimitussisalto)
+        ulko_ovet_teksti = groq_api_kysely_pdf(PROMPT_KASTELLI_POIMI_ULKO_OVI_TIEDOT_TXT, toimitussisalto_pdf)
         kirjoita_txt_tiedosto(ulko_ovet_teksti, f"terminaalitulosteet/kastelli_ulko_ovet_raaka_{toimitussisalto_id}.txt")
         print(f"📋 Ulko-ovet tallennettu: terminaalitulosteet/kastelli_ulko_ovet_raaka_{toimitussisalto_id}.txt")
         
@@ -286,7 +278,7 @@ def run_kastelli(toimitussisalto_pdf, toimitussisalto_id: int):
         time.sleep(30)
         
         print(f"\n🔍 KASTELLI API-KYSELY: Väliovet")
-        valio_ovet = groq_api_kysely(PROMPT_KASTELLI_POIMI_VALIOVITIEDOT_TXT, puhdistettu_toimitussisalto)
+        valio_ovet = groq_api_kysely_pdf(PROMPT_KASTELLI_POIMI_VALIOVITIEDOT_TXT, toimitussisalto_pdf)
         kirjoita_txt_tiedosto(valio_ovet, f"terminaalitulosteet/kastelli_valiovet_raaka_{toimitussisalto_id}.txt")
         print(f"📋 Väliovet tallennettu: terminaalitulosteet/kastelli_valiovet_raaka_{toimitussisalto_id}.txt")
         
@@ -342,7 +334,7 @@ def run_kastelli(toimitussisalto_pdf, toimitussisalto_id: int):
         print(f"📋 Tuotelista tallennettu: terminaalitulosteet/kastelli_tuotelista_raaka_{toimitussisalto_id}.txt")
         
         print(f"\n🔍 KASTELLI API-KYSELY: Tuotteet analyysi")
-        toimitussisalto_tuotteet = groq_api_kysely_nelja_parametria(PROMPT_KASTELLI_POIMI_TUOTTEET_TXT, puhdistettu_toimitussisalto, tuotteet)
+        toimitussisalto_tuotteet = groq_api_kysely_nelja_parametria_pdf(PROMPT_KASTELLI_POIMI_TUOTTEET_TXT, toimitussisalto_pdf, tuotteet)
         kirjoita_txt_tiedosto(toimitussisalto_tuotteet, f"terminaalitulosteet/kastelli_tuotteet_analyysi_raaka_{toimitussisalto_id}.txt")
         print(f"📋 Tuotteet analyysi tallennettu: terminaalitulosteet/kastelli_tuotteet_analyysi_raaka_{toimitussisalto_id}.txt")
         

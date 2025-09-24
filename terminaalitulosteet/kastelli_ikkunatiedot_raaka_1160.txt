@@ -1,0 +1,125 @@
+## Ikkunat
+
+Ikkunat on ryhmitelty tekstiin kokojen mukaan. Jokainen ikkunalohko, jossa on yksi tai useampi saman kokoinen ikkuna, esitellään erikseen.
+
+### Ikkunalohko 1
+
+* **Karmimitat:** 1330x1340
+* **Karmityyppi:** MSEL, avattava, karmisyvyys 170 mm
+* **Sisäpuitteen lasitus:** 2-kertainen eristyslasielementti, U=1,0
+* **Ulkopuutteen lasitus:** 1-kertainen tasolasi
+* **Puuosien pintakäsittely:** valkoinen
+* **Alumiiniosien väri:** valkoinen
+* **Karmi-/puitemateriaali:** ulkopuite ja karmin ulkopuoli alumiinia
+* **Heloituksen väri:** valkoinen
+* **Sälekaihdin:** matta valkoinen P2
+* **Tuuletusikkuna:** tuuletusikkunaheloitus (tunnus T)
+* **Hyönteispuite:** (tunnus H) HUOM! Hyttyspuite samassa kehässä mahdollisen irtoristikon kanssa.
+* **Huonetila:** MH1 ja keittiö
+* **Kpl:** 2
+
+### Ikkunalohko 2
+
+* **Karmimitat:** 1430x1890
+* **Karmityyppi:** MSEL, avattava, karmisyvyys 170 mm
+* **Sisäpuitteen lasitus:** 2-kertainen eristyslasielementti, U=1,0, sisin lasi karkaistu
+* **Ulkopuutteen lasitus:** 1-kertainen tasolasi
+* **Puuosien pintakäsittely:** valkoinen
+* **Alumiiniosien väri:** valkoinen
+* **Karmi-/puitemateriaali:** ulkopuite ja karmin ulkopuoli alumiinia
+* **Heloituksen väri:**
+* **Sälekaihdin:** matta valkoinen P2
+* **Huonetila:** Oh
+* **Kpl:** 2
+
+### Ikkunalohko 3
+
+* **Karmimitat:** 530x530
+* **Karmityyppi:** MSEL, avattava, karmisyvyys 170 mm
+* **Sisäpuitteen lasitus:** 2-kertainen eristyslasielementti, U=1,0
+* **Ulkopuutteen lasitus:** 1-kertainen tasolasi
+* **Puuosien pintakäsittely:** valkoinen
+* **Alumiiniosien väri:** valkoinen
+* **Karmi-/puitemateriaali:** ulkopuite ja karmin ulkopuoli alumiinia
+* **Heloituksen väri:**
+* **Sälekaihdin:** matta valkoinen P2
+* **Tuuletusikkuna:** tuuletusikkunaheloitus (tunnus T)
+* **Hyönteispuite:** (tunnus H) HUOM! Hyttyspuite samassa kehässä mahdollisen irtoristikon kanssa.
+* **Lisätarvike:** Alasaranoidun ikkunan Abloy WF881 lisäaukipitolaite (1 kpl)
+* **Huonetila:** MH1,2
+* **Kpl:** 2
+
+### Ikkunalohko 4
+
+* **Karmimitat:** 1330x540
+* **Karmityyppi:** MSEL, avattava, karmisyvyys 170 mm
+* **Sisäpuitteen lasitus:** 2-kertainen eristyslasielementti, U=1,0
+* **Ulkopuutteen lasitus:** 1-kertainen tasolasi
+* **Puuosien pintakäsittely:** väritön lakattu mänty
+* **Alumiiniosien väri:** valkoinen
+* **Karmi-/puitemateriaali:** ulkopuite ja karmin ulkopuoli alumiinia
+* **Heloituksen väri:**
+* **Tuuletusikkuna:** tuuletusikkunaheloitus (tunnus T)
+* **Lisätarvike:** Alasaranoidun ikkunan Abloy WF881 lisäaukipitolaite (1 kpl)
+* **Huonetila:** Sa
+* **Kpl:** 1
+
+### Ikkunalohko 5
+
+* **Karmimitat:** 1030x1340
+* **Karmityyppi:** MSEL, avattava, karmisyvyys 170 mm
+* **Sisäpuitteen lasitus:** 2-kertainen eristyslasielementti, U=1,0
+* **Ulkopuutteen lasitus:** 1-kertainen tasolasi
+* **Puuosien pintakäsittely:** valkoinen
+* **Alumiiniosien väri:** valkoinen
+* **Karmi-/puitemateriaali:** ulkopuite ja karmin ulkopuoli alumiinia
+* **Heloituksen väri:**
+* **Sälekaihdin:** matta valkoinen P2
+* **Huonetila:** Khh
+* **Kpl:** 1
+
+### Ikkunalohko 6
+
+* **Karmimitat:** 1330x1890
+* **Karmityyppi:** MSEL, avattava, karmisyvyys 170 mm
+* **Sisäpuitteen lasitus:** 2-kertainen eristyslasielementti, U=1,0
+* **Ulkopuutteen lasitus:** 1-kertainen tasolasi
+* **Puuosien pintakäsittely:** valkoinen
+* **Alumiiniosien väri:** valkoinen
+* **Karmi-/puitemateriaali:** ulkopuite ja karmin ulkopuoli alumiinia
+* **Heloituksen väri:**
+* **Sälekaihdin:** matta valkoinen P2
+* **Tuuletusikkuna:** tuuletusikkunaheloitus (tunnus T)
+* **Hyönteispuite:** (tunnus H) HUOM! Hyttyspuite samassa kehässä mahdollisen irtoristikon kanssa.
+* **Huonetila:** Mh2,3,4
+* **Kpl:** 3
+
+### Ikkunalohko 7
+
+* **Karmimitat:** 1430x1340
+* **Karmityyppi:** MSEL, avattava, karmisyvyys 170 mm
+* **Sisäpuitteen lasitus:** 2-kertainen eristyslasielementti, U=1,0
+* **Ulkopuutteen lasitus:** 1-kertainen tasolasi
+* **Puuosien pintakäsittely:** valkoinen
+* **Alumiiniosien väri:** valkoinen
+* **Karmi-/puitemateriaali:** ulkopuite ja karmin ulkopuoli alumiinia
+* **Heloituksen väri:**
+* **Sälekaihdin:** matta valkoinen P2
+* **Huonetila:** Ruokailu
+* **Kpl:** 1
+
+### Ikkunalohko 8
+
+* **Karmimitat:** 1330x1340
+* **Karmityyppi:** MSEL, avattava, karmisyvyys 170 mm
+* **Sisäpuitteen lasitus:** 2-kertainen eristyslasielementti, U=1,0
+* **Ulkopuutteen lasitus:** 1-kertainen tasolasi
+* **Puuosien pintakäsittely:** valkoinen
+* **Alumiiniosien väri:** valkoinen
+* **Karmi-/puitemateriaali:** ulkopuite ja karmin ulkopuoli alumiinia
+* **Heloituksen väri:**
+* **Sälekaihdin:** matta valkoinen P2
+* **Huonetila:** 
+* **Kpl:** 
+
+Ikkunalohkot on erotettu toisistaan kolmella rivinvaihdoilla. Jokaisesta ikkunaryhmästä on annettu kaikki tiedot.

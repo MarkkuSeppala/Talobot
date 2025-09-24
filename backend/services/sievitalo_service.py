@@ -46,8 +46,8 @@ class SievitaloService:
         try:
             self.logger.info(f"Käsitellään Sievitalo-dokumentti: {pdf_path}")
             
-            # Käsittele PDF
-            doc_result = self.document_processor.process_pdf(pdf_path)
+            # Käsittele PDF Sievitalo-kohtaisesti
+            doc_result = self.document_processor.process_pdf(pdf_path, "Sievitalo")
             
             # Analysoi AI:lla
             analysis_result = self.ai_analyzer.analyze_sievitalo(doc_result['cleaned_text'])

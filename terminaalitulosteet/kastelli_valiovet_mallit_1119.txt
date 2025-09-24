@@ -1,6 +1,0 @@
-Tässä on vastaus annetun tekstin perusteella:
-
-
-{
- "ovimallit": []
-}
