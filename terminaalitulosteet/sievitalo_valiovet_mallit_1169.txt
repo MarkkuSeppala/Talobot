@@ -1,0 +1,15 @@
+Analyysin perusteella poimin seuraavat väliovimallit:
+
+* Bath
+* Lasiovi
+* Unique
+* Sound
+* Eclisse
+
+Tulostaessa JSON-formaatissa lista on seuraava:
+
+```
+{
+ "ovimallit": ["Bath", "Lasiovi", "Unique", "Sound", "Eclisse"]
+}
+```

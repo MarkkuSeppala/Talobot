@@ -1,0 +1,126 @@
+id: 1195, tuote: Radontuuletuksen pystypútki, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1196, tuote: Hule- ja pintavesisuunnitelma, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1197, tuote: Huonekorkeus, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1199, tuote: Omakotitalon rakennusaikainen vakuutus, tarkenne_yleinen:  , tarkenne_sievitalo: Omakotitalon rakennusaikainen vakuutus, kattaa Sievitalon kautta tulevat tarvikkeet ja työt
+id: 1203, tuote: Perinnetalo, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1210, tuote: Perustussuunnittelu, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1211, tuote: Loppusiivous, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1212, tuote: Tavaran vastaanotto, tarkenne_yleinen:  , tarkenne_sievitalo: sisustusmateriaalit
+id: 1213, tuote: Työmaaikainen siivous, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1215, tuote: Lämpöpuhallin, tarkenne_yleinen:  , tarkenne_sievitalo: rakentamisen aikainen
+id: 1216, tuote: Rakennuskuivain, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1217, tuote: KVV/IV-työnjohto, tarkenne_yleinen:  , tarkenne_sievitalo: rakennuksien sisäpuoliset LVI-työt
+id: 1218, tuote: Ulkopuolen KVV/IV-työnjohto, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1219, tuote: Sisustussuunnittelupalvelu, tarkenne_yleinen:  , tarkenne_sievitalo: 3h
+id: 1220, tuote: Hiilijalanjälkilaskenta, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1221, tuote: Perustus, tarkenne_yleinen: Maanvarainen, tarkenne_sievitalo: Maanvarainen alapohja. Lämpöeristettysokkelipalkki SP 300-900.
+id: 1222, tuote: Perustus, tarkenne_yleinen: Kantava väliseinä, tarkenne_sievitalo:  
+id: 1223, tuote: Antura, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1224, tuote: Paaluperustus, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1225, tuote: Alapohjan viemäreiden kannakointi, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1226, tuote: Päärakennesuunnittelijana toimiminen, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1231, tuote: Höyrynsulku, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1232, tuote: Höyrynsulku, tarkenne_yleinen: Intello, tarkenne_sievitalo:  
+id: 1233, tuote: Lämmöneriste, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1234, tuote: Lämmöneriste, tarkenne_yleinen: Ekovilla, tarkenne_sievitalo:  
+id: 1235, tuote: Lämmöneriste, tarkenne_yleinen: Puukuituinen, tarkenne_sievitalo:  
+id: 1236, tuote: Tuulensuojalevy, tarkenne_yleinen: Kipsilevy, tarkenne_sievitalo:  
+id: 1237, tuote: Tuulensuojalevy, tarkenne_yleinen: Puukuituinen, tarkenne_sievitalo:  
+id: 1238, tuote: Puukuitutuulensuojalevy, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1240, tuote: Sisäverhouskipsilevy, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1241, tuote: Sisäverhouskipsilevy, tarkenne_yleinen: Normaali, tarkenne_sievitalo: Normaali
+id: 1242, tuote: Sisäverhouskipsilevy, tarkenne_yleinen: KN, tarkenne_sievitalo: KN
+id: 1243, tuote: Sisäverhouskipsilevy, tarkenne_yleinen: Erikoiskova, tarkenne_sievitalo: Erikoiskova
+id: 1244, tuote: Sisäverhouskipsilevy, tarkenne_yleinen: EK, tarkenne_sievitalo: EK
+id: 1245, tuote: Sisäverhouskipsilevy, tarkenne_yleinen: GEK, tarkenne_sievitalo: GEK
+id: 1246, tuote: Ulkoverhous tehostepanelointi, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1247, tuote: Ulkoverhous vaakapaneeli, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1248, tuote: Ulkoverhous vaakapaneeli, tarkenne_yleinen: 23x, tarkenne_sievitalo:  
+id: 1249, tuote: Ulkoverhous vaakapaneeli, tarkenne_yleinen: 28x, tarkenne_sievitalo:  
+id: 1250, tuote: Pystypaneeli, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1251, tuote: Pystypaneeli, tarkenne_yleinen: 23x, tarkenne_sievitalo:  
+id: 1252, tuote: Pystypaneeli, tarkenne_yleinen: 28x, tarkenne_sievitalo:  
+id: 1253, tuote: Pieneläinverkko tai hiirieste, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1254, tuote: Ulkoverhouksen välimaalaus tai välimaalausväri, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1255, tuote: Ulkoverhouksen 3. maalauskerta, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1256, tuote: Sivuräystäs syvyys, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1257, tuote: Päätyräystäs syvyys, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1258, tuote: Peltikate Tiiliprofiili, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1259, tuote: Peltikate, tarkenne_yleinen: Konesauma 0,5, tarkenne_sievitalo:  
+id: 1260, tuote: Peltikate, tarkenne_yleinen: Konesauma 0,6, tarkenne_sievitalo:  
+id: 1261, tuote: Tiilikate, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1264, tuote: Käyttöullakko, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1265, tuote: Käyttöullakko tikkaat, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1266, tuote: Seinätikas, tarkenne_yleinen: Talotikkaat, tarkenne_sievitalo:  
+id: 1267, tuote: Kattosilta, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1268, tuote: Lumieste, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1270, tuote: Syöksysarja, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1277, tuote: Kuivantilan lattia, tarkenne_yleinen: Laminaatti, tarkenne_sievitalo:  
+id: 1278, tuote: Kuivantilan lattia, tarkenne_yleinen: Vinyyli, tarkenne_sievitalo:  
+id: 1279, tuote: Kuivantilan lattia, tarkenne_yleinen: Parketti, tarkenne_sievitalo:  
+id: 1280, tuote: Kuivantilan lattia, tarkenne_yleinen: Kovapuu, tarkenne_sievitalo:  
+id: 1281, tuote: Kuivantilan lattia, tarkenne_yleinen: Laatta, tarkenne_sievitalo:  
+id: 1283, tuote: Kura-allas, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1284, tuote: Kura-altaan vesipiste, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1300, tuote: Sisäkatto kuivat tilat, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1301, tuote: Sisäkatto kuivat tilat, tarkenne_yleinen: mdf-paneeli, tarkenne_sievitalo:  
+id: 1302, tuote: Sisäkatto kuivat tilat, tarkenne_yleinen: Maalattu, tarkenne_sievitalo:  
+id: 1303, tuote: Listattomat ikkunat, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1304, tuote: Saunan lauteet, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1305, tuote: Saunan yleisvalaisin, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1306, tuote: Laudevalaisin, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1307, tuote: Saunan puolilasiseinä, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1308, tuote: Saunan kokolasiseinä, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1309, tuote: Saunan seinät ja katto, tarkenne_yleinen: Havupuupaneeli, tarkenne_sievitalo:  
+id: 1310, tuote: Saunan seinät ja katto, tarkenne_yleinen: Tervaleppä tai lämpöhaapa, tarkenne_sievitalo:  
+id: 1311, tuote: Pesuhuoneen katto, tarkenne_yleinen: Havupuupaneeli, tarkenne_sievitalo:  
+id: 1312, tuote: Pesuhuoneen katto, tarkenne_yleinen: Tervaleppä tai lämpöhaapa, tarkenne_sievitalo:  
+id: 1313, tuote: Shampoosyvennys, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1314, tuote: Maalämpö, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1315, tuote: VILP eli vesi-ilmalämpöpumppu, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1316, tuote: PILP eli poistoilmalämpöpumppu, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1317, tuote: Maaviileä, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1318, tuote: Ilmalämpöpumppu, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1319, tuote: Lattialämmityksen termostaatit, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1320, tuote: Anteenirasia, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1321, tuote: Tietoliikennerasia, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1322, tuote: Pistorasia, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1323, tuote: Valokytkin, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1324, tuote: Valohimmennin, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1325, tuote: Valopiste, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1326, tuote: Led-valo, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1327, tuote: Ulkovalo, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1328, tuote: Ulkopistorasia, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1329, tuote: Maadoituskupari 50m, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1330, tuote: Keittiön hana, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1331, tuote: Kodinhoitohuoneen vesihana, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1332, tuote: Pesualtaan vesihana, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1333, tuote: Suihku, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1334, tuote: Wc-istuin, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1335, tuote: Seinä-WC, tarkenne_yleinen: Kotelo maalattuna, tarkenne_sievitalo:  
+id: 1337, tuote: Vesipostiventtiili, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1338, tuote: Autotallin vesipiste, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1339, tuote: Öljynerotuskaivo, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1340, tuote: Lämpimän veden kierto, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1341, tuote: Keskuspölynimuri, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1342, tuote: Linjalattiakaivo, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1343, tuote: Liesituuletin, tarkenne_yleinen: ulospurkava kaappikiinnitteinen, tarkenne_sievitalo:  
+id: 1344, tuote: Liesituuletin, tarkenne_yleinen: ulospurkava saareke, tarkenne_sievitalo:  
+id: 1345, tuote: Liesituuletin + liesi, tarkenne_yleinen: Pora pure, tarkenne_sievitalo:  
+id: 1346, tuote: Induktioliesi, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1347, tuote: Jääkaappi, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1348, tuote: Pakastin, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1349, tuote: Astianpesukone, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1350, tuote: Uuni, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1351, tuote: Tonttikeskus, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1352, tuote: Takka, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1353, tuote: Voimavirta pistorasiat, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1354, tuote: Kiuas, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1355, tuote: Portaat, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1356, tuote: Portaat, tarkenne_yleinen: kaiden puu, tarkenne_sievitalo:  
+id: 1357, tuote: Portaat, tarkenne_yleinen: kaiden metalli, tarkenne_sievitalo:  
+id: 1358, tuote: Portaat, tarkenne_yleinen: kaide lasi, tarkenne_sievitalo:  
+id: 1359, tuote: Kerroskaide, tarkenne_yleinen:  , tarkenne_sievitalo:  
+id: 1360, tuote: Kerroskaide, tarkenne_yleinen: puu, tarkenne_sievitalo:  
+id: 1361, tuote: Kerroskaide, tarkenne_yleinen: metalli, tarkenne_sievitalo:  
+id: 1362, tuote: Kerroskaide, tarkenne_yleinen: lasi, tarkenne_sievitalo:  

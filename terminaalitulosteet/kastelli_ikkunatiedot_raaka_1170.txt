@@ -1,0 +1,115 @@
+**TOIMITUSSISÄLTÖ START**
+
+Ikkunat on ryhmitelty tekstiin kokojen mukaan. Jokainen ikkunalohko, jossa on yksi tai useampi saman kokoinen ikkuna, esitellään erikseen.
+
+### Ikkunat 1330x1340
+
+* 2 kpl
+* Karmityyppi: MSEL, avattava, karmisyvyys 170 mm
+* Sisäpuitteen lasitus: 2-kertainen eristyslasielementti, U=1,0
+* Ulkopuitteen lasitus: 1-kertainen tasolasi
+* Puuosien pintakäsittely: valkoinen
+* Alumiiniosien väri: valkoinen
+* Karmi-/puitemateriaali: ulkopuite ja karmin ulkopuoli alumiinia
+* Heloituksen väri: valkoinen
+* Sälekaihdin: matta valkoinen P2
+* Tuuletusikkuna: tuuletusikkunaheloitus (tunnus T)
+* Hyönteispuite: (tunnus H) HUOM! Hyttyspuite samassa kehässä mahdollisen irtoristikon kanssa.
+* Huonetila: MH1 ja keittiö
+
+
+### Ikkunat 1430x1890
+
+* 2 kpl
+* Karmityyppi: MSEL, avattava, karmisyvyys 170 mm
+* Sisäpuitteen lasitus: 2-kertainen eristyslasielementti, U=1,0, sisin lasi karkaistu
+* Ulkopuitteen lasitus: 1-kertainen tasolasi
+* Puuosien pintakäsittely: valkoinen
+* Alumiiniosien väri: valkoinen
+* Karmi-/puitemateriaali: ulkopuite ja karmin ulkopuoli alumiinia
+* Heloituksen väri: 
+* Sälekaihdin: matta valkoinen P2
+* Huonetila: Oh
+
+
+### Ikkunat 530x530
+
+* 2 kpl ala
+* Karmityyppi: MSEL, avattava, karmisyvyys 170 mm
+* Sisäpuitteen lasitus: 2-kertainen eristyslasielementti, U=1,0
+* Ulkopuitteen lasitus: 1-kertainen tasolasi
+* Puuosien pintakäsittely: valkoinen
+* Alumiiniosien väri: valkoinen
+* Karmi-/puitemateriaali: ulkopuite ja karmin ulkopuoli alumiinia 
+* Heloituksen väri: 
+* Sälekaihdin: matta valkoinen P2
+* Tuuletusikkuna: tuuletusikkunaheloitus (tunnus T)
+* Hyönteispuite: (tunnus H) HUOM! Hyttyspuite samassa kehässä mahdollisen irtoristikon kanssa.
+* Lisätarvike: Alasaranoidun ikkunan Abloy WF881 lisäaukipitolaite (1 kpl)
+* Huonetila: MH1,2
+
+
+### Ikkunat 1330x540
+
+* 1 kpl ala
+* Karmityyppi: MSEL, avattava, karmisyvyys 170 mm
+* Sisäpuitteen lasitus: 2-kertainen eristyslasielementti, U=1,0
+* Ulkopuitteen lasitus: 1-kertainen tasolasi
+* Puuosien pintakäsittely: väritön lakattu mänty
+* Alumiiniosien väri: valkoinen
+* Karmi-/puitemateriaali: ulkopuite ja karmin ulkopuoli alumiinia
+* Heloituksen väri: 
+* Tuuletusikkuna: tuuletusikkunaheloitus (tunnus T)
+* Lisätarvike: Alasaranoidun ikkunan Abloy WF881 lisäaukipitolaite (1 kpl)
+* Huonetila: Sa
+
+
+### Ikkunat 1030x1340
+
+* 1 kpl
+* Karmityyppi: MSEL, avattava, karmisyvyys 170 mm
+* Sisäpuitteen lasitus: 2-kertainen eristyslasielementti, U=1,0
+* Ulkopuitteen lasitus: 1-kertainen tasolasi
+* Puuosien pintakäsittely: valkoinen
+* Alumiiniosien väri: valkoinen
+* Karmi-/puitemateriaali: ulkopuite ja karmin ulkopuoli alumiinia
+* Heloituksen väri: 
+* Sälekaihdin: matta valkoinen P2
+* Huonetila: Khh
+
+
+### Ikkunat 1330x1890
+
+* 1 kpl
+* Karmityyppi: MSEL, avattava, karmisyvyys 170 mm
+* Sisäpuitteen lasitus: 2-kertainen eristyslasielementti, U=1,0
+* Ulkopuitteen lasitus: 1-kertainen tasolasi
+* Puuosien pintakäsittely: valkoinen
+* Alumiiniosien väri: valkoinen
+* Karmi-/puitemateriaali: ulkopuite ja karmin ulkopuoli alumiinia
+* Heloituksen väri: 
+* Sälekaihdin: matta valkoinen P2
+* Tuuletusikkuna: tuuletusikkunaheloitus (tunnus T)
+* Hyönteispuite: (tunnus H) HUOM! Hyttyspuite samassa kehässä mahdollisen irtoristikon kanssa.
+* Huonetila: Mh2,3,4
+
+
+### Ikkunat 1430x1340
+
+* 1 kpl
+* Karmityyppi: MSEL, avattava, karmisyvyys 170 mm
+* Sisäpuitteen lasitus: 2-kertainen eristyslasielementti, U=1,0
+* Ulkopuitteen lasitus: 1-kertainen tasolasi
+* Puuosien pintakäsittely: valkoinen
+* Alumiiniosien väri: valkoinen
+* Karmi-/puitemateriaali: ulkopuite ja karmin ulkopuoli alumiinia
+* Heloituksen väri: 
+* Sälekaihdin: matta valkoinen P2
+* Huonetila: Ruokailu
+
+
+### Sauna-ikkuna
+
+* 1 kpl
+* Tyyppi: Sauna SAVU (7-9x19) musta, puuosat musta oksaton mänty, saunan kokolasiovi JELD-WEN,8 mm karkaistu lasi. Leveys Kastellin lupakuvien mukaisesti, korkeus 19 M.0 Kpl
+* Huonetila: Sa

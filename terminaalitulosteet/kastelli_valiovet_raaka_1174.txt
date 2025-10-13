@@ -1,0 +1,51 @@
+**Väliovien tiedot**
+
+### Oviluettelo
+
+1. **Nro: 100**
+   - **Tyyppi:** Laakaovi Easy201 (7-10x21), valkoinen
+   - **Materiaali:** JELD-WEN sisäovi, leveys Kastellin lupakuvien mukaisesti, korkeus 21M
+   - **Koneistus:** Väliovipainike756 Polarita ja avainkilpi, satiini
+   - **Huonetila:** 
+   - **Määrä:** 5 Kpl
+
+2. **Nro: 110**
+   - **Tyyppi:** Laakaovi Easy201 (7-10x21), valkoinen
+   - **Materiaali:** JELD-WEN sisäovi, leveys Kastellin lupakuvien mukaisesti, korkeus 21M
+   - **Koneistus:** Väliovipainike756 Polarita ja WC-vääntönuppi, satiini
+   - **Huonetila:** WC/PUKUH
+   - **Määrä:** 1 Kpl
+
+3. **Nro: 120**
+   - **Tyyppi:** Ei käytössä Laakaovi Easy201 (13/15x21) (sym.) valkoinen, pariovi
+   - **Materiaali:** JELD-WEN sisäovi, valkoinen karmi. Leveys Kastellin lupakuvien mukaisesti, korkeus 21M
+   - **Huonetila:** TYÖH
+   - **Määrä:** 1 Kpl
+
+4. **Nro: 130, 150**
+   - **Tyyppi:** Laakaäänieristysovi Sound201 DB9x21
+   - **Ominaisuudet:** Rw30 dB, ääniluokka 25 dB, tiivistetty ovilehti, karmi ja kynnys
+   - **Koneistus:** Väliovipainike756 Polarita ja WC-vääntönuppi, satiini
+   - **Huonetila:** WC, VH/KHH
+   - **Määrä:** 2 Kpl
+   - **Huomautus:** sis. karmi ja kynnys
+
+5. **Nro: 140**
+   - **Tyyppi:** Laakaäänieristysovi Sound201 DB8x21
+   - **Ominaisuudet:** Rw30 dB, ääniluokka 25 dB, tiivistetty ovilehti, karmi ja kynnys
+   - **Koneistus:** Väliovipainike756 Polarita ja WC-vääntönuppi, satiini
+   - **Huonetila:** WC/MH1
+   - **Määrä:** 1 Kpl
+   - **Huomautus:** sis. karmi ja kynnys
+
+6. **Nro: 160**
+   - **Tyyppi:** Bath SATIINI (7-9x21) valkoinen läpikuultava, kostean tilan lasiovi
+   - **Materiaali:** JELD-WEN, 8 mm karkaistu kirkas lasi, silkkipainettu valkoinen, valkoinen roiskevedenkestävä karmi, lukittava vääntönupillinen
+   - **Huonetila:** PH
+   - **Määrä:** 1 Kpl
+
+7. **Nro: 170**
+   - **Tyyppi:** Sauna83 HARMAA (7-9x19) saunan kokolasiovi
+   - **Materiaali:** JELD-WEN, pyöreä vedin, 8 mm karkaistu lasi. Leveys Kastellin lupakuvien mukaisesti, korkeus 19M
+   - **Huonetila:** SAUNA
+   - **Määrä:** 1 Kpl

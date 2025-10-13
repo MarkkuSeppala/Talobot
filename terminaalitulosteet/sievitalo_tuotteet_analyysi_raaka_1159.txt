@@ -1,0 +1,191 @@
+[
+  {
+    "tuote": "Omakotitalon rakennusaikainen vakuutus",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Omakotitalon rakennusaikainen vakuutus, kattaa Sievitalon kautta tulevat tarvikkeet ja työt"
+  },
+  {
+    "tuote": "Pääpiirustukset",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Energiatodistus ja -selvitys",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Ilmatiiveysmittaus",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Kosteusmittaus",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Sähkösuunnitelmat",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "LVI-suunnitelmat",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Rakennesuunnitelmat",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Perustussuunnittelu",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Perustussuunnittelu"
+  },
+  {
+    "tuote": "Lämpöpuhallin + rakennuskuivain",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Lämpöpuhallin + rakennuskuivain (rakentamisen aikainen)"
+  },
+  {
+    "tuote": "KVV/IV-työnjohto",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "KVV/IV-työnjohto (rakennuksien sisäpuoliset LVI-työt)"
+  },
+  {
+    "tuote": "Sisustussuunnittelupalvelu",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Sisustussuunnittelupalvelu (3h)"
+  },
+  {
+    "tuote": "Hiilijalanjälkilaskenta",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Hiilijalanjälkilaskenta"
+  },
+  {
+    "tuote": "Paaluperustus",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Paaluperustus"
+  },
+  {
+    "tuote": "Lämmöneriste",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Lämmöneriste 200mm mineraalivilla"
+  },
+  {
+    "tuote": "Höyrynsulku",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Höyrynsulku"
+  },
+  {
+    "tuote": "Tuulensuojalevy",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Tuulensuojakipsilevy 9mm"
+  },
+  {
+    "tuote": "Sisäverhouskipsilevy",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Sisäverhouskipsilevy; KN"
+  },
+  {
+    "tuote": "Ulkoverhous",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Vaakapaneeli; UYM23x145 HS"
+  },
+  {
+    "tuote": "Pienteläinverkko",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Pieneläinverkko (tehdas-asennus)"
+  },
+  {
+    "tuote": "Ulkoverhouksen välimaalaus",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Sivuräystäs",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Puutavara 20x95 HS"
+  },
+  {
+    "tuote": "Päätyräystäs",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Päätyräystäselementti PRE"
+  },
+  {
+    "tuote": "Vesikatto",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Progantti 475 konesaumajäljitelmäpeltikate GreenCoat Crown BT Matta 0,5mm"
+  },
+  {
+    "tuote": "Tikkaat",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Seinätikas"
+  },
+  {
+    "tuote": "Kattosilta",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Kattosilta"
+  },
+  {
+    "tuote": "Lumieste",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Lumieste"
+  },
+  {
+    "tuote": "Sadevesijärjestelmä",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Vesikouru P13 Ulkopuolinen kannake"
+  },
+  {
+    "tuote": "Terassit",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Avoterassi Puutavara 48x148 painekyll."
+  },
+  {
+    "tuote": "Portaat",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Ikkunat",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Pihla Varma MSE/MEK ikkunoita"
+  },
+  {
+    "tuote": "Ulko-ovet",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Ulko-ovet valkoisia tiivistettyjä Pihla Varma levyrakenteisia lämpöovia"
+  },
+  {
+    "tuote": "Väliovet",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Bath satiini+, valkoinen ovipaketti satiinilasilla 8-9x21"
+  },
+  {
+    "tuote": "Sauna",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Keittiö",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Kodinhoitohuone",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "WC- tai pesuhuonekalusteet",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Kodinkoneet",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Lattialämmitys",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Lattialämmitys (vesikiertoinen)"
+  },
+  {
+    "tuote": "Vesi- ja viemärityöt",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Keittiön hana",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Oras Vega 1839FG"
+  },
+  {
+    "tuote": "Kodinhoitohuoneen vesihana",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Oras Vega 1825FG"
+  },
+  {
+    "tuote": "Pesualtaan vesihana",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Oras Vega 1812FG pesuallashana + bide"
+  },
+  {
+    "tuote": "Suihkut",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Oras Optima 7140"
+  },
+  {
+    "tuote": "Wc-istuin",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Wc-istuin Ido Seven D38310 (vakio kansi)"
+  },
+  {
+    "tuote": "Maalämpö",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Maalämpö (paketti 2)"
+  },
+  {
+    "tuote": "Ilmalämpöpumppu",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Ilmalämpöpumppu Bosch Climate Class 6101i"
+  }
+]
+```

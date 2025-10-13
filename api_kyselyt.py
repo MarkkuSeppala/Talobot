@@ -4,6 +4,7 @@ import sys
 from pathlib import Path
 #from config_data import GEMINI_API_KEY
 from utils.file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet, kirjoita_vastaus_jsoniin
+from config_data import OPENAI_API_KEY, OPENAI_API_URL, OPENAI_MODEL
 from luokat_ikkuna_ulkoovi_valiovi import UlkoOvi
 import json
 from logger_config import configure_logging
@@ -17,7 +18,7 @@ sys.path.append('C:/Users/Public/testibot/Talobot')
 # Tapa 3: Nykyinen hakemisto
 sys.path.append(os.getcwd())
 
-import google.generativeai as genai
+import requests
 from datetime import datetime
 
 
@@ -39,7 +40,7 @@ logger = logging.getLogger(__name__)
 
 
 # model = genai.GenerativeModel(
-#     model_name="gemini-1.5-flash",
+#     model_name="gemini-2.0-flash-exp",
 #     generation_config={},
 #     system_instruction="Tämä on testi."
 # )
@@ -59,55 +60,121 @@ def api_kysely(generation_config, system_instruction, input_text) -> str:
     """Geneerinen API-kysely aihio, joka saa parametreina asetukset, system instructions ja syöte tekstin.
         Palauttaa API-kysely vastauksen string-muodossa."""
 
-    api_key = os.environ.get('GEMINI_API_KEY')
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel(
-        model_name="gemini-1.5-flash",
-        generation_config=generation_config,
-        system_instruction=lue_txt_tiedosto(system_instruction)
-    )
+    api_key = os.environ.get('OPENAI_API_KEY')
+    if not api_key:
+        logger.error("OPENAI_API_KEY ei ole asetettu!")
+        return ""
 
-    logger.info("Gemini API konfiguroitu onnistuneesti!")
+    # OpenAI API URL
+    url = "https://api.openai.com/v1/chat/completions"
+    
+    # Headers
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}"
+    }
+    
+    # Request body
+    data = {
+        "model": "gpt-4o",
+        "messages": [
+            {
+                "role": "system",
+                "content": lue_txt_tiedosto(system_instruction)
+            },
+            {
+                "role": "user",
+                "content": f"Tässä on teksti: \n{input_text}\n\nToimi ohjeen mukaan."
+            }
+        ],
+        "max_tokens": 1000,
+        "temperature": 0.7
+    }
 
-    kysymys = f"Tässä on teksti: \n{input_text}\n\nToimi ohjeen mukaan."
+    logger.info("OpenAI API konfiguroitu onnistuneesti!")
+
     try:
-        response = model.generate_content(kysymys)
-        if response is not None:
+        response = requests.post(url, headers=headers, json=data)
+        response.raise_for_status()
+        
+        result = response.json()
+        if result and "choices" in result and len(result["choices"]) > 0:
             logger.info("API-vastaus saatu")
+            return result["choices"][0]["message"]["content"]
         else:
-            logger.warning("API-vastaus puuttuu")
+            logger.warning("API-vastaus puuttuu tai on tyhjä")
+            return ""
     except Exception as e:
         logger.error(f"Odottamaton virhe: {e}")
-    return response.text
+        return ""
 
 #==================================== api_kysely_nelja_parametria()
 def api_kysely_nelja_parametria(generation_config, system_instruction, input_text_1, input_text_2) -> str:
     """Geneerinen API-kysely aihio, joka saa parametreina asetukset, system instructions ja syöte tekstin.
         Palauttaa API-kysely vastauksen string-muodossa."""
     
+    api_key = os.environ.get('OPENAI_API_KEY')
+    if not api_key:
+        logger.error("OPENAI_API_KEY ei ole asetettu!")
+        return '{"tunnistukset": []}'
+
     system_instruction = lue_txt_tiedosto(system_instruction)
     system_instruction_2 = system_instruction + input_text_2
 
-    api_key = os.environ.get('GEMINI_API_KEY')
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel(
-        model_name="gemini-1.5-flash",
-        generation_config=generation_config,
-        system_instruction=system_instruction_2
-    )
+    # OpenAI API URL
+    url = "https://api.openai.com/v1/chat/completions"
+    
+    # Headers
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}"
+    }
+    
+    # Request body
+    data = {
+        "model": "gpt-4o",
+        "messages": [
+            {
+                "role": "system",
+                "content": system_instruction_2
+            },
+            {
+                "role": "user",
+                "content": f"Tässä on teksti: \n{input_text_1}\n\nToimi ohjeen mukaan."
+            }
+        ],
+        "max_tokens": 1000,
+        "temperature": 0.7
+    }
 
-    logger.info("Gemini API konfiguroitu onnistuneesti!")
+    logger.info("OpenAI API konfiguroitu onnistuneesti!")
 
-    kysymys = f"Tässä on teksti: \n{input_text_1}\n\nToimi ohjeen mukaan."
     try:
-        response = model.generate_content(kysymys)
-        if response is not None:
+        import time
+        start_time = time.time()
+        logger.info(f"Lähetetään API-kysely...")
+        
+        response = requests.post(url, headers=headers, json=data)
+        response.raise_for_status()
+        
+        elapsed_time = time.time() - start_time
+        logger.info(f"API-kysely valmis {elapsed_time:.2f} sekunnissa")
+        
+        result = response.json()
+        if result and "choices" in result and len(result["choices"]) > 0:
             logger.info("API-vastaus saatu")
+            return result["choices"][0]["message"]["content"]
         else:
-            logger.warning("API-vastaus puuttuu")
+            logger.warning("API-vastaus puuttuu tai on tyhjä")
+            return '{"tunnistukset": []}'  # Palauta tyhjä mutta kelvollinen JSON
     except Exception as e:
         logger.error(f"Odottamaton virhe: {e}")
-    return response.text
+        # Tarkista onko kyse kvootti-virheestä
+        if "429" in str(e) or "quota" in str(e).lower():
+            logger.warning("API-kvootti ylitetty, odota hetki ennen uudelleenyritystä")
+            import time
+            time.sleep(5)  # Odota 5 sekuntia
+        return '{"tunnistukset": []}'  # Palauta tyhjä mutta kelvollinen JSON
 
 
     
@@ -125,7 +192,7 @@ def api_kysely_kirjoitus_json(system_instruction, generation_config, input_text,
     #tiedostopolku = "data/s/puhdistettu_toimitussisalto.txt"
 
     # model = genai.GenerativeModel(
-    #     model_name="gemini-1.5-flash",
+    #     model_name="gemini-2.0-flash-exp",
     #     generation_config=generation_config,
     #     system_instruction=lue_txt_tiedosto(system_instruction)
     # )
@@ -143,7 +210,7 @@ def api_kysely_ulko_ovet(generation_config, system_instruction, input_text):
         Vastaus parsitaan ulko_ovi-olioiksi, joka palautetaan listana."""
 
         model = genai.GenerativeModel(
-            model_name="gemini-1.5-flash",
+            model_name="gemini-2.0-flash-exp",
             generation_config=generation_config,
             system_instruction=lue_txt_tiedosto(system_instruction)
         )
@@ -182,6 +249,512 @@ def api_kysely_ulko_ovet(generation_config, system_instruction, input_text):
         except Exception as e:
             logging.error(f"❌ Muu virhe: {str(e)}")
             return []
+
+
+#============== OPENAI API-KYSELY ============#
+#==================================================================================================#
+#==================================================================================================#
+#==================================================================================================#
+
+def groq_api_kysely_pdf(system_instruction, pdf_file_path, model_name=None) -> str:
+    """OpenAI API-kysely funktio PDF-tiedostolle, joka lähettää kyselyn OpenAI-palveluun.
+    
+    Args:
+        system_instruction: System instruction teksti
+        pdf_file_path: PDF-tiedoston polku
+        model_name: Käytettävä malli (valinnainen, käyttää oletusmallia jos ei määritelty)
+    
+    Returns:
+        str: API-vastaus tekstinä
+    """
+    # Käytä ympäristömuuttujasta tulevaa API-avainta
+    api_key = OPENAI_API_KEY
+    if not api_key:
+        logger.error("api_key ei ole määritelty ympäristömuuttujissa")
+        return ""
+    
+    if model_name is None:
+        model_name = OPENAI_MODEL
+    
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}"
+    }
+    
+    # Lue system instruction tiedostosta jos se on polku
+    if isinstance(system_instruction, (str, Path)) and str(system_instruction).endswith('.txt'):
+        system_instruction = lue_txt_tiedosto(system_instruction)
+    
+    # Lue PDF-tiedosto ja muunna tekstiksi
+    from utils.tietosissallon_kasittely import muuta_pdf_ja_puhdista_teksti_docling
+    input_text = muuta_pdf_ja_puhdista_teksti_docling(pdf_file_path)
+    
+    # Lisää toimitussisältön alku- ja loppuviittaukset
+    input_text = f"**TOIMITUSSISÄLTÖ START**\n{input_text}\n**TOIMITUSSISÄLTÖ END**"
+    
+    # Tallenna API-kyselyyn menevä sisältö kansioon puhd_toimis
+    try:
+        import os
+        from datetime import datetime
+        
+        # Luo data/puhd_toimis kansio jos se ei ole olemassa
+        output_dir = "data/puhd_toimis"
+        os.makedirs(output_dir, exist_ok=True)
+        
+        # Luo tiedoston nimi aikaleimalla
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"api_kysely_kastelli_{timestamp}.txt"
+        filepath = os.path.join(output_dir, filename)
+        
+        # Tallenna sisältö
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(input_text)
+        
+        logger.info(f"📄 API-kyselyyn menevä sisältö tallennettu: {filepath}")
+        
+    except Exception as e:
+        logger.error(f"❌ Virhe API-sisällön tallennuksessa: {str(e)}")
+    
+    data = {
+        "model": model_name,
+        "messages": [
+            {
+                "role": "system",
+                "content": system_instruction
+            },
+            {
+                "role": "user", 
+                "content": f"Tässä on teksti: \n{input_text}\n\nToimi ohjeen mukaan."
+            }
+        ],
+        "temperature": 0.1,
+        "max_tokens": 4000
+    }
+    
+    try:
+        import time
+        start_time = time.time()
+        logger.info(f"Lähetetään OpenAI API-kysely PDF:lle mallilla {model_name}...")
+        
+        response = requests.post(OPENAI_API_URL, headers=headers, json=data, timeout=30)
+        
+        elapsed_time = time.time() - start_time
+        logger.info(f"OpenAI API-kysely valmis {elapsed_time:.2f} sekunnissa")
+        
+        if response.status_code == 200:
+            result = response.json()
+            if 'choices' in result and len(result['choices']) > 0:
+                content = result['choices'][0]['message']['content']
+                logger.info("OpenAI API-vastaus saatu")
+                return content
+            else:
+                logger.warning("OpenAI API-vastaus ei sisällä choices-kenttää")
+                return ""
+        else:
+            logger.error(f"OpenAI API-virhe: {response.status_code} - {response.text}")
+            return ""
+            
+    except requests.exceptions.Timeout:
+        logger.error("OpenAI API-kysely aikakatkaistu")
+        return ""
+    except requests.exceptions.RequestException as e:
+        logger.error(f"OpenAI API-kysely epäonnistui: {e}")
+        return ""
+
+
+def groq_api_kysely(system_instruction, input_text, model_name=None) -> str:
+    """OpenAI API-kysely funktio, joka lähettää kyselyn OpenAI-palveluun.
+    
+    Args:
+        system_instruction: System instruction teksti
+        input_text: Syöte teksti
+        model_name: Käytettävä malli (valinnainen, käyttää oletusmallia jos ei määritelty)
+    
+    Returns:
+        str: API-vastaus tekstinä
+    """
+    # Käytä ympäristömuuttujasta tulevaa API-avainta
+    api_key = OPENAI_API_KEY
+    if not api_key:
+        logger.error("api_key ei ole määritelty ympäristömuuttujissa")
+        return ""
+    
+    if model_name is None:
+        model_name = OPENAI_MODEL
+    
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}"
+    }
+    
+    # Lue system instruction tiedostosta jos se on polku
+    if isinstance(system_instruction, (str, Path)) and str(system_instruction).endswith('.txt'):
+        system_instruction = lue_txt_tiedosto(system_instruction)
+    
+    # Debug: Tarkista että input_text sisältää oikeat tunnisteet
+    if "**TOIMITUSSISÄLTÖ START**" not in input_text:
+        logger.warning("⚠️ API-kutsu: Input-teksti ei sisällä **TOIMITUSSISÄLTÖ START** tunnistetta!")
+    if "**TOIMITUSSISÄLTÖ END**" not in input_text:
+        logger.warning("⚠️ API-kutsu: Input-teksti ei sisällä **TOIMITUSSISÄLTÖ END** tunnistetta!")
+    
+    data = {
+        "model": model_name,
+        "messages": [
+            {
+                "role": "system",
+                "content": system_instruction
+            },
+            {
+                "role": "user", 
+                "content": f"Tässä on teksti: \n{input_text}\n\nToimi ohjeen mukaan."
+            }
+        ],
+        "temperature": 0.1,
+        "max_tokens": 4000
+    }
+    
+    try:
+        import time
+        start_time = time.time()
+        logger.info(f"Lähetetään OpenAI API-kysely mallilla {model_name}...")
+        
+        response = requests.post(OPENAI_API_URL, headers=headers, json=data, timeout=30)
+        
+        elapsed_time = time.time() - start_time
+        logger.info(f"OpenAI API-kysely valmis {elapsed_time:.2f} sekunnissa")
+        
+        if response.status_code == 200:
+            result = response.json()
+            if 'choices' in result and len(result['choices']) > 0:
+                content = result['choices'][0]['message']['content']
+                logger.info("OpenAI API-vastaus saatu")
+                return content
+            else:
+                logger.warning("OpenAI API-vastaus ei sisällä choices-kenttää")
+                return ""
+        else:
+            logger.error(f"OpenAI API-virhe: {response.status_code} - {response.text}")
+            return ""
+            
+    except requests.exceptions.Timeout:
+        logger.error("OpenAI API-kysely aikakatkaistu")
+        return ""
+    except requests.exceptions.RequestException as e:
+        logger.error(f"OpenAI API-kysely epäonnistui: {e}")
+        return ""
+    except Exception as e:
+        logger.error(f"Odottamaton virhe OpenAI API-kyselyssä: {e}")
+        return ""
+
+
+def groq_api_kysely_nelja_parametria_pdf(system_instruction, pdf_file_path, input_text_2, model_name=None) -> str:
+    """OpenAI API-kysely funktio neljällä parametrilla PDF-tiedostolle.
+    
+    Args:
+        system_instruction: System instruction teksti
+        pdf_file_path: PDF-tiedoston polku
+        input_text_2: Toinen syöte teksti (lisätään system instructioniin)
+        model_name: Käytettävä malli (valinnainen)
+    
+    Returns:
+        str: API-vastaus tekstinä
+    """
+    # Käytä ympäristömuuttujasta tulevaa API-avainta
+    api_key = OPENAI_API_KEY
+    if not api_key:
+        logger.error("api_key ei ole määritelty ympäristömuuttujissa")
+        return '{"tunnistukset": []}'
+    
+    if model_name is None:
+        model_name = OPENAI_MODEL
+    
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}"
+    }
+    
+    # Lue system instruction tiedostosta jos se on polku
+    if isinstance(system_instruction, (str, Path)) and str(system_instruction).endswith('.txt'):
+        system_instruction = lue_txt_tiedosto(system_instruction)
+    
+    # Lue PDF-tiedosto ja muunna tekstiksi
+    from utils.tietosissallon_kasittely import muuta_pdf_ja_puhdista_teksti_docling
+    input_text_1 = muuta_pdf_ja_puhdista_teksti_docling(pdf_file_path)
+    
+    # Lisää toimitussisältön alku- ja loppuviittaukset
+    input_text_1 = f"**TOIMITUSSISÄLTÖ START**\n{input_text_1}\n**TOIMITUSSISÄLTÖ END**"
+    
+    # Tallenna API-kyselyyn menevä sisältö kansioon puhd_toimis
+    try:
+        import os
+        from datetime import datetime
+        
+        # Luo data/puhd_toimis kansio jos se ei ole olemassa
+        output_dir = "data/puhd_toimis"
+        os.makedirs(output_dir, exist_ok=True)
+        
+        # Luo tiedoston nimi aikaleimalla
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"api_kysely_kastelli_tuotteet_{timestamp}.txt"
+        filepath = os.path.join(output_dir, filename)
+        
+        # Tallenna sisältö
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(input_text_1)
+        
+        logger.info(f"📄 API-kyselyyn menevä sisältö tallennettu: {filepath}")
+        
+    except Exception as e:
+        logger.error(f"❌ Virhe API-sisällön tallennuksessa: {str(e)}")
+    
+    # Yhdistä system instruction ja input_text_2
+    system_instruction_2 = system_instruction + input_text_2
+    
+    data = {
+        "model": model_name,
+        "messages": [
+            {
+                "role": "system",
+                "content": system_instruction_2
+            },
+            {
+                "role": "user",
+                "content": f"Tässä on teksti: \n{input_text_1}\n\nToimi ohjeen mukaan."
+            }
+        ],
+        "temperature": 0.1,
+        "max_tokens": 4000
+    }
+    
+    try:
+        import time
+        start_time = time.time()
+        logger.info(f"Lähetetään OpenAI API-kysely PDF:lle neljällä parametrilla mallilla {model_name}...")
+        
+        response = requests.post(OPENAI_API_URL, headers=headers, json=data, timeout=30)
+        
+        elapsed_time = time.time() - start_time
+        logger.info(f"OpenAI API-kysely valmis {elapsed_time:.2f} sekunnissa")
+        
+        if response.status_code == 200:
+            result = response.json()
+            if 'choices' in result and len(result['choices']) > 0:
+                content = result['choices'][0]['message']['content']
+                logger.info("OpenAI API-vastaus saatu")
+                return content
+            else:
+                logger.warning("OpenAI API-vastaus ei sisällä choices-kenttää")
+                return '{"tunnistukset": []}'
+        else:
+            logger.error(f"OpenAI API-virhe: {response.status_code} - {response.text}")
+            return '{"tunnistukset": []}'
+            
+    except requests.exceptions.Timeout:
+        logger.error("OpenAI API-kysely aikakatkaistu")
+        return '{"tunnistukset": []}'
+    except requests.exceptions.RequestException as e:
+        logger.error(f"OpenAI API-kysely epäonnistui: {e}")
+        return '{"tunnistukset": []}'
+
+
+def groq_api_kysely_nelja_parametria(system_instruction, input_text_1, input_text_2, model_name=None) -> str:
+    """OpenAI API-kysely funktio neljällä parametrilla.
+    
+    Args:
+        system_instruction: System instruction teksti
+        input_text_1: Ensimmäinen syöte teksti
+        input_text_2: Toinen syöte teksti (lisätään system instructioniin)
+        model_name: Käytettävä malli (valinnainen)
+    
+    Returns:
+        str: API-vastaus tekstinä
+    """
+    # Käytä ympäristömuuttujasta tulevaa API-avainta
+    api_key = OPENAI_API_KEY
+    if not api_key:
+        logger.error("api_key ei ole määritelty ympäristömuuttujissa")
+        return '{"tunnistukset": []}'
+    
+    if model_name is None:
+        model_name = OPENAI_MODEL
+    
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}"
+    }
+    
+    # Lue system instruction tiedostosta jos se on polku
+    if isinstance(system_instruction, (str, Path)) and str(system_instruction).endswith('.txt'):
+        system_instruction = lue_txt_tiedosto(system_instruction)
+    
+    # Yhdistä system instruction ja input_text_2
+    system_instruction_2 = system_instruction + input_text_2
+    
+    data = {
+        "model": model_name,
+        "messages": [
+            {
+                "role": "system",
+                "content": system_instruction_2
+            },
+            {
+                "role": "user",
+                "content": f"Tässä on teksti: \n{input_text_1}\n\nToimi ohjeen mukaan."
+            }
+        ],
+        "temperature": 0.1,
+        "max_tokens": 4000
+    }
+    
+    try:
+        import time
+        start_time = time.time()
+        logger.info(f"Lähetetään OpenAI API-kysely (4 param) mallilla {model_name}...")
+        
+        response = requests.post(OPENAI_API_URL, headers=headers, json=data, timeout=30)
+        
+        elapsed_time = time.time() - start_time
+        logger.info(f"OpenAI API-kysely (4 param) valmis {elapsed_time:.2f} sekunnissa")
+        
+        if response.status_code == 200:
+            result = response.json()
+            if 'choices' in result and len(result['choices']) > 0:
+                content = result['choices'][0]['message']['content']
+                logger.info("OpenAI API-vastaus saatu")
+                return content
+            else:
+                logger.warning("OpenAI API-vastaus ei sisällä choices-kenttää")
+                return '{"tunnistukset": []}'
+        else:
+            logger.error(f"OpenAI API-virhe: {response.status_code} - {response.text}")
+            return '{"tunnistukset": []}'
+            
+    except requests.exceptions.Timeout:
+        logger.error("OpenAI API-kysely aikakatkaistu")
+        return '{"tunnistukset": []}'
+    except requests.exceptions.RequestException as e:
+        logger.error(f"OpenAI API-kysely epäonnistui: {e}")
+        return '{"tunnistukset": []}'
+    except Exception as e:
+        logger.error(f"Odottamaton virhe OpenAI API-kyselyssä: {e}")
+        return '{"tunnistukset": []}'
+
+
+def groq_api_kysely_ulko_ovet(system_instruction, input_text, model_name=None):
+    """OpenAI API-kysely ulko-oville, palauttaa UlkoOvi-olioita listana.
+    
+    Args:
+        system_instruction: System instruction teksti
+        input_text: Syöte teksti
+        model_name: Käytettävä malli (valinnainen)
+    
+    Returns:
+        list: UlkoOvi-olioita listana
+    """
+    # Käytä ympäristömuuttujasta tulevaa API-avainta
+    api_key = OPENAI_API_KEY
+    if not api_key:
+        logger.error("api_key ei ole määritelty ympäristömuuttujissa")
+        return []
+    
+    if model_name is None:
+        model_name = OPENAI_MODEL
+    
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}"
+    }
+    
+    # Lue system instruction tiedostosta jos se on polku
+    if isinstance(system_instruction, (str, Path)) and str(system_instruction).endswith('.txt'):
+        system_instruction = lue_txt_tiedosto(system_instruction)
+    
+    data = {
+        "model": model_name,
+        "messages": [
+            {
+                "role": "system",
+                "content": system_instruction
+            },
+            {
+                "role": "user",
+                "content": f"Tässä on teksti: \n{input_text}\n\nToimi ohjeen mukaan."
+            }
+        ],
+        "temperature": 0.1,
+        "max_tokens": 4000
+    }
+    
+    try:
+        import time
+        start_time = time.time()
+        logger.info(f"Lähetetään OpenAI API-kysely ulko-oville mallilla {model_name}...")
+        
+        response = requests.post(OPENAI_API_URL, headers=headers, json=data, timeout=30)
+        
+        elapsed_time = time.time() - start_time
+        logger.info(f"OpenAI API-kysely ulko-oville valmis {elapsed_time:.2f} sekunnissa")
+        
+        if response.status_code == 200:
+            result = response.json()
+            if 'choices' in result and len(result['choices']) > 0:
+                content = result['choices'][0]['message']['content']
+                
+                if not content:
+                    logger.warning("❌ OpenAI API-kutsu palautti tyhjän vastauksen")
+                    return []
+                
+                # Puhdista content ```json-merkinnöistä
+                json_text = content.replace("```json", "").replace("```", "").strip()
+                
+                # Debug: tulosta vastaus
+                logger.info(f"🔍 OpenAI API vastaus ulko-oville: {content[:200]}...")
+                
+                # Muunna vastaus UlkoOvi-olioiksi
+                try:
+                    ovet_data = json.loads(json_text)
+                    
+                    # Tarkista että ovet_data on lista
+                    if not isinstance(ovet_data, list):
+                        logger.warning("❌ API-vastaus ei ole lista")
+                        return []
+                    
+                    ovet = []
+                    for ovi_data in ovet_data:
+                        ovi = UlkoOvi(
+                            malli=ovi_data["malli"],
+                            paloluokitus_EI_15=ovi_data["paloluokitus_EI_15"],
+                            lukko=ovi_data["lukko"],
+                            maara=ovi_data["maara"]
+                        )
+                        ovet.append(ovi)
+                        logging.info(f"✅ Luotu ulko-ovi: {vars(ovi)}")
+                        
+                    logger.info(f"✅ Yhteensä {len(ovet)} ulko-ovea luotu")
+                    return ovet
+                except json.JSONDecodeError as e:
+                    logging.error(f"❌ JSON-parsinta epäonnistui: {str(e)}")
+                    logging.error(f"❌ Raw vastaus: {content[:500]}...")
+                    return []
+                except Exception as e:
+                    logging.error(f"❌ Muu virhe: {str(e)}")
+                    return []
+            else:
+                logger.warning("OpenAI API-vastaus ei sisällä choices-kenttää")
+                return []
+        else:
+            logger.error(f"OpenAI API-virhe: {response.status_code} - {response.text}")
+            return []
+            
+    except requests.exceptions.Timeout:
+        logger.error("OpenAI API-kysely aikakatkaistu")
+        return []
+    except requests.exceptions.RequestException as e:
+        logger.error(f"OpenAI API-kysely epäonnistui: {e}")
+        return []
+    except Exception as e:
+        logger.error(f"Odottamaton virhe OpenAI API-kyselyssä: {e}")
+        return []
 
 
 

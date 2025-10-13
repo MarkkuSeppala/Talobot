@@ -1,0 +1,30 @@
+## Ikkunat
+
+### Ikkunaliste
+
+Ikkunalisteessa on listattu kaikki tilat ja niiden ikkunat.
+
+#### Ikkunatyyppi ja mitat
+
+- **2 kpl**: Karmimitat 1330x1340, Karmityyppi MSEL, avattava, karmisyvyys 170 mm, Sisäpuitteen lasitus 2-kertainen eristyslasielementti, U=1,0, Ulkopuutteen lasitus 1-kertainen tasolasi, Puuosien pintakäsittely valkoinen, Alumiiniosien väri valkoinen
+- **2 kpl**: Karmimitat 1430x1890, Karmityyppi MSEL, avattava, karmisyvyys 170 mm, Sisäpuitteen lasitus 2-kertainen eristyslasielementti, U=1,0, Ulkopuutteen lasitus 1-kertainen tasolasi, Puuosien pintakäsittely valkoinen, Alumiiniosien väri valkoinen
+- **2 kpl ala**: Karmimitat 530x530, Karmityyppi MSEL, avattava, karmisyvyys 170 mm, Sisäpuitteen lasitus 2-kertainen eristyslasielementti, U=1,0, Ulkopuutteen lasitus 1-kertainen tasolasi, Puuosien pintakäsittely valkoinen, Alumiiniosien väri valkoinen
+
+### Ikkunatilat
+
+- **MH1 ja keittiö**: 2 kpl
+- **Oh**: 2 kpl
+- **MH1,2**: 2 kpl ala
+
+### Ikkunoiden ominaisuudet
+
+- **Sälekaihdin**: matta valkoinen P2
+- **Tuuletusikkuna**: tuuletusikkunaheloitus (tunnus T)
+- **Hyönteispuite**: (tunnus H) HUOM! Hyttyspuite samassa kehässä mahdollisen irtoristikon kanssa.
+
+### Lisätietoa
+
+- Ikkunat ovat viranomaismääräysten mukaiset.
+- Kätisyydet määräytyvät sisäpuolelta katsottuna.
+- Ikkunoiden ominaisuuksiin saattaa liittyä huurtumista tietyissä olosuhteissa.
+- Sälekaihtimia ei ole saatavilla palo-, vino- ja muihin erikoisikkunoihin.

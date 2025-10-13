@@ -1,0 +1,12 @@
+{
+ "ovimallit": [
+  "Laakaovi Easy2017-10x21, valkoinen",
+  "Laaka LIUKUOVISETTI Easy201 (82,5x2040), valkoinen",
+  "Laakaäänieristysovi Sound201 DB10x21",
+  "Sauna SAVU (7-9x19), musta, puuosat musta oksaton mänty",
+  "UOL19 (K50)10x21",
+  "PO512W (POLV)10x21",
+  "PO4 Kokolasinen (POL)10x21",
+  "UO7 (POV10W)10x21"
+ ]
+}

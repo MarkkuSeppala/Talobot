@@ -22,6 +22,7 @@ from generation_config import GENERATION_CONFIG
 
 from utils.file_handler import tallenna_pdf_tiedosto, muuta_pdf_tekstiksi, lue_txt_tiedosto, lue_json_tiedosto, kirjoita_txt_tiedosto, normalisoi_ulko_ovet
 from utils.tietosissallon_kasittely import sievitalo_jokainen_ikkuna_omalle_riveille_ja_koko_millimetreiksi, puhdista_teksti
+from SQL_kyselyt import hae_toimitussisallon_ikkunat, hae_toimitussisallon_ulko_ovet, hae_toimitussisallon_valiovet
 
 #from api_kyselyt import api_kysely, api_kysely_kirjoitus_json
                         

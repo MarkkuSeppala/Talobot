@@ -1,0 +1,199 @@
+[
+  {
+    "tuote": "Omakotitalon rakennusaikainen vakuutus",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Omakotitalon rakennusaikainen vakuutus, kattaa Sievitalon kautta tulevat tarvikkeet ja työt"
+  },
+  {
+    "tuote": "Pääpiirustukset",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Energiatodistus ja -selvitys",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Ilmatiiveysmittaus",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Kosteusmittaus",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Sähkösuunnitelmat",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "LVI-suunnitelmat",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Rakennesuunnitelmat",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Perustussuunnittelu",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Perustussuunnittelu"
+  },
+  {
+    "tuote": "Lämpöpuhallin + rakennuskuivain",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Lämpöpuhallin + rakennuskuivain (rakentamisen aikainen)"
+  },
+  {
+    "tuote": "KVV/IV-työnjohto",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "KVV/IV-työnjohto (rakennuksien sisäpuoliset LVI-työt)"
+  },
+  {
+    "tuote": "Sisustussuunnittelupalvelu",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Sisustussuunnittelupalvelu (3h)"
+  },
+  {
+    "tuote": "Hiilijalanjälkilaskenta",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Hiilijalanjälkilaskenta"
+  },
+  {
+    "tuote": "Paaluperustus",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Paaluperustus"
+  },
+  {
+    "tuote": "Höyrynsulku",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Höyrynsulku"
+  },
+  {
+    "tuote": "Lämmöneriste",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Mineraalivilla"
+  },
+  {
+    "tuote": "Tuulensuojalevy",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Tuulensuojalevy"
+  },
+  {
+    "tuote": "Sisäverhouskipsilevy",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Sisäverhouskipsilevy; KN"
+  },
+  {
+    "tuote": "Ulkoverhous",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Vaakapaneeli; UYM23x145 HS"
+  },
+  {
+    "tuote": "Pienteläinverkko",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Pieneläinverkko (tehdas-asennus)"
+  },
+  {
+    "tuote": "Ulkoverhouksen välimaalaus",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Sivuräystäs",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Puutavara20x95 HS"
+  },
+  {
+    "tuote": "Päätyräystäs",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Päätyräystäselementti PRE"
+  },
+  {
+    "tuote": "Vesikatto",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Progantti475 konesaumajäljitelmäpeltikate GreenCoat Crown BT Matta0,5mm"
+  },
+  {
+    "tuote": "Seinätikas",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Seinätikas"
+  },
+  {
+    "tuote": "Kattosilta",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Kattosilta"
+  },
+  {
+    "tuote": "Lumieste",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Lumieste"
+  },
+  {
+    "tuote": "Syöksysarja",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Syöksysarja P10 Vesikouru"
+  },
+  {
+    "tuote": "Terassit",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Avoterassi"
+  },
+  {
+    "tuote": "Portaat",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Ikkunat",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Pihla Varma MSE/MEK ikkunoita"
+  },
+  {
+    "tuote": "Ulko-ovet",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Ulko-ovet valkoisia tiivistettyjä Pihla Varma levyrakenteisia lämpöovia"
+  },
+  {
+    "tuote": "Väliovet",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Bath satiini+, valkoinen ovipaketti satiinilasilla8-9x21"
+  },
+  {
+    "tuote": "Saunan lauteet",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Saunan yleisvalaisin",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Laudevalaisin",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Saunan puolilasiseinä",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Saunan kokolasiseinä",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": null
+  },
+  {
+    "tuote": "Saunan seinät ja katto",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Kuusipaneeli STP14x95x2400 (Sävyt kirkas, terva, hiili, kelo tai vanilja)"
+  },
+  {
+    "tuote": "Pesuhuoneen katto",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Pesuhuoneen katto, Kuusipaneeli STP14x95x2400 (Sävyt kirkas, terva, hiili, kelo tai vanilja)"
+  },
+  {
+    "tuote": "Shampoosyvennys",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Shampoosyvennys, paikka ja koko tarkistettava projektipäällikön kanssa ennen väliseinien asennusta"
+  },
+  {
+    "tuote": "Maalämpö",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Maalämpö, (paketti2)"
+  },
+  {
+    "tuote": "Ilmalämpöpumppu",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Ilmalämpöpumppu, Bosch Climate Class6101i"
+  },
+  {
+    "tuote": "Lattialämmitys",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Lattialämmitys (vesikiertoinen)"
+  },
+  {
+    "tuote": "Keittiön hana",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Oras Vega1839FG"
+  },
+  {
+    "tuote": "Kodinhoitohuoneen vesihana",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Oras Vega1825FG"
+  },
+  {
+    "tuote": "Pesualtaan vesihana",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Oras Vega1812FG pesuallashana +bide"
+  },
+  {
+    "tuote": "Suihku",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Oras Optima7140"
+  },
+  {
+    "tuote": "Wc-istuin",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Wc-istuin Ido Seven D38310 (vakio kansi)"
+  }
+]
+```

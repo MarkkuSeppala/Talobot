@@ -1,0 +1,59 @@
+**Ulko-ovien tiedot**
+
+Nro: 30
+Tyyppi: B4 /13.4x13.5
+Karmimitat: 
+KARMITYYPPI: 
+SISÄPUITTEEN LASITUS: 
+ULKOPUITTEEN LASITUS: 
+PUUOSIEN PINTAKÄSITTELY: 
+ALUMIINIOSIEN VÄRI: 
+KARMI-/PUITEMATER: 
+HELOITUKSEN VÄRI: 
+SÄLEKAIHDIN: 
+TUULETUSIKKUNA: 
+HYÖNTEISPUITE: 
+HUONETILA: 
+
+Nro: 40
+Tyyppi: A /14.4x19
+Karmimitat: 
+KARMITYYPPI: 
+SISÄPUITTEEN LASITUS: 
+ULKOPUITTEEN LASITUS: 
+PUUOSIEN PINTAKÄSITTELY: 
+ALUMIINIOSIEN VÄRI: 
+KARMI-/PUITEMATER: 
+HELOITUKSEN VÄRI: 
+SÄLEKAIHDIN: 
+TUULETUSIKKUNA: 
+HYÖNTEISPUITE: 
+HUONETILA: 
+
+Nro: 60 
+Tyyppi: UOL19 (K50)10x21
+Kaskipuu 
+1 Kpl
+KONEISTUS: Pintahelat Amsterdam HCR ja avainpesä
+HUONETILA: Et
+
+Nro: 70 
+Tyyppi: PO512W (POLV)10x21
+Kaskipuu, vaakauritettu puutarhanovi
+1 Kpl
+KONEISTUS: Pintahelat Amsterdam HCR ja avainpesä
+HUONETILA: Khh
+
+Nro: 80 
+Tyyppi: PO4 Kokolasinen (POL)10x21
+Kaskipuu
+1 Kpl
+KONEISTUS: Pintahelat Amsterdam HCR ja vääntönuppi/peitekilpi
+HUONETILA: Oh
+
+Nro: 90 
+Tyyppi: UO7 (POV10W)10x21
+Kaskipuu
+1 Kpl
+KONEISTUS: Pintahelat Amsterdam HCR ja avainpesä
+HUONETILA: Tekn.

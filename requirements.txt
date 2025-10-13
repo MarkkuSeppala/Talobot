@@ -1,9 +1,10 @@
 Flask
 gunicorn
-google-generativeai
+requests
 pymupdf
 pandas
 tabulate
 sqlalchemy
 python-dotenv
 psycopg2
+docling

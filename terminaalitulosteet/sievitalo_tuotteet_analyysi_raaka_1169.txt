@@ -1,0 +1,183 @@
+[
+  {
+    "tuote": "Omakotitalon rakennusaikainen vakuutus",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Omakotitalon rakennusaikainen vakuutus, kattaa Sievitalon kautta tulevat tarvikkeet ja työt"
+  },
+  {
+    "tuote": "Pääpiirustukset",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Pääpiirustukset (asema-, pohja-, julkisivu- ja leikkauspiirustukset)"
+  },
+  {
+    "tuote": "Energiatodistus ja -selvitys",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Energiatodistus ja -selvitys (päivitetään ilmatiiveysmittauksen jälkeen)"
+  },
+  {
+    "tuote": "Ilmatiiveysmittaus",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Ilmatiiveysmittaus"
+  },
+  {
+    "tuote": "Kosteusmittaus",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Kosteusmittaus"
+  },
+  {
+    "tuote": "Sähkösuunnitelmat",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Sähkösuunnitelmat"
+  },
+  {
+    "tuote": "LVI-suunnitelmat",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "LVI-suunnitelmat (ei sisällä hule- eikä jätevesisuunnitelmia)"
+  },
+  {
+    "tuote": "Rakennesuunnitelmat",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Rakennesuunnitelmat (vain Sievitalon toimitukseen kuuluvien rakenteiden osalta)"
+  },
+  {
+    "tuote": "Perustussuunnittelu",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Perustussuunnittelu"
+  },
+  {
+    "tuote": "Lämpöpuhallin + rakennuskuivain",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Lämpöpuhallin + rakennuskuivain (rakentamisen aikainen)"
+  },
+  {
+    "tuote": "KVV/IV-työnjohto",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "KVV/IV-työnjohto (rakennuksien sisäpuoliset LVI-työt)"
+  },
+  {
+    "tuote": "Sisustussuunnittelupalvelu",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Sisustussuunnittelupalvelu (3h)"
+  },
+  {
+    "tuote": "Hiilijalanjälkilaskenta",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Hiilijalanjälkilaskenta"
+  },
+  {
+    "tuote": "Paaluperustus",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Paaluperustus"
+  },
+  {
+    "tuote": "Ulkoseinäelementti lämmin USL42x198",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Ulkoseinäelementti lämmin USL42x198 Sisäpuolen koolaus48x48 Höyrynsulku Runko42x198 Lämmöneriste200mm mineraalivilla Ylä- ja alajuoksu42x198 Aukonylityspalkki KP (määräytyy rakennesuunnittelussa) Tuulensuojakipsilevy9mm"
+  },
+  {
+    "tuote": "Höyrynsulku",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Höyrynsulku"
+  },
+  {
+    "tuote": "Mineraalivilla",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Lämmöneriste200mm mineraalivilla"
+  },
+  {
+    "tuote": "Tuulensuojalevy",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Tuulensuojakipsilevy9mm"
+  },
+  {
+    "tuote": "Sisäverhouskipsilevy",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Sisäverhouskipsilevy; KN"
+  },
+  {
+    "tuote": "Ulkoverhous vaakapaneeli",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Vaakapaneeli; UYM23x145 HS"
+  },
+  {
+    "tuote": "Peltikate",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Progantti475 konesaumajäljitelmäpeltikate GreenCoat Crown BT Matta0,5mm"
+  },
+  {
+    "tuote": "Seinätikas",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Seinätikas"
+  },
+  {
+    "tuote": "Kattosilta",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Kattosilta"
+  },
+  {
+    "tuote": "Lumieste",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Lumieste"
+  },
+  {
+    "tuote": "Syöksysarja",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Syöksysarja P10 Vesikouru"
+  },
+  {
+    "tuote": "Pieneläinverkko",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Pieneläinverkko (tehdas-asennus)"
+  },
+  {
+    "tuote": "Ulkopistorasia",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Ulkopistorasia"
+  },
+  {
+    "tuote": "Keittiön hana",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Keittiön hana"
+  },
+  {
+    "tuote": "Kodinhoitohuoneen vesihana",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Kodinhoitohuoneen vesihana"
+  },
+  {
+    "tuote": "Pesualtaan vesihana",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Pesualtaan vesihana"
+  },
+  {
+    "tuote": "Suihku",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Suihku"
+  },
+  {
+    "tuote": "Wc-istuin",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Wc-istuin"
+  },
+  {
+    "tuote": "Vesipostiventtiili",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Vesipostiventtiili"
+  },
+  {
+    "tuote": "Lämpimän veden kierto",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Lämpimän käyttöveden kierto"
+  },
+  {
+    "tuote": "Maadoituskupari50m",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Maadoituskupari50m"
+  },
+  {
+    "tuote": "Ilmalämpöpumppu",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Ilmalämpöpumppu"
+  },
+  {
+    "tuote": "Lattialämmityksen termostaatit",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Lattialämmityksen termostaatit"
+  },
+  {
+    "tuote": "Anteenirasia",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Anteenirasia"
+  },
+  {
+    "tuote": "Tietoliikennerasia",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Tietoliikennerasia"
+  },
+  {
+    "tuote": "Pistorasia",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Pistorasia"
+  },
+  {
+    "tuote": "Valokytkin",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Valokytkin"
+  },
+  {
+    "tuote": "Valohimmennin",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Valohimmennin"
+  },
+  {
+    "tuote": "Valopiste",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Valopiste"
+  },
+  {
+    "tuote": "Led-valo",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Led-valo"
+  },
+  {
+    "tuote": "Ulkovalo",
+    "yhteensopiva_tuotelistauksen_kohteen_kanssa": "Ulkovalo"
+  }
+]
+```

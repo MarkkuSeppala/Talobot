@@ -1,9 +1,24 @@
 from config_data import UPLOAD_FOLDER_DATA
-from utils.file_handler import muuta_pdf_tekstiksi, kirjoita_txt_tiedosto, lue_txt_tiedosto
+from utils.file_handler import kirjoita_txt_tiedosto, lue_txt_tiedosto
+from utils.tietosissallon_kasittely import muuta_pdf_ja_puhdista_teksti_docling
 from utils.tietosissallon_kasittely import tunnista_toimittaja
 import uuid
+from sqlalchemy.orm import Session
 
-from db_luokat import SessionLocal, Toimitussisalto, Kayttaja, Toimittaja, Ikkuna, Ulko_ovi, Valiovi, Base, Tuote
+from db_luokat import (
+    SessionLocal, 
+    Toimitussisalto, 
+    Kayttaja, 
+    Toimittaja, 
+    Ikkuna,          # Oikea nimi
+    Ulko_ovi,        # Oikea nimi
+    Valiovi,         # Oikea nimi
+    Base, 
+    Tuote, 
+    Vertailut, 
+    Toimitussisalto_tuotteet
+    # Poistetaan Ikkunat, Ulko_ovet, Valiovet koska niitä ei ole olemassa
+)
 from sqlalchemy import text, MetaData, Table, create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import ProgrammingError, SQLAlchemyError
@@ -26,8 +41,11 @@ from sqlalchemy import inspect
 from sqlalchemy import text, Table, Column, Integer, Boolean, String, DECIMAL, ForeignKey
 from sqlalchemy import select
 from tabulate import tabulate  # Asentaa: pip install tabulate
-from db_luokat import Toimitussisalto_tuotteet
+from db_luokat import Toimitussisalto_tuotteet, create_robust_engine
 from sqlalchemy import desc
+import sys
+sys.set_int_max_str_digits(0)  # Poistaa numeroiden merkkijonopituuden rajoituksen
+sys.stdout.reconfigure(encoding='utf-8')
 
 # Loggerin alustus
 configure_logging()
@@ -36,11 +54,13 @@ logger = logging.getLogger(__name__)
 # Hae tietokantayhteys
 DATABASE_URL = os.getenv("DATABASE_URL")
 
+from utils.tietosissallon_kasittely import *
+
 if not DATABASE_URL:
     raise ValueError("❌ DATABASE_URL ei ole asetettu! Tarkista .env-tiedosto.")
 
 # Luo SQLAlchemy-moottori
-engine = create_engine(DATABASE_URL)
+engine = create_robust_engine(DATABASE_URL)
 
 
 def anna_polku(unique_id: str):
@@ -102,9 +122,9 @@ def vastaanota_toimitussisalto(file) -> str:
         f.write(file_data)
     logging.debug("Ensimmäinen PDF tallennettu palvelimelle")
     
-    # Muunna PDF tekstiksi ilman tallennusta
-    teksti = muuta_pdf_tekstiksi(io.BytesIO(file_data))
-    logging.debug("PDF muunnettu LiteralString")
+    # Muunna PDF tekstiksi docling-menetelmällä
+    teksti = muuta_pdf_ja_puhdista_teksti_docling(pdf_filepath)
+    logging.debug("PDF muunnettu docling-menetelmällä")
     
     # Tunnista toimittaja
     logging.debug("Tunnistetaan toimittaja...")
@@ -579,7 +599,24 @@ def hae_toimitussisalto_txt_url_uuidlla(uuid: str) -> str | None:
         logger.warning(f"❌ Virhe kyselyssä: {str(e)}")
         return None
 
+#==================================== hae_pdf_url_uuidlla(session, uuid)
+def hae_pdf_url_uuidlla(uuid: str) -> str:
+    """
+    Hakee pdf_url arvon annetun uuid:n perusteella.
 
+    Args:
+        uuid (str): UUID, jonka perusteella pdf_url haetaan.
+
+    Returns:
+        str: pdf_url, jos se löytyy, muuten None.
+    """
+    try:
+        with SessionLocal() as db:
+            toimitussisalto = db.query(Toimitussisalto).filter_by(uuid=uuid).first()
+            return toimitussisalto.pdf_url if toimitussisalto else None
+    except Exception as e:
+        print(f"Virhe tietokantakyselyssä: {e}")
+        return None
 
 #==================================== hae_txt_url_uuidlla(uuid)
 # def hae_toimitussisalto_txt_url_uuidlla(uuid: str) -> str | None:
@@ -614,10 +651,80 @@ def hae_toimitussisalto_txt_url_uuidlla(uuid: str) -> str | None:
 #         print(f"❌ Virhe kyselyssä: {str(e)}")
 #         return None
 
+#==================================== hae_uuid_toimitussisalto_idlla(session, toimitussisalto_id)
+def hae_uuid_toimitussisalto_idlla(toimitussisalto_id: int) -> str:
+    """
+    Hakee uuid-arvon annetun toimitussisällön id:n perusteella.
 
-#==================================== lisaa_ikkunat_kantaan(ikkunat_json, toimitussisalto_id)
+    Args:
+        toimitussisalto_id (int): Toimitussisällön ID, jonka perusteella uuid haetaan.
 
+    Returns:
+        str: uuid, jos se löytyy, muuten None.
+    """
+    try:
+        with SessionLocal() as db:
+            toimitussisalto = db.query(Toimitussisalto).filter_by(id=toimitussisalto_id).first()
+            return toimitussisalto.uuid if toimitussisalto else None
+    except Exception as e:
+        print(f"Virhe tietokantakyselyssä: {e}")
+        return None
+
+#==================================== lisaa_ikkunat_kantaan(ikkunat_json_str, toimitussisalto_id)
 def lisaa_ikkunat_kantaan(ikkunat_json_str, toimitussisalto_id: int):
+    """
+    Lisää ikkunatiedot tietokantaan JSON-merkkijonosta.
+
+    Args:
+        ikkunat_json_str: JSON-merkkijono ikkunoista
+        toimitussisalto_id: Toimitussisällön ID, johon ikkunat liittyvät
+    """
+    try:
+        # Muunna JSON-merkkijono Python-listaksi
+        ikkunat_lista = json.loads(ikkunat_json_str)
+        logger.info(f"JSON muunnettu Python-listaksi: {len(ikkunat_lista)} ikkunaa")
+        
+        with SessionLocal() as db:
+            lisatty = 0
+            for ikkuna_data in ikkunat_lista:
+                # Parsitaan leveys ja korkeus koko-kentästä
+                leveys, korkeus = map(int, ikkuna_data["koko"].split('x'))
+                
+                # Luodaan ikkuna jokaiselle kappaleelle
+                for _ in range(ikkuna_data["kpl"]):
+                    # Muunnetaan mitat millimetreiksi
+                    # leveys_mm = leveys_dm * 100
+                    # korkeus_mm = korkeus_dm * 100
+                    
+                    # Luodaan uusi ikkuna-tietue
+                    uusi_ikkuna = Ikkuna(
+                        leveys=leveys,
+                        korkeus=korkeus,
+                        turvalasi=ikkuna_data["turvalasi"],
+                        valikarmi=ikkuna_data["välikarmi"],
+                        salekaihtimet=ikkuna_data["sälekaihtimet"],
+                        toimitussisalto_id=toimitussisalto_id
+                    )
+                    db.add(uusi_ikkuna)
+                    lisatty += 1
+            
+            db.commit()
+            logger.info(f"✅ Lisätty {lisatty} ikkunaa kantaan")
+            
+    except json.JSONDecodeError as e:
+        logger.warning(f"❌ Virheellinen JSON-muoto: {str(e)}")
+        logger.warning(f"JSON (ensimmäiset 100 merkkiä): {ikkunat_json_str[:100]}...")
+    except KeyError as e:
+        logger.warning(f"❌ Puuttuva kenttä JSON:issa: {str(e)}")
+        db.rollback()
+    except Exception as e:
+        logger.warning(f"❌ Virhe ikkunoiden lisäämisessä: {str(e)}")
+        logger.warning(f"Ensimmäiset 100 merkkiä: {ikkunat_json_str[:100]}...")
+        db.rollback()
+
+#==================================== lisaa_ikkunat_kantaan_ja_koko_x_100(ikkunat_json, toimitussisalto_id)
+
+def lisaa_ikkunat_kantaan_ja_koko_x_100(ikkunat_json_str, toimitussisalto_id: int):
     """
     Lisää ikkunatiedot tietokantaan JSON-merkkijonosta.
 
@@ -870,7 +977,7 @@ def update_toimitussisallot_table():
                 "ALTER TABLE toimitussisallot ALTER COLUMN aktiivinen SET NOT NULL"
             ]
 
-            # 🔹 Suoritetaan ALTER TABLE -komennot
+            # 🔹 Suoritetaan kaikki ALTER TABLE -komennot
             for stmt in alter_statements + alter_nullable_statements:
                 try:
                     db.execute(text(stmt))
@@ -994,7 +1101,7 @@ def lisaa_ulko_ovet_kantaan(ovet: list[Ulko_ovi], toimitussisalto_id: int):
         logging.error(f"❌ Virhe ovien lisäämisessä: {str(e)}")
         return False
 
-#==================================== lisaa_valiovet_kantaan(ovimallit: list[str], toimitussisalto_id: int)
+#==================================== lisaa_valiovet_kantaan(ovimallit: list[str], toimitussisalto_id: int) -> bool:
 def lisaa_valiovet_kantaan(ovimallit: list[str], toimitussisalto_id: int) -> bool:
     """
     Lisää väliovimallit tietokantaan.
@@ -1041,7 +1148,7 @@ def lisaa_valiovet_kantaan(ovimallit: list[str], toimitussisalto_id: int) -> boo
         return False
 
 
-#==================================== hae_toimitussiallon ikkunat(toimittaja_id, toimitussisalto_id)
+#==================================== hae_toimitussiallon_ikkunat_kantaan(toimittaja_id, toimitussisalto_id)
 
 def hae_toimitussisallon_ikkunat_kantaan(toimittaja_id: int, toimitussisalto_id: int):
     """
@@ -1515,7 +1622,7 @@ def hae_paivan_valiovet(paivamaara: str) -> list:
                 # Tulostetaan oven tiedot
                 print(f"Väliovi ID: {ovi.id}")
                 print(f"Malli: {ovi.malli}")
-                print(f"Luotu: {ovi.luotu.strftime('%d.%m.%Y %H:%M:%S')}")
+                print(f"Luotu: {ovi.luotu.strftime('%d.%m.%Y %H:%M')}")
                 print(f"Toimitussisältö ID: {ovi.toimitussisalto_id}")
                 print(f"Toimittaja: {toimitussisalto.toimittaja}")
                 print("-" * 80)
@@ -1629,6 +1736,7 @@ def lisaa_toimitussisalto_tuotteet_kantaan(json_data: str, toimitussisalto_id: i
     Returns:
         bool: True jos lisäys onnistui, False jos virhe
     """
+    session = None
     try:
         # Puhdistetaan JSON-data ylimääräisistä merkeistä
         if isinstance(json_data, str):
@@ -1663,7 +1771,7 @@ def lisaa_toimitussisalto_tuotteet_kantaan(json_data: str, toimitussisalto_id: i
                     uusi_toimitussisalto_tuote = Toimitussisalto_tuotteet(
                         toimitussisalto_id=toimitussisalto_id,
                         tuote_id=int(tuote["tuote_id"]),
-                        tuote_nimi_toimitussisallossa=tuote["toimitussisallossa"],
+                        tuote_nimi_toimitussisallossa=tuote["toimitussisallossa"][:100],  # Katkaisee 100 merkkiin
                         maara=Decimal("1.00")
                     )
                     session.add(uusi_toimitussisalto_tuote)
@@ -1691,7 +1799,11 @@ def lisaa_toimitussisalto_tuotteet_kantaan(json_data: str, toimitussisalto_id: i
         return False
         
     finally:
-        session.close()
+        if session:
+            session.close()
+
+
+        
 #==================================== nayta_toimitussisalto_tuotteet()
 def nayta_toimitussisalto_tuotteet() -> None:
     """
@@ -1816,18 +1928,18 @@ def hae_toimitussisallon_tuotteet(toimitussisalto_id):
             ])
         
         # Tulosta taulukko
-        print(f"\nToimitussisällön {toimitussisalto_id} tuotteet:")
-        print(tabulate(
-            data,
-            headers=headers,
-            tablefmt='grid',
-            numalign='right',
-            stralign='left'
-        ))
+        # print(f"\nToimitussisällön {toimitussisalto_id} tuotteet:")
+        # print(tabulate(
+        #     data,
+        #     headers=headers,
+        #     tablefmt='grid',
+        #     numalign='right',
+        #     stralign='left'
+        # ))
         
-        # Tulosta yhteenveto
-        print(f"\nYhteensä {len(tulokset)} tuotetta")
-        print(f"Kokonaissumma: {kokonaissumma:.2f} €")
+        # # Tulosta yhteenveto
+        # print(f"\nYhteensä {len(tulokset)} tuotetta")
+        # print(f"Kokonaissumma: {kokonaissumma:.2f} €")
         
     except Exception as e:
         print(f"Virhe tietojen haussa: {str(e)}")
@@ -1844,6 +1956,9 @@ def hae_toimitussisallon_tuotteet_2(toimitussisalto_id):
     
     Args:
         toimitussisalto_id (int): Toimitussisällön ID
+        
+    Returns:
+        list: Lista tuotetiedoista tai None jos virhe
     """
     try:
         session = SessionLocal()
@@ -1862,55 +1977,560 @@ def hae_toimitussisallon_tuotteet_2(toimitussisalto_id):
         
         if not tulokset:
             print(f"Toimitussisällölle {toimitussisalto_id} ei löytynyt tuotteita!")
-            return
-        #print("tulokset", tulokset)
-        # Muodosta data taulukkoa varten
+            return None
+            
+        # Tulosta taulukko kuten ennenkin...
         headers = [
-            'ID', 
-            'Toimitussisältö ID', 
-            'Tuote ID', 
-            'Tuote nimi toimitussisallossa',
-            'Tuote nimi ', 
-            'Määrä', 
-            'Tuotteen hinta',
-            'Luotu'
+            'ID', 'Toimitussisältö ID', 'Tuote ID', 'Tuote nimi toimitussisallossa',
+            'Tuote nimi ', 'Määrä', 'Tuotteen hinta', 'Luotu'
         ]
         data = []
         
-        
-        
         for rivi in tulokset:
-            # Muotoile päivämäärä
-            #luotu = rivi.luotu.strftime("%d.%m.%Y %H:%M") if rivi.luotu else "-"
-            
             data.append([
                 rivi[0].id,
                 rivi[0].toimitussisalto_id,
                 rivi[0].tuote_id,
-                rivi[2],  # tuote
+                rivi[2],
                 rivi[0].tuote_nimi_toimitussisallossa,
                 f"{float(rivi[0].maara):.2f}",
                 f"{float(rivi[1]):.2f} €" if rivi[1] else "-",
-                rivi[0].luotu.strftime("%d.%m.%Y %H:%M") if rivi[0].luotu else "-"  # Korjattu tämä rivi
-                   
-                ])
+                rivi[0].luotu.strftime("%d.%m.%Y %H:%M") if rivi[0].luotu else "-"
+            ])
         
-        # Tulosta taulukko
-        print(f"\nToimitussisällön {toimitussisalto_id} tuotteet:")
-        print(tabulate(
-            data,
-            headers=headers,
-            tablefmt='grid',
-            numalign='right',
-            stralign='left'
-        ))
+        # Logataan tuotteiden määrä
+        logging.info(f"Haettu {len(tulokset)} tuotetta toimitussisällölle {toimitussisalto_id}")
         
-        # Tulosta yhteenveto
-        print(f"\nYhteensä {len(tulokset)} tuotetta")
-        
+        # Tärkeä muutos: palautetaan tulokset
+        return tulokset
         
     except Exception as e:
-        print(f"Virhe tietojen haussa: {str(e)}")
+        logging.error(f"Virhe tietojen haussa: {str(e)}")
+        return None
     
     finally:
         session.close()
+
+#==================================== luo_vertailut_taulu()
+def luo_vertailut_taulu() -> bool:
+    """
+    Luo vertailut-taulun tietokantaan.
+    
+    Returns:
+        bool: True jos luonti onnistui, False jos virhe
+    """
+    try:
+        session = SessionLocal()
+        Base.metadata.create_all(bind=engine, tables=[Vertailut.__table__])
+        session.commit()
+        logging.info("Vertailut-taulu luotu onnistuneesti")
+        return True
+        
+    except Exception as e:
+        logging.error(f"Virhe vertailut-taulun luonnissa: {str(e)}")
+        return False
+        
+    finally:
+        session.close()
+
+#==================================== lisaa_vertailu(toimitussisalto_1_id: int, toimitussisalto_2_id: int) -> bool:
+def lisaa_vertailu(toimitussisalto_1_id: int, toimitussisalto_2_id: int) -> bool:
+    """
+    Lisää uuden vertailun kahden toimitussisällön välille.
+    
+    Args:
+        toimitussisalto_1_id (int): Ensimmäisen toimitussisällön ID
+        toimitussisalto_2_id (int): Toisen toimitussisällön ID
+        
+    Returns:
+        bool: True jos lisäys onnistui, False jos virhe
+    """
+    try:
+        session = SessionLocal()
+        
+        # Luodaan uusi vertailu
+        uusi_vertailu = Vertailut(
+            toimitussisalto_1_id=toimitussisalto_1_id,
+            toimitussisalto_2_id=toimitussisalto_2_id
+        )
+        
+        # Lisätään ja tallennetaan kantaan
+        session.add(uusi_vertailu)
+        session.commit()
+        
+        logging.info(f"Vertailu lisätty: {toimitussisalto_1_id} vs {toimitussisalto_2_id}")
+        return True
+        
+    except Exception as e:
+        session.rollback()
+        logging.error(f"Virhe vertailun lisäyksessä: {str(e)}")
+        return False
+        
+    finally:
+        session.close()
+
+#==================================== hae_kaikki_vertailut()
+def hae_kaikki_vertailut() -> list:
+    """
+    Hakee kaikki vertailut järjestettynä luontipäivämäärän mukaan uusimmasta vanhimpaan.
+    
+    Returns:
+        list: Lista vertailuista muodossa [(id, toimitussisalto_1_id, toimitussisalto_2_id, created_at), ...]
+    """
+    try:
+        session = SessionLocal()
+        
+        # Haetaan vertailut järjestettynä created_at mukaan (uusin ensin)
+        vertailut = session.query(Vertailut)\
+            .order_by(Vertailut.created_at.desc())\
+            .all()
+            
+        if not vertailut:
+            logging.info("Ei vertailuja tietokannassa")
+            return []
+            
+        # Tulostetaan vertailut
+        print("\nVertailut aikajärjestyksessä (uusin ensin):")
+        print("-" * 60)
+        print(f"{'ID':<5} {'Toimitussisältö 1':<15} {'Toimitussisältö 2':<15} {'Luotu':<20}")
+        print("-" * 60)
+        
+        for vertailu in vertailut:
+            print(f"{vertailu.id:<5} {vertailu.toimitussisalto_1_id:<15} "
+                  f"{vertailu.toimitussisalto_2_id:<15} "
+                  f"{vertailu.created_at.strftime('%Y-%m-%d %H:%M:%S')}")
+        
+        return [(v.id, v.toimitussisalto_1_id, v.toimitussisalto_2_id, v.created_at) 
+                for v in vertailut]
+                
+    except Exception as e:
+        logging.error(f"Virhe vertailujen haussa: {str(e)}")
+        return []
+        
+    finally:
+        session.close()
+
+#==================================== hae_vertailun_toimitussisalto_1_tiedot(vertailu_id: int) -> dict:
+def hae_vertailun_toimitussisalto_1_tiedot(vertailu_id: int) -> dict:
+    """
+    Hakee vertailun ensimmäisen toimitussisällön kaikki tuotteet, ikkunat, ulko-ovet ja väliovet.
+    
+    Args:
+        vertailu_id (int): Vertailun ID
+        
+    Returns:
+        dict: Sanakirja, jossa kaikki haetut tiedot
+    """
+    try:
+        session = SessionLocal()
+        
+        # Haetaan vertailu
+        vertailu = session.query(Vertailut).filter(Vertailut.id == vertailu_id).first()
+        if not vertailu:
+            logging.error(f"Vertailua ID:llä {vertailu_id} ei löydy")
+            return {}
+            
+        toimitussisalto_id = vertailu.toimitussisalto_1_id
+        
+        # Haetaan tuotteet
+        tuotteet = session.query(Toimitussisalto_tuotteet).filter(
+            Toimitussisalto_tuotteet.toimitussisalto_id == toimitussisalto_id
+        ).all()
+        
+        # Haetaan ikkunat
+        ikkunat = session.query(Ikkuna).filter(                    # Muutettu
+            Ikkuna.toimitussisalto_id == toimitussisalto_id       # Muutettu
+        ).all()
+        
+        # Haetaan ulko-ovet
+        ulko_ovet = session.query(Ulko_ovi).filter(               # Muutettu
+            Ulko_ovi.toimitussisalto_id == toimitussisalto_id     # Muutettu
+        ).all()
+        
+        # Haetaan väliovet
+        valiovet = session.query(Valiovi).filter(                 # Muutettu
+            Valiovi.toimitussisalto_id == toimitussisalto_id      # Muutettu
+        ).all()
+        
+        # Tulostetaan tiedot taulukkomuodossa
+        print(f"\nToimitussisältö 1 (ID: {toimitussisalto_id}) tiedot:")
+        
+        # Tuotteet
+        if tuotteet:
+            print("\nTUOTTEET:")
+            print("-" * 80)
+            print(f"{'ID':<5} {'Tuote':<30} {'Määrä':<10} {'Sisältö':<35}")
+            print("-" * 80)
+            for tuote in tuotteet:
+                print(f"{tuote.tuote_id:<5} {tuote.tuote_nimi_toimitussisallossa[:30]:<30} "
+                      f"{str(tuote.maara):<10} {tuote.tuote_nimi_toimitussisallossa[:35]}")
+        
+        # Ikkunat
+        if ikkunat:
+            print("\nIKKUNAT:")
+            print("-" * 80)
+            print(f"{'Tyyppi':<20} {'Koko':<15} {'Kpl':<5} {'Huonetila':<20}")
+            print("-" * 80)
+            for ikkuna in ikkunat:
+                print(f"{ikkuna.tyyppi[:20]:<20} {ikkuna.koko[:15]:<15} "
+                      f"{ikkuna.kpl:<5} {ikkuna.huonetila[:20]:<20}")
+        
+        # Ulko-ovet
+        if ulko_ovet:
+            print("\nULKO-OVET:")
+            print("-" * 80)
+            print(f"{'Tyyppi':<20} {'Koko':<15} {'Kpl':<5} {'Huonetila':<20}")
+            print("-" * 80)
+            for ovi in ulko_ovet:
+                print(f"{ovi.tyyppi[:20]:<20} {ovi.koko[:15]:<15} "
+                      f"{ovi.kpl:<5} {ovi.huonetila[:20]:<20}")
+        
+        # Väliovet
+        if valiovet:
+            print("\nVÄLIOVET:")
+            print("-" * 80)
+            print(f"{'Tyyppi':<20} {'Koko':<15} {'Kpl':<5} {'Huonetila':<20}")
+            print("-" * 80)
+            for ovi in valiovet:
+                print(f"{ovi.tyyppi[:20]:<20} {ovi.koko[:15]:<15} "
+                      f"{ovi.kpl:<5} {ovi.huonetila[:20]:<20}")
+        
+        return {
+            "tuotteet": tuotteet,
+            "ikkunat": ikkunat,
+            "ulko_ovet": ulko_ovet,
+            "valiovet": valiovet
+        }
+        
+    except Exception as e:
+        logging.error(f"Virhe tietojen haussa: {str(e)}")
+        return {}
+        
+    finally:
+        session.close()
+
+#==================================== hae_toimitussisallon_ikkunat(toimitussisalto_id: int) -> list:
+def hae_toimitussisallon_ikkunat(toimitussisalto_id: int) -> list:
+    """
+    Hakee toimitussisällön ikkunat tietokannasta.
+    
+    Args:
+        toimitussisalto_id (int): Toimitussisällön ID
+        
+    Returns:
+        list: Lista ikkunoista
+    """
+    try:
+        session = SessionLocal()
+        
+        # Haetaan ikkunat
+        ikkunat = session.query(Ikkuna).filter(
+            Ikkuna.toimitussisalto_id == toimitussisalto_id
+        ).all()
+        
+        if not ikkunat:
+            logging.info(f"Toimitussisällöllä {toimitussisalto_id} ei ole ikkunoita")
+            return []
+            
+        # Logataan ikkunoiden määrä
+        logging.info(f"Haettu {len(ikkunat)} ikkunaa toimitussisällölle {toimitussisalto_id}")
+        
+        return ikkunat
+        
+    except Exception as e:
+        logging.error(f"Virhe ikkunoiden haussa: {str(e)}")
+        return []
+        
+    finally:
+        session.close()
+
+#==================================== hae_toimitussisallon_ulko_ovet(toimitussisalto_id: int) -> list:
+def hae_toimitussisallon_ulko_ovet(toimitussisalto_id: int) -> list:
+    """
+    Hakee toimitussisällön ulko-ovet tietokannasta.
+    
+    Args:
+        toimitussisalto_id (int): Toimitussisällön ID
+        
+    Returns:
+        list: Lista ulko-ovista
+    """
+    try:
+        session = SessionLocal()
+        
+        # Haetaan ulko-ovet
+        ulko_ovet = session.query(Ulko_ovi).filter(
+            Ulko_ovi.toimitussisalto_id == toimitussisalto_id
+        ).all()
+        
+        if not ulko_ovet:
+            logging.info(f"Toimitussisällöllä {toimitussisalto_id} ei ole ulko-ovia")
+            return []
+            
+        # Logataan ulko-ovien määrä
+        logging.info(f"Haettu {len(ulko_ovet)} ulko-ovea toimitussisällölle {toimitussisalto_id}")
+        
+        return ulko_ovet
+        
+    except Exception as e:
+        logging.error(f"Virhe ulko-ovien haussa: {str(e)}")
+        return []
+        
+    finally:
+        session.close()
+
+
+#==================================== hae_toimitussisallon_valiovet(toimitussisalto_id: int) -> list:
+def hae_toimitussisallon_valiovet(toimitussisalto_id: int) -> list:
+    """
+    Hakee toimitussisällön väliovet tietokannasta.
+    
+    Args:
+        toimitussisalto_id (int): Toimitussisällön ID
+        
+    Returns:
+        list: Lista väliovista
+    """
+    try:
+        session = SessionLocal()
+        
+        # Haetaan väliovet
+        valiovet = session.query(Valiovi).filter(
+            Valiovi.toimitussisalto_id == toimitussisalto_id
+        ).all()
+        
+        if not valiovet:
+            logging.info(f"Toimitussisällöllä {toimitussisalto_id} ei ole väliovia")
+            return []
+            
+        # Logataan väliovien määrä
+        logging.info(f"Haettu {len(valiovet)} väliovea toimitussisällölle {toimitussisalto_id}")
+        
+        return valiovet
+        
+    except Exception as e:
+        logging.error(f"Virhe väliovien haussa: {str(e)}")
+        return []
+        
+    finally:
+        session.close()
+
+
+
+#==================================== tallenna_toimitussisalto_json(tuotteet: list = None, ikkunat: list = None, 
+def tallenna_toimitussisalto_json(tuotteet: list = None, ikkunat: list = None, 
+                                 ulko_ovet: list = None, valiovet: list = None, 
+                                 toimitussisalto_id: int = None, 
+                                 tiedosto: str = None) -> bool:
+    """
+    Tallentaa toimitussisällön kaikki tiedot (tuotteet, ikkunat, ovet) samaan JSON-tiedostoon.
+    
+    Args:
+        tuotteet (list): Lista tuote-tuple-objekteja (Toimitussisalto_tuotteet, hinta, tuote_nimi)
+        ikkunat (list): Lista Ikkuna-objekteja
+        ulko_ovet (list): Lista Ulko_ovi-objekteja
+        valiovet (list): Lista Valiovi-objekteja
+        toimitussisalto_id (int): Toimitussisällön ID
+        tiedosto (str, optional): Tallennettavan tiedoston nimi
+        
+    Returns:
+        bool: True jos tallennus onnistui, False jos virhe
+    """
+    try:
+        if not tiedosto:
+            tiedosto = f"toimitussisalto_{toimitussisalto_id}_{datetime.now().strftime('%Y%m%d_%H%M')}.json"
+            
+        toimitussisalto_data = {
+            "toimitussisalto_id": toimitussisalto_id,
+            "luotu": datetime.now().strftime('%Y-%m-%d %H:%M'),
+            "tuotteet": [],
+            "ikkunat": [],
+            "ulko_ovet": [],
+            "valiovet": []
+        }
+        
+        # Tuotteiden käsittely
+        if tuotteet:
+            for rivi in tuotteet:
+                tuote_dict = {
+                    'id': rivi[0].id,
+                    'toimitussisalto_id': rivi[0].toimitussisalto_id,
+                    'tuote_id': rivi[0].tuote_id,
+                    'tuote_nimi': rivi[2],  # tuote-kenttä
+                    'tuote_nimi_toimitussisallossa': rivi[0].tuote_nimi_toimitussisallossa,
+                    'maara': f"{float(rivi[0].maara):.2f}",
+                    'tuotteen_hinta': f"{float(rivi[1]):.2f} €" if rivi[1] else "-",
+                    'luotu': rivi[0].luotu.strftime("%d.%m.%Y %H:%M") if rivi[0].luotu else "-"
+                }
+                toimitussisalto_data["tuotteet"].append(tuote_dict)
+        
+        # Ikkunoiden käsittely
+        if ikkunat:
+            for ikkuna in ikkunat:
+                ikkuna_dict = {
+                    'id': ikkuna.id,
+                    'leveys': ikkuna.leveys,
+                    'korkeus': ikkuna.korkeus,
+                    'turvalasi': ikkuna.turvalasi,
+                    'valikarmi': ikkuna.valikarmi,
+                    'salekaihtimet': ikkuna.salekaihtimet,
+                    'created_at': ikkuna.created_at.strftime('%Y-%m-%d %H:%M') if ikkuna.created_at else None
+                }
+                toimitussisalto_data["ikkunat"].append(ikkuna_dict)
+        
+        # Ulko-ovien käsittely
+        if ulko_ovet:
+            for ovi in ulko_ovet:
+                ovi_dict = {
+                    'id': ovi.id,
+                    'malli': ovi.malli,
+                    'lukko': ovi.lukko,
+                    'paloluokitus_EI_15': ovi.paloluokitus_EI_15,
+                    'maara': ovi.maara,
+                    'luotu': ovi.luotu.strftime('%Y-%m-%d %H:%M') if ovi.luotu else None
+                }
+                toimitussisalto_data["ulko_ovet"].append(ovi_dict)
+        
+        # Väliovien käsittely
+        if valiovet:
+            for ovi in valiovet:
+                ovi_dict = {
+                    'id': ovi.id,
+                    'malli': ovi.malli,
+                    'luotu': ovi.luotu.strftime('%Y-%m-%d %H:%M') if ovi.luotu else None
+                }
+                toimitussisalto_data["valiovet"].append(ovi_dict)
+        
+        # Tallennetaan tiedostoon
+        with open(tiedosto, 'w', encoding='utf-8') as f:
+            json.dump(toimitussisalto_data, f, indent=2, ensure_ascii=False)
+        
+        logging.info(f"Toimitussisällön tiedot tallennettu tiedostoon: {tiedosto}")
+        return True
+        
+    except Exception as e:
+        logging.error(f"Virhe toimitussisällön tietojen tallennuksessa: {str(e)}")
+        return False
+    
+
+#==================================== tulosta_toimitussisalto_taulukkona(tuotteet: list = None, ikkunat: list = None, 
+def tulosta_toimitussisalto_taulukkona(tuotteet: list = None, ikkunat: list = None, 
+                                      ulko_ovet: list = None, valiovet: list = None, 
+                                      tiedosto: str = None, toimitussisalto_id: int = None):
+    """
+    Tulostaa toimitussisällön tiedot taulukkomuodossa tiedostoon.
+    """
+    try:
+        with open(tiedosto, 'w', encoding='utf-8') as f:
+            f.write(f"\nToimitussisällön {toimitussisalto_id} tiedot\n")
+            f.write(f"Luotu: {datetime.now().strftime('%Y-%m-%d %H:%M')}\n")
+            f.write("=" * 100 + "\n")
+
+            # Tuotteiden tulostus
+            if tuotteet:
+                f.write("\nTUOTTEET:\n")
+                headers = ['ID', 'Toimitussisältö ID', 'Tuote ID', 'Tuote', 'Tuote toimitussisällössä', 'Määrä', 'Hinta', 'Luotu']
+                
+                tuote_data = []
+                for tuote in tuotteet:
+                    tuote_dict = tuote._asdict()
+                    tuote_obj = tuote_dict['Toimitussisalto_tuotteet']
+                    
+                    tuote_data.append([
+                        tuote_obj.id,
+                        tuote_obj.toimitussisalto_id,
+                        tuote_obj.tuote_id,
+                        tuote_dict['tuote'],
+                        tuote_obj.tuote_nimi_toimitussisallossa,
+                        tuote_obj.maara,
+                        tuote_dict['hinta'],
+                        tuote_obj.luotu.strftime("%d.%m.%Y %H:%M") if tuote_obj.luotu else '-'
+                    ])
+                
+                # Tulostetaan kaikki tuotteet samalla taulukkoformaatilla
+                f.write(tabulate(
+                    tuote_data,
+                    headers=headers,
+                    tablefmt='grid',
+                    numalign='right',
+                    stralign='left'
+                ) + "\n")
+                
+                f.write(f"\nYhteensä {len(tuote_data)} tuotetta\n")
+                f.write("-" * 100 + "\n")
+
+            # Ikkunoiden tulostus
+            if ikkunat:
+                f.write("\nIKKUNAT:\n")
+                ikkuna_data = []
+                for ikkuna in ikkunat:
+                    ikkuna_data.append([
+                        ikkuna.id,
+                        ikkuna.leveys,
+                        ikkuna.korkeus,
+                        "Kyllä" if ikkuna.turvalasi else "Ei",
+                        "Kyllä" if ikkuna.valikarmi else "Ei",
+                        "Kyllä" if ikkuna.salekaihtimet else "Ei",
+                        ikkuna.created_at.strftime("%d.%m.%Y %H:%M") if ikkuna.created_at else "-"
+                    ])
+                
+                f.write(tabulate(
+                    ikkuna_data,
+                    headers=['ID', 'Leveys', 'Korkeus', 'Turvalasi', 'Välikarmi', 'Sälekaihtimet', 'Luotu'],
+                    tablefmt='grid',
+                    numalign='right',
+                    stralign='left'
+                ) + "\n")
+                f.write(f"\nYhteensä {len(ikkunat)} ikkunaa\n")
+                f.write("-" * 100 + "\n")
+
+            # Ulko-ovien tulostus
+            if ulko_ovet:
+                f.write("\nULKO-OVET:\n")
+                ulko_ovi_data = []
+                for ovi in ulko_ovet:
+                    ulko_ovi_data.append([
+                        ovi.id,
+                        ovi.malli,
+                        ovi.lukko,
+                        "EI-15" if ovi.paloluokitus_EI_15 else "-",
+                        ovi.maara,
+                        ovi.luotu.strftime("%d.%m.%Y %H:%M") if ovi.luotu else "-"
+                    ])
+                
+                f.write(tabulate(
+                    ulko_ovi_data,
+                    headers=['ID', 'Malli', 'Lukko', 'Paloluokitus', 'Määrä', 'Luotu'],
+                    tablefmt='grid',
+                    numalign='right',
+                    stralign='left'
+                ) + "\n")
+                f.write(f"\nYhteensä {len(ulko_ovet)} ulko-ovea\n")
+                f.write("-" * 100 + "\n")
+
+            # Väliovien tulostus
+            if valiovet:
+                f.write("\nVÄLIOVET:\n")
+                valiovi_data = []
+                for ovi in valiovet:
+                    valiovi_data.append([
+                        ovi.id,
+                        ovi.malli,
+                        ovi.luotu.strftime("%d.%m.%Y %H:%M") if ovi.luotu else "-"
+                    ])
+                
+                f.write(tabulate(
+                    valiovi_data,
+                    headers=['ID', 'Malli', 'Luotu'],
+                    tablefmt='grid',
+                    numalign='right',
+                    stralign='left'
+                ) + "\n")
+                f.write(f"\nYhteensä {len(valiovet)} väliovea\n")
+                f.write("-" * 100 + "\n")
+
+        print(f"Tiedot kirjoitettu tiedostoon: {tiedosto}")
+
+    except Exception as e:
+        logging.error(f"Virhe toimitussisällön tulostuksessa: {str(e)}")
+        raise

@@ -31,13 +31,27 @@ D_DIR = DATA_DIR / "d"
 
 
 # Ladataan ympäristömuuttujat .env-tiedostosta
-#GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+# OpenAI API Configuration
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+OPENAI_API_URL = "https://api.openai.com/v1/chat/completions"
+OPENAI_MODEL = "gpt-5"
 
 
 
 TOIMITUSSISALTO_TXT = DATA_DIR / "toimitussisalto.txt"
 UPLOAD_FOLDER_DATA = DATA_DIR / "ladatut_toimitussisallot"
+TESTI_FOLDER = BASE_DIR / "testi"
+TESTI_1_TXT = TESTI_FOLDER / "testi_1.txt"
+TESTI_2_TXT = TESTI_FOLDER / "testi_2.txt"
+TESTI_3_TXT = TESTI_FOLDER / "testi_3.txt"
+TESTI_4_TXT = TESTI_FOLDER / "testi_4.txt"
+TESTI_5_TXT = TESTI_FOLDER / "testi_5.txt"
+TESTI_6_TXT = TESTI_FOLDER / "testi_6.txt"
 
+PROMPT_POIMI_TUOTTEET_1_TXT = DATA_DIR / "prompt_poimi_tuotteet_1.txt"
+PROMPT_POIMI_TUOTTEET_2_TXT = DATA_DIR / "prompt_poimi_tuotteet_2.txt"
 
 
 #===============  SIEVITALO  polut ================#
@@ -60,8 +74,8 @@ PROMPT_SIEVITALO_POIMI_ULKO_OVI_TIEDOT_TXT = S_DIR / "prompt_sievitalo_poimi_ulk
 PROMPT_SIEVITALO_ANNA_VALIOVIMALLIT_TXT = S_DIR / "prompt_sievitalo_anna_valiovimallit.txt"
 PROMPT_SIEVITALO_POIMI_VALIOVITIEDOT_TXT = S_DIR / "prompt_sievitalo_poimi_valiovtiedot.txt"
 PROMPT_SIEVITALO_ULKO_OVI_TIEDOT_LUOKKAMUOTOON = S_DIR / "prompt_sievitalo_ulko_ovi_tiedot_luokkamuotoon.txt"
-PROMPT_SIEVITALO_POIMI_TUOTTEET_TXT = S_DIR / "prompt_sievitalo_poimi_tuotteet.txt"
-
+# PROMPT_SIEVITALO_POIMI_TUOTTEET_1_TXT = S_DIR / "prompt_sievitalo_poimi_tuotteet_1.txt"
+# PROMPT_SIEVITALO_POIMI_TUOTTEET_2_TXT = S_DIR / "prompt_sievitalo_poimi_tuotteet_2.txt"
 
 
 
@@ -87,10 +101,10 @@ VALIOVITYYPIT_KASTELLI_JSON = K_DIR / "valiovityypit_kastelli.json"
 PROMPT_KASTELLI_POIMI_IKKUNATIEDOT_TXT = K_DIR / "prompt_kastelli_poimi_ikkunatiedot.txt"
 PROMPT_KASTELLI_RYHMITELLE_VALITUT_IKKUNATIEDOT_JSON_MUOTOON = K_DIR / "prompt_kastelli_ryhmittele_valitut_ikkunatiedot_json_muotoon.txt"
 PROMPT_KASTELLI_POIMI_ULKO_OVI_TIEDOT_TXT = K_DIR / "prompt_kastelli_poimi_ulko_ovi_tiedot.txt"
-PROMPT_KASTELLI_ULKO_OVI_TIEDOT_JSON_MUOTOON = K_DIR / "prompt_kastelli_ulko_ovi_tiedot_json_muotoon.txt"
+PROMPT_KASTELLI_ULKO_OVI_TIEDOT_LUOKKAMUOTOON = K_DIR / "prompt_kastelli_ulko_ovi_tiedot_luokkamuotoon.txt"
 PROMPT_KASTELLI_POIMI_VALIOVITIEDOT_TXT = K_DIR / "prompt_kastelli_poimi_valiovitiedot.txt"
 PROMPT_KASTELLI_ANNA_VALIOVIMALLIT_TXT = K_DIR / "prompt_kastelli_anna_valiovimallit.txt"
-
+PROMPT_KASTELLI_POIMI_TUOTTEET_TXT = K_DIR / "prompt_kastelli_poimi_tuotteet.txt"
 
 
 

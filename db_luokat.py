@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Boolean, Text, DECIMAL
 from sqlalchemy.orm import relationship
 from datetime import datetime, timezone
+from sqlalchemy.sql import func
 
 
 import psycopg2
@@ -22,14 +23,38 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
     raise ValueError("❌ DATABASE_URL ei ole asetettu! Tarkista .env-tiedosto.")
 
+def create_robust_engine(url):
+    """
+    Luo vakaan tietokantayhteyden, joka kestää yhteysongelmia.
+    
+    Args:
+        url (str): Tietokantayhteyden URL
+        
+    Returns:
+        Engine: SQLAlchemy engine-objekti
+    """
+    return create_engine(
+        url,
+        pool_pre_ping=True,
+        pool_recycle=300,
+        connect_args={
+            "keepalives": 1,
+            "keepalives_idle": 30,
+            "keepalives_interval": 10,
+            "keepalives_count": 5
+        }
+    )
+
 # 🔹 Luo SQLAlchemy-moottori
-engine = create_engine(DATABASE_URL)
+engine = create_robust_engine(DATABASE_URL)
 
 # 🔹 Luo istunto (Session)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # 🔹 ORM-perusta malleille
 Base = declarative_base()
+
+
 
 
 
@@ -121,13 +146,25 @@ class Materiaali_ja_palvelu(Base):
 class Tuote(Base):
     __tablename__ = "tuotteet"
     id = Column(Integer, primary_key=True)
+    version_number = Column(Integer, nullable=True)
+    valid_from = Column(DateTime, nullable=True)
+    valid_to = Column(DateTime, nullable=True)
     prompt_1 = Column(Boolean, nullable=False)
     prompt_2 = Column(Boolean, nullable=False)
+    prompt_3 = Column(Boolean, nullable=False)
     tuote = Column(String(100), nullable=False)
-    tuote_tarkennus = Column(String(100), nullable=True)
     yksikko = Column(String(50), nullable=True)
     hinta = Column(DECIMAL(10, 2), nullable=True)
-    onko_hinta_absoluuttinen = Column(Boolean, nullable=False, default=False)
+    absoluuttinen_hinta = Column(Boolean, nullable=False, default=False)
+    tarkenne_yleinen = Column(String(100), nullable=True)
+    tarkenne_sievitalo = Column(String(100), nullable=True)
+    tarkenne_kastelli = Column(String(100), nullable=True)
+    tarkenne_designtalo = Column(String(100), nullable=True)
+    tarkenne_jopera = Column(String(100), nullable=True)
+    tarkenne_kannustalo = Column(String(100), nullable=True)
+    tarkenne_kylatimpurit = Column(String(100), nullable=True)
+    tarkenne_ainoakoti = Column(String(100), nullable=True)
+        
     viite_tuote_id = Column(Integer, ForeignKey("tuotteet.id"), nullable=True)
 
     # Suhde: viittaa toiseen tuotteeseen, jos hinta ei ole absoluuttinen
@@ -180,3 +217,14 @@ def hae_toimitussisalto(toimitussisalto_id: int) -> None:
     except Exception as e:
         print(f"❌ Virhe toimitussisällön haussa: {str(e)}")
 
+
+class Vertailut(Base):
+    __tablename__ = 'vertailut'
+
+    id = Column(Integer, primary_key=True)
+    toimitussisalto_1_id = Column(Integer, ForeignKey('toimitussisallot.id', ondelete='CASCADE'), nullable=False)
+    toimitussisalto_2_id = Column(Integer, ForeignKey('toimitussisallot.id', ondelete='CASCADE'), nullable=False)
+    created_at = Column(DateTime, default=func.now(), nullable=False)
+
+    def __repr__(self):
+        return f"<Vertailu(id={self.id}, toimitussisalto_1_id={self.toimitussisalto_1_id}, toimitussisalto_2_id={self.toimitussisalto_2_id})>"
